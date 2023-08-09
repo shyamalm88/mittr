@@ -1,0 +1,35 @@
+.topIconButton {
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: #6b6b6b;
+    span {
+        &.MuiButton-startIcon {
+            margin: 0;
+        }
+    }
+    &:hover,
+    &.active {
+        color: #3777d7;
+        background-color: transparent;
+    }
+}
+
+.MuiOutlinedInput-notchedOutline {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 2px solid #e7e7e7;
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #ccc;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: rgb(25, 118, 210);
+}
+
+.radioImage .MuiFormControlLabel-label {
+    font-size: 10px;
+}
