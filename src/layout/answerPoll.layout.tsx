@@ -5,7 +5,7 @@ import { ChildrenProps } from "../types";
 import { Paper } from "@mui/material";
 import Container from "@mui/material/Container";
 
-const CreatePollLayout = ({ children }: ChildrenProps) => {
+const AnswerPollLayout = ({ children }: ChildrenProps) => {
   return (
     <React.Fragment>
       <Container maxWidth="md">
@@ -27,4 +27,4 @@ const CreatePollLayout = ({ children }: ChildrenProps) => {
   );
 };
 
-export default CreatePollLayout;
+export default AnswerPollLayout;

@@ -1,4 +1,8 @@
-import { CreatePollValueType, OptionProp } from "../types";
+import {
+  CreatePollQuestionType,
+  CreatePollValueType,
+  OptionProp,
+} from "../types";
 
 export const defaultPollFormValue: CreatePollValueType = {
   question: "",
@@ -11,4 +15,13 @@ export const defaultPollFormValue: CreatePollValueType = {
   handleDeleteFromList: () => {},
   handleUpdateAnswerType: () => {},
   submit: () => {},
+};
+
+export const defaultPollQuestionValue: CreatePollQuestionType = {
+  question: "",
+  options: [],
+  pollType: "",
+  duration: "",
+  topic: [],
+  additionalQuestions: [],
 };

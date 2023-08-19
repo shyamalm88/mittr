@@ -1,0 +1,71 @@
+{
+    "question": "If you could go for a coffee with a figure from history, who would it be?",
+    "options": [
+        {
+            "option": "Leonardo Da Vinci"
+        },
+        {
+            "option": "Michel Angelo"
+        },
+        {
+            "option": "King Arthur"
+        }
+    ],
+    "pollType": "",
+    "duration": "",
+    "topic": [
+        {
+            "label": "topic 1",
+            "value": "topic1"
+        },
+        {
+            "label": "topic 2",
+            "value": "topic2"
+        },
+        {
+            "label": "topic 3",
+            "value": "topic3"
+        },
+        {
+            "label": "topic 4",
+            "value": "topic4"
+        }
+    ],
+    "additionalQuestions": [
+        {
+            "question": "Date Of Birth",
+            "answerType": "date"
+        },
+        {
+            "answerType": "date_range",
+            "question": "what date range you prefer"
+        },
+        {
+            "answerType": "range",
+            "question": "salary range",
+            "rangeStartValue": "1",
+            "rangeEndValue": "50"
+        },
+        {
+            "answerType": "radio",
+            "question": "Multiple Choice",
+            "choices": [
+                {
+                    "choice": "Option1"
+                },
+                {
+                    "choice": "Option2"
+                },
+                {
+                    "choice": "Option3"
+                }
+            ]
+        },
+        {
+            "answerType": "country",
+            "allowState": true,
+            "allowCity": true,
+            "question": "Country State City"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
+import CreatePollWrapper from "../../components/createPoll/createPollWrapper.component";
 import CreatePollLayout from "../../layout/createPoll.layout";
 import PollCreationProvider from "../../providers/pollCreation.provider";
-import CreatePollWrapper from "./createPollWrapper.component";
 const CreatePoll = () => {
   return (
     <PollCreationProvider>

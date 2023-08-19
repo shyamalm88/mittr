@@ -11,6 +11,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import Image from "next/image";
+import Logo from "./../../images/svg/logo.svg";
 
 const NavigationElements = ({ pages }: PageProps) => {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -51,8 +53,8 @@ const NavigationElements = ({ pages }: PageProps) => {
             width: "100%",
             height: "100%",
             maxWidth: 360,
-            bgcolor: "#333",
-            color: "#ffff",
+            background: "#9155FD",
+            color: "#fff",
           }}
         >
           <nav aria-label="main mailbox folders">
@@ -73,7 +75,14 @@ const NavigationElements = ({ pages }: PageProps) => {
           </nav>
         </Box>
       </Drawer>
-      <LensBlurOutlinedIcon sx={{ display: { xs: "flex" }, mr: 1 }} />
+      <Image
+        src={Logo}
+        width={0}
+        height={0}
+        sizes="100vw"
+        style={{ marginRight: "10px" }}
+        alt="Mittr Logo"
+      />
       <Typography
         variant="h5"
         noWrap

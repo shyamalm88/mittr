@@ -158,7 +158,7 @@ export default function QuestionnaireTemplate({
         key={item?.id}
       >
         <AnswerFieldSwitchTemplate
-          selectedValue={selectedValue}
+          selectedValue={item.answerType}
           fieldName={fieldName}
         />
       </Stack>

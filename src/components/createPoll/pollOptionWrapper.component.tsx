@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import { v4 as uuidv4 } from "uuid";
 import { OptionProp } from "../../types";
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
+import { Topic } from "./topic/topic.component";
 
 const PollOptionWrapper = () => {
   const contextValue = usePollCreationContext();
@@ -146,12 +147,13 @@ const PollOptionWrapper = () => {
             open={open}
             anchorEl={anchorEl}
             onClose={handleClose}
+            elevation={8}
             anchorOrigin={{
               vertical: "bottom",
               horizontal: "left",
             }}
           >
-            <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+            <Topic />
           </Popover>
         </Stack>
       </Box>
