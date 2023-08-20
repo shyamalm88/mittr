@@ -9,6 +9,7 @@ import Stack from "@mui/material/Stack";
 import { v4 as uuidv4 } from "uuid";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 import { QuestionOptionProp } from "../../types";
+import { Divider } from "@mui/material";
 
 const AnswerPollOptionWrapper = () => {
   const contextValue = usePollQuestionContext("options");
@@ -51,6 +52,9 @@ const AnswerPollOptionWrapper = () => {
           })}
         </RadioGroup>
       </React.Fragment>
+      <Divider sx={{ mb: 0.2, mr: "35px", ml: "10px" }} textAlign="center">
+        <small>Related Topics</small>
+      </Divider>
       {topicValue.map((item: any, index: number) => {
         return (
           <Chip

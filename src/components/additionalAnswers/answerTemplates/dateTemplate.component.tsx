@@ -33,7 +33,7 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
             borderRadius: "4px",
             mb: 1,
           }}
-          onClick={(e) => setDisplayCalender(true)}
+          onClick={(e) => setDisplayCalender(!displayCalender)}
           placeholder="DD/MM/YYYY"
           value={moment(date).format("DD/MM/YYYY")}
           endAdornment={
@@ -41,7 +41,7 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
               <IconButton
                 aria-label="toggle password visibility"
                 edge="end"
-                onClick={(e) => setDisplayCalender(true)}
+                onClick={(e) => setDisplayCalender(!displayCalender)}
               >
                 <Today />
               </IconButton>

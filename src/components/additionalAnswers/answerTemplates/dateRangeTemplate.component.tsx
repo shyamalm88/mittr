@@ -36,7 +36,7 @@ export default function DateRangeTemplate({
       x,
       y,
     });
-    setOpenDateRangePicker(true);
+    setOpenDateRangePicker(!openDateRangePicker);
   };
   const closeDatePicker = () => {
     setCoords({
@@ -66,7 +66,7 @@ export default function DateRangeTemplate({
           }}
           ref={startDateRef}
           value={startDate}
-          onFocus={(e) => toggleDatePicker(e, startDateRef)}
+          onClick={(e) => toggleDatePicker(e, startDateRef)}
           placeholder="DD/MM/YYYY"
           endAdornment={
             <InputAdornment position="end">
@@ -93,7 +93,7 @@ export default function DateRangeTemplate({
             mb: 1,
           }}
           ref={endDateRef}
-          onFocus={(e) => toggleDatePicker(e, endDateRef)}
+          onClick={(e) => toggleDatePicker(e, endDateRef)}
           placeholder="DD/MM/YYYY"
           value={endDate}
           endAdornment={
@@ -114,7 +114,7 @@ export default function DateRangeTemplate({
         <div
           style={{
             position: "absolute",
-            top: coords.y + window.scrollY - 540,
+            top: coords.y + window.scrollY - 565,
             zIndex: 9,
           }}
         >

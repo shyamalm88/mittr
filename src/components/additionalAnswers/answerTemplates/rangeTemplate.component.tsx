@@ -8,7 +8,7 @@ import Slider, {
 import Typography from "@mui/material/Typography";
 
 const PrettoSlider = styled(Slider)({
-  color: "#1976d2",
+  color: "primary",
   height: 8,
   "& .MuiSlider-track": {
     border: "none",
@@ -16,7 +16,7 @@ const PrettoSlider = styled(Slider)({
   "& .MuiSlider-thumb": {
     height: 24,
     width: 24,
-    backgroundColor: "#7291db",
+    backgroundColor: "primary",
     border: "2px solid currentColor",
     "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
       boxShadow: "inherit",
@@ -33,7 +33,7 @@ const PrettoSlider = styled(Slider)({
     width: 32,
     height: 32,
     borderRadius: "50% 50% 50% 0",
-    backgroundColor: "#1976d2",
+    backgroundColor: "#ff6f00",
     transformOrigin: "bottom left",
     transform: "translate(50%, -100%) rotate(-45deg) scale(0)",
     "&:before": { display: "none" },
