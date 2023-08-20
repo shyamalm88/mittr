@@ -12,13 +12,12 @@ const AnswerPollLayout = ({ children }: ChildrenProps) => {
         <CssBaseline />
         <Paper
           sx={{
-            minHeight: "100vh",
+            background: "rgb(31, 40, 62)",
             boxShadow: {
               xs: "none",
-              sm: "0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)",
+              sm: "rgba(52, 71, 103, 0.9) 0rem 0rem 0.0625rem 0.0625rem inset, rgba(0, 0, 0, 0.05) 0rem 1.25rem 1.6875rem 0rem",
             },
           }}
-          square
         >
           <Box sx={{ p: { xs: 0, sm: 2 } }}>{children}</Box>
         </Paper>

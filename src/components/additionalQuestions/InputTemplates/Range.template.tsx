@@ -27,7 +27,7 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
       sx={{
         flex: 1,
         display: "flex",
-        border: "1px solid #e7e7e7",
+        border: "1px solid rgba(52, 71, 103, 0.9)",
         borderRadius: "4px",
         px: 2,
         py: 1,
@@ -37,7 +37,7 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
       <Stack
         direction="row"
         spacing={2}
-        sx={{ color: "#6B6B6B", width: "100%" }}
+        sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
         marginTop={2}
         marginBottom={2}
       >
@@ -46,7 +46,7 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
           margin="dense"
           name={`${fieldName}.rangeStartValue`}
           sx={{
-            background: "#fff",
+            background: "rgb(55, 65, 81)",
             borderRadius: "4px",
             marginRight: "20px",
           }}
@@ -58,7 +58,7 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
       <Stack
         direction="row"
         spacing={2}
-        sx={{ color: "#6B6B6B", width: "100%" }}
+        sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
         marginTop={2}
         marginBottom={2}
       >
@@ -68,7 +68,7 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
           name={`${fieldName}.rangeEndValue`}
           sx={{
             borderBottom: "1px solid #ccc",
-            background: "#fff",
+            background: "rgb(55, 65, 81)",
             borderRadius: "4px",
           }}
           onChange={handleEndNumChange}

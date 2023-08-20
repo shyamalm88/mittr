@@ -60,7 +60,7 @@ export default function DateRangeTemplate({
           type="text"
           size="small"
           sx={{
-            background: "#fff",
+            background: "rgb(55, 65, 81)",
             borderRadius: "4px",
             mb: 1,
           }}
@@ -88,7 +88,7 @@ export default function DateRangeTemplate({
           type="text"
           size="small"
           sx={{
-            background: "#fff",
+            background: "rgb(55, 65, 81)",
             borderRadius: "4px",
             mb: 1,
           }}
@@ -135,7 +135,7 @@ export default function DateRangeTemplate({
             moveRangeOnFirstSelection={false}
             months={2}
             ranges={state}
-            direction="horizontal"
+            direction="vertical"
           />
         </div>
       )}

@@ -37,7 +37,7 @@ export default function AdditionalQuestions() {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          color: "#949191",
+          color: "rgb(156, 163, 175)",
         }}
       >
         <Button
@@ -78,7 +78,7 @@ export default function AdditionalQuestions() {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          color: "#949191",
+          color: "rgb(156, 163, 175)",
           marginRight: "135px",
           marginBottom: "30px",
         }}

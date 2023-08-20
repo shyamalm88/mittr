@@ -10,7 +10,7 @@ function PollQuestionProvider({
   question,
   children,
 }: {
-  question: CreatePollQuestionType;
+  question: CreatePollQuestionType | any;
   children: React.ReactNode;
 }) {
   return (

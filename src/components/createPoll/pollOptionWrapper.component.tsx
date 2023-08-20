@@ -72,7 +72,7 @@ const PollOptionWrapper = () => {
                   size="small"
                   margin="dense"
                   sx={{
-                    background: "#fff",
+                    background: "rgb(55, 65, 81)",
                     borderRadius: "4px",
                   }}
                   name={`${fieldName}.option`}
@@ -104,7 +104,7 @@ const PollOptionWrapper = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            color: "#6B6B6B",
+            color: "rgb(156, 163, 175)",
           }}
         >
           <Button

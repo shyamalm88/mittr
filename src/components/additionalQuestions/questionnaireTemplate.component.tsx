@@ -63,11 +63,15 @@ export default function QuestionnaireTemplate({
 
   return (
     <Stack direction="column" sx={{ mb: 2, px: 1, borderRadius: "4px" }}>
-      <Stack direction="row" spacing={2} sx={{ my: 1, color: "#6B6B6B" }}>
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{ my: 1, color: "rgb(156, 163, 175)" }}
+      >
         <Stack
           direction="column"
           spacing={2}
-          sx={{ color: "#6B6B6B", width: "100%" }}
+          sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
         >
           <fieldset
             name={fieldName}
@@ -86,7 +90,7 @@ export default function QuestionnaireTemplate({
                 name={`${fieldName}.question`}
                 onChange={(e) => contextValue.handleChange(e)}
                 sx={{
-                  background: "#fff",
+                  background: "rgb(55, 65, 81)",
                   borderRadius: "4px",
                 }}
                 fullWidth
@@ -105,7 +109,7 @@ export default function QuestionnaireTemplate({
                 value={selectedValue}
                 name={`${fieldName}.answerType`}
                 style={{
-                  backgroundColor: "#fff",
+                  backgroundColor: "rgb(55, 65, 81)",
                   color: "inherit",
                 }}
                 inputRef={(el) => (oldSelectedValue.current[index] = el)}
@@ -154,7 +158,7 @@ export default function QuestionnaireTemplate({
       <Stack
         direction="row"
         spacing={1}
-        sx={{ mb: 1, mt: 0, color: "#6B6B6B" }}
+        sx={{ mb: 1, mt: 0, color: "rgb(156, 163, 175)" }}
         key={item?.id}
       >
         <AnswerFieldSwitchTemplate

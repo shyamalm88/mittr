@@ -37,7 +37,7 @@ export default function CountryStateCityCombiTemplate({
       sx={{
         flex: 1,
         display: "flex",
-        border: "1px solid #e7e7e7",
+        border: "1px solid rgba(52, 71, 103, 0.9)",
         borderRadius: "4px",
         px: 2,
         py: 1,
@@ -47,7 +47,7 @@ export default function CountryStateCityCombiTemplate({
       <Stack
         direction="row"
         spacing={2}
-        sx={{ color: "#6B6B6B", width: "100%" }}
+        sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
       >
         <FormControlLabel
           control={
@@ -62,7 +62,7 @@ export default function CountryStateCityCombiTemplate({
       <Stack
         direction="row"
         spacing={2}
-        sx={{ color: "#6B6B6B", width: "100%" }}
+        sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
       >
         <FormControlLabel
           disabled={cityDisabled ? true : undefined}

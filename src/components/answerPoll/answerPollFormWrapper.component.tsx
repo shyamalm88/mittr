@@ -19,65 +19,67 @@ const AnswerPollFormWrapper = () => {
       <Box
         sx={{
           width: "100%",
-          backgroundColor: "#fdfdfd",
-          borderRadius: "4px 4px 0px 0px",
           px: 2,
           py: 1,
-          border: "1px solid #e7e7e7",
         }}
       >
         <Typography
           variant="body1"
           component="h2"
           sx={{
-            color: "#181818",
-            fontFamily: "'Noto Serif', sans-serif",
+            color: "#fff",
             fontSize: "1.2rem",
           }}
         >
           {contextValue}
         </Typography>
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              color: "rgb(156, 163, 175)",
+            }}
+          >
+            <Typography
+              variant="body2"
+              component="small"
+              sx={{
+                color: "inherit",
+                fontSize: "1.2rem",
+              }}
+            >
+              Created By: Arghya Majumder
+            </Typography>
+            <Button
+              size="small"
+              sx={{ textTransform: "none" }}
+              startIcon={<AccessTimeIcon />}
+              color="inherit"
+            >
+              1w left
+            </Button>
+          </Stack>
+        </Box>
       </Box>
       <Box
         sx={{
           width: "100%",
-          backgroundColor: "#F3F3F3",
-          border: "1px solid #e7e7e7",
+          backgroundColor: "transparent",
+          // border: "1px solid rgba(52, 71, 103, 0.9)",
           px: 2,
           py: 1,
         }}
       >
         <AnswerPollOptionWrapper />
       </Box>
-      <Box
-        sx={{
-          width: "100%",
-          backgroundColor: "#F6F6F6",
-          border: "1px solid #E0E0E0",
-          px: 2,
-          py: 0.3,
-          borderRadius: "0px 0px 4px 4px",
-        }}
-      >
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            color: "#6B6B6B",
-          }}
-        >
-          <Button
-            size="small"
-            sx={{ textTransform: "none" }}
-            startIcon={<AccessTimeIcon />}
-            color="inherit"
-          >
-            1w left
-          </Button>
-        </Stack>
-      </Box>
+
       <AdditionalAnswers />
     </Box>
   );

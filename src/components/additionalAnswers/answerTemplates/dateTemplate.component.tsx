@@ -23,19 +23,13 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
 
   return (
     <>
-      {/* <Typography align="center" alignSelf={"end"} variant="caption">
-        Select Date
-      </Typography> */}
-      {/*<LocalizationProvider dateAdapter={AdapterMoment}>
-        <DatePicker sx={{ background: "#fff", borderRadius: "4px" }} />
-      </LocalizationProvider> */}
       <FormControl variant="outlined">
         <OutlinedInput
           id="outlined-adornment-password"
           type="text"
           size="small"
           sx={{
-            background: "#fff",
+            background: "rgb(55, 65, 81)",
             borderRadius: "4px",
             mb: 1,
           }}

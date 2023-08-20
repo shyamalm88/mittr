@@ -11,6 +11,7 @@ import NavigationElements from "./NavigationElements.component";
 import ActionBar from "./ActionBar.component";
 import Search from "./Search.component";
 import { ComponentInputProps } from "../../types";
+import Box from "@mui/material/Box";
 
 const pages = [
   { id: "1", icon: <CottageIcon />, label: "Home" },
@@ -31,13 +32,15 @@ function NavBar(props: ComponentInputProps) {
           <Container maxWidth="xl">
             <Toolbar disableGutters variant="dense">
               <NavigationElements pages={pages} />
-              <Search />
-              <ActionBar />
+              <Box sx={{ display: "flex", justifyContent: "end", flex: 1 }}>
+                <Search />
+                <ActionBar />
+              </Box>
             </Toolbar>
           </Container>
         </AppBar>
       </ElevateNavBar>
-      <Toolbar variant="dense" />
+      <Toolbar />
     </React.Fragment>
   );
 }

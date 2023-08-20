@@ -34,8 +34,10 @@ export const Topic = () => {
     setCustomVal(e.target.value);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent | React.MouseEvent) => {
-    if (e.which === 13 || e.type === "click") {
+  const handleKeyPress = (
+    e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent | any
+  ) => {
+    if (e.key == "Enter" || e.type === "click") {
       if (customVal.trim()) {
         setAddedTopics([...addedTopics, { label: customVal, id: uuidv4() }]);
       }
@@ -60,7 +62,7 @@ export const Topic = () => {
               size="small"
               margin="dense"
               sx={{
-                background: "#fff",
+                background: "rgb(55, 65, 81)",
                 borderRadius: "4px",
               }}
               value={customVal}
@@ -84,7 +86,7 @@ export const Topic = () => {
         </FormControl>
       </Stack>
       <Stack sx={{ mx: 2 }} direction={"row"}>
-        <Box sx={{ color: "#6b6b6b" }}>
+        <Box sx={{ color: "rgb(156, 163, 175)" }}>
           <Box sx={{ my: 2 }}>
             {addedTopics.length > 0 && (
               <Divider textAlign="left" variant="fullWidth">

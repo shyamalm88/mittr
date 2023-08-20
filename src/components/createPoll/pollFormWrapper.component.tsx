@@ -25,11 +25,11 @@ const PollFormWrapper = () => {
       <Box
         sx={{
           width: "100%",
-          backgroundColor: "#fff",
+          backgroundColor: "rgb(55, 65, 81)",
           borderRadius: "4px 4px 0px 0px",
           px: 2,
           py: 1,
-          border: "1px solid #e7e7e7",
+          border: "1px solid rgb(55, 65, 81)",
         }}
       >
         <TextField
@@ -42,6 +42,7 @@ const PollFormWrapper = () => {
           name="question"
           InputProps={{
             disableUnderline: true,
+            style: { color: "#fff" },
           }}
           onChange={(e) => contextValue.handleChange(e)}
         />
@@ -49,8 +50,8 @@ const PollFormWrapper = () => {
       <Box
         sx={{
           width: "100%",
-          backgroundColor: "#F3F3F3",
-          border: "1px solid #e7e7e7",
+          backgroundColor: "transparent",
+          border: "1px solid rgba(52, 71, 103, 0.9)",
           px: 2,
           py: 1,
         }}
@@ -60,11 +61,12 @@ const PollFormWrapper = () => {
       <Box
         sx={{
           width: "100%",
-          backgroundColor: "#F6F6F6",
-          border: "1px solid #E0E0E0",
+          backgroundColor: "rgb(17 24 39 / 53%)",
+          border: "1px solid rgba(52, 71, 103, 0.9)",
           px: 2,
           py: 0.3,
           borderRadius: "0px 0px 4px 4px",
+          borderTop: "0px solid transparent",
         }}
       >
         <Stack
@@ -73,7 +75,7 @@ const PollFormWrapper = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            color: "#6B6B6B",
+            color: "rgb(156, 163, 175)",
           }}
         >
           <Button
@@ -96,7 +98,7 @@ const PollFormWrapper = () => {
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
-                  color: "#6B6B6B",
+                  color: "rgb(156, 163, 175)",
                 }}
               >
                 <FormControlLabel

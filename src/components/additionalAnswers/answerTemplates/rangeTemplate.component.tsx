@@ -16,7 +16,7 @@ const PrettoSlider = styled(Slider)({
   "& .MuiSlider-thumb": {
     height: 24,
     width: 24,
-    backgroundColor: "#fff",
+    backgroundColor: "#7291db",
     border: "2px solid currentColor",
     "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
       boxShadow: "inherit",
@@ -51,7 +51,7 @@ export default function RangeTemplate({
   item,
 }: ComponentInputProps) {
   const [sliderValue, setSliderValue] = React.useState(null);
-  const handleSliderChange = (e) => {
+  const handleSliderChange = (e: any) => {
     setSliderValue(e.target.value);
   };
   return (

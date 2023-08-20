@@ -20,8 +20,8 @@ export default function CountryStateCityTemplate({
   fieldName,
   item,
 }: ComponentInputProps) {
-  const [countries] = React.useState<ICountry[]>(Country.getAllCountries());
-  const [country, setCountry] = React.useState<ICountry>();
+  const [countries] = React.useState<any[]>(Country.getAllCountries());
+  const [country, setCountry] = React.useState<any | string>();
   const [states, setStates] = React.useState<IState[]>([]);
   const [state, setState] = React.useState<IState>();
   const [cities, setCities] = React.useState<ICity[]>([]);
@@ -49,7 +49,7 @@ export default function CountryStateCityTemplate({
         <Autocomplete
           options={countries}
           value={country}
-          sx={{ mb: 1, bgcolor: "#fff" }}
+          sx={{ mb: 1, bgcolor: "rgb(55, 65, 81)" }}
           size="small"
           autoHighlight
           onChange={handleCountryChange}
@@ -76,6 +76,7 @@ export default function CountryStateCityTemplate({
               inputProps={{
                 ...params.inputProps,
                 autoComplete: "new-password",
+                style: { color: "#fff" },
               }}
               placeholder="Select Country"
             />
@@ -87,7 +88,7 @@ export default function CountryStateCityTemplate({
           <Autocomplete
             options={states}
             value={state}
-            sx={{ mb: 1, bgcolor: "#fff" }}
+            sx={{ mb: 1, bgcolor: "rgb(55, 65, 81)" }}
             size="small"
             autoHighlight
             disabled={country ? false : true}
@@ -104,6 +105,7 @@ export default function CountryStateCityTemplate({
                 inputProps={{
                   ...params.inputProps,
                   autoComplete: "new-password",
+                  style: { color: "#fff" },
                 }}
                 placeholder="Select State"
               />
@@ -116,7 +118,7 @@ export default function CountryStateCityTemplate({
           <Autocomplete
             options={cities}
             value={city}
-            sx={{ mb: 1, bgcolor: "#fff" }}
+            sx={{ mb: 1, bgcolor: "rgb(55, 65, 81)" }}
             size="small"
             autoHighlight
             placeholder="Select City"
@@ -134,6 +136,7 @@ export default function CountryStateCityTemplate({
                 inputProps={{
                   ...params.inputProps,
                   autoComplete: "new-password",
+                  style: { color: "#fff" },
                 }}
                 placeholder="Select City"
               />

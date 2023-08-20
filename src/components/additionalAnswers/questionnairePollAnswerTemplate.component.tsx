@@ -15,11 +15,11 @@ export default function QuestionnairePollAnswerTemplate({
 
   return (
     <Stack direction="column" sx={{ mb: 2, px: 1, borderRadius: "4px" }}>
-      <Stack direction="row" spacing={2} sx={{ my: 1, color: "#6B6B6B" }}>
+      <Stack direction="row" spacing={2} sx={{ my: 1, color: "#fff" }}>
         <Stack
           direction="column"
           spacing={2}
-          sx={{ color: "#6B6B6B", width: "100%", mr: "20px" }}
+          sx={{ color: "#fff", width: "100%", mr: "20px" }}
         >
           <fieldset
             name={fieldName}
@@ -35,9 +35,9 @@ export default function QuestionnairePollAnswerTemplate({
               <Typography
                 variant="body1"
                 component="h2"
-                sx={{ textTransform: "capitalize", mb: 2 }}
+                sx={{ textTransform: "capitalize", mb: 2, color: "#fff" }}
               >
-                {item.question}
+                Q{index + 1}: {item.question}
               </Typography>
             </FormControl>
             <FormControl variant="outlined" style={{ marginTop: "5px" }}>
@@ -54,7 +54,7 @@ export default function QuestionnairePollAnswerTemplate({
       <Divider
         textAlign="center"
         sx={{
-          color: "#9E9E9E",
+          color: "#fff",
           mr: "25px",
           display: { xs: "none", sm: "flex" },
         }}

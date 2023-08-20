@@ -52,9 +52,9 @@ const NavigationElements = ({ pages }: PageProps) => {
           sx={{
             width: "100%",
             height: "100%",
-            maxWidth: 360,
-            background: "#9155FD",
-            color: "#fff",
+            maxWidth: 300,
+            background: "rgb(31, 40, 62)",
+            color: "rgb(255, 255, 255)",
           }}
         >
           <nav aria-label="main mailbox folders">
@@ -63,7 +63,7 @@ const NavigationElements = ({ pages }: PageProps) => {
                 return (
                   <ListItem disablePadding key={item.id}>
                     <ListItemButton>
-                      <ListItemIcon sx={{ color: "#ffff" }}>
+                      <ListItemIcon sx={{ color: "rgb(255, 255, 255)" }}>
                         {item.icon}
                       </ListItemIcon>
                       <ListItemText primary={item.label} />
@@ -90,13 +90,11 @@ const NavigationElements = ({ pages }: PageProps) => {
         href=""
         sx={{
           mr: 2,
-          display: { xs: "flex" },
-          flexGrow: 1,
+          display: "flex",
           fontFamily: "Roboto,sans-serif",
           fontWeight: 400,
           color: "inherit",
           textDecoration: "none",
-          width: { xs: "220px" },
         }}
       >
         Mittr
