@@ -5,7 +5,7 @@ import "../styles/styles.scss";
 import { ConfirmProvider } from "material-ui-confirm";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { amber } from "@mui/material/colors";
+import { amber, deepPurple } from "@mui/material/colors";
 
 const darkTheme = createTheme({
   palette: {

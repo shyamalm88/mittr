@@ -1,20 +1,15 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import LensBlurOutlinedIcon from "@mui/icons-material/LensBlurOutlined";
 import Typography from "@mui/material/Typography";
-import Drawer from "@mui/material/Drawer";
+
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavigationPageProps as PageProps } from "../../types";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
+
 import Image from "next/image";
 import Logo from "./../../images/svg/logo.svg";
 
-const NavigationElements = ({ pages }: PageProps) => {
+const NavigationElements = () => {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const toggleDrawer = () => {
@@ -35,46 +30,7 @@ const NavigationElements = ({ pages }: PageProps) => {
           <MenuIcon />
         </IconButton>
       </Box>
-      <Drawer
-        sx={{
-          width: "300px",
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: "300px",
-            boxSizing: "border-box",
-          },
-        }}
-        anchor="left"
-        open={drawerOpen}
-        onClose={toggleDrawer}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            height: "100%",
-            maxWidth: 300,
-            background: "rgb(31, 40, 62)",
-            color: "rgb(255, 255, 255)",
-          }}
-        >
-          <nav aria-label="main mailbox folders">
-            <List>
-              {pages.map((item) => {
-                return (
-                  <ListItem disablePadding key={item.id}>
-                    <ListItemButton>
-                      <ListItemIcon sx={{ color: "rgb(255, 255, 255)" }}>
-                        {item.icon}
-                      </ListItemIcon>
-                      <ListItemText primary={item.label} />
-                    </ListItemButton>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </nav>
-        </Box>
-      </Drawer>
+
       <Image
         src={Logo}
         width={0}

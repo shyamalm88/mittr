@@ -46,6 +46,7 @@ export default function AdditionalQuestions() {
             size="small"
             sx={{ textTransform: "none" }}
             startIcon={<AddTaskIcon />}
+            color="inherit"
             onClick={addQuestionnaire}
           >
             Add
@@ -92,6 +93,7 @@ export default function AdditionalQuestions() {
             size="small"
             sx={{ textTransform: "none" }}
             startIcon={<AddTaskIcon />}
+            color="inherit"
             onClick={addQuestionnaire}
           >
             Add
