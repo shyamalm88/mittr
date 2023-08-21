@@ -27,9 +27,8 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
       sx={{
         flex: 1,
         display: "flex",
-        border: "1px solid rgba(52, 71, 103, 0.9)",
         borderRadius: "4px",
-        px: 2,
+        px: 1,
         py: 1,
         mr: "135px",
       }}
@@ -67,7 +66,6 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
           margin="dense"
           name={`${fieldName}.rangeEndValue`}
           sx={{
-            borderBottom: "1px solid #ccc",
             background: "rgb(55, 65, 81)",
             borderRadius: "4px",
           }}

@@ -8,6 +8,9 @@ export default function AnswerFieldSwitchTemplate({
   selectedValue,
   fieldName,
 }: ComponentInputProps) {
+  console.log("selectedValue", selectedValue);
+  console.log("selectedValue", fieldName);
+
   switch (selectedValue) {
     case "range":
       return <RangeTemplate fieldName={fieldName} />;

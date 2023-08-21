@@ -16,6 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 import { OptionProp } from "../../types";
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
 import { Topic } from "./topic/topic.component";
+import Tooltip from "@mui/material/Tooltip";
 
 const PollOptionWrapper = () => {
   const contextValue = usePollCreationContext();
@@ -82,6 +83,7 @@ const PollOptionWrapper = () => {
                       <IconButton
                         aria-label="Delete Option"
                         edge="end"
+                        sx={{ color: "#a1abc1" }}
                         onClick={() => deleteOption(item, fieldName)}
                         disabled={options.length === 1}
                       >
@@ -107,20 +109,21 @@ const PollOptionWrapper = () => {
             color: "rgb(156, 163, 175)",
           }}
         >
-          <Button
-            size="small"
-            sx={{ textTransform: "none" }}
-            startIcon={<AddCircleOutlineIcon />}
-            color="inherit"
-            onClick={addOption}
-          >
-            Add
-            <Box
-              sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}
+          <Tooltip title="Add another choice" arrow placement="left">
+            <Button
+              size="small"
+              sx={{ textTransform: "none" }}
+              startIcon={<AddCircleOutlineIcon />}
+              onClick={addOption}
             >
-              another choice
-            </Box>
-          </Button>
+              Add
+              <Box
+                sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}
+              >
+                another
+              </Box>
+            </Button>
+          </Tooltip>
           <Button
             size="small"
             sx={{ textTransform: "none" }}

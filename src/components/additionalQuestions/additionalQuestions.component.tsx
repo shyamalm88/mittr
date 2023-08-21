@@ -8,6 +8,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import Questionnaire from "./questionnaire.component";
 import { v4 as uuidv4 } from "uuid";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function AdditionalQuestions() {
   const [questionnaire, setQuestionnaire] = React.useState([
@@ -40,18 +41,21 @@ export default function AdditionalQuestions() {
           color: "rgb(156, 163, 175)",
         }}
       >
-        <Button
-          size="small"
-          sx={{ textTransform: "none" }}
-          startIcon={<AddTaskIcon />}
-          color="inherit"
-          onClick={addQuestionnaire}
-        >
-          Add
-          <Box sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}>
-            additional questions
-          </Box>
-        </Button>
+        <Tooltip title="Add Additional Questions" arrow placement="left">
+          <Button
+            size="small"
+            sx={{ textTransform: "none" }}
+            startIcon={<AddTaskIcon />}
+            onClick={addQuestionnaire}
+          >
+            Add
+            <Box
+              sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}
+            >
+              questions
+            </Box>
+          </Button>
+        </Tooltip>
         <Box>
           <Stack direction="row" spacing={2}>
             <Button
@@ -83,33 +87,40 @@ export default function AdditionalQuestions() {
           marginBottom: "30px",
         }}
       >
-        <Button
-          size="small"
-          sx={{ textTransform: "none" }}
-          startIcon={<AddTaskIcon />}
-          color="inherit"
-          onClick={addQuestionnaire}
-        >
-          Add
-          <Box sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}>
-            additional questions
-          </Box>
-        </Button>
+        <Tooltip title="Add Additional Questions" arrow placement="left">
+          <Button
+            size="small"
+            sx={{ textTransform: "none" }}
+            startIcon={<AddTaskIcon />}
+            onClick={addQuestionnaire}
+          >
+            Add
+            <Box
+              sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}
+            >
+              questions
+            </Box>
+          </Button>
+        </Tooltip>
         <Box>
           <Stack direction="row" spacing={2}>
-            <Button
-              size="small"
-              sx={{ textTransform: "none" }}
-              startIcon={<RefreshOutlinedIcon />}
-              color="inherit"
-            >
-              Reset
-              <Box
-                sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}
+            <Tooltip title="Reset Poll" arrow placement="left">
+              <Button
+                size="small"
+                sx={{ textTransform: "none" }}
+                startIcon={<RefreshOutlinedIcon />}
+                color="inherit"
               >
-                poll
-              </Box>
-            </Button>
+                Reset
+                <Box
+                  sx={{
+                    display: { xs: "none", lg: "flex", paddingLeft: "5px" },
+                  }}
+                >
+                  poll
+                </Box>
+              </Button>
+            </Tooltip>
           </Stack>
         </Box>
       </Stack>

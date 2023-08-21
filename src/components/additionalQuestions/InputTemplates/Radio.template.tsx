@@ -10,6 +10,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { v4 as uuidv4 } from "uuid";
 import { ComponentInputProps, OptionProp } from "../../../types";
 import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function RadioTemplate({ fieldName }: ComponentInputProps) {
   const contextValue = usePollCreationContext();
@@ -30,24 +31,28 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
       <Box
         sx={{
           width: "100%",
-          border: "1px solid rgba(52, 71, 103, 0.9)",
           borderRadius: "4px",
-          px: 2,
+          px: 1,
           py: 1,
           mr: "135px",
         }}
       >
-        <Button
-          size="small"
-          sx={{ textTransform: "none" }}
-          startIcon={<AddCircleOutlineIcon />}
-          onClick={addOption}
-        >
-          Add
-          <Box sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}>
-            another choice
-          </Box>
-        </Button>
+        <Tooltip title="Add another choice" arrow placement="left">
+          <Button
+            size="small"
+            sx={{ textTransform: "none" }}
+            startIcon={<AddCircleOutlineIcon />}
+            onClick={addOption}
+            color="inherit"
+          >
+            Add
+            <Box
+              sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}
+            >
+              another
+            </Box>
+          </Button>
+        </Tooltip>
         {options.map((item, index) => {
           return (
             <fieldset
@@ -77,6 +82,7 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
                       <IconButton
                         aria-label="Delete Option"
                         edge="end"
+                        sx={{ color: "#a1abc1" }}
                         onClick={() =>
                           deleteOption(
                             item,

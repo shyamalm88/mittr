@@ -57,7 +57,7 @@ export const PollCreationReducer: Reducer<any, any> = (
                 if (i === indxNew) {
                   return {
                     ...q,
-                    [key]: q[key].filter(
+                    [key]: q[key]?.filter(
                       (_: string, index: number) => index != indx
                     ),
                   };
