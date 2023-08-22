@@ -61,7 +61,7 @@ function LeftNavigationTemplate() {
           {pages.map((item) => {
             return (
               <ListItem disablePadding key={item.id} dense disableGutters>
-                <ListItemButton>
+                <ListItemButton sx={{ pl: 0 }}>
                   <ListItemIcon sx={{ minWidth: "30px" }}>
                     {item.icon}
                   </ListItemIcon>

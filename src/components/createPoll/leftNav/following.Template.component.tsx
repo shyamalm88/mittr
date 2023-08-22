@@ -57,7 +57,7 @@ function FollowingTemplate() {
           {pages.map((item) => {
             return (
               <ListItem disablePadding key={item.id} dense disableGutters>
-                <ListItemButton sx={{ fontSize: "12px" }}>
+                <ListItemButton sx={{ fontSize: "12px", pl: 0 }}>
                   <ListItemIcon sx={{ minWidth: "30px" }}>
                     {item.icon}
                   </ListItemIcon>

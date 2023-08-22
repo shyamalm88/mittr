@@ -5,11 +5,14 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavigationPageProps as PageProps } from "../../types";
+import Logo_Dark from "./../../images/svg/logo_dark.svg";
+import Logo_Light from "./../../images/svg/logo_light.svg";
 
 import Image from "next/image";
-import Logo from "./../../images/svg/logo.svg";
+import { useTheme } from "@mui/material";
 
 const NavigationElements = () => {
+  const theme = useTheme();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const toggleDrawer = () => {
@@ -30,15 +33,28 @@ const NavigationElements = () => {
           <MenuIcon />
         </IconButton>
       </Box>
+      {theme.palette.mode === "dark" && (
+        <Image
+          src={Logo_Dark}
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ marginRight: "10px" }}
+          alt="Mittr Logo"
+        />
+      )}
 
-      <Image
-        src={Logo}
-        width={0}
-        height={0}
-        sizes="100vw"
-        style={{ marginRight: "10px" }}
-        alt="Mittr Logo"
-      />
+      {theme.palette.mode === "light" && (
+        <Image
+          src={Logo_Light}
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ marginRight: "10px" }}
+          alt="Mittr Logo"
+        />
+      )}
+
       <Typography
         variant="h5"
         noWrap
