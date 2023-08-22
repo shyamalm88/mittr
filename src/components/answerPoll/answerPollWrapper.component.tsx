@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
+import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import React from "react";
 import AnswerPollFormWrapper from "./answerPollFormWrapper.component";
 
@@ -46,15 +46,15 @@ const AnswerPollWrapper = () => {
           variant="contained"
           style={{ float: "right" }}
           type="submit"
-          startIcon={<SendIcon />}
+          startIcon={<DoneOutlinedIcon />}
         >
-          Create
+          Submit
         </Button>
         <Button
           variant="outlined"
           style={{ float: "right", marginRight: "10px" }}
         >
-          Cancel
+          Reset
         </Button>
       </Card>
     </Box>
