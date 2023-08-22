@@ -5,14 +5,11 @@ import "../styles/styles.scss";
 import { ConfirmProvider } from "material-ui-confirm";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { amber, deepPurple } from "@mui/material/colors";
 import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 import { PaletteMode } from "@mui/material";
 import { getDesignTokens } from "../theme/designTokens";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import IconButton from "@mui/material/IconButton";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
@@ -46,8 +43,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <ThemeProvider theme={theme}>
           <Fab
             size="small"
-            color="default"
-            aria-label="add"
+            aria-label="Change Theme"
+            color="primary"
+            variant="extended"
             sx={{ position: "fixed", bottom: "16px", right: "16px" }}
             onClick={() =>
               setThemeMode(themeMode === "dark" ? "light" : "dark")
