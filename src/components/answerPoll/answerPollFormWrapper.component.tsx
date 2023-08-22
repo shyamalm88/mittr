@@ -22,14 +22,15 @@ const AnswerPollFormWrapper = () => {
           px: 2,
           py: 1,
         }}
+        className="customPaper"
       >
         <Typography
           variant="body1"
           component="h2"
           sx={{
-            color: "#fff",
             fontSize: "1.2rem",
           }}
+          className="typography"
         >
           {contextValue}
         </Typography>
@@ -51,9 +52,9 @@ const AnswerPollFormWrapper = () => {
               variant="body2"
               component="small"
               sx={{
-                color: "inherit",
                 fontSize: "1.2rem",
               }}
+              className="typography"
             >
               Created By: Arghya Majumder
             </Typography>
@@ -72,7 +73,6 @@ const AnswerPollFormWrapper = () => {
         sx={{
           width: "100%",
           backgroundColor: "transparent",
-          // border: "1px solid rgba(52, 71, 103, 0.9)",
           px: 2,
           py: 1,
         }}

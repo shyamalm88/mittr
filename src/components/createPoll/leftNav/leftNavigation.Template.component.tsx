@@ -53,9 +53,8 @@ function LeftNavigationTemplate() {
       sx={{
         width: "100%",
         height: "100%",
-        background: "rgb(31, 40, 62)",
-        color: "rgb(255, 255, 255)",
       }}
+      className="sideNav"
     >
       <nav aria-label="main mailbox folders">
         <List>
@@ -63,7 +62,7 @@ function LeftNavigationTemplate() {
             return (
               <ListItem disablePadding key={item.id} dense disableGutters>
                 <ListItemButton>
-                  <ListItemIcon sx={{ color: "rgb(255, 255, 255)" }}>
+                  <ListItemIcon sx={{ minWidth: "30px" }}>
                     {item.icon}
                   </ListItemIcon>
                   <ListItemText primary={item.label} />

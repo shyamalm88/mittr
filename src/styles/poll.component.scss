@@ -15,21 +15,6 @@
     }
 }
 
-.MuiOutlinedInput-notchedOutline {
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-bottom: 2px solid rgba(52, 71, 103, 0.9);
-}
-
-.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    border-color: #ccc;
-}
-
-.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: rgb(25, 118, 210);
-}
-
 .radioImage .MuiFormControlLabel-label {
     font-size: 10px;
 }

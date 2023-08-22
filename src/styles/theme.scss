@@ -1,0 +1,181 @@
+body {
+    &.dark {
+        background-color: rgb(17, 24, 39);
+        color: #fff;
+        .sideNav {
+            background: rgb(31, 40, 62);
+            color: rgb(255, 255, 255);
+            .MuiListItemIcon-root {
+                color: inherit;
+            }
+            .MuiLink-root {
+                color: rgb(129, 140, 248);
+            }
+        }
+        .paper {
+            background: rgb(31, 40, 62);
+            box-shadow:
+                rgba(52, 71, 103, 0.9) 0rem 0rem 0.0625rem 0.0625rem inset,
+                rgba(0, 0, 0, 0.05) 0rem 1.25rem 1.6875rem 0rem;
+            hr {
+                border-color: rgba(255, 255, 255, 0.12);
+            }
+        }
+
+        .card {
+            background-color: rgb(31, 40, 62);
+            border-left: "1px solid #233149";
+            border-right: "1px solid #233149";
+            border-bottom: "1px solid #233149";
+
+            box-shadow:
+                0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+                0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+                0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+        }
+        .typography {
+            color: #fff;
+        }
+        .autoComplete,
+        .input,
+        .select,
+        .textarea {
+            background-color: rgb(55, 65, 81);
+            color: #fff;
+
+            input {
+                color: inherit;
+            }
+        }
+        .MuiOutlinedInput-root {
+            color: #fff !important;
+        }
+        .bottomBox {
+            background-color: rgb(17 24 39 / 53%);
+            color: #fff;
+        }
+        .MuiOutlinedInput-notchedOutline {
+            border: 1px solid rgba(52, 71, 103, 0.9);
+        }
+
+        .MuiOutlinedInput-root.Mui-disabled:hover .MuiOutlinedInput-notchedOutline,
+        .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
+            border: 0px solid transparent !important;
+            cursor: not-allowed;
+        }
+
+        .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+            border-color: rgba(62, 88, 133);
+        }
+
+        .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+            border-color: rgb(25, 118, 210);
+        }
+        .MuiMenu-paper {
+            &.MuiMenu-paper {
+                background-color: rgb(31, 41, 55);
+                color: rgb(156, 163, 175);
+            }
+            .MuiMenuItem-root:hover {
+                background-color: #ffc107;
+                color: rgba(0, 0, 0, 0.87);
+            }
+        }
+        .MuiPopover-paper {
+            background-color: rgb(17, 24, 39);
+            color: rgb(156, 163, 175);
+        }
+    }
+    &.light {
+        background-color: #f7f7f7;
+        color: #333;
+        .sideNav {
+            background: #fafafa;
+            color: #333;
+            .MuiListItemIcon-root {
+                color: inherit;
+            }
+            .MuiLink-root {
+                color: #2196f3;
+            }
+        }
+        .paper {
+            background: #fafafa;
+            box-shadow:
+                0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+                0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+                0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+            hr {
+                border-color: #33333336;
+            }
+        }
+        .card {
+            background-color: #fdfdfd;
+            border-left: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            box-shadow:
+                0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+                0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+                0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+        }
+        .typography {
+            color: #333;
+        }
+        .autoComplete,
+        .input,
+        .select,
+        .textarea {
+            background-color: #eee;
+            color: #333;
+
+            input {
+                color: inherit;
+            }
+        }
+        .MuiOutlinedInput-root,
+        .MuiInputBase-input {
+            color: #333 !important;
+            background-color: #ffff;
+            &.Mui-disabled {
+                background-color: #f2f2f2;
+                cursor: not-allowed;
+            }
+        }
+        .bottomBox {
+            background-color: rgba(255, 255, 255, 0.53);
+            color: #333;
+        }
+        .MuiOutlinedInput-notchedOutline {
+            border: 1px solid rgba(224, 224, 224, 0.9);
+        }
+
+        .MuiOutlinedInput-root.Mui-disabled:hover .MuiOutlinedInput-notchedOutline,
+        .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
+            border: 0px solid transparent !important;
+            cursor: not-allowed;
+        }
+
+        .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+            border-color: rgba(189, 189, 189, 0.9);
+        }
+
+        .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+            border-color: rgb(25, 118, 210);
+        }
+        .MuiMenu-paper {
+            &.MuiMenu-paper {
+                background-color: #fff;
+                color: #333;
+            }
+            .MuiMenuItem-root:hover {
+                background-color: #03a9f4;
+                color: #fff;
+            }
+        }
+        .MuiPopover-paper {
+            background-color: rgb(255, 255, 255);
+            color: #333;
+        }
+    }
+}

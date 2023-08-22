@@ -71,9 +71,9 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
                   size="small"
                   margin="dense"
                   sx={{
-                    background: "rgb(55, 65, 81)",
                     borderRadius: "4px",
                   }}
+                  className="input"
                   name={`${fieldName}.choices[${index}].choice`}
                   multiline
                   onChange={(e) => contextValue.handleChange(e)}

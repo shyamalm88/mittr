@@ -6,10 +6,12 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
 import { ComponentInputProps } from "../../../types";
+import { useTheme } from "@emotion/react";
 
 export default function CountryStateCityCombiTemplate({
   fieldName,
 }: ComponentInputProps) {
+  const theme = useTheme();
   const contextValue = usePollCreationContext();
 
   const [cityDisabled, setCityDisabled] = React.useState(true);
@@ -33,48 +35,52 @@ export default function CountryStateCityCombiTemplate({
   };
 
   return (
-    <Box
-      sx={{
-        flex: 1,
-        display: "flex",
-        border: "1px solid rgba(52, 71, 103, 0.9)",
-        borderRadius: "4px",
-        px: 2,
-        py: 1,
-        mr: "135px",
-      }}
-    >
-      <Stack
-        direction="row"
-        spacing={2}
-        sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
+    <>
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: (theme: any) => theme.palette.customColors.border,
+          borderRadius: "4px",
+          px: 2,
+          py: 1,
+          mr: "135px",
+        }}
       >
-        <FormControlLabel
-          control={
-            <Checkbox
-              onChange={handleChange}
-              name={`${fieldName}.allowState`}
-            />
-          }
-          label="Allow State"
-        />
-      </Stack>
-      <Stack
-        direction="row"
-        spacing={2}
-        sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
-      >
-        <FormControlLabel
-          disabled={cityDisabled ? true : undefined}
-          control={
-            <Checkbox
-              onChange={handleCityChange}
-              name={`${fieldName}.allowCity`}
-            />
-          }
-          label="Allow City"
-        />
-      </Stack>
-    </Box>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
+        >
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={handleChange}
+                name={`${fieldName}.allowState`}
+              />
+            }
+            label="Allow State"
+          />
+        </Stack>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
+        >
+          <FormControlLabel
+            disabled={cityDisabled ? true : undefined}
+            control={
+              <Checkbox
+                onChange={handleCityChange}
+                name={`${fieldName}.allowCity`}
+              />
+            }
+            label="Allow City"
+          />
+        </Stack>
+      </Box>
+    </>
   );
 }

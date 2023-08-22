@@ -29,10 +29,10 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
           type="text"
           size="small"
           sx={{
-            background: "rgb(55, 65, 81)",
             borderRadius: "4px",
             mb: 1,
           }}
+          className="input"
           onClick={(e) => setDisplayCalender(!displayCalender)}
           placeholder="DD/MM/YYYY"
           value={moment(date).format("DD/MM/YYYY")}
@@ -47,7 +47,7 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
               </IconButton>
             </InputAdornment>
           }
-          label="Password"
+          label=""
         />
       </FormControl>
       {displayCalender && (

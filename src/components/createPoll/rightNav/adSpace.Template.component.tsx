@@ -7,10 +7,9 @@ const AdSpaceTemplate = () => {
       sx={{
         width: "100%",
         height: "100%",
-        background: "rgb(31, 40, 62)",
-        color: "rgb(255, 255, 255)",
         mb: 2,
       }}
+      className="sideNav"
     >
       AdSpace Template
     </Box>

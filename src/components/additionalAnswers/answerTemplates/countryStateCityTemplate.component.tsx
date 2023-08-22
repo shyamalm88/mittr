@@ -49,11 +49,12 @@ export default function CountryStateCityTemplate({
         <Autocomplete
           options={countries}
           value={country}
-          sx={{ mb: 1, bgcolor: "rgb(55, 65, 81)" }}
+          sx={{ mb: 1 }}
           size="small"
           autoHighlight
           onChange={handleCountryChange}
           getOptionLabel={(option) => option.name}
+          className="autoComplete"
           renderOption={(props, option) => (
             <Box
               component="li"
@@ -76,7 +77,7 @@ export default function CountryStateCityTemplate({
               inputProps={{
                 ...params.inputProps,
                 autoComplete: "new-password",
-                style: { color: "#fff" },
+                style: { color: "inherit" },
               }}
               placeholder="Select Country"
             />
@@ -88,10 +89,11 @@ export default function CountryStateCityTemplate({
           <Autocomplete
             options={states}
             value={state}
-            sx={{ mb: 1, bgcolor: "rgb(55, 65, 81)" }}
+            sx={{ mb: 1 }}
             size="small"
             autoHighlight
             disabled={country ? false : true}
+            className="autoComplete"
             onChange={handleStateChange}
             getOptionLabel={(option) => option.name}
             renderOption={(props, option) => (
@@ -105,7 +107,7 @@ export default function CountryStateCityTemplate({
                 inputProps={{
                   ...params.inputProps,
                   autoComplete: "new-password",
-                  style: { color: "#fff" },
+                  style: { color: "inherit" },
                 }}
                 placeholder="Select State"
               />
@@ -118,12 +120,13 @@ export default function CountryStateCityTemplate({
           <Autocomplete
             options={cities}
             value={city}
-            sx={{ mb: 1, bgcolor: "rgb(55, 65, 81)" }}
+            sx={{ mb: 1 }}
             size="small"
             autoHighlight
             placeholder="Select City"
             disabled={country && state ? false : true}
             onChange={handleCityChange}
+            className="autoComplete"
             getOptionLabel={(option) => option.name}
             renderOption={(props, option) => (
               <Box component="li" {...props}>
@@ -136,7 +139,7 @@ export default function CountryStateCityTemplate({
                 inputProps={{
                   ...params.inputProps,
                   autoComplete: "new-password",
-                  style: { color: "#fff" },
+                  style: { color: "inherit" },
                 }}
                 placeholder="Select City"
               />

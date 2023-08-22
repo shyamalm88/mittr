@@ -55,7 +55,7 @@ const PollOptionWrapper = () => {
           const fieldName = `options[${index}]`;
           return (
             <FormControl
-              sx={{ mb: 1, width: "100%" }}
+              sx={{ mb: 1, width: "100%", color: "theme.palette.text" }}
               variant="outlined"
               key={item.id}
             >
@@ -73,9 +73,9 @@ const PollOptionWrapper = () => {
                   size="small"
                   margin="dense"
                   sx={{
-                    background: "rgb(55, 65, 81)",
                     borderRadius: "4px",
                   }}
+                  className="input"
                   name={`${fieldName}.option`}
                   multiline
                   endAdornment={
@@ -83,7 +83,7 @@ const PollOptionWrapper = () => {
                       <IconButton
                         aria-label="Delete Option"
                         edge="end"
-                        sx={{ color: "#a1abc1" }}
+                        sx={{ color: "inherit" }}
                         onClick={() => deleteOption(item, fieldName)}
                         disabled={options.length === 1}
                       >

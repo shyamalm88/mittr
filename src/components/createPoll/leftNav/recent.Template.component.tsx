@@ -43,10 +43,9 @@ function RecentTemplate() {
       sx={{
         width: "100%",
         height: "100%",
-        background: "rgb(31, 40, 62)",
-        color: "rgb(255, 255, 255)",
         mb: 2,
       }}
+      className="sideNav"
     >
       <Typography variant="body2" component="h2">
         Trending Topics
@@ -58,9 +57,7 @@ function RecentTemplate() {
             return (
               <ListItem disablePadding key={item.id} dense disableGutters>
                 <ListItemButton sx={{ fontSize: "12px" }}>
-                  <ListItemIcon
-                    sx={{ color: "rgb(255, 255, 255)", minWidth: "30px" }}
-                  >
+                  <ListItemIcon sx={{ minWidth: "30px" }}>
                     {item.icon}
                   </ListItemIcon>
                   <ListItemText primary={item.label} disableTypography />

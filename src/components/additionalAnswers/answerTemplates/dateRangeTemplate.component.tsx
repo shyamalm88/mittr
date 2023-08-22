@@ -60,12 +60,12 @@ export default function DateRangeTemplate({
           type="text"
           size="small"
           sx={{
-            background: "rgb(55, 65, 81)",
             borderRadius: "4px",
             mb: 1,
           }}
           ref={startDateRef}
           value={startDate}
+          className="input"
           onClick={(e) => toggleDatePicker(e, startDateRef)}
           placeholder="DD/MM/YYYY"
           endAdornment={
@@ -79,7 +79,7 @@ export default function DateRangeTemplate({
               </IconButton>
             </InputAdornment>
           }
-          label="Password"
+          label=""
         />
       </FormControl>
       <FormControl variant="outlined">
@@ -88,11 +88,11 @@ export default function DateRangeTemplate({
           type="text"
           size="small"
           sx={{
-            background: "rgb(55, 65, 81)",
             borderRadius: "4px",
             mb: 1,
           }}
           ref={endDateRef}
+          className="input"
           onClick={(e) => toggleDatePicker(e, endDateRef)}
           placeholder="DD/MM/YYYY"
           value={endDate}
@@ -107,7 +107,7 @@ export default function DateRangeTemplate({
               </IconButton>
             </InputAdornment>
           }
-          label="Password"
+          label=""
         />
       </FormControl>
       {openDateRangePicker && (

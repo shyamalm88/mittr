@@ -45,10 +45,10 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
           margin="dense"
           name={`${fieldName}.rangeStartValue`}
           sx={{
-            background: "rgb(55, 65, 81)",
             borderRadius: "4px",
             marginRight: "20px",
           }}
+          className="input"
           onChange={handleStartNumChange}
           fullWidth
           placeholder="Start Value"
@@ -66,9 +66,9 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
           margin="dense"
           name={`${fieldName}.rangeEndValue`}
           sx={{
-            background: "rgb(55, 65, 81)",
             borderRadius: "4px",
           }}
+          className="input"
           onChange={handleEndNumChange}
           fullWidth
           placeholder="End Value"

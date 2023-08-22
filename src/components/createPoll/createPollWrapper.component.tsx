@@ -50,14 +50,13 @@ const CreatePollWrapper = () => {
       <Card
         variant="outlined"
         sx={{
-          backgroundColor: "rgb(31, 40, 62)",
-          border: "1px solid #233149",
-          boxShadow:
-            "0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)",
           p: 2,
           borderRadius: "4px",
-          borderTop: "2px solid #ffc107",
+          borderTopColor: (theme) => theme.palette.primary.main,
+          borderTopStyle: "solid",
+          borderTopWidth: "2px",
         }}
+        className="card"
       >
         <Stack
           direction="row"

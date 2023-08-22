@@ -90,11 +90,11 @@ export default function QuestionnaireTemplate({
                 name={`${fieldName}.question`}
                 onChange={(e) => contextValue.handleChange(e)}
                 sx={{
-                  background: "rgb(55, 65, 81)",
                   borderRadius: "4px",
                 }}
                 fullWidth
                 multiline
+                className="input"
                 inputRef={(el) =>
                   (oldSelectedQuestionValue.current[index] = el)
                 }
@@ -109,9 +109,9 @@ export default function QuestionnaireTemplate({
                 value={selectedValue}
                 name={`${fieldName}.answerType`}
                 style={{
-                  backgroundColor: "rgb(55, 65, 81)",
                   color: "inherit",
                 }}
+                className="select"
                 inputRef={(el) => (oldSelectedValue.current[index] = el)}
                 displayEmpty
               >

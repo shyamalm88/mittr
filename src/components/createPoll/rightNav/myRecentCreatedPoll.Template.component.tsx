@@ -9,10 +9,9 @@ const MyRecentCreatedPollTemplate = () => {
       sx={{
         width: "100%",
         height: "100%",
-        background: "rgb(31, 40, 62)",
-        color: "rgb(255, 255, 255)",
         mb: 2,
       }}
+      className="sideNav"
     >
       <Typography variant="body2" component="h2">
         Recently Created

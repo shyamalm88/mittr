@@ -15,9 +15,11 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Hidden from "@mui/material/Hidden";
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
+// import { useTheme } from "@mui/material";
 
 const PollFormWrapper = () => {
   const contextValue = usePollCreationContext();
+  // const theme = useTheme();
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", flex: 1, width: "100%" }}
@@ -25,11 +27,14 @@ const PollFormWrapper = () => {
       <Box
         sx={{
           width: "100%",
-          backgroundColor: "rgb(55, 65, 81)",
+          backgroundColor: (theme: any) =>
+            theme.palette.customColors.backgroundColor,
           borderRadius: "4px 4px 0px 0px",
           px: 2,
           py: 1,
-          border: "1px solid rgb(55, 65, 81)",
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: (theme: any) => theme.palette.customColors.border,
         }}
       >
         <TextField
@@ -42,7 +47,9 @@ const PollFormWrapper = () => {
           name="question"
           InputProps={{
             disableUnderline: true,
-            style: { color: "#fff" },
+            style: {
+              color: "inherit",
+            },
           }}
           onChange={(e) => contextValue.handleChange(e)}
         />
@@ -51,7 +58,9 @@ const PollFormWrapper = () => {
         sx={{
           width: "100%",
           backgroundColor: "transparent",
-          border: "1px solid rgba(52, 71, 103, 0.9)",
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: (theme: any) => theme.palette.customColors.borderAlt,
           px: 2,
           py: 1,
         }}
@@ -61,8 +70,11 @@ const PollFormWrapper = () => {
       <Box
         sx={{
           width: "100%",
-          backgroundColor: "rgb(17 24 39 / 53%)",
-          border: "1px solid rgba(52, 71, 103, 0.9)",
+          backgroundColor: (theme: any) =>
+            theme.palette.customColors.bottomPanel,
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: (theme: any) => theme.palette.customColors.borderAlt,
           px: 2,
           py: 0.3,
           borderRadius: "0px 0px 4px 4px",
@@ -75,7 +87,7 @@ const PollFormWrapper = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            color: "rgb(156, 163, 175)",
+            color: (theme) => theme.palette.text.secondary,
           }}
         >
           <Button
