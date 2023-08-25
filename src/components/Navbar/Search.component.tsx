@@ -27,21 +27,25 @@ const Search = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "end",
+
     [theme.breakpoints.up("xs")]: {
       display: "flex",
     },
   }));
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
+    color: theme.palette.text.primary,
     display: "flex",
+
     justifyContent: "end",
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 1),
       paddingRight: `calc(1em + ${theme.spacing(4)})`,
       paddingLeft: `calc(1em + ${theme.spacing(2)})`,
       transition: theme.transitions.create("width"),
-      border: "1px solid #50505063",
+      borderStyle: "solid",
+      borderWidth: "1px",
+      borderColor: theme.palette.text.secondary,
       borderRadius: "50px",
       [theme.breakpoints.up("sm")]: {
         width: "20%",
@@ -53,10 +57,17 @@ const Search = () => {
   }));
   return (
     <>
-      <Box sx={{ display: { xs: "none", md: "flex" } }}>
+      <Box
+        sx={{
+          display: { xs: "none", md: "flex" },
+          color: "#333",
+        }}
+      >
         <Search>
           <SearchIconWrapper>
-            <SearchIcon />
+            <SearchIcon
+              sx={{ zIndex: 9, color: (theme) => theme.palette.text.secondary }}
+            />
           </SearchIconWrapper>
           <StyledInputBase
             placeholder="Search…"

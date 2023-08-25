@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import { v4 as uuidv4 } from "uuid";
+
 import { ComponentInputProps, OptionProp } from "../../types";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 import QuestionnairePollAnswerTemplate from "./questionnairePollAnswerTemplate.component";

@@ -54,7 +54,6 @@ export const getDesignTokens = (mode: PaletteMode) => ({
           },
           text: {
             primary: "#fff",
-            secondary: "rgb(156, 163, 175)",
           },
         }),
   },
