@@ -50,7 +50,7 @@ const marks = [
 ];
 
 const IOSSlider = styled(Slider)(({ theme }) => ({
-  color: theme.palette.primary.main,
+  color: theme.palette.info.main,
   height: 2,
   padding: "15px 0",
   "& .MuiSlider-thumb": {

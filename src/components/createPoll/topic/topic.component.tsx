@@ -10,8 +10,10 @@ import FormControl from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-import { TagOptionsType } from "../../../types";
+import { ComponentInputProps, TagOptionsType } from "../../../types";
 import { v4 as uuidv4 } from "uuid";
+import { Button, useTheme } from "@mui/material";
+import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
 
 const topics = [
   { id: uuidv4(), label: "New Topic1" },
@@ -19,8 +21,12 @@ const topics = [
   { id: uuidv4(), label: "New Topic3" },
 ];
 
-export const Topic = () => {
-  const [addedTopics, setAddedTopics] = React.useState<TagOptionsType[]>([]);
+export const Topic = ({ handleSave, selectedTopics }: ComponentInputProps) => {
+  const theme = useTheme();
+  const contextValue = usePollCreationContext();
+  const [addedTopics, setAddedTopics] = React.useState<TagOptionsType[]>([
+    ...selectedTopics,
+  ]);
   const [customVal, setCustomVal] = React.useState<string>("");
   const handleClick = (e: React.SyntheticEvent, option: TagOptionsType) => {
     setAddedTopics([...addedTopics, option]);
@@ -39,16 +45,31 @@ export const Topic = () => {
   ) => {
     if (e.key == "Enter" || e.type === "click") {
       if (customVal.trim()) {
-        setAddedTopics([...addedTopics, { label: customVal, id: uuidv4() }]);
+        setAddedTopics([...addedTopics, { id: uuidv4(), label: customVal }]);
       }
       setCustomVal("");
     }
   };
 
+  const handleTopic = () => {
+    contextValue.handleChange({
+      target: { value: addedTopics, name: "topic" },
+    });
+    handleSave(addedTopics);
+  };
+
   return (
     <Box sx={{ p: 2, width: "300px" }}>
       <Stack sx={{ mx: 2 }} direction={"row"}>
-        <FormControl sx={{ mb: 1, width: "100%" }} variant="outlined">
+        <FormControl
+          sx={{
+            mb: 1,
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+          variant="outlined"
+        >
           <fieldset
             style={{
               border: "none",
@@ -89,7 +110,20 @@ export const Topic = () => {
         <Box sx={{ color: "rgb(156, 163, 175)" }}>
           <Box sx={{ my: 2 }}>
             {addedTopics.length > 0 && (
-              <Divider textAlign="left" variant="fullWidth">
+              <Divider
+                textAlign="left"
+                variant="fullWidth"
+                sx={{
+                  color: theme.palette.action.focus,
+                  "&:before": {
+                    borderTopColor: theme.palette.action.focus,
+                  },
+                  "&:after": {
+                    borderTopColor: theme.palette.action.focus,
+                  },
+                  mb: 1,
+                }}
+              >
                 Added Topics
               </Divider>
             )}
@@ -108,7 +142,20 @@ export const Topic = () => {
             })}
           </Box>
 
-          <Divider textAlign="left" variant="fullWidth">
+          <Divider
+            textAlign="left"
+            variant="fullWidth"
+            sx={{
+              color: theme.palette.action.focus,
+              "&:before": {
+                borderTopColor: theme.palette.action.focus,
+              },
+              "&:after": {
+                borderTopColor: theme.palette.action.focus,
+              },
+              mb: 1,
+            }}
+          >
             Suggested Topics
           </Divider>
           {topics.map((option) => {
@@ -131,6 +178,14 @@ export const Topic = () => {
           })}
         </Box>
       </Stack>
+      <Button
+        size="small"
+        variant="outlined"
+        sx={{ m: 2, alignSelf: "flex-end" }}
+        onClick={handleTopic}
+      >
+        Save
+      </Button>
     </Box>
   );
 };

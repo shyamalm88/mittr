@@ -8,9 +8,14 @@ import RecentTemplate from "../../components/createPoll/leftNav/recent.Template.
 import FollowingTemplate from "../../components/createPoll/leftNav/following.Template.component";
 import AdSpaceTemplate from "../../components/createPoll/rightNav/adSpace.Template.component";
 import MyRecentCreatedPollTemplate from "../../components/createPoll/rightNav/myRecentCreatedPoll.Template.component";
+import { NextSeo } from "next-seo";
 const CreatePoll = () => {
   return (
     <PollCreationProvider>
+      <NextSeo
+        title="Mittr | Create Poll"
+        description="This Create Poll page will help individual authenticated users to create polls for their targeted audiences"
+      />
       <Grid
         container
         spacing={2}

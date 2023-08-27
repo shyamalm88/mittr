@@ -1,4 +1,6 @@
-export type OptionProp = { id: string; label: string; value: string };
+export type OptionProp = {
+  [key: string]: any;
+};
 export type QuestionOptionProp = { id: string; option: string };
 
 export type OptionQProp = { id: string; questionLabel: string; value: string };
@@ -27,6 +29,17 @@ export type CreatePollValueType = {
   duration: string;
   topic: CreatePollAdditionalQuestionTopicType[];
   additionalQuestions: CreatePollAdditionalQuestionType[];
+  settings: {
+    captureGender: boolean;
+    captureName: boolean;
+    multipleSelection: boolean;
+  };
+  advanceSettings: {
+    closePollOnScheduledDate: boolean;
+    shareEnabled: boolean;
+    voteAccessToPublic: boolean;
+    visibleToPublic: boolean;
+  };
   handleChange: Function;
   handleDeleteFromList: Function;
   handleUpdateAnswerType: Function;
@@ -40,6 +53,17 @@ export type CreatePollQuestionType = {
   duration: string;
   topic: CreatePollAdditionalQuestionTopicType[];
   additionalQuestions: CreatePollAdditionalQuestionType[];
+  settings: {
+    captureGender: boolean;
+    captureName: boolean;
+    multipleSelection: boolean;
+  };
+  advanceSettings: {
+    closePollOnScheduledDate: boolean;
+    shareEnabled: boolean;
+    voteAccessToPublic: boolean;
+    visibleToPublic: boolean;
+  };
 };
 
 export type CreatePollAdditionalQuestionType = {

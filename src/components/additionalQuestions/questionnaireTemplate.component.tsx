@@ -121,7 +121,10 @@ export default function QuestionnaireTemplate({
                 {typeOptions?.map((item: OptionProp) => {
                   return (
                     <MenuItem value={item.value} key={item?.id}>
-                      {item.label}
+                      <Stack spacing={2} direction="row">
+                        <Box sx={{ color: "inherit" }}>{item.icon}</Box>
+                        <Box>{item.label}</Box>
+                      </Stack>
                     </MenuItem>
                   );
                 })}

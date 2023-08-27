@@ -17,9 +17,13 @@ import { OptionProp } from "../../types";
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
 import { Topic } from "./topic/topic.component";
 import Tooltip from "@mui/material/Tooltip";
+import { Chip } from "@mui/material";
 
 const PollOptionWrapper = () => {
   const contextValue = usePollCreationContext();
+  const [addedTopics, setAddedTopics] = React.useState<
+    { id: string; label: string }[]
+  >([]);
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -46,6 +50,11 @@ const PollOptionWrapper = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleTopicSave = (e: any[]) => {
+    setAddedTopics(e);
+    handleClose();
   };
 
   return (
@@ -156,8 +165,25 @@ const PollOptionWrapper = () => {
               horizontal: "left",
             }}
           >
-            <Topic />
+            <Topic
+              handleSave={(e: any) => handleTopicSave(e)}
+              selectedTopics={addedTopics}
+            />
           </Popover>
+        </Stack>
+
+        <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap={true}>
+          {addedTopics.map((item) => {
+            return (
+              <Chip
+                key={item.id}
+                variant="outlined"
+                label={item.label}
+                size="small"
+                color="info"
+              />
+            );
+          })}
         </Stack>
       </Box>
     </>

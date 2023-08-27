@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import moment from "moment";
+import { ClickAwayListener } from "@mui/base/ClickAwayListener";
 
 export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
   const [date, setDate] = React.useState<Date>();
@@ -51,16 +52,18 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
         />
       </FormControl>
       {displayCalender && (
-        <div
-          style={{
-            width: "300px",
-            position: "absolute",
-            zIndex: 9,
-            top: "50%",
-          }}
-        >
-          <Calendar onChange={(date) => handleDateChange(date)} date={date} />
-        </div>
+        <ClickAwayListener onClickAway={(e) => setDisplayCalender(false)}>
+          <div
+            style={{
+              width: "300px",
+              position: "absolute",
+              zIndex: 9,
+              top: "50%",
+            }}
+          >
+            <Calendar onChange={(date) => handleDateChange(date)} date={date} />
+          </div>
+        </ClickAwayListener>
       )}
     </>
   );

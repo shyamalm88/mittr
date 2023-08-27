@@ -9,6 +9,7 @@ import Today from "@mui/icons-material/Today";
 import FormControl from "@mui/material/FormControl";
 import moment from "moment";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { ClickAwayListener } from "@mui/base/ClickAwayListener";
 
 export default function DateRangeTemplate({
   fieldName,
@@ -36,8 +37,19 @@ export default function DateRangeTemplate({
       x,
       y,
     });
-    setOpenDateRangePicker(!openDateRangePicker);
+    setOpenDateRangePicker(true);
   };
+
+  const handleClickAway = (e: any) => {
+    if (
+      e.target.id.includes("startDateRange") ||
+      e.target.id.includes("endDateRange")
+    ) {
+    } else {
+      setOpenDateRangePicker(false);
+    }
+  };
+
   const closeDatePicker = () => {
     setCoords({
       x: 0,
@@ -56,7 +68,7 @@ export default function DateRangeTemplate({
     <>
       <FormControl variant="outlined">
         <OutlinedInput
-          id="outlined-adornment-password"
+          id="startDateRange-1"
           type="text"
           size="small"
           sx={{
@@ -84,7 +96,7 @@ export default function DateRangeTemplate({
       </FormControl>
       <FormControl variant="outlined">
         <OutlinedInput
-          id="outlined-adornment-password"
+          id="endDateRange-1"
           type="text"
           size="small"
           sx={{
@@ -111,33 +123,35 @@ export default function DateRangeTemplate({
         />
       </FormControl>
       {openDateRangePicker && (
-        <div
-          style={{
-            position: "absolute",
-            top: coords.y + window.scrollY - 565,
-            zIndex: 9,
-          }}
-        >
-          <IconButton
-            aria-label="close"
-            sx={{
+        <ClickAwayListener onClickAway={handleClickAway}>
+          <div
+            style={{
               position: "absolute",
-              right: "-15px",
-              zIndex: 10,
-              top: "-15px",
+              top: coords.y + window.scrollY - 565,
+              zIndex: 9,
             }}
-            onClick={closeDatePicker}
           >
-            <HighlightOffIcon />
-          </IconButton>
-          <DateRangePicker
-            onChange={(item: any) => setState([item.selection])}
-            moveRangeOnFirstSelection={false}
-            months={2}
-            ranges={state}
-            direction="vertical"
-          />
-        </div>
+            <IconButton
+              aria-label="close"
+              sx={{
+                position: "absolute",
+                right: "-15px",
+                zIndex: 10,
+                top: "-15px",
+              }}
+              onClick={closeDatePicker}
+            >
+              <HighlightOffIcon />
+            </IconButton>
+            <DateRangePicker
+              onChange={(item: any) => setState([item.selection])}
+              moveRangeOnFirstSelection={false}
+              months={2}
+              ranges={state}
+              direction="vertical"
+            />
+          </div>
+        </ClickAwayListener>
       )}
     </>
   );

@@ -32,46 +32,6 @@ export default function AdditionalQuestions() {
         pt: 2,
       }}
     >
-      <Stack
-        direction="row"
-        spacing={2}
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          color: "rgb(156, 163, 175)",
-        }}
-      >
-        <Tooltip title="Add Additional Questions" arrow placement="left">
-          <Button
-            size="small"
-            sx={{ textTransform: "none" }}
-            startIcon={<AddTaskIcon />}
-            color="inherit"
-            onClick={addQuestionnaire}
-          >
-            Add
-            <Box
-              sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}
-            >
-              questions
-            </Box>
-          </Button>
-        </Tooltip>
-        <Box>
-          <Stack direction="row" spacing={2}>
-            <Button
-              size="small"
-              sx={{ textTransform: "none" }}
-              startIcon={<PublicOutlinedIcon />}
-              endIcon={<ExpandMoreIcon />}
-              color="inherit"
-            >
-              Public
-            </Button>
-          </Stack>
-        </Box>
-      </Stack>
-
       <Questionnaire
         questionnaire={questionnaire}
         setQuestionnaire={setQuestionnaire}

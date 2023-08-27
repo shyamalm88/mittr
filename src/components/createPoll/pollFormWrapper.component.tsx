@@ -15,10 +15,24 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Hidden from "@mui/material/Hidden";
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
+import PollSettings from "../additionalQuestions/pollSettings.component";
+import { Calendar } from "react-date-range";
+import { ClickAwayListener } from "@mui/base/ClickAwayListener";
 // import { useTheme } from "@mui/material";
 
 const PollFormWrapper = () => {
+  const [displayCalender, setDisplayCalender] = React.useState<boolean>(false);
+  const [date, setDate] = React.useState<Date>();
   const contextValue = usePollCreationContext();
+  const handleDateChange = (date: Date, name: string) => {
+    setDate(date);
+    setDisplayCalender(false);
+    contextValue.handleChange({ target: { value: date, name } });
+  };
+
+  const handleCloseCalendar = () => {
+    setDisplayCalender(false);
+  };
   // const theme = useTheme();
   return (
     <Box
@@ -88,6 +102,7 @@ const PollFormWrapper = () => {
             display: "flex",
             justifyContent: "space-between",
             color: (theme) => theme.palette.text.secondary,
+            position: "relative",
           }}
         >
           <Button
@@ -95,9 +110,29 @@ const PollFormWrapper = () => {
             sx={{ textTransform: "none" }}
             startIcon={<AccessTimeIcon />}
             color="inherit"
+            onClick={(e: any) => setDisplayCalender(!displayCalender)}
           >
-            Duration
+            {date ? date.toDateString() : "Duration"}
           </Button>
+          {displayCalender && (
+            <ClickAwayListener onClickAway={handleCloseCalendar}>
+              <div
+                style={{
+                  width: "300px",
+                  position: "absolute",
+                  zIndex: 9,
+                  top: "80%",
+                }}
+              >
+                <Calendar
+                  onChange={(date) => {
+                    handleDateChange(date, "duration");
+                  }}
+                  date={date}
+                />
+              </div>
+            </ClickAwayListener>
+          )}
           <Box>
             <RadioGroup
               name="pollType"
@@ -173,6 +208,7 @@ const PollFormWrapper = () => {
           </Box>
         </Stack>
       </Box>
+      <PollSettings />
       <AdditionalQuestions />
     </Box>
   );

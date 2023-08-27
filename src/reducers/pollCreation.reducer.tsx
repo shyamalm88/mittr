@@ -27,11 +27,23 @@ export const PollCreationReducer: Reducer<any, any> = (
           ...state,
           [key]: arr,
         };
+      } else if (payload.name.includes(".")) {
+        key = payload.name.split(".")[0];
+
+        let key2 = payload.name.split(".")[1];
+        const objN: any = state[key as keyof typeof state];
+        console.log({ ...objN, [key2]: payload.value });
+        return {
+          ...state,
+          [key]: { ...objN, [key2]: payload.value },
+        };
       } else {
         key = payload.name;
         return {
           ...state,
-          [key]: payload.value,
+          [key]: Array.isArray(payload.value)
+            ? [...payload.value]
+            : payload.value,
         };
       }
     case DELETE_FROM_LIST:

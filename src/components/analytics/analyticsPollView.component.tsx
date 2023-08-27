@@ -55,8 +55,8 @@ const AnalyticsPollView = () => {
                 component="small"
                 sx={{
                   fontSize: "1.2rem",
+                  color: "inherit",
                 }}
-                className="typography"
               >
                 Created By: Arghya Majumder
               </Typography>

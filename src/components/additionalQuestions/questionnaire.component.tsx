@@ -3,20 +3,79 @@ import Box from "@mui/material/Box";
 import QuestionnaireTemplate from "./questionnaireTemplate.component";
 import { v4 as uuidv4 } from "uuid";
 import { ComponentInputProps, OptionProp } from "../../types";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
+import LinearScaleOutlinedIcon from "@mui/icons-material/LinearScaleOutlined";
+import AppsRoundedIcon from "@mui/icons-material/AppsRounded";
+import AppsIcon from "@mui/icons-material/Apps";
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheckedOutlined";
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 
 const Questionnaire = ({
   questionnaire,
   setQuestionnaire,
 }: ComponentInputProps) => {
   const [typeOptions] = React.useState([
-    { id: uuidv4(), label: "Date", value: "date" },
-    { id: uuidv4(), label: "Date Range", value: "date_range" },
-    { id: uuidv4(), label: "Range", value: "range" },
-    { id: uuidv4(), label: "Choice", value: "radio" },
+    {
+      id: uuidv4(),
+      label: "Date",
+      value: "date",
+      icon: <CalendarMonthOutlinedIcon />,
+    },
+    {
+      id: uuidv4(),
+      label: "Date Range",
+      value: "date_range",
+      icon: <DateRangeOutlinedIcon />,
+    },
+    {
+      id: uuidv4(),
+      label: "Range",
+      value: "range",
+      icon: <CalendarMonthOutlinedIcon />,
+    },
+    {
+      id: uuidv4(),
+      label: "Multiple Choice",
+      value: "choice",
+      icon: <RadioButtonCheckedOutlinedIcon />,
+    },
+    {
+      id: uuidv4(),
+      label: "Checkbox",
+      value: "checkbox",
+      icon: <CheckBoxOutlinedIcon />,
+    },
+    {
+      id: uuidv4(),
+      label: "Linear Scale",
+      value: "linear_scale",
+      icon: <LinearScaleOutlinedIcon />,
+    },
+    {
+      id: uuidv4(),
+      label: "Multiple Choice Grid",
+      value: "mcq_grid",
+      icon: <AppsRoundedIcon />,
+    },
+    {
+      id: uuidv4(),
+      label: "Checkbox Grid",
+      value: "checkbox_grid",
+      icon: <AppsIcon />,
+    },
+    {
+      id: uuidv4(),
+      label: "Time",
+      value: "time",
+      icon: <ScheduleIcon />,
+    },
     {
       id: uuidv4(),
       label: "Country, State, City Combination",
       value: "country",
+      icon: <CalendarMonthOutlinedIcon />,
     },
   ]);
 

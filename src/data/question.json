@@ -47,7 +47,7 @@
             "rangeEndValue": "50"
         },
         {
-            "answerType": "radio",
+            "answerType": "choice",
             "question": "Multiple Choice",
             "choices": [
                 {

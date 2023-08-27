@@ -15,7 +15,7 @@ export default function PollAnswerFieldSwitchTemplate({
   switch (selectedValue) {
     case "range":
       return <RangeTemplate fieldName={fieldName} item={item} />;
-    case "radio":
+    case "choice":
       return <RadioTemplate fieldName={fieldName} item={item} />;
     case "country":
       return <CountryStateCityTemplate fieldName={fieldName} item={item} />;

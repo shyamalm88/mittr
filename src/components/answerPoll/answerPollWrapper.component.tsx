@@ -13,8 +13,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { CheckmarkUtility } from "../utility/checkMark";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import { Particles } from "../utility/Particle";
-import { Divider, Paper } from "@mui/material";
 import { useRouter } from "next/router";
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 
 const AnswerPollWrapper = () => {
   const router = useRouter();
@@ -104,8 +104,12 @@ const AnswerPollWrapper = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleClose}>
-            Cancel
+          <Button
+            variant="outlined"
+            onClick={handleClose}
+            startIcon={<ArrowBackOutlinedIcon />}
+          >
+            Back To Home
           </Button>
           <Button
             variant="contained"

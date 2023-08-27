@@ -36,11 +36,18 @@ export const getDesignTokens = (mode: PaletteMode) => ({
             primary: grey[900],
             secondary: grey[600],
           },
+          action: {
+            focus: "#2196f3",
+            hover: "rgb(181 188 255)",
+          },
         }
       : {
           // palette values for dark mode
           primary: amber,
           divider: "#293246",
+          info: {
+            main: "rgb(129, 140, 248)",
+          },
           background: {
             default: "rgb(17, 24, 39)",
             paper: "rgb(31, 40, 62)",
@@ -54,6 +61,11 @@ export const getDesignTokens = (mode: PaletteMode) => ({
           },
           text: {
             primary: "#fff",
+          },
+          action: {
+            primary: "#fff",
+            focus: "rgb(129, 140, 248)",
+            hover: "#2196f3",
           },
         }),
   },
