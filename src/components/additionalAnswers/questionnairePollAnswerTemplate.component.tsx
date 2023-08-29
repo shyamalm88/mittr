@@ -14,7 +14,7 @@ export default function QuestionnairePollAnswerTemplate({
   const item = questionItem;
 
   return (
-    <Stack direction="column" sx={{ mb: 2, px: 1, borderRadius: "4px" }}>
+    <Stack direction="column" sx={{ mb: 0, px: 1, borderRadius: "4px" }}>
       <Stack direction="row" spacing={2} sx={{ my: 1, color: "inherit" }}>
         <Stack
           direction="column"
@@ -35,9 +35,9 @@ export default function QuestionnairePollAnswerTemplate({
               <Typography
                 variant="body1"
                 component="h2"
-                sx={{ textTransform: "capitalize", mb: 2, color: "inherit" }}
+                sx={{ textTransform: "capitalize", mb: 1, color: "inherit" }}
               >
-                Q{index + 1}: {item.question}
+                {item.question}
               </Typography>
             </FormControl>
             <FormControl variant="outlined" style={{ marginTop: "5px" }}>

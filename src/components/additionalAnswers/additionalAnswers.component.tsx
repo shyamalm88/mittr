@@ -8,7 +8,6 @@ export default function AdditionalAnswers() {
       sx={{
         width: "100%",
         px: 2,
-        pt: 2,
       }}
     >
       <QuestionnairePollAnswer />
