@@ -31,14 +31,8 @@ export type CreatePollValueType = {
   additionalQuestions: CreatePollAdditionalQuestionType[];
   settings: {
     captureGender: boolean;
-    captureName: boolean;
-    multipleSelection: boolean;
-  };
-  advanceSettings: {
     closePollOnScheduledDate: boolean;
-    shareEnabled: boolean;
-    voteAccessToPublic: boolean;
-    visibleToPublic: boolean;
+    captureCity: boolean;
   };
   handleChange: Function;
   handleDeleteFromList: Function;
@@ -55,14 +49,8 @@ export type CreatePollQuestionType = {
   additionalQuestions: CreatePollAdditionalQuestionType[];
   settings: {
     captureGender: boolean;
-    captureName: boolean;
-    multipleSelection: boolean;
-  };
-  advanceSettings: {
     closePollOnScheduledDate: boolean;
-    shareEnabled: boolean;
-    voteAccessToPublic: boolean;
-    visibleToPublic: boolean;
+    captureCity: boolean;
   };
 };
 

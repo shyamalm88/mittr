@@ -12,7 +12,7 @@ import { ComponentInputProps, OptionProp } from "../../../types";
 import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
 import Tooltip from "@mui/material/Tooltip";
 
-export default function RadioTemplate({ fieldName }: ComponentInputProps) {
+export default function CheckboxTemplate({ fieldName }: ComponentInputProps) {
   const contextValue = usePollCreationContext();
   const [options, setOptions] = React.useState([
     { id: uuidv4(), label: "Option", value: "" },

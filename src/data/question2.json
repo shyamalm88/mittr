@@ -1,101 +1,54 @@
 {
-    "question": "If you could go for a coffee with a figure from history, who would it be?",
+    "question": "asdadasa",
     "options": [
         {
-            "option": "Leonardo Da Vinci"
+            "option": "1"
         },
         {
-            "option": "Michel Angelo"
-        },
-        {
-            "option": "King Arthur"
+            "option": "3"
         }
     ],
-    "pollType": "multiple_choice",
-    "duration": "2023-08-14T18:30:00.000Z",
-    "topic": [
-        {
-            "id": "76f97ebf-2f43-4e17-bf47-6daf6d10730a",
-            "label": "asdsad"
-        },
-        {
-            "id": "a0ef8971-135e-43d6-8ead-bd8f56dc11bc",
-            "label": "New Topic1"
-        },
-        {
-            "id": "4a33ac97-17ea-4a6e-8e38-4373af558446",
-            "label": "New Topic2"
-        },
-        {
-            "id": "c1fbcc42-a332-4e23-a6ee-f0e0663c0dc3",
-            "label": "New Topic3"
-        },
-        {
-            "id": "3114e735-55c6-4f87-a753-55235a676819",
-            "label": "asadaasdasdasdas"
-        },
-        {
-            "id": "016ff506-53f3-41a2-83d2-4d7f3468f0d1",
-            "label": "eteertrete"
-        },
-        {
-            "id": "266a1ce3-c150-44e0-80fe-2c0b7681e1b0",
-            "label": "zxczczxczxc"
-        },
-        {
-            "id": "55685e4d-a308-4339-a669-d3263680af05",
-            "label": "zxczczxczxc"
-        },
-        {
-            "id": "cb17e7c6-b034-4547-9982-97894b6d9f8c",
-            "label": "ertetert"
-        }
-    ],
+    "pollType": "",
+    "duration": "",
+    "topic": [],
     "additionalQuestions": [
         {
-            "question": "Provide a desired date",
+            "question": "ert",
             "answerType": "date"
         },
         {
-            "question": "Provide a desired date range",
+            "question": "xcv",
             "answerType": "date_range"
         },
         {
-            "question": "what is the range in your mind",
+            "question": "tyu",
             "answerType": "range",
-            "rangeStartValue": "4",
-            "rangeEndValue": "90"
+            "rangeStartValue": "1",
+            "rangeEndValue": "90",
+            "rangeStepValue": "10"
         },
         {
-            "question": "Select from options below",
+            "question": "asd",
             "answerType": "choice",
             "choices": [
                 {
-                    "choice": "12"
+                    "choice": "1"
                 },
                 {
-                    "choice": "13"
+                    "choice": "2"
                 },
                 {
-                    "choice": "14"
+                    "choice": "3"
+                },
+                {
+                    "choice": "4"
                 }
             ]
-        },
-        {
-            "question": "in which country you want to travel and which state?",
-            "answerType": "country",
-            "allowState": true
         }
     ],
     "settings": {
         "captureGender": true,
-        "captureName": true,
-        "multipleSelection": true
-    },
-    "advanceSettings": {
         "closePollOnScheduledDate": true,
-        "shareEnabled": true,
-        "voteAccessToPublic": true,
-        "visibleToPublic": true
+        "captureCity": true
     }
 }

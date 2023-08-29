@@ -63,7 +63,7 @@ export default function RangeTemplate({
         valueLabelDisplay="auto"
         aria-label="pretto slider"
         min={parseInt(item.rangeStartValue)}
-        step={1}
+        step={parseInt(item.rangeStepValue)}
         max={parseInt(item.rangeEndValue)}
         onChange={handleSliderChange}
       />

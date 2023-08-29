@@ -13,14 +13,8 @@ export const defaultPollFormValue: CreatePollValueType = {
   additionalQuestions: [],
   settings: {
     captureGender: false,
-    captureName: false,
-    multipleSelection: false,
-  },
-  advanceSettings: {
     closePollOnScheduledDate: false,
-    shareEnabled: false,
-    voteAccessToPublic: false,
-    visibleToPublic: false,
+    captureCity: false,
   },
   handleChange: () => {},
   handleDeleteFromList: () => {},
@@ -37,13 +31,7 @@ export const defaultPollQuestionValue: CreatePollQuestionType = {
   additionalQuestions: [],
   settings: {
     captureGender: false,
-    captureName: false,
-    multipleSelection: false,
-  },
-  advanceSettings: {
     closePollOnScheduledDate: false,
-    shareEnabled: false,
-    voteAccessToPublic: false,
-    visibleToPublic: false,
+    captureCity: false,
   },
 };

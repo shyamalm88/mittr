@@ -124,6 +124,7 @@ const PollOptionWrapper = () => {
               sx={{ textTransform: "none" }}
               startIcon={<AddCircleOutlineIcon />}
               onClick={addOption}
+              disabled={options.length >= 5}
             >
               Add
               <Box
@@ -133,7 +134,7 @@ const PollOptionWrapper = () => {
               </Box>
             </Button>
           </Tooltip>
-          <Button
+          {/* <Button
             size="small"
             sx={{ textTransform: "none" }}
             startIcon={<LocalFireDepartmentOutlinedIcon />}
@@ -154,8 +155,8 @@ const PollOptionWrapper = () => {
               Choose
             </Box>
             Topics
-          </Button>
-          <Popover
+          </Button> */}
+          {/* <Popover
             open={open}
             anchorEl={anchorEl}
             onClose={handleClose}
@@ -169,7 +170,7 @@ const PollOptionWrapper = () => {
               handleSave={(e: any) => handleTopicSave(e)}
               selectedTopics={addedTopics}
             />
-          </Popover>
+          </Popover> */}
         </Stack>
 
         <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap={true}>

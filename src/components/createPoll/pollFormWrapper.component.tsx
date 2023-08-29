@@ -148,7 +148,7 @@ const PollFormWrapper = () => {
                   color: "rgb(156, 163, 175)",
                 }}
               >
-                <FormControlLabel
+                {/* <FormControlLabel
                   value="multiple_choice"
                   className="radioImage"
                   control={
@@ -202,7 +202,7 @@ const PollFormWrapper = () => {
                   }
                   label={<Hidden smDown>Survey</Hidden>}
                   labelPlacement="bottom"
-                />
+                /> */}
               </Stack>
             </RadioGroup>
           </Box>

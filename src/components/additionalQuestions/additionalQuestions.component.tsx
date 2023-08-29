@@ -55,6 +55,7 @@ export default function AdditionalQuestions() {
             startIcon={<AddTaskIcon />}
             color="inherit"
             onClick={addQuestionnaire}
+            disabled={questionnaire.length >= 5}
           >
             Add
             <Box

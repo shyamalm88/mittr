@@ -101,10 +101,13 @@ export default function QuestionnaireTemplate({
                 placeholder={`${item?.questionLabel} ${index + 1}`}
               />
             </FormControl>
-            <FormControl variant="outlined" style={{ marginTop: "5px" }}>
+            <FormControl
+              variant="outlined"
+              style={{ marginTop: "5px" }}
+              size="small"
+            >
               <Select
                 fullWidth
-                size="small"
                 onChange={(e) => handleChange(e, fieldName, index)}
                 value={selectedValue}
                 name={`${fieldName}.answerType`}
@@ -121,7 +124,13 @@ export default function QuestionnaireTemplate({
                 {typeOptions?.map((item: OptionProp) => {
                   return (
                     <MenuItem value={item.value} key={item?.id}>
-                      <Stack spacing={2} direction="row">
+                      <Stack
+                        spacing={2}
+                        direction="row"
+                        alignItems="flex-start"
+                        alignSelf="end"
+                        useFlexGap
+                      >
                         <Box sx={{ color: "inherit" }}>{item.icon}</Box>
                         <Box>{item.label}</Box>
                       </Stack>
