@@ -89,7 +89,7 @@ const AnswerPollOptionWrapper = () => {
       <Divider sx={{ mb: 0.2, mr: "35px", ml: "10px" }} textAlign="center">
         <small>Related Topics</small>
       </Divider>
-      {topicValue.map((item: any, index: number) => {
+      {/* {topicValue.map((item: any, index: number) => {
         return (
           <Chip
             key={index}
@@ -100,7 +100,7 @@ const AnswerPollOptionWrapper = () => {
             color="info"
           />
         );
-      })}
+      })} */}
     </>
   );
 };

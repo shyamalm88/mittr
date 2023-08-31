@@ -1,0 +1,1492 @@
+[
+    {
+        "index": 1,
+        "question": "Non nulla culpa aute nostrud irure mollit.",
+        "options": [
+            {
+                "option": "SNORUS"
+            },
+            {
+                "option": "Culpa minim dolor non sit adipisicing sunt minim."
+            },
+            {
+                "option": "COWTOWN"
+            },
+            {
+                "option": "AVIT"
+            },
+            {
+                "option": "FREAKIN"
+            }
+        ],
+        "settings": {
+            "captureGender": true,
+            "closePollOnScheduledDate": false,
+            "captureCity": false
+        },
+        "duration": "2023-03-22T12:33:53 -06:-30",
+        "additionalQuestions": [
+            {
+                "question": "Mollit et enim anim do eu qui sunt ea sit.",
+                "answerType": "choice",
+                "rangeStartValue": 11,
+                "rangeEndValue": 99,
+                "rangeStepValue": 13,
+                "choices": [
+                    {
+                        "choice": "TRANSLINK"
+                    },
+                    {
+                        "choice": "Incididunt sit amet deserunt sit nisi in eiusmod et."
+                    },
+                    {
+                        "choice": "Officia non elit ut officia nisi sint magna."
+                    },
+                    {
+                        "choice": "In labore occaecat amet culpa qui duis reprehenderit sint aliqua officia."
+                    },
+                    {
+                        "choice": "Veniam veniam ad nostrud cillum aute ipsum qui nulla."
+                    }
+                ]
+            },
+            {
+                "question": "Aliquip quis sit irure dolor ex ad voluptate non sunt aliqua ut in anim.",
+                "answerType": "date",
+                "rangeStartValue": 11,
+                "rangeEndValue": 54,
+                "rangeStepValue": 10,
+                "choices": [
+                    {
+                        "choice": "ZOID"
+                    },
+                    {
+                        "choice": "Proident proident nostrud culpa laboris nisi enim excepteur voluptate fugiat occaecat aliquip."
+                    },
+                    {
+                        "choice": "Ullamco culpa Lorem eiusmod mollit incididunt proident minim fugiat nisi anim nostrud enim."
+                    },
+                    {
+                        "choice": "Incididunt ex non laborum adipisicing."
+                    },
+                    {
+                        "choice": "Anim Lorem dolore anim aliquip laborum Lorem."
+                    }
+                ]
+            },
+            {
+                "question": "Ex ullamco Lorem veniam est.",
+                "answerType": "range",
+                "rangeStartValue": 7,
+                "rangeEndValue": 83,
+                "rangeStepValue": 11,
+                "choices": [
+                    {
+                        "choice": "ASSITIA"
+                    },
+                    {
+                        "choice": "Dolor consequat laboris occaecat nulla qui exercitation enim sunt minim cillum minim enim nisi."
+                    },
+                    {
+                        "choice": "BIOTICA"
+                    },
+                    {
+                        "choice": "Elit non veniam tempor ipsum aliqua minim duis laborum ex labore fugiat."
+                    },
+                    {
+                        "choice": "POOCHIES"
+                    }
+                ]
+            },
+            {
+                "question": "Eiusmod laboris sit consequat consequat.",
+                "answerType": "date_range",
+                "rangeStartValue": 12,
+                "rangeEndValue": 99,
+                "rangeStepValue": 14,
+                "choices": [
+                    {
+                        "choice": "Irure velit veniam reprehenderit ipsum pariatur consequat aliqua aute deserunt aute."
+                    },
+                    {
+                        "choice": "Aliquip est nulla commodo labore in incididunt est."
+                    },
+                    {
+                        "choice": "INTRAWEAR"
+                    },
+                    {
+                        "choice": "Ipsum ut excepteur cillum anim enim pariatur culpa ipsum."
+                    },
+                    {
+                        "choice": "ANACHO"
+                    }
+                ]
+            },
+            {
+                "question": "Incididunt enim proident nisi dolor do pariatur quis excepteur magna non ipsum occaecat anim commodo.",
+                "answerType": "range",
+                "rangeStartValue": 15,
+                "rangeEndValue": 55,
+                "rangeStepValue": 15,
+                "choices": [
+                    {
+                        "choice": "XYMONK"
+                    },
+                    {
+                        "choice": "Excepteur cillum adipisicing velit eiusmod commodo culpa commodo velit."
+                    },
+                    {
+                        "choice": "Cupidatat ad id Lorem labore magna dolor mollit sint."
+                    },
+                    {
+                        "choice": "ISOTERNIA"
+                    },
+                    {
+                        "choice": "Et magna labore incididunt dolore ad incididunt ad ut velit qui laboris anim magna voluptate."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "index": 2,
+        "question": "Mollit mollit veniam reprehenderit fugiat cupidatat dolor sit ut quis labore anim pariatur sint amet.",
+        "options": [
+            {
+                "option": "Exercitation pariatur deserunt nisi reprehenderit anim nulla minim nisi amet non ex sint enim reprehenderit."
+            },
+            {
+                "option": "Culpa id elit labore in anim nostrud tempor eiusmod amet elit mollit id commodo."
+            },
+            {
+                "option": "Esse dolore proident aliqua cupidatat ut reprehenderit."
+            },
+            {
+                "option": "Ea est excepteur fugiat elit eu nisi magna cillum ullamco in et minim nostrud quis."
+            },
+            {
+                "option": "Est cillum duis officia aute incididunt ut."
+            }
+        ],
+        "settings": {
+            "captureGender": false,
+            "closePollOnScheduledDate": false,
+            "captureCity": true
+        },
+        "duration": "2023-06-26T11:54:09 -06:-30",
+        "additionalQuestions": [
+            {
+                "question": "Laboris minim sint quis veniam nulla exercitation ea ex commodo mollit veniam eiusmod in sint.",
+                "answerType": "range",
+                "rangeStartValue": 4,
+                "rangeEndValue": 59,
+                "rangeStepValue": 11,
+                "choices": [
+                    {
+                        "choice": "Cillum deserunt cupidatat cupidatat do do dolore exercitation cillum consequat eiusmod."
+                    },
+                    {
+                        "choice": "Quis duis dolore quis Lorem consectetur ad ea quis."
+                    },
+                    {
+                        "choice": "COMTEXT"
+                    },
+                    {
+                        "choice": "Do tempor laborum do laboris."
+                    },
+                    {
+                        "choice": "RADIANTIX"
+                    }
+                ]
+            },
+            {
+                "question": "Quis esse exercitation laboris commodo sunt deserunt ex duis ex tempor ad exercitation.",
+                "answerType": "date_range",
+                "rangeStartValue": 12,
+                "rangeEndValue": 84,
+                "rangeStepValue": 15,
+                "choices": [
+                    {
+                        "choice": "In culpa irure ullamco qui."
+                    },
+                    {
+                        "choice": "Esse ad ex labore occaecat magna sint sunt dolore proident voluptate officia proident ullamco."
+                    },
+                    {
+                        "choice": "Nostrud deserunt reprehenderit tempor reprehenderit veniam ut eu magna velit ipsum ipsum culpa."
+                    },
+                    {
+                        "choice": "PYRAMAX"
+                    },
+                    {
+                        "choice": "Anim veniam exercitation voluptate veniam commodo cillum quis ex ea sint officia ipsum."
+                    }
+                ]
+            },
+            {
+                "question": "Fugiat sit sit dolor minim veniam ex aliquip magna labore tempor occaecat dolore non duis.",
+                "answerType": "date_range",
+                "rangeStartValue": 8,
+                "rangeEndValue": 54,
+                "rangeStepValue": 12,
+                "choices": [
+                    {
+                        "choice": "FITCORE"
+                    },
+                    {
+                        "choice": "Aliqua irure aute magna amet."
+                    },
+                    {
+                        "choice": "Ad ad in excepteur dolore ipsum occaecat amet voluptate elit nulla fugiat pariatur officia enim."
+                    },
+                    {
+                        "choice": "VENDBLEND"
+                    },
+                    {
+                        "choice": "Tempor non voluptate voluptate quis duis amet est aliquip."
+                    }
+                ]
+            },
+            {
+                "question": "Ad pariatur voluptate tempor laborum aliqua.",
+                "answerType": "date",
+                "rangeStartValue": 13,
+                "rangeEndValue": 83,
+                "rangeStepValue": 11,
+                "choices": [
+                    {
+                        "choice": "HIVEDOM"
+                    },
+                    {
+                        "choice": "EXIAND"
+                    },
+                    {
+                        "choice": "Dolor ullamco enim irure ipsum aliqua eiusmod nisi dolore ullamco esse laborum ipsum."
+                    },
+                    {
+                        "choice": "Non occaecat sunt in culpa culpa non veniam enim eiusmod fugiat quis consectetur minim."
+                    },
+                    {
+                        "choice": "NAVIR"
+                    }
+                ]
+            },
+            {
+                "question": "Pariatur et ex labore laborum elit consequat ut esse tempor labore sit anim.",
+                "answerType": "choice",
+                "rangeStartValue": 8,
+                "rangeEndValue": 62,
+                "rangeStepValue": 14,
+                "choices": [
+                    {
+                        "choice": "Nulla nostrud ad exercitation quis voluptate est anim aliquip velit culpa voluptate."
+                    },
+                    {
+                        "choice": "Do adipisicing ut ea commodo."
+                    },
+                    {
+                        "choice": "SUSTENZA"
+                    },
+                    {
+                        "choice": "Anim cupidatat adipisicing ad officia qui."
+                    },
+                    {
+                        "choice": "BIOSPAN"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "index": 3,
+        "question": "Elit veniam ad deserunt cupidatat non.",
+        "options": [
+            {
+                "option": "Ea incididunt non quis eu ea ad cillum magna et veniam in Lorem adipisicing."
+            },
+            {
+                "option": "ZOLAR"
+            },
+            {
+                "option": "WRAPTURE"
+            },
+            {
+                "option": "DYMI"
+            },
+            {
+                "option": "Lorem mollit exercitation in dolor non pariatur enim ipsum occaecat laboris fugiat."
+            }
+        ],
+        "settings": {
+            "captureGender": true,
+            "closePollOnScheduledDate": true,
+            "captureCity": true
+        },
+        "duration": "2023-05-14T04:43:49 -06:-30",
+        "additionalQuestions": [
+            {
+                "question": "Sunt amet velit ut Lorem ut excepteur anim.",
+                "answerType": "range",
+                "rangeStartValue": 8,
+                "rangeEndValue": 69,
+                "rangeStepValue": 15,
+                "choices": [
+                    {
+                        "choice": "COMVOY"
+                    },
+                    {
+                        "choice": "VIRVA"
+                    },
+                    {
+                        "choice": "CUJO"
+                    },
+                    {
+                        "choice": "CORPULSE"
+                    },
+                    {
+                        "choice": "JASPER"
+                    }
+                ]
+            },
+            {
+                "question": "Laborum id esse esse et veniam velit ipsum exercitation laboris nostrud.",
+                "answerType": "range",
+                "rangeStartValue": 17,
+                "rangeEndValue": 66,
+                "rangeStepValue": 11,
+                "choices": [
+                    {
+                        "choice": "Minim ad sit minim officia consectetur."
+                    },
+                    {
+                        "choice": "SNACKTION"
+                    },
+                    {
+                        "choice": "PORTALINE"
+                    },
+                    {
+                        "choice": "SULTRAX"
+                    },
+                    {
+                        "choice": "Tempor dolore laboris culpa sunt aliqua excepteur cupidatat."
+                    }
+                ]
+            },
+            {
+                "question": "Dolor ad minim amet sit proident dolor voluptate consectetur eu enim est eu.",
+                "answerType": "range",
+                "rangeStartValue": 3,
+                "rangeEndValue": 61,
+                "rangeStepValue": 14,
+                "choices": [
+                    {
+                        "choice": "Ipsum velit id velit incididunt ex sit pariatur in irure duis nostrud cillum esse sint."
+                    },
+                    {
+                        "choice": "Sint ea anim commodo ex nulla consequat incididunt."
+                    },
+                    {
+                        "choice": "Magna proident eiusmod adipisicing sunt tempor eiusmod pariatur sunt cillum laboris do ut sit qui."
+                    },
+                    {
+                        "choice": "APPLIDEC"
+                    },
+                    {
+                        "choice": "Anim Lorem veniam cillum mollit veniam dolor enim."
+                    }
+                ]
+            },
+            {
+                "question": "Aliqua Lorem enim est magna occaecat anim.",
+                "answerType": "choice",
+                "rangeStartValue": 5,
+                "rangeEndValue": 98,
+                "rangeStepValue": 15,
+                "choices": [
+                    {
+                        "choice": "URBANSHEE"
+                    },
+                    {
+                        "choice": "In est minim ullamco adipisicing ipsum pariatur elit proident esse qui est culpa laboris ipsum."
+                    },
+                    {
+                        "choice": "NETERIA"
+                    },
+                    {
+                        "choice": "CAPSCREEN"
+                    },
+                    {
+                        "choice": "DOGNOST"
+                    }
+                ]
+            },
+            {
+                "question": "Minim fugiat aliqua ullamco pariatur nostrud eiusmod excepteur irure labore exercitation ea.",
+                "answerType": "choice",
+                "rangeStartValue": 13,
+                "rangeEndValue": 62,
+                "rangeStepValue": 15,
+                "choices": [
+                    {
+                        "choice": "BESTO"
+                    },
+                    {
+                        "choice": "ZILLACTIC"
+                    },
+                    {
+                        "choice": "Sunt incididunt qui non aliquip aliqua nisi tempor nulla eiusmod ea excepteur eiusmod irure."
+                    },
+                    {
+                        "choice": "Voluptate cupidatat amet consectetur elit esse nulla ex ea et eu."
+                    },
+                    {
+                        "choice": "MANTRIX"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "index": 4,
+        "question": "Eu aute eiusmod adipisicing ad Lorem elit consequat excepteur aute tempor labore.",
+        "options": [
+            {
+                "option": "Ad reprehenderit culpa enim non irure dolore voluptate."
+            },
+            {
+                "option": "ZOXY"
+            },
+            {
+                "option": "Velit dolor elit eiusmod tempor excepteur sit dolor aute."
+            },
+            {
+                "option": "ENTALITY"
+            },
+            {
+                "option": "JAMNATION"
+            }
+        ],
+        "settings": {
+            "captureGender": false,
+            "closePollOnScheduledDate": true,
+            "captureCity": false
+        },
+        "duration": "2023-08-23T04:17:27 -06:-30",
+        "additionalQuestions": [
+            {
+                "question": "Ea cillum incididunt ad proident do excepteur.",
+                "answerType": "date_range",
+                "rangeStartValue": 19,
+                "rangeEndValue": 59,
+                "rangeStepValue": 15,
+                "choices": [
+                    {
+                        "choice": "Labore ipsum minim sit eu sint non culpa mollit elit."
+                    },
+                    {
+                        "choice": "TOYLETRY"
+                    },
+                    {
+                        "choice": "Occaecat enim magna nostrud est tempor nulla culpa mollit ex consectetur consequat anim dolore eiusmod."
+                    },
+                    {
+                        "choice": "Ea qui deserunt ex aliqua magna magna aliqua."
+                    },
+                    {
+                        "choice": "Voluptate eu veniam tempor cillum amet incididunt ullamco culpa incididunt."
+                    }
+                ]
+            },
+            {
+                "question": "Lorem labore proident culpa minim amet irure minim.",
+                "answerType": "range",
+                "rangeStartValue": 9,
+                "rangeEndValue": 63,
+                "rangeStepValue": 13,
+                "choices": [
+                    {
+                        "choice": "Eiusmod duis nostrud in occaecat ipsum."
+                    },
+                    {
+                        "choice": "Culpa non do fugiat ad non reprehenderit incididunt."
+                    },
+                    {
+                        "choice": "Et enim est et id laboris ullamco ipsum et do dolore excepteur ullamco."
+                    },
+                    {
+                        "choice": "HONOTRON"
+                    },
+                    {
+                        "choice": "RETROTEX"
+                    }
+                ]
+            },
+            {
+                "question": "Et esse amet consequat quis consectetur cupidatat dolor tempor do eiusmod sunt consectetur nulla sunt.",
+                "answerType": "range",
+                "rangeStartValue": 6,
+                "rangeEndValue": 53,
+                "rangeStepValue": 10,
+                "choices": [
+                    {
+                        "choice": "EXOPLODE"
+                    },
+                    {
+                        "choice": "INJOY"
+                    },
+                    {
+                        "choice": "PAPRIKUT"
+                    },
+                    {
+                        "choice": "ATOMICA"
+                    },
+                    {
+                        "choice": "COMSTAR"
+                    }
+                ]
+            },
+            {
+                "question": "Non sit aliquip sit aliquip esse quis aliquip cupidatat.",
+                "answerType": "choice",
+                "rangeStartValue": 15,
+                "rangeEndValue": 67,
+                "rangeStepValue": 12,
+                "choices": [
+                    {
+                        "choice": "Aliquip anim do dolore exercitation nisi incididunt excepteur est ipsum."
+                    },
+                    {
+                        "choice": "Voluptate amet ut deserunt non nulla minim non id dolor proident ipsum."
+                    },
+                    {
+                        "choice": "EARTHMARK"
+                    },
+                    {
+                        "choice": "MAXEMIA"
+                    },
+                    {
+                        "choice": "Dolor sunt elit tempor enim eiusmod et culpa ut esse magna ex adipisicing."
+                    }
+                ]
+            },
+            {
+                "question": "Veniam et in commodo exercitation reprehenderit deserunt do excepteur dolor pariatur occaecat aliqua.",
+                "answerType": "range",
+                "rangeStartValue": 9,
+                "rangeEndValue": 68,
+                "rangeStepValue": 11,
+                "choices": [
+                    {
+                        "choice": "NETUR"
+                    },
+                    {
+                        "choice": "BOINK"
+                    },
+                    {
+                        "choice": "MAXIMIND"
+                    },
+                    {
+                        "choice": "Id eiusmod consectetur veniam ullamco anim ullamco est non incididunt."
+                    },
+                    {
+                        "choice": "Quis laboris proident fugiat fugiat ut qui Lorem sit."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "index": 5,
+        "question": "Ex reprehenderit anim consectetur commodo officia deserunt ipsum laborum minim esse do.",
+        "options": [
+            {
+                "option": "ILLUMITY"
+            },
+            {
+                "option": "ENAUT"
+            },
+            {
+                "option": "Deserunt velit adipisicing veniam eiusmod duis nisi elit excepteur labore fugiat incididunt nostrud est."
+            },
+            {
+                "option": "Proident irure non et sunt."
+            },
+            {
+                "option": "ECRAZE"
+            }
+        ],
+        "settings": {
+            "captureGender": false,
+            "closePollOnScheduledDate": false,
+            "captureCity": false
+        },
+        "duration": "2023-08-07T12:28:02 -06:-30",
+        "additionalQuestions": [
+            {
+                "question": "Exercitation enim magna nostrud cupidatat pariatur culpa reprehenderit laborum aute cillum.",
+                "answerType": "date",
+                "rangeStartValue": 1,
+                "rangeEndValue": 55,
+                "rangeStepValue": 11,
+                "choices": [
+                    {
+                        "choice": "DIGINETIC"
+                    },
+                    {
+                        "choice": "ZILLAR"
+                    },
+                    {
+                        "choice": "SOFTMICRO"
+                    },
+                    {
+                        "choice": "ULTRIMAX"
+                    },
+                    {
+                        "choice": "XSPORTS"
+                    }
+                ]
+            },
+            {
+                "question": "Sunt cupidatat commodo quis dolor eu ut.",
+                "answerType": "date_range",
+                "rangeStartValue": 19,
+                "rangeEndValue": 79,
+                "rangeStepValue": 14,
+                "choices": [
+                    {
+                        "choice": "VOLAX"
+                    },
+                    {
+                        "choice": "GEEKFARM"
+                    },
+                    {
+                        "choice": "COMSTRUCT"
+                    },
+                    {
+                        "choice": "Cillum consequat esse ullamco labore sunt dolore adipisicing fugiat nulla consequat voluptate et."
+                    },
+                    {
+                        "choice": "PHARMACON"
+                    }
+                ]
+            },
+            {
+                "question": "Deserunt sit officia sunt quis ullamco.",
+                "answerType": "choice",
+                "rangeStartValue": 16,
+                "rangeEndValue": 51,
+                "rangeStepValue": 10,
+                "choices": [
+                    {
+                        "choice": "Sint dolore reprehenderit eiusmod Lorem tempor nisi proident velit ex."
+                    },
+                    {
+                        "choice": "Reprehenderit nisi irure eiusmod exercitation in enim occaecat."
+                    },
+                    {
+                        "choice": "ISOLOGIX"
+                    },
+                    {
+                        "choice": "VISUALIX"
+                    },
+                    {
+                        "choice": "ZUVY"
+                    }
+                ]
+            },
+            {
+                "question": "Aute sunt aliqua laboris fugiat est laboris officia velit.",
+                "answerType": "date",
+                "rangeStartValue": 10,
+                "rangeEndValue": 53,
+                "rangeStepValue": 13,
+                "choices": [
+                    {
+                        "choice": "Minim do culpa ipsum dolor dolor ea aliqua eu exercitation exercitation nostrud nisi irure cupidatat."
+                    },
+                    {
+                        "choice": "Nisi cillum cupidatat id occaecat do nulla labore deserunt reprehenderit."
+                    },
+                    {
+                        "choice": "OHMNET"
+                    },
+                    {
+                        "choice": "Irure dolor incididunt adipisicing veniam veniam."
+                    },
+                    {
+                        "choice": "Ut voluptate ad ipsum voluptate."
+                    }
+                ]
+            },
+            {
+                "question": "Pariatur ullamco mollit magna enim nisi ullamco elit.",
+                "answerType": "date_range",
+                "rangeStartValue": 16,
+                "rangeEndValue": 56,
+                "rangeStepValue": 13,
+                "choices": [
+                    {
+                        "choice": "VIAGREAT"
+                    },
+                    {
+                        "choice": "EXODOC"
+                    },
+                    {
+                        "choice": "Amet mollit amet ullamco cillum esse adipisicing labore enim cupidatat deserunt ipsum."
+                    },
+                    {
+                        "choice": "Reprehenderit cupidatat eiusmod pariatur consectetur ea irure pariatur."
+                    },
+                    {
+                        "choice": "Sint sit aute minim qui laborum qui minim veniam et irure dolore incididunt Lorem."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "index": 6,
+        "question": "Non sint qui officia labore tempor nostrud voluptate est ullamco Lorem.",
+        "options": [
+            {
+                "option": "Laboris irure sint aliquip pariatur consequat tempor anim irure voluptate occaecat laborum esse."
+            },
+            {
+                "option": "Ex elit fugiat reprehenderit id ipsum reprehenderit incididunt quis consectetur adipisicing."
+            },
+            {
+                "option": "TRIBALOG"
+            },
+            {
+                "option": "Id Lorem magna deserunt do deserunt sunt nisi id excepteur ad magna ea."
+            },
+            {
+                "option": "Occaecat sit culpa tempor in aliqua occaecat id."
+            }
+        ],
+        "settings": {
+            "captureGender": false,
+            "closePollOnScheduledDate": false,
+            "captureCity": true
+        },
+        "duration": "2023-05-27T11:12:34 -06:-30",
+        "additionalQuestions": [
+            {
+                "question": "Ex ea dolore nisi sit esse occaecat proident in id nulla.",
+                "answerType": "date",
+                "rangeStartValue": 4,
+                "rangeEndValue": 53,
+                "rangeStepValue": 10,
+                "choices": [
+                    {
+                        "choice": "Aliquip aliqua ea do Lorem quis occaecat."
+                    },
+                    {
+                        "choice": "EMTRAC"
+                    },
+                    {
+                        "choice": "Et ex cupidatat et ipsum."
+                    },
+                    {
+                        "choice": "Dolor ex ad ullamco enim in pariatur."
+                    },
+                    {
+                        "choice": "Laborum reprehenderit proident enim aute in occaecat id ullamco ullamco enim nisi aute exercitation."
+                    }
+                ]
+            },
+            {
+                "question": "Adipisicing excepteur enim ut id mollit aute mollit culpa.",
+                "answerType": "date_range",
+                "rangeStartValue": 5,
+                "rangeEndValue": 55,
+                "rangeStepValue": 10,
+                "choices": [
+                    {
+                        "choice": "SOPRANO"
+                    },
+                    {
+                        "choice": "INSURITY"
+                    },
+                    {
+                        "choice": "ENERFORCE"
+                    },
+                    {
+                        "choice": "Ut aliqua reprehenderit magna sunt non laboris minim velit dolor nulla."
+                    },
+                    {
+                        "choice": "ECOLIGHT"
+                    }
+                ]
+            },
+            {
+                "question": "Eiusmod sint magna ut sint ad consectetur elit anim ad dolor tempor.",
+                "answerType": "choice",
+                "rangeStartValue": 12,
+                "rangeEndValue": 87,
+                "rangeStepValue": 12,
+                "choices": [
+                    {
+                        "choice": "VITRICOMP"
+                    },
+                    {
+                        "choice": "XYQAG"
+                    },
+                    {
+                        "choice": "ZYTREX"
+                    },
+                    {
+                        "choice": "Laborum in sunt ipsum reprehenderit fugiat."
+                    },
+                    {
+                        "choice": "Ex ad non do dolore velit."
+                    }
+                ]
+            },
+            {
+                "question": "Proident laboris nulla aliqua magna minim cillum exercitation culpa quis velit nostrud do consequat.",
+                "answerType": "date_range",
+                "rangeStartValue": 8,
+                "rangeEndValue": 51,
+                "rangeStepValue": 12,
+                "choices": [
+                    {
+                        "choice": "Dolor quis et enim adipisicing ullamco pariatur est ut enim quis."
+                    },
+                    {
+                        "choice": "ECLIPSENT"
+                    },
+                    {
+                        "choice": "Cupidatat est laborum in irure nulla enim est officia excepteur."
+                    },
+                    {
+                        "choice": "DAYCORE"
+                    },
+                    {
+                        "choice": "HOTCAKES"
+                    }
+                ]
+            },
+            {
+                "question": "Nisi ea elit sit proident ullamco commodo aliquip consectetur irure.",
+                "answerType": "range",
+                "rangeStartValue": 20,
+                "rangeEndValue": 57,
+                "rangeStepValue": 12,
+                "choices": [
+                    {
+                        "choice": "Nostrud exercitation commodo nostrud magna occaecat do dolor quis ex qui Lorem ad non."
+                    },
+                    {
+                        "choice": "Adipisicing eu consectetur exercitation cillum nisi Lorem velit amet ea Lorem reprehenderit culpa nisi."
+                    },
+                    {
+                        "choice": "Eiusmod cillum et occaecat sit ullamco velit."
+                    },
+                    {
+                        "choice": "VELITY"
+                    },
+                    {
+                        "choice": "SONGBIRD"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "index": 7,
+        "question": "Ipsum enim ullamco excepteur sunt enim duis.",
+        "options": [
+            {
+                "option": "Duis ex culpa cupidatat commodo labore sit eiusmod duis reprehenderit ex consequat ut."
+            },
+            {
+                "option": "VIAGRAND"
+            },
+            {
+                "option": "Laborum magna nisi laboris reprehenderit officia Lorem consectetur deserunt labore ut elit nostrud."
+            },
+            {
+                "option": "BLUEGRAIN"
+            },
+            {
+                "option": "Pariatur cillum nisi dolor dolor culpa consectetur nisi sit et velit eu nulla occaecat."
+            }
+        ],
+        "settings": {
+            "captureGender": true,
+            "closePollOnScheduledDate": true,
+            "captureCity": true
+        },
+        "duration": "2023-06-15T06:02:29 -06:-30",
+        "additionalQuestions": [
+            {
+                "question": "Velit duis quis nostrud est ex ut culpa culpa irure minim magna reprehenderit dolore minim.",
+                "answerType": "date_range",
+                "rangeStartValue": 3,
+                "rangeEndValue": 53,
+                "rangeStepValue": 14,
+                "choices": [
+                    {
+                        "choice": "Cupidatat consequat deserunt aliqua labore elit."
+                    },
+                    {
+                        "choice": "Est qui quis qui do ex nostrud cupidatat."
+                    },
+                    {
+                        "choice": "Ut ea anim laboris cillum."
+                    },
+                    {
+                        "choice": "Cupidatat nulla commodo nulla et ea officia cupidatat esse aute."
+                    },
+                    {
+                        "choice": "Nulla aliquip irure aliquip proident non elit velit nisi amet est exercitation."
+                    }
+                ]
+            },
+            {
+                "question": "Laborum occaecat incididunt enim voluptate tempor aliqua ad.",
+                "answerType": "choice",
+                "rangeStartValue": 4,
+                "rangeEndValue": 89,
+                "rangeStepValue": 15,
+                "choices": [
+                    {
+                        "choice": "Sint quis est laboris nulla Lorem sint do tempor duis eu exercitation ea."
+                    },
+                    {
+                        "choice": "Deserunt mollit proident fugiat anim consequat ad veniam ea consectetur aliquip nisi laboris."
+                    },
+                    {
+                        "choice": "TERAPRENE"
+                    },
+                    {
+                        "choice": "INTERLOO"
+                    },
+                    {
+                        "choice": "Deserunt consectetur incididunt deserunt velit dolore."
+                    }
+                ]
+            },
+            {
+                "question": "Ut ex laboris cupidatat voluptate.",
+                "answerType": "date_range",
+                "rangeStartValue": 11,
+                "rangeEndValue": 69,
+                "rangeStepValue": 13,
+                "choices": [
+                    {
+                        "choice": "Nulla veniam proident est commodo deserunt ullamco esse occaecat amet culpa deserunt."
+                    },
+                    {
+                        "choice": "Magna esse id est et cupidatat enim magna officia minim dolore duis."
+                    },
+                    {
+                        "choice": "MEGALL"
+                    },
+                    {
+                        "choice": "VIASIA"
+                    },
+                    {
+                        "choice": "Consectetur culpa et deserunt pariatur occaecat laboris cupidatat aliqua cillum fugiat velit veniam anim."
+                    }
+                ]
+            },
+            {
+                "question": "Nulla labore id do voluptate eu proident proident do aliquip qui do et sint commodo.",
+                "answerType": "date",
+                "rangeStartValue": 2,
+                "rangeEndValue": 51,
+                "rangeStepValue": 14,
+                "choices": [
+                    {
+                        "choice": "WATERBABY"
+                    },
+                    {
+                        "choice": "Sit nulla irure incididunt proident dolore aute eiusmod ea reprehenderit qui nostrud enim."
+                    },
+                    {
+                        "choice": "In adipisicing velit minim magna."
+                    },
+                    {
+                        "choice": "Quis dolore ipsum fugiat nulla culpa laborum minim ipsum est."
+                    },
+                    {
+                        "choice": "SPACEWAX"
+                    }
+                ]
+            },
+            {
+                "question": "Enim elit fugiat amet aute non in dolore ea reprehenderit ullamco proident.",
+                "answerType": "date_range",
+                "rangeStartValue": 11,
+                "rangeEndValue": 50,
+                "rangeStepValue": 13,
+                "choices": [
+                    {
+                        "choice": "ECOSYS"
+                    },
+                    {
+                        "choice": "Eiusmod consectetur aliquip nostrud esse nulla cupidatat elit minim amet tempor do ea sunt exercitation."
+                    },
+                    {
+                        "choice": "Exercitation mollit commodo reprehenderit cupidatat consequat quis officia incididunt exercitation esse irure labore dolor voluptate."
+                    },
+                    {
+                        "choice": "UPLINX"
+                    },
+                    {
+                        "choice": "NETILITY"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "index": 8,
+        "question": "Occaecat aliquip culpa labore velit Lorem mollit mollit ut.",
+        "options": [
+            {
+                "option": "EARBANG"
+            },
+            {
+                "option": "Labore eu culpa minim voluptate incididunt aute nisi consequat velit ad ad eiusmod cillum magna."
+            },
+            {
+                "option": "Laboris consectetur irure qui cupidatat exercitation consequat sint nisi Lorem mollit."
+            },
+            {
+                "option": "Qui laborum magna occaecat Lorem dolore aliqua tempor."
+            },
+            {
+                "option": "NORSUP"
+            }
+        ],
+        "settings": {
+            "captureGender": false,
+            "closePollOnScheduledDate": false,
+            "captureCity": true
+        },
+        "duration": "2023-03-26T10:42:37 -06:-30",
+        "additionalQuestions": [
+            {
+                "question": "Et minim consectetur irure adipisicing nisi do ad commodo velit culpa.",
+                "answerType": "choice",
+                "rangeStartValue": 10,
+                "rangeEndValue": 95,
+                "rangeStepValue": 15,
+                "choices": [
+                    {
+                        "choice": "BRISTO"
+                    },
+                    {
+                        "choice": "Et amet adipisicing qui ipsum deserunt cupidatat elit magna mollit veniam duis sunt sint eiusmod."
+                    },
+                    {
+                        "choice": "Qui duis sit sunt sint nisi excepteur sunt voluptate adipisicing ullamco elit minim proident."
+                    },
+                    {
+                        "choice": "Eu eu cupidatat eiusmod nulla aliquip exercitation eu officia quis ad sunt cupidatat."
+                    },
+                    {
+                        "choice": "Nostrud aliquip consequat in nisi qui esse deserunt exercitation mollit."
+                    }
+                ]
+            },
+            {
+                "question": "Laboris non adipisicing deserunt amet aliqua id non cupidatat mollit do labore nisi ex proident.",
+                "answerType": "range",
+                "rangeStartValue": 19,
+                "rangeEndValue": 81,
+                "rangeStepValue": 14,
+                "choices": [
+                    {
+                        "choice": "Laboris in aliquip ad laborum ipsum velit id quis do culpa."
+                    },
+                    {
+                        "choice": "GRUPOLI"
+                    },
+                    {
+                        "choice": "EXTREMO"
+                    },
+                    {
+                        "choice": "Sunt enim in sint aute mollit sunt reprehenderit ex."
+                    },
+                    {
+                        "choice": "EZENT"
+                    }
+                ]
+            },
+            {
+                "question": "Adipisicing excepteur eiusmod quis nulla occaecat sint amet cillum aute aliquip do aliqua.",
+                "answerType": "date_range",
+                "rangeStartValue": 15,
+                "rangeEndValue": 88,
+                "rangeStepValue": 10,
+                "choices": [
+                    {
+                        "choice": "RONELON"
+                    },
+                    {
+                        "choice": "Veniam nisi incididunt officia minim."
+                    },
+                    {
+                        "choice": "ACCUPRINT"
+                    },
+                    {
+                        "choice": "PLAYCE"
+                    },
+                    {
+                        "choice": "IMMUNICS"
+                    }
+                ]
+            },
+            {
+                "question": "Tempor dolor consequat excepteur id enim Lorem nulla consequat tempor nisi nulla consequat laborum.",
+                "answerType": "date_range",
+                "rangeStartValue": 7,
+                "rangeEndValue": 52,
+                "rangeStepValue": 10,
+                "choices": [
+                    {
+                        "choice": "ISOTRONIC"
+                    },
+                    {
+                        "choice": "MAINELAND"
+                    },
+                    {
+                        "choice": "APEX"
+                    },
+                    {
+                        "choice": "Aliquip do eu est mollit non sint."
+                    },
+                    {
+                        "choice": "QUARX"
+                    }
+                ]
+            },
+            {
+                "question": "Ut ut duis sint amet id.",
+                "answerType": "date",
+                "rangeStartValue": 11,
+                "rangeEndValue": 70,
+                "rangeStepValue": 10,
+                "choices": [
+                    {
+                        "choice": "UNI"
+                    },
+                    {
+                        "choice": "QUILITY"
+                    },
+                    {
+                        "choice": "IRACK"
+                    },
+                    {
+                        "choice": "AMTAS"
+                    },
+                    {
+                        "choice": "Sint occaecat non labore consequat sint adipisicing velit."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "index": 9,
+        "question": "Officia nisi sunt adipisicing qui veniam esse.",
+        "options": [
+            {
+                "option": "MUSAPHICS"
+            },
+            {
+                "option": "Sunt culpa dolore velit proident consequat cupidatat duis adipisicing pariatur."
+            },
+            {
+                "option": "JUMPSTACK"
+            },
+            {
+                "option": "BLURRYBUS"
+            },
+            {
+                "option": "MULTRON"
+            }
+        ],
+        "settings": {
+            "captureGender": false,
+            "closePollOnScheduledDate": true,
+            "captureCity": false
+        },
+        "duration": "2023-04-05T05:02:05 -06:-30",
+        "additionalQuestions": [
+            {
+                "question": "Tempor magna incididunt duis consequat mollit commodo.",
+                "answerType": "date_range",
+                "rangeStartValue": 13,
+                "rangeEndValue": 72,
+                "rangeStepValue": 12,
+                "choices": [
+                    {
+                        "choice": "Sit veniam non incididunt quis Lorem ad dolore amet ex irure proident culpa velit anim."
+                    },
+                    {
+                        "choice": "Qui nisi ipsum elit ea."
+                    },
+                    {
+                        "choice": "KONNECT"
+                    },
+                    {
+                        "choice": "IMPERIUM"
+                    },
+                    {
+                        "choice": "PROVIDCO"
+                    }
+                ]
+            },
+            {
+                "question": "Voluptate commodo anim commodo duis in ut id sit elit.",
+                "answerType": "date_range",
+                "rangeStartValue": 13,
+                "rangeEndValue": 60,
+                "rangeStepValue": 13,
+                "choices": [
+                    {
+                        "choice": "Aliquip labore ut eu velit commodo laborum culpa aliqua ea et."
+                    },
+                    {
+                        "choice": "IDEGO"
+                    },
+                    {
+                        "choice": "Nostrud et culpa enim in veniam aute consectetur in quis laboris in incididunt Lorem consequat."
+                    },
+                    {
+                        "choice": "BOLAX"
+                    },
+                    {
+                        "choice": "TETRATREX"
+                    }
+                ]
+            },
+            {
+                "question": "Anim nostrud ut excepteur occaecat reprehenderit elit do.",
+                "answerType": "date",
+                "rangeStartValue": 12,
+                "rangeEndValue": 78,
+                "rangeStepValue": 13,
+                "choices": [
+                    {
+                        "choice": "PHOTOBIN"
+                    },
+                    {
+                        "choice": "ZILODYNE"
+                    },
+                    {
+                        "choice": "Id enim amet quis esse id nulla nulla nulla reprehenderit veniam veniam anim."
+                    },
+                    {
+                        "choice": "Enim laborum aliqua consequat aliquip commodo excepteur non ut id ad adipisicing in esse ut."
+                    },
+                    {
+                        "choice": "ECLIPTO"
+                    }
+                ]
+            },
+            {
+                "question": "Cupidatat aliquip officia quis cillum.",
+                "answerType": "choice",
+                "rangeStartValue": 4,
+                "rangeEndValue": 56,
+                "rangeStepValue": 15,
+                "choices": [
+                    {
+                        "choice": "GEOFARM"
+                    },
+                    {
+                        "choice": "Sit reprehenderit tempor id tempor mollit."
+                    },
+                    {
+                        "choice": "PHORMULA"
+                    },
+                    {
+                        "choice": "ETERNIS"
+                    },
+                    {
+                        "choice": "Officia dolore et voluptate nisi consectetur."
+                    }
+                ]
+            },
+            {
+                "question": "In cillum magna laborum excepteur ea velit eiusmod est minim id et ex ex.",
+                "answerType": "range",
+                "rangeStartValue": 19,
+                "rangeEndValue": 96,
+                "rangeStepValue": 12,
+                "choices": [
+                    {
+                        "choice": "PUSHCART"
+                    },
+                    {
+                        "choice": "Dolore sit cupidatat sit adipisicing proident quis aliquip occaecat sint consectetur ipsum reprehenderit."
+                    },
+                    {
+                        "choice": "COLAIRE"
+                    },
+                    {
+                        "choice": "ACRUEX"
+                    },
+                    {
+                        "choice": "Dolore minim nostrud occaecat et non eu irure exercitation esse et ex non."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "index": 10,
+        "question": "Cupidatat ad proident elit ut mollit sunt dolor aute.",
+        "options": [
+            {
+                "option": "NURALI"
+            },
+            {
+                "option": "Nulla do consequat duis excepteur id Lorem labore ex."
+            },
+            {
+                "option": "QOT"
+            },
+            {
+                "option": "INSURON"
+            },
+            {
+                "option": "Do cupidatat eu magna aliqua."
+            }
+        ],
+        "settings": {
+            "captureGender": true,
+            "closePollOnScheduledDate": true,
+            "captureCity": true
+        },
+        "duration": "2023-07-25T09:33:38 -06:-30",
+        "additionalQuestions": [
+            {
+                "question": "Magna ipsum pariatur reprehenderit tempor non consequat qui nulla anim commodo veniam cillum.",
+                "answerType": "date",
+                "rangeStartValue": 20,
+                "rangeEndValue": 62,
+                "rangeStepValue": 14,
+                "choices": [
+                    {
+                        "choice": "BEZAL"
+                    },
+                    {
+                        "choice": "GAZAK"
+                    },
+                    {
+                        "choice": "Quis eiusmod mollit irure et occaecat enim cillum excepteur exercitation deserunt."
+                    },
+                    {
+                        "choice": "In cillum deserunt ex ut enim ut non Lorem nostrud ad duis consectetur."
+                    },
+                    {
+                        "choice": "SENMEI"
+                    }
+                ]
+            },
+            {
+                "question": "Laborum exercitation consequat deserunt veniam.",
+                "answerType": "date",
+                "rangeStartValue": 6,
+                "rangeEndValue": 78,
+                "rangeStepValue": 12,
+                "choices": [
+                    {
+                        "choice": "ZILCH"
+                    },
+                    {
+                        "choice": "FURNITECH"
+                    },
+                    {
+                        "choice": "Consectetur esse deserunt id ad magna pariatur do magna."
+                    },
+                    {
+                        "choice": "Tempor ea culpa excepteur minim cupidatat nostrud est aliqua Lorem duis amet id."
+                    },
+                    {
+                        "choice": "CEDWARD"
+                    }
+                ]
+            },
+            {
+                "question": "Elit eu eu occaecat culpa cillum dolor dolor deserunt proident labore consequat magna voluptate tempor.",
+                "answerType": "choice",
+                "rangeStartValue": 17,
+                "rangeEndValue": 56,
+                "rangeStepValue": 10,
+                "choices": [
+                    {
+                        "choice": "CUIZINE"
+                    },
+                    {
+                        "choice": "COMTOUR"
+                    },
+                    {
+                        "choice": "FARMAGE"
+                    },
+                    {
+                        "choice": "Minim proident minim culpa culpa ipsum laborum nulla fugiat dolore magna dolor."
+                    },
+                    {
+                        "choice": "RAMEON"
+                    }
+                ]
+            },
+            {
+                "question": "Aliquip nulla qui veniam adipisicing amet exercitation exercitation.",
+                "answerType": "range",
+                "rangeStartValue": 17,
+                "rangeEndValue": 75,
+                "rangeStepValue": 11,
+                "choices": [
+                    {
+                        "choice": "Aliquip occaecat dolor aute aute consequat nulla pariatur dolor deserunt Lorem sit veniam amet enim."
+                    },
+                    {
+                        "choice": "VINCH"
+                    },
+                    {
+                        "choice": "AUTOGRATE"
+                    },
+                    {
+                        "choice": "GOLISTIC"
+                    },
+                    {
+                        "choice": "KINETICA"
+                    }
+                ]
+            },
+            {
+                "question": "Sint aliquip in nulla esse aliquip.",
+                "answerType": "choice",
+                "rangeStartValue": 4,
+                "rangeEndValue": 99,
+                "rangeStepValue": 14,
+                "choices": [
+                    {
+                        "choice": "FUTURITY"
+                    },
+                    {
+                        "choice": "Lorem velit excepteur labore ipsum nulla."
+                    },
+                    {
+                        "choice": "Esse do est occaecat cupidatat exercitation commodo pariatur consequat et eiusmod cillum sunt eu."
+                    },
+                    {
+                        "choice": "Adipisicing anim anim non magna excepteur ex magna occaecat adipisicing est quis mollit velit cillum."
+                    },
+                    {
+                        "choice": "STREZZO"
+                    }
+                ]
+            }
+        ]
+    }
+]
