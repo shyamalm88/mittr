@@ -18,74 +18,77 @@ const AnswerPollFormWrapper = () => {
     <Box
       sx={{ display: "flex", flexDirection: "column", flex: 1, width: "100%" }}
     >
-      {stepIndexValue === -1 && (
-        <>
+      <>
+        <Box
+          sx={{
+            width: "100%",
+            px: 2,
+            py: stepIndexValue === -1 ? 1 : 0,
+            height: stepIndexValue === -1 ? "100%" : 0,
+            overflow: stepIndexValue === -1 ? "visible" : "hidden",
+          }}
+          className="customPaper"
+        >
+          <Typography
+            variant="body1"
+            component="h2"
+            sx={{
+              fontSize: "1.2rem",
+            }}
+            className="typography"
+          >
+            {contextValue}
+          </Typography>
           <Box
             sx={{
               width: "100%",
-              px: 2,
-              py: 1,
             }}
-            className="customPaper"
           >
-            <Typography
-              variant="body1"
-              component="h2"
+            <Stack
+              direction="row"
+              spacing={2}
               sx={{
-                fontSize: "1.2rem",
-              }}
-              className="typography"
-            >
-              {contextValue}
-            </Typography>
-            <Box
-              sx={{
-                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                color: "rgb(156, 163, 175)",
               }}
             >
-              <Stack
-                direction="row"
-                spacing={2}
+              <Typography
+                variant="body2"
+                component="small"
                 sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  color: "rgb(156, 163, 175)",
+                  fontSize: "1.2rem",
+                  color: "inherit",
                 }}
               >
-                <Typography
-                  variant="body2"
-                  component="small"
-                  sx={{
-                    fontSize: "1.2rem",
-                    color: "inherit",
-                  }}
-                >
-                  Created By: Arghya Majumder
-                </Typography>
-                <Button
-                  size="small"
-                  sx={{ textTransform: "none" }}
-                  startIcon={<AccessTimeIcon />}
-                  color="inherit"
-                >
-                  1w left
-                </Button>
-              </Stack>
-            </Box>
+                Created By: Arghya Majumder
+              </Typography>
+              <Button
+                size="small"
+                sx={{ textTransform: "none" }}
+                startIcon={<AccessTimeIcon />}
+                color="inherit"
+              >
+                1w left
+              </Button>
+            </Stack>
           </Box>
-          <Box
-            sx={{
-              width: "100%",
-              backgroundColor: "transparent",
-              px: 2,
-              py: 1,
-            }}
-          >
-            <AnswerPollOptionWrapper />
-          </Box>
-        </>
-      )}
-      {stepIndexValue >= 0 && <AdditionalAnswers />}
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            backgroundColor: "transparent",
+            px: 2,
+            py: stepIndexValue === -1 ? 1 : 0,
+            height: stepIndexValue === -1 ? "100%" : 0,
+            overflow: stepIndexValue === -1 ? "visible" : "hidden",
+          }}
+        >
+          <AnswerPollOptionWrapper />
+        </Box>
+      </>
+
+      <AdditionalAnswers stepIndexValue={stepIndexValue} />
     </Box>
   );
 };

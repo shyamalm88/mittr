@@ -1,0 +1,35 @@
+[
+    {
+        "questionID": "1",
+        "selectedOption": "SNORUS",
+        "additionalQuestions": [
+            {
+                "selectedValue": 30,
+                "questionId": 0
+            },
+            {
+                "selectedValue": "TRANSLINK",
+                "questionId": 1
+            },
+            {
+                "selectedValue": {},
+                "questionId": 2
+            },
+            {
+                "selectedValue": 18,
+                "questionId": 3
+            },
+            {
+                "selectedValue": {
+                    "country": "EG",
+                    "city": "Ad Dilinjāt"
+                },
+                "questionId": 4
+            },
+            {
+                "selectedValue": "female",
+                "questionId": 5
+            }
+        ]
+    }
+]

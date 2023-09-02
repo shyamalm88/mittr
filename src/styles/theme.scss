@@ -32,6 +32,7 @@ body {
                 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
                 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
                 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+            overflow: auto;
         }
         .typography {
             color: #fff;
@@ -167,11 +168,11 @@ body {
         }
     }
     &.light {
-        background-color: #f7f7f7;
-        color: #333;
+        background-color: #e8e8e8;
+        color: #4c4c6d;
         .sideNav {
             background: #fafafa;
-            color: #333;
+            color: #4c4c6d;
             .MuiListItemIcon-root {
                 color: inherit;
             }
@@ -198,16 +199,17 @@ body {
                 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
                 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
                 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+            overflow: auto;
         }
         .typography {
-            color: #333;
+            color: #4c4c6d;
         }
         .autoComplete,
         .input,
         .select,
         .textarea {
             background-color: #eee;
-            color: #333;
+            color: #4c4c6d;
 
             input {
                 color: inherit;
@@ -215,7 +217,7 @@ body {
         }
         .MuiOutlinedInput-root,
         .MuiInputBase-input {
-            color: #333 !important;
+            color: #4c4c6d !important;
             background-color: #ffff;
             &.Mui-disabled {
                 background-color: #f2f2f2;
@@ -224,7 +226,7 @@ body {
         }
         .bottomBox {
             background-color: rgba(255, 255, 255, 0.53);
-            color: #333;
+            color: #4c4c6d;
         }
         .MuiOutlinedInput-notchedOutline {
             border: 1px solid rgba(224, 224, 224, 0.9);
@@ -241,25 +243,25 @@ body {
         }
 
         .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-            border-color: rgb(25, 118, 210);
+            border-color: #1b9c85;
         }
         .MuiMenu-paper {
             &.MuiMenu-paper {
                 background-color: #fff;
-                color: #333;
+                color: #4c4c6d;
             }
             .MuiMenuItem-root:hover {
-                background-color: #03a9f4;
+                background-color: #1b9c85;
                 color: #fff;
             }
         }
         .MuiPopover-paper {
             background-color: rgb(255, 255, 255);
-            color: #333;
+            color: #4c4c6d;
         }
         .rdrCalendarWrapper {
             .rdrMonthAndYearPickers select {
-                color: #333;
+                color: #4c4c6d;
                 background-color: #fff;
                 &:hover {
                     background-color: #ddd;

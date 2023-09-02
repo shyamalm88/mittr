@@ -15,10 +15,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       ? {
           // palette values for light mode
           primary: {
-            light: blue[300],
-            main: blue[500],
-            dark: blue[700],
-            darker: blue[900],
+            main: "#1B9C85",
           },
           divider: "#ddd",
           background: {
@@ -33,12 +30,13 @@ export const getDesignTokens = (mode: PaletteMode) => ({
             borderTransparent: "transparent",
           },
           text: {
-            primary: grey[900],
-            secondary: grey[600],
+            primary: "#4C4C6D",
+            secondary: "#4C4C6D",
           },
           action: {
             focus: "#2196f3",
-            hover: "rgb(181 188 255)",
+            hover: "#E8F6EF",
+            primary: "#4c4c6d80",
           },
         }
       : {
@@ -63,9 +61,9 @@ export const getDesignTokens = (mode: PaletteMode) => ({
             primary: "#fff",
           },
           action: {
-            primary: "#fff",
+            primary: "#ffffff80",
             focus: "rgb(129, 140, 248)",
-            hover: "#2196f3",
+            hover: "#00000024",
           },
         }),
   },

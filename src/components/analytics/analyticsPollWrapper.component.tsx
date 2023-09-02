@@ -3,10 +3,8 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import React from "react";
 import AnalyticsPollView from "./analyticsPollView.component";
-
+import Divider from "@mui/material/Divider";
 import DefaultAnalyticsPollWrapper from "./defaultAnalyticsPollWrapper.component";
-import CustomAnalyticsPollWrapper from "./customAnalyticsPollWrapper.component";
-import Analyzer from "./analyze/analyzer.component";
 
 const AnalyticsPollWrapper = () => {
   return (
@@ -38,10 +36,10 @@ const AnalyticsPollWrapper = () => {
           </Box>
         </Stack>
       </Card>
-
-      <Analyzer />
+      <Divider sx={{ mt: 3 }} textAlign="left">
+        Poll Performance
+      </Divider>
       <DefaultAnalyticsPollWrapper />
-      {/* <CustomAnalyticsPollWrapper /> */}
     </>
   );
 };

@@ -1,11 +1,11 @@
 import React from "react";
 import RangeTemplate from "./answerTemplates/rangeTemplate.component";
 import DateTemplate from "./answerTemplates/dateTemplate.component";
-import DateRangeTemplate from "./answerTemplates/dateRangeTemplate.component";
 
 import RadioTemplate from "./answerTemplates/radioTemplate.component";
 import CountryStateCityTemplate from "./answerTemplates/countryStateCityTemplate.component";
 import { ComponentInputProps } from "../../types";
+import GenderTemplate from "./answerTemplates/genderTemplate.component";
 
 export default function PollAnswerFieldSwitchTemplate({
   selectedValue,
@@ -19,8 +19,8 @@ export default function PollAnswerFieldSwitchTemplate({
       return <RadioTemplate fieldName={fieldName} item={item} />;
     case "country":
       return <CountryStateCityTemplate fieldName={fieldName} item={item} />;
-    case "date_range":
-      return <DateRangeTemplate fieldName={fieldName} item={item} />;
+    case "gender":
+      return <GenderTemplate fieldName={fieldName} item={item} />;
     case "date":
       return <DateTemplate fieldName={fieldName} item={item} />;
     default:

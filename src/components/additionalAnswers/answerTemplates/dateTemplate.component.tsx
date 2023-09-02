@@ -12,27 +12,35 @@ import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import moment from "moment";
 import { ClickAwayListener } from "@mui/base/ClickAwayListener";
+import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
 
 export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
   const [date, setDate] = React.useState<Date>();
   const [displayCalender, setDisplayCalender] = React.useState<boolean>(false);
+  const answerContext = usePollAnswerContext();
 
   const handleDateChange = (date: Date) => {
     setDate(date);
     setDisplayCalender(false);
   };
 
+  React.useEffect(() => {
+    answerContext.handleChange({
+      target: { name: `${fieldName}.selectedValue`, value: date },
+    });
+  }, [date]);
+
   return (
     <>
       <FormControl variant="outlined">
         <OutlinedInput
-          id="outlined-adornment-password"
           type="text"
           size="small"
           sx={{
             borderRadius: "4px",
             mb: 1,
           }}
+          name={`${fieldName}.selectedValue`}
           className="input"
           onClick={(e) => setDisplayCalender(!displayCalender)}
           placeholder="DD/MM/YYYY"
@@ -40,7 +48,7 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
           endAdornment={
             <InputAdornment position="end">
               <IconButton
-                aria-label="toggle password visibility"
+                aria-label="toggle date visibility"
                 edge="end"
                 onClick={(e) => setDisplayCalender(!displayCalender)}
               >

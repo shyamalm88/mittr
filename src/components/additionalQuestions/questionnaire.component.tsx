@@ -25,12 +25,12 @@ const Questionnaire = ({
       value: "date",
       icon: <CalendarMonthOutlinedIcon />,
     },
-    {
-      id: uuidv4(),
-      label: "Date Range",
-      value: "date_range",
-      icon: <DateRangeOutlinedIcon />,
-    },
+    // {
+    //   id: uuidv4(),
+    //   label: "Date Range",
+    //   value: "date_range",
+    //   icon: <DateRangeOutlinedIcon />,
+    // },
     {
       id: uuidv4(),
       label: "Range",

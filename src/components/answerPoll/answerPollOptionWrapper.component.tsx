@@ -11,11 +11,18 @@ import { v4 as uuidv4 } from "uuid";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 import { QuestionOptionProp } from "../../types";
 import { Divider } from "@mui/material";
+import { usePollAnswerContext } from "../../hooks/usePollAnswerContext";
 
 const AnswerPollOptionWrapper = () => {
   const contextValue = usePollQuestionContext("options");
-  const topicValue = usePollQuestionContext("topic");
-  const { multipleSelection } = usePollQuestionContext("settings");
+  const { multipleSelection } = usePollQuestionContext("settings") || {};
+  const answerContext = usePollAnswerContext();
+  const [radioValue, setRadioValue] = React.useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRadioValue(e.target.value);
+    answerContext.handleChange(e);
+  };
 
   return (
     <>
@@ -23,10 +30,12 @@ const AnswerPollOptionWrapper = () => {
         {!multipleSelection ? (
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            name="radio-buttons-group"
+            name="selectedOption"
             className="answerPoll"
+            onChange={handleChange}
+            value={radioValue}
           >
-            {contextValue.map((item: QuestionOptionProp, index: number) => {
+            {contextValue?.map((item: QuestionOptionProp, index: number) => {
               const fieldName = `options[${index}]`;
               return (
                 <FormControl
@@ -45,7 +54,7 @@ const AnswerPollOptionWrapper = () => {
                     }}
                   >
                     <FormControlLabel
-                      value={`options[${index}]`}
+                      value={item.option}
                       control={<Radio />}
                       label={item.option}
                     />
@@ -87,7 +96,7 @@ const AnswerPollOptionWrapper = () => {
         )}
       </React.Fragment>
       <Divider sx={{ mb: 0.2, mr: "35px", ml: "10px" }} textAlign="center">
-        <small>Related Topics</small>
+        {/* <small>Related Topics</small> */}
       </Divider>
       {/* {topicValue.map((item: any, index: number) => {
         return (

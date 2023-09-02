@@ -1,4 +1,5 @@
 import {
+  CreatePollAnswerType,
   CreatePollQuestionType,
   CreatePollValueType,
   OptionProp,
@@ -34,4 +35,10 @@ export const defaultPollQuestionValue: CreatePollQuestionType = {
     closePollOnScheduledDate: false,
     captureCity: false,
   },
+};
+
+export const defaultPollAnswerFormValue: CreatePollAnswerType = {
+  questionID: "",
+  selectedOption: "",
+  additionalQuestions: [],
 };

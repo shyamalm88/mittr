@@ -30,9 +30,9 @@ export function GeographyChart() {
   };
   return (
     <>
-      <Typography sx={{ my: 2 }} textAlign="center" component="h2">
-        <Divider>Diverse Regional User Engagement</Divider>
-      </Typography>
+      <Divider textAlign="left" sx={{ mt: 2 }}>
+        Diverse Regional User Engagement
+      </Divider>
       <Chart
         chartEvents={[
           {

@@ -15,6 +15,7 @@ import {
   Select,
   SelectChangeEvent,
   Stack,
+  TextField,
 } from "@mui/material";
 import Slider, {
   SliderThumb,
@@ -50,7 +51,7 @@ const marks = [
 ];
 
 const IOSSlider = styled(Slider)(({ theme }) => ({
-  color: theme.palette.info.main,
+  color: theme.palette.primary.main,
   height: 2,
   padding: "15px 0",
   "& .MuiSlider-thumb": {
@@ -73,13 +74,7 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
     top: -6,
     backgroundColor: "unset",
     color: theme.palette.text.primary,
-    "&:before": {
-      content: '"Days"',
-      rotate: "315deg",
-      position: "absolute",
-      top: "-2px",
-      left: "80%",
-    },
+
     "& *": {
       background: "transparent",
       color: theme.palette.mode === "dark" ? "#fff" : "#000",
@@ -106,7 +101,8 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
 function Analyzer() {
   const analyticsValue = usePollAnalyticsContext();
   const [pollValue, setPollValue] = React.useState<any>([]);
-
+  const [dateRange, setDateRange] = React.useState<number[]>([7, 60]);
+  const minDistance = 10;
   const handleOptionSection = (event: SelectChangeEvent<any>) => {
     const {
       target: { value },
@@ -114,13 +110,34 @@ function Analyzer() {
     setPollValue(typeof value === "string" ? value.split(",") : value);
   };
 
+  const handleChangeSlider = (
+    event: Event,
+    newValue: number | number[],
+    activeThumb: number
+  ) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (activeThumb === 0) {
+      setDateRange([
+        Math.min(newValue[0], dateRange[1] - minDistance),
+        dateRange[1],
+      ]);
+    } else {
+      setDateRange([
+        dateRange[0],
+        Math.max(newValue[1], dateRange[0] + minDistance),
+      ]);
+    }
+  };
+
   return (
     <Card
-      variant="outlined"
+      variant="elevation"
       sx={{
         p: 2,
-        mt: 2,
-        mb: 0,
+        my: 2,
         borderRadius: "4px",
         flex: 2,
       }}
@@ -134,18 +151,20 @@ function Analyzer() {
         useFlexGap
         flexWrap="wrap"
         justifyContent="flex-start"
+        alignItems="stretch"
         spacing={{ xs: 1, sm: 2 }}
         sx={{ mt: 2 }}
-        direction="row"
+        direction="column"
         divider={<Divider orientation="vertical" flexItem />}
       >
-        <FormControl size="small" sx={{ width: "20%" }}>
+        <FormControl size="small">
           <InputLabel id="demo-simple-select-label">Poll Options</InputLabel>
           <Select
             id="demo-simple-select"
             label="Poll Options"
             size="small"
             multiple
+            fullWidth
             value={pollValue}
             onChange={handleOptionSection}
             input={<OutlinedInput label="Tag" />}
@@ -167,17 +186,32 @@ function Analyzer() {
             })}
           </Select>
         </FormControl>
-        <FormControl size="small" sx={{ width: "20%" }}>
+        <FormControl size="small">
           <IOSSlider
-            aria-label="ios slider"
-            defaultValue={60}
+            value={dateRange}
+            onChange={handleChangeSlider}
             marks={marks}
             valueLabelDisplay="on"
             max={365}
-            min={7}
+            min={0}
+            disableSwap
           />
+          <Stack direction="row" spacing={2}>
+            <TextField
+              id=""
+              label=""
+              value={`${dateRange[0]} Day(s)`}
+              size="small"
+            />
+            <TextField
+              id=""
+              label=""
+              value={`${dateRange[1]} Day(s)`}
+              size="small"
+            />
+          </Stack>
         </FormControl>
-        <FormControl size="small" sx={{ width: "20%" }}>
+        <FormControl size="small">
           <InputLabel id="demo-simple-select-label">
             Filtering Criteria
           </InputLabel>
@@ -188,6 +222,7 @@ function Analyzer() {
             multiple
             value={pollValue}
             onChange={handleOptionSection}
+            fullWidth
             input={<OutlinedInput label="Tag" />}
             renderValue={(selected) => (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
@@ -207,7 +242,7 @@ function Analyzer() {
             })}
           </Select>
         </FormControl>
-        <FormControl size="small" sx={{ width: "20%" }}>
+        <FormControl size="small">
           <InputLabel id="demo-simple-select-label">
             Filtering Criteria
           </InputLabel>
@@ -217,6 +252,7 @@ function Analyzer() {
             size="small"
             multiple
             value={pollValue}
+            fullWidth
             input={<OutlinedInput label="Tag" />}
             renderValue={(selected) => (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>

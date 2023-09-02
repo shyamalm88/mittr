@@ -11,9 +11,15 @@ import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
 import { ComponentInputProps, QuestionOptionProp } from "../../../types";
 import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
 
-const RadioTemplate = ({ fieldName, item }: ComponentInputProps) => {
+const GenderTemplate = ({ fieldName, item }: ComponentInputProps) => {
   const answerContext = usePollAnswerContext();
   const [radioValue, setRadioValue] = React.useState("");
+  const [genderValue, setGenderValue] = React.useState([
+    { choice: "Male", value: "male" },
+    { choice: "Female", value: "female" },
+    { choice: "Genderqueer/Non-Binary", value: "non-binary" },
+    { choice: "Prefer not to disclose", value: "na" },
+  ]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRadioValue(e.target.value);
     answerContext.handleChange(e);
@@ -28,7 +34,7 @@ const RadioTemplate = ({ fieldName, item }: ComponentInputProps) => {
           onChange={handleChange}
           value={radioValue}
         >
-          {item.choices.map((item: any, index: number) => {
+          {genderValue.map((item: any, index: number) => {
             const fieldName = `options[${index}]`;
             return (
               <FormControl
@@ -47,7 +53,7 @@ const RadioTemplate = ({ fieldName, item }: ComponentInputProps) => {
                   }}
                 >
                   <FormControlLabel
-                    value={item.choice}
+                    value={item.value}
                     control={<Radio />}
                     label={item.choice}
                   />
@@ -60,4 +66,4 @@ const RadioTemplate = ({ fieldName, item }: ComponentInputProps) => {
     </>
   );
 };
-export default RadioTemplate;
+export default GenderTemplate;

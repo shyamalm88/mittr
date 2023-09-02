@@ -12,25 +12,34 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { CheckmarkUtility } from "../utility/checkMark";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import { Particles } from "../utility/Particle";
 import { useRouter } from "next/router";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import StepWrapperProvider from "../../providers/stepWrapper.provider";
+import { Divider, Typography, useTheme } from "@mui/material";
+import Confetti from "react-confetti";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
-import { Divider, useTheme } from "@mui/material";
+import { usePollAnswerContext } from "../../hooks/usePollAnswerContext";
 
 const AnswerPollWrapper = () => {
+  const targetRef = React.useRef();
+  const answerContext = usePollAnswerContext();
   const router = useRouter();
   const theme = useTheme();
-  const additionalQuestionsLength = usePollQuestionContext(
+  let additionalQuestionsLength = usePollQuestionContext(
     "additionalQuestions"
-  ).length;
+  )?.length;
+  const { captureCity, captureGender } = usePollQuestionContext("settings");
+  if (captureCity) {
+    additionalQuestionsLength += 1;
+  }
+  if (captureGender) {
+    additionalQuestionsLength += 1;
+  }
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const [open, setOpen] = React.useState(false);
-  const [particles, setParticles] = React.useState([1, 2]);
   const handleClose = () => {
     setOpen(false);
   };
@@ -40,12 +49,19 @@ const AnswerPollWrapper = () => {
   };
   const submitHandler = (e: any) => {
     e.preventDefault();
-    // contextValue.submit();
+    answerContext.handleChange({
+      target: {
+        name: `questionID`,
+        value: router.query.index,
+      },
+    });
+    answerContext.submit();
     setOpen(true);
   };
 
   const nextHandler = () => {
     setActiveIndex((prev) => prev + 1);
+    answerContext.submit();
   };
   const prevHandler = () => {
     setActiveIndex((prev) => prev - 1);
@@ -63,7 +79,7 @@ const AnswerPollWrapper = () => {
           sx={{
             p: 2,
             borderRadius: "4px",
-            borderTopColor: (theme: any) => theme.palette.primary.main,
+            borderTopColor: theme.palette.primary.main,
             borderTopStyle: "solid",
             borderTopWidth: "2px",
           }}
@@ -184,10 +200,11 @@ const AnswerPollWrapper = () => {
           Success
         </DialogTitle>
         <DialogContent>
-          <Box sx={{ m: 2 }}>
-            {particles.map((_: any, index: number) => (
-              <Particles key={index} count={Math.floor(1000 / 10)} />
-            ))}
+          <Box sx={{ m: 2 }} ref={targetRef}>
+            <Confetti width={883} height={300} recycle={false} />
+            <Typography textAlign="center" sx={{ m: 3 }}>
+              You have submitted the Answer
+            </Typography>
             <CheckmarkUtility size="144px" />
           </Box>
         </DialogContent>

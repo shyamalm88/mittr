@@ -6,8 +6,10 @@ import Slider, {
   SliderValueLabelProps,
 } from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
+import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
 
-const PrettoSlider = styled(Slider)({
+const PrettoSlider = styled(Slider)(({ theme }) => ({
   color: "primary",
   height: 8,
   "& .MuiSlider-track": {
@@ -28,12 +30,12 @@ const PrettoSlider = styled(Slider)({
   "& .MuiSlider-valueLabel": {
     lineHeight: 1.2,
     fontSize: 12,
-    background: "unset",
+    background: theme.palette.primary.dark,
+    color: "#fff",
     padding: 0,
     width: 32,
     height: 32,
     borderRadius: "50% 50% 50% 0",
-    backgroundColor: "#ff6f00",
     transformOrigin: "bottom left",
     transform: "translate(50%, -100%) rotate(-45deg) scale(0)",
     "&:before": { display: "none" },
@@ -44,18 +46,22 @@ const PrettoSlider = styled(Slider)({
       transform: "rotate(45deg)",
     },
   },
-});
+}));
 
 export default function RangeTemplate({
   fieldName,
   item,
 }: ComponentInputProps) {
+  const answerContext = usePollAnswerContext();
   const [sliderValue, setSliderValue] = React.useState(null);
   const handleSliderChange = (e: any) => {
     setSliderValue(e.target.value);
+    answerContext.handleChange({
+      target: { name: e.target.name, value: e.target.value },
+    });
   };
   return (
-    <>
+    <Box sx={{ px: 2 }}>
       <Typography align="center" alignSelf={"end"} variant="caption">
         <b>Selected Value: {sliderValue}</b>
       </Typography>
@@ -66,7 +72,8 @@ export default function RangeTemplate({
         step={parseInt(item.rangeStepValue)}
         max={parseInt(item.rangeEndValue)}
         onChange={handleSliderChange}
+        name={`${fieldName}.selectedValue`}
       />
-    </>
+    </Box>
   );
 }

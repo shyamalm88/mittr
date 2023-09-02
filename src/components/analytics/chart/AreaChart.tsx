@@ -7,17 +7,17 @@ export const data = [
   ["Month", "Anonymous Users vote", "Logged-in Users vote"],
   [
     "Jan",
-    faker.number.int({ min: 0, max: 100 }),
+    faker.number.int({ min: 0, max: 70 }),
     faker.number.int({ min: 0, max: 200 }),
   ],
   [
     "Feb",
-    faker.number.int({ min: 0, max: 200 }),
+    faker.number.int({ min: 0, max: 210 }),
     faker.number.int({ min: 0, max: 100 }),
   ],
   [
     "Mar",
-    faker.number.int({ min: 0, max: 100 }),
+    faker.number.int({ min: 0, max: 10 }),
     faker.number.int({ min: 0, max: 200 }),
   ],
   [
@@ -67,7 +67,7 @@ export const data = [
   ],
 ];
 
-export function LineChart() {
+export function AreaChart() {
   const theme = useTheme();
 
   const options = {
@@ -106,7 +106,7 @@ export function LineChart() {
   return (
     <Chart
       className="googleChart"
-      chartType="LineChart"
+      chartType="ColumnChart"
       width="100%"
       height="100%"
       data={data}

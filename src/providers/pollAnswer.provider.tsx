@@ -1,7 +1,7 @@
 import React from "react";
 import { ChildrenProps } from "../types";
 import { PollAnswerReducer } from "../reducers/pollAnswer.reducer";
-import { defaultPollFormValue } from "../store";
+import { defaultPollAnswerFormValue } from "../store";
 import {
   CHANGE_ANSWER_TYPE,
   DELETE_FROM_LIST,
@@ -9,10 +9,11 @@ import {
   SUBMIT,
 } from "../constants";
 
-export const PollCreationProviderContext =
-  React.createContext(defaultPollFormValue);
+export const PollAnswerProviderContext = React.createContext(
+  defaultPollAnswerFormValue
+);
 
-function PollCreationProvider({ children }: ChildrenProps) {
+function PollAnswerProvider({ children }: ChildrenProps) {
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     dispatch({
       type: HANDLE_CHANGE,
@@ -20,20 +21,6 @@ function PollCreationProvider({ children }: ChildrenProps) {
         name: (event.target as HTMLInputElement).name,
         value: (event.target as HTMLInputElement).value,
       },
-    });
-  };
-
-  const handleDeleteFromList = (key: string) => {
-    dispatch({
-      type: DELETE_FROM_LIST,
-      payload: { name: key },
-    });
-  };
-
-  const handleUpdateAnswerType = (key: string) => {
-    dispatch({
-      type: CHANGE_ANSWER_TYPE,
-      payload: { name: key },
     });
   };
 
@@ -45,22 +32,20 @@ function PollCreationProvider({ children }: ChildrenProps) {
 
   const [state, dispatch] = React.useReducer(
     PollAnswerReducer,
-    defaultPollFormValue
+    defaultPollAnswerFormValue
   );
 
   const value = {
-    ...defaultPollFormValue,
+    ...defaultPollAnswerFormValue,
     handleChange,
-    handleDeleteFromList,
-    handleUpdateAnswerType,
     submit,
   };
 
   return (
-    <PollCreationProviderContext.Provider value={value}>
+    <PollAnswerProviderContext.Provider value={value}>
       {children}
-    </PollCreationProviderContext.Provider>
+    </PollAnswerProviderContext.Provider>
   );
 }
 
-export default PollCreationProvider;
+export default PollAnswerProvider;

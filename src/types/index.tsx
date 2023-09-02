@@ -53,7 +53,11 @@ export type CreatePollQuestionType = {
     captureCity: boolean;
   };
 };
-
+export type CreatePollAnswerType = {
+  questionID: string;
+  selectedOption: string;
+  additionalQuestions: [];
+};
 export type CreatePollAdditionalQuestionType = {
   question: string;
   answerType: string;

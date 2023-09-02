@@ -38,33 +38,35 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, [themeMode]);
 
   return (
-    <React.Fragment>
-      <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <Fab
-            size="small"
-            aria-label="Change Theme"
-            color="primary"
-            variant="extended"
-            sx={{ position: "fixed", bottom: "16px", right: "16px" }}
-            onClick={() =>
-              setThemeMode(themeMode === "dark" ? "light" : "dark")
-            }
-          >
-            {theme.palette.mode === "dark" ? (
-              <Brightness7Icon color="inherit" />
-            ) : (
-              <Brightness4Icon color="inherit" />
-            )}
-          </Fab>
-          <CssBaseline />
-          <RootLayout>
-            <ConfirmProvider>
-              <Component {...pageProps} />
-            </ConfirmProvider>
-          </RootLayout>
-        </ThemeProvider>
-      </ColorModeContext.Provider>
-    </React.Fragment>
+    <>
+      <React.Fragment>
+        <ColorModeContext.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <Fab
+              size="small"
+              aria-label="Change Theme"
+              color="primary"
+              variant="extended"
+              sx={{ position: "fixed", bottom: "16px", right: "16px" }}
+              onClick={() =>
+                setThemeMode(themeMode === "dark" ? "light" : "dark")
+              }
+            >
+              {theme.palette.mode === "dark" ? (
+                <Brightness7Icon color="inherit" />
+              ) : (
+                <Brightness4Icon color="inherit" />
+              )}
+            </Fab>
+            <CssBaseline />
+            <RootLayout>
+              <ConfirmProvider>
+                <Component {...pageProps} />
+              </ConfirmProvider>
+            </RootLayout>
+          </ThemeProvider>
+        </ColorModeContext.Provider>
+      </React.Fragment>
+    </>
   );
 }

@@ -17,9 +17,10 @@ import { OptionProp } from "../../types";
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
 import { Topic } from "./topic/topic.component";
 import Tooltip from "@mui/material/Tooltip";
-import { Chip } from "@mui/material";
+import { Chip, useTheme } from "@mui/material";
 
 const PollOptionWrapper = () => {
+  const theme = useTheme();
   const contextValue = usePollCreationContext();
   const [addedTopics, setAddedTopics] = React.useState<
     { id: string; label: string }[]
@@ -64,7 +65,7 @@ const PollOptionWrapper = () => {
           const fieldName = `options[${index}]`;
           return (
             <FormControl
-              sx={{ mb: 1, width: "100%", color: "theme.palette.text" }}
+              sx={{ mb: 1, width: "100%", color: theme.palette.text.primary }}
               variant="outlined"
               key={item.id}
             >
@@ -88,7 +89,10 @@ const PollOptionWrapper = () => {
                   name={`${fieldName}.option`}
                   multiline
                   endAdornment={
-                    <InputAdornment position="end">
+                    <InputAdornment
+                      position="end"
+                      sx={{ color: theme.palette.action.active }}
+                    >
                       <IconButton
                         aria-label="Delete Option"
                         edge="end"

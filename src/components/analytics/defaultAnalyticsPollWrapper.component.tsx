@@ -4,6 +4,7 @@ import { LineChart } from "./chart/LineChart";
 import { PieChart } from "./chart/PieChart";
 import { ComboChart } from "./chart/ComboChart";
 import { GeographyChart } from "./chart/GeoChart";
+import CustomAnalyticsPollWrapper from "./customAnalyticsPollWrapper.component";
 
 function DefaultAnalyticsPollWrapper() {
   return (
@@ -52,6 +53,7 @@ function DefaultAnalyticsPollWrapper() {
           <ComboChart />
         </Card>
       </Stack>
+      <CustomAnalyticsPollWrapper />
       <GeographyChart />
     </>
   );

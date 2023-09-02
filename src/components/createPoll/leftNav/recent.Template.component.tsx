@@ -56,8 +56,10 @@ function RecentTemplate() {
           {pages.map((item) => {
             return (
               <ListItem disablePadding key={item.id} dense disableGutters>
-                <ListItemButton sx={{ fontSize: "12px", pl: 0 }}>
-                  <ListItemIcon sx={{ minWidth: "30px" }}>
+                <ListItemButton
+                  sx={{ fontSize: "12px", pl: 0, borderRadius: "4px" }}
+                >
+                  <ListItemIcon sx={{ minWidth: "30px", px: 2 }}>
                     {item.icon}
                   </ListItemIcon>
                   <ListItemText primary={item.label} disableTypography />
