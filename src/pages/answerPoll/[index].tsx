@@ -64,8 +64,8 @@ const CreatePoll = ({ post }: ComponentInputProps) => {
     <>
       <PollAnswerProvider>
         <NextSeo
-          title="Mittr | Answer a Poll"
-          description="This Answer Poll page will help individual either logged in or anonymous users to answer polls"
+          title={`Mittr | Take part in a survey featuring the question: ${post.question}`}
+          description={`This Poll Answer Page is designed to assist both logged-in and anonymous individuals in responding to polls, with the current poll featuring the following question ${post.question}`}
         />
         <PollQuestionProvider question={post}>
           <AnswerPollLayout>
