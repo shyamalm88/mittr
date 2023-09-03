@@ -78,8 +78,8 @@ const CreatePoll = ({ post }: ComponentInputProps) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // const resp = await axios.get("http://localhost:3200/questions");
-  const listQuestionData: Array<any> = [];
+  const resp = await axios.get("http://localhost:3200/questions");
+  const listQuestionData: Array<any> = resp.data;
   const pollQuestions = listQuestionData.map((item) => item.id);
   const paths = pollQuestions.map((post) => ({
     params: { index: post.toString() },

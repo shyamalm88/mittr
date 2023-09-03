@@ -8,6 +8,8 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { ComponentInputProps } from "../../types";
 import dynamic from "next/dynamic";
 import axios from "axios";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
 const AnalyticsPollWrapper = dynamic(
   () => import("../../components/analytics/analyticsPollWrapper.component")
 );
@@ -41,11 +43,51 @@ const data = {
 };
 
 const ViewAnalytics = ({ post }: ComponentInputProps) => {
+  if (!post) {
+    return (
+      <ViewAnalyticsLayout>
+        <Stack spacing={1}>
+          <Skeleton variant="rounded" sx={{ fontSize: "4rem" }} />
+          <Skeleton variant="rounded" width={"100%"} height={40} />
+          <Skeleton variant="rounded" width={"100%"} height={40} />
+          <Skeleton variant="rounded" width={"100%"} height={40} />
+
+          <Stack
+            direction="row"
+            spacing={1}
+            justifyContent="flex-start"
+            alignItems={"center"}
+          >
+            <Skeleton variant="rounded" sx={{ flex: 2 }} height={100} />
+            <Skeleton variant="rounded" sx={{ flex: 1 }} height={100} />
+            <Skeleton variant="rounded" sx={{ flex: 1 }} height={100} />
+          </Stack>
+          <Stack
+            direction="row"
+            spacing={1}
+            justifyContent="flex-start"
+            alignItems={"center"}
+          >
+            <Skeleton variant="rounded" sx={{ flex: 1 }} height={100} />
+            <Skeleton variant="rounded" sx={{ flex: 2 }} height={100} />
+          </Stack>
+          <Stack
+            direction="row"
+            spacing={1}
+            justifyContent="flex-start"
+            alignItems={"center"}
+          >
+            <Skeleton variant="rounded" sx={{ flex: 1 }} height={100} />
+          </Stack>
+        </Stack>
+      </ViewAnalyticsLayout>
+    );
+  }
   return (
     <AnalyticsOfPollProvider question={data}>
       <NextSeo
         title="Mittr | View Analytics"
-        description="This View Analytics page will help individual contributors to slice and dice the analytics through filtering options"
+        description={`The Analytics Viewing page offers individual contributors the capability to refine and analyze analytics data using various filtering options. Various analytics pertaining to the poll are available on this page for ${post.question}`}
       />
       <ViewAnalyticsLayout>
         <AnalyticsPollWrapper />

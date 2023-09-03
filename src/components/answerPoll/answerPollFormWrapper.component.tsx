@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 // import PollOptionWrapper from "./pollOptionWrapper.component";
@@ -9,10 +9,20 @@ import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 import AnswerPollOptionWrapper from "./answerPollOptionWrapper.component";
 import AdditionalAnswers from "../additionalAnswers/additionalAnswers.component";
 import { useStepWrapperContext } from "../../hooks/useStepWrapperContext";
+import moment from "moment";
+import Tooltip from "@mui/material/Tooltip";
 
 const AnswerPollFormWrapper = () => {
   const contextValue = usePollQuestionContext("question");
+  const contextDurationValue = usePollQuestionContext("duration");
+
   const stepIndexValue = useStepWrapperContext();
+
+  const handleDateDiff = useMemo(() => {
+    let d1 = moment(moment().format("YYYY-MM-DD"));
+    let d2 = moment(moment(contextDurationValue).format("YYYY-MM-DD"));
+    return d2.diff(d1, "days") < 0 ? "ended " : "will end ";
+  }, [contextDurationValue]);
 
   return (
     <Box
@@ -63,14 +73,24 @@ const AnswerPollFormWrapper = () => {
               >
                 Created By: Arghya Majumder
               </Typography>
-              <Button
-                size="small"
-                sx={{ textTransform: "none" }}
-                startIcon={<AccessTimeIcon />}
-                color="inherit"
+              <Tooltip
+                title={`${handleDateDiff} ${moment(contextDurationValue).format(
+                  "MMM Do YY"
+                )}`}
               >
-                1w left
-              </Button>
+                <Button
+                  size="small"
+                  sx={{ textTransform: "none" }}
+                  startIcon={<AccessTimeIcon />}
+                  color="inherit"
+                >
+                  <React.Fragment>
+                    {contextDurationValue &&
+                      handleDateDiff +
+                        moment(contextDurationValue, "YYYYMMDD").fromNow()}
+                  </React.Fragment>
+                </Button>
+              </Tooltip>
             </Stack>
           </Box>
         </Box>

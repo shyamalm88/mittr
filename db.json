@@ -20,7 +20,7 @@
         }
       ],
       "pollType": "",
-      "duration": "",
+      "duration": "2023-09-14T18:30:00.000Z",
       "topic": [],
       "additionalQuestions": [
         {
@@ -59,6 +59,57 @@
         "captureCity": true
       },
       "id": "what-is-your-favorite-ice-cream-flavor"
+    },
+    {
+      "question": "How did you hear about us?",
+      "options": [
+        {
+          "option": "Linkedin"
+        },
+        {
+          "option": "Facebook"
+        },
+        {
+          "option": "Google Search"
+        },
+        {
+          "option": "Word Of Mouth"
+        }
+      ],
+      "pollType": "",
+      "duration": "2023-07-09T18:30:00.000Z",
+      "topic": [],
+      "additionalQuestions": [
+        {
+          "question": "Date of Birth",
+          "answerType": "date"
+        },
+        {
+          "answerType": "range",
+          "rangeStartValue": "1",
+          "rangeStepValue": "1",
+          "rangeEndValue": "10",
+          "question": "Rate your self out of 10"
+        },
+        {
+          "answerType": "choice",
+          "question": "Have you face any survey recently",
+          "choices": [
+            {
+              "choice": "true"
+            },
+            {
+              "choice": "false"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "captureGender": true,
+        "closePollOnScheduledDate": true,
+        "captureCity": true
+      },
+      "id": "how-did-you-hear-about-us"
     }
   ]
 }
