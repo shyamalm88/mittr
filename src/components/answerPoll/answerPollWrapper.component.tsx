@@ -29,7 +29,7 @@ const AnswerPollWrapper = () => {
   const answerContext = usePollAnswerContext();
   const router = useRouter();
   const theme = useTheme();
-
+  let questionId = usePollQuestionContext("id");
   let additionalQuestionsLength = usePollQuestionContext(
     "additionalQuestions"
   )?.length;
@@ -48,7 +48,7 @@ const AnswerPollWrapper = () => {
   };
   const handleViewAnalytics = () => {
     handleClose();
-    router.push("/viewAnalytics");
+    router.push("/viewAnalytics/" + questionId);
   };
   const submitHandler = (e: any) => {
     e.preventDefault();

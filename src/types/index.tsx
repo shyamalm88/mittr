@@ -42,6 +42,7 @@ export type CreatePollValueType = {
 };
 
 export type CreatePollQuestionType = {
+  id: string;
   question: string;
   options: QuestionOptionProp[] | OptionQProp[];
   pollType: string;

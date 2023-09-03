@@ -7,6 +7,7 @@ import listData from "../../data/questionList.json";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ComponentInputProps } from "../../types";
 import dynamic from "next/dynamic";
+import axios from "axios";
 const AnalyticsPollWrapper = dynamic(
   () => import("../../components/analytics/analyticsPollWrapper.component")
 );
@@ -54,17 +55,22 @@ const ViewAnalytics = ({ post }: ComponentInputProps) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const pollQuestions = listData.map((item) => item.index);
+  // const resp = await axios.get("http://localhost:3200/questions");
+  const listQuestionData: Array<any> = [];
+  const pollQuestions = listQuestionData.map((item) => item.id);
   const paths = pollQuestions.map((post) => ({
     params: { index: post.toString() },
   }));
+  // const paths: any = [];
+
   return { paths, fallback: true };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const resp = await axios.get("http://localhost:3200/questions");
+  const listQuestionData = resp.data;
   const postIndex = context.params?.index as string;
-  const post = listData[parseInt(postIndex) - 1];
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+  const post = listQuestionData.find((item: any) => item.id === postIndex);
   return { props: { post } };
 };
 
