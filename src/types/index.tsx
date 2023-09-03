@@ -23,6 +23,7 @@ export type ComponentInputProps = {
 };
 
 export type CreatePollValueType = {
+  id: string;
   question: string;
   options: OptionProp[] | OptionQProp[];
   pollType: string;

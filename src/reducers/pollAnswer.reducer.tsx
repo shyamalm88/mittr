@@ -14,7 +14,6 @@ export const PollAnswerReducer: Reducer<any, any> = (
   const { type, payload } = action;
   switch (type) {
     case HANDLE_CHANGE:
-      // console.log("HANDLE_CHANGE", payload);
       let key: string = "";
       if (payload.name.includes("[") && payload.name.includes(".")) {
         const temp = payload.name.split(".")[0];

@@ -1,4 +1,3 @@
-import CreatePollWrapper from "../../components/createPoll/createPollWrapper.component";
 import CreatePollLayout from "../../layout/createPoll.layout";
 import PollCreationProvider from "../../providers/pollCreation.provider";
 import Grid from "@mui/material/Grid";
@@ -9,6 +8,11 @@ import FollowingTemplate from "../../components/createPoll/leftNav/following.Tem
 import AdSpaceTemplate from "../../components/createPoll/rightNav/adSpace.Template.component";
 import MyRecentCreatedPollTemplate from "../../components/createPoll/rightNav/myRecentCreatedPoll.Template.component";
 import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
+const CreatePollWrapper = dynamic(
+  () => import("../../components/createPoll/createPollWrapper.component")
+);
+
 const CreatePoll = () => {
   return (
     <PollCreationProvider>

@@ -1,5 +1,4 @@
 import React from "react";
-import AnalyticsPollWrapper from "../../components/analytics/analyticsPollWrapper.component";
 import ViewAnalyticsLayout from "../../layout/viewAnalytics.layout";
 import AnalyticsOfPollProvider from "../../providers/analyticsOfPoll.provider";
 import { v4 as uuidv4 } from "uuid";
@@ -7,6 +6,10 @@ import { NextSeo } from "next-seo";
 import listData from "../../data/questionList.json";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ComponentInputProps } from "../../types";
+import dynamic from "next/dynamic";
+const AnalyticsPollWrapper = dynamic(
+  () => import("../../components/analytics/analyticsPollWrapper.component")
+);
 
 const data = {
   question:

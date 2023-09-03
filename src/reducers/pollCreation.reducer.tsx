@@ -6,6 +6,8 @@ import {
 } from "../constants";
 import { Reducer } from "react";
 import { CreatePollValueType } from "../types";
+import axios from "axios";
+import urlSlug from "url-slug";
 
 export const PollCreationReducer: Reducer<any, any> = (
   state: CreatePollValueType,
@@ -14,7 +16,6 @@ export const PollCreationReducer: Reducer<any, any> = (
   const { type, payload } = action;
   switch (type) {
     case HANDLE_CHANGE:
-      // console.log("HANDLE_CHANGE", payload);
       let key = "";
       if (payload.name.includes("[") && payload.name.includes(".")) {
         const { keyVal, arr } = handlingDataAssignment(
@@ -32,7 +33,6 @@ export const PollCreationReducer: Reducer<any, any> = (
 
         let key2 = payload.name.split(".")[1];
         const objN: any = state[key as keyof typeof state];
-        console.log({ ...objN, [key2]: payload.value });
         return {
           ...state,
           [key]: { ...objN, [key2]: payload.value },
@@ -47,14 +47,12 @@ export const PollCreationReducer: Reducer<any, any> = (
         };
       }
     case DELETE_FROM_LIST:
-      // console.log("DELETE_FROM_LIST", payload);
       if (payload.name.includes("[")) {
         if (payload.name.lastIndexOf("[") > payload.name.indexOf("[")) {
           const lastIndex = payload.name.lastIndexOf(".");
           const temp = payload.name.substr(0, lastIndex);
           const tempKeyI = temp.lastIndexOf(".");
           const tempKey = temp.substr(tempKeyI)?.replace(".", "");
-          console.log(tempKey);
           const tempT = tempKey?.split("[");
           key = tempT[0];
           const indx = parseInt(tempT[1]?.replace("]", ""));
@@ -117,6 +115,11 @@ export const PollCreationReducer: Reducer<any, any> = (
     case SUBMIT:
       console.log(state);
       console.log(JSON.stringify(state));
+      const tempObj = state;
+      tempObj.id = urlSlug(tempObj.question);
+      axios.post("http://localhost:3200/questions", state).then((data) => {
+        console.log(data);
+      });
       return state;
   }
 };
@@ -124,7 +127,6 @@ export const PollCreationReducer: Reducer<any, any> = (
 const handlingDataAssignment = (name: string, state: any, payload: any) => {
   let keyVal = "";
   const optionName = name.substring(name.lastIndexOf(".") + 1);
-  console.log(optionName);
   const keyName = name.split(".")[1];
   const temp = name?.split("[");
   keyVal = temp[0];

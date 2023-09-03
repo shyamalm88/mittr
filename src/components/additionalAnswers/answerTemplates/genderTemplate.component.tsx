@@ -3,11 +3,6 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import Chip from "@mui/material/Chip";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import { v4 as uuidv4 } from "uuid";
-import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
 import { ComponentInputProps, QuestionOptionProp } from "../../../types";
 import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
 

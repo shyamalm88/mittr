@@ -4,9 +4,7 @@ import { ComponentInputProps } from "../types";
 
 const Home = ({ data }: ComponentInputProps) => {
   const titleRef = useRef(null);
-  const displayTitle = () => {
-    console.log(titleRef.current);
-  };
+  const displayTitle = () => {};
   return (
     <>
       {data.map((item: any) => {

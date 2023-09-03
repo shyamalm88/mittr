@@ -30,7 +30,6 @@ export default function DateRangeTemplate({
   ]);
 
   const toggleDatePicker = (e: any, ref: any) => {
-    // console.log(ref.current.getBoundingClientRect());
     const y = ref.current.getBoundingClientRect().top;
     const x = ref.current.getBoundingClientRect().left;
     setCoords({
@@ -59,7 +58,6 @@ export default function DateRangeTemplate({
   };
 
   React.useEffect(() => {
-    console.log(state);
     setStartDate(moment(state[0].startDate).format("DD/MM/YYYY"));
     setEndDate(moment(state[0].endDate).format("DD/MM/YYYY"));
   }, [state]);

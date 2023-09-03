@@ -22,16 +22,19 @@ import { Divider, Typography, useTheme } from "@mui/material";
 import Confetti from "react-confetti";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 import { usePollAnswerContext } from "../../hooks/usePollAnswerContext";
+import { ComponentInputProps } from "../../types";
 
 const AnswerPollWrapper = () => {
   const targetRef = React.useRef();
   const answerContext = usePollAnswerContext();
   const router = useRouter();
   const theme = useTheme();
+
   let additionalQuestionsLength = usePollQuestionContext(
     "additionalQuestions"
   )?.length;
-  const { captureCity, captureGender } = usePollQuestionContext("settings");
+  const { captureCity, captureGender } =
+    usePollQuestionContext("settings") || {};
   if (captureCity) {
     additionalQuestionsLength += 1;
   }

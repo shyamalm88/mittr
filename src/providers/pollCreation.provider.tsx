@@ -1,6 +1,5 @@
 import React from "react";
 import { ChildrenProps } from "../types";
-import { PollAnswerReducer } from "../reducers/pollAnswer.reducer";
 import { defaultPollFormValue } from "../store";
 import {
   CHANGE_ANSWER_TYPE,
@@ -8,6 +7,7 @@ import {
   HANDLE_CHANGE,
   SUBMIT,
 } from "../constants";
+import { PollCreationReducer } from "../reducers/pollCreation.reducer";
 
 export const PollCreationProviderContext =
   React.createContext(defaultPollFormValue);
@@ -44,7 +44,7 @@ function PollCreationProvider({ children }: ChildrenProps) {
   };
 
   const [state, dispatch] = React.useReducer(
-    PollAnswerReducer,
+    PollCreationReducer,
     defaultPollFormValue
   );
 

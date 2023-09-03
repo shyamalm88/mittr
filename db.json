@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "question": "What is your favorite Ice Cream Flavor?",
+      "options": [
+        {
+          "option": "Vanilla"
+        },
+        {
+          "option": "Orange"
+        },
+        {
+          "option": "Mango"
+        },
+        {
+          "option": "Blue Berry"
+        },
+        {
+          "option": "Kesar Pesta"
+        }
+      ],
+      "pollType": "",
+      "duration": "",
+      "topic": [],
+      "additionalQuestions": [
+        {
+          "question": "You DOB",
+          "answerType": "date"
+        },
+        {
+          "question": "How much Do you like the Chosen Flavor? Rate 1 to 10",
+          "answerType": "range",
+          "rangeStartValue": "1",
+          "rangeEndValue": "10",
+          "rangeStepValue": "1"
+        },
+        {
+          "answerType": "choice",
+          "question": "How did you know about us?",
+          "choices": [
+            {
+              "choice": "Facebook"
+            },
+            {
+              "choice": "Linkedin"
+            },
+            {
+              "choice": "Google"
+            },
+            {
+              "choice": "Whatsapp"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "captureGender": true,
+        "closePollOnScheduledDate": true,
+        "captureCity": true
+      },
+      "id": "what-is-your-favorite-ice-cream-flavor"
+    }
+  ]
+}

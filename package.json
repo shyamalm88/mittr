@@ -20,7 +20,7 @@
     "@types/node": "^16.18.39",
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
-    "axios": "^1.4.0",
+    "axios": "^1.5.0",
     "country-state-city": "^3.1.4",
     "material-ui-confirm": "^3.0.9",
     "moment": "^2.29.4",
@@ -33,6 +33,7 @@
     "react-google-charts": "^4.0.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
+    "url-slug": "^4.0.1",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4",
     "webpack": "^5.88.2",
@@ -43,7 +44,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "serve-json": "json-server --watch db.json --port 3200 --delay 3000"
   },
   "eslintConfig": {
     "extends": [

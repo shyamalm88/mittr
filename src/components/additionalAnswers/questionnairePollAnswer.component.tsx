@@ -12,7 +12,8 @@ import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 
 const QuestionnairePollAnswer = () => {
   let questionnaire = usePollQuestionContext("additionalQuestions");
-  const { captureCity, captureGender } = usePollQuestionContext("settings");
+  const { captureCity, captureGender } =
+    usePollQuestionContext("settings") || {};
   if (captureCity) {
     questionnaire = [
       ...questionnaire,

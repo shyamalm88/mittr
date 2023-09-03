@@ -32,7 +32,6 @@ export default function CountryStateCityTemplate({
 
   React.useEffect(() => {
     const obj = { country, city };
-    console.log(obj);
     answerContext.handleChange({
       target: {
         name: `${fieldName}.selectedValue`,
