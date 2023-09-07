@@ -26,8 +26,8 @@ export type CreatePollValueType = {
   questionSlug: string;
   question: string;
   options: OptionProp[] | OptionQProp[];
-  pollType: string;
   duration: string;
+  surveyType: string;
   topic: CreatePollAdditionalQuestionTopicType[];
   additionalQuestions: CreatePollAdditionalQuestionType[];
   settings: {
@@ -45,7 +45,7 @@ export type CreatePollQuestionType = {
   id: string;
   question: string;
   options: QuestionOptionProp[] | OptionQProp[];
-  pollType: string;
+  surveyType: string;
   duration: string;
   topic: CreatePollAdditionalQuestionTopicType[];
   additionalQuestions: CreatePollAdditionalQuestionType[];

@@ -6,9 +6,10 @@ import {
 } from "../types";
 
 export const defaultPollFormValue: CreatePollValueType = {
+  questionSlug: "",
   question: "",
   options: [],
-  pollType: "",
+  surveyType: "",
   duration: "",
   topic: [],
   additionalQuestions: [],
@@ -24,9 +25,10 @@ export const defaultPollFormValue: CreatePollValueType = {
 };
 
 export const defaultPollQuestionValue: CreatePollQuestionType = {
+  id: "",
   question: "",
   options: [],
-  pollType: "",
+  surveyType: "",
   duration: "",
   topic: [],
   additionalQuestions: [],

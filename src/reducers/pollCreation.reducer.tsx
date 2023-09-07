@@ -9,6 +9,9 @@ import { CreatePollValueType } from "../types";
 import axios from "axios";
 import urlSlug from "url-slug";
 import HttpService from "../hooks/@http/HttpClient";
+import { Portal } from "@mui/base/Portal";
+import Alert from "@mui/material/Alert";
+import { useSubmitStatusContext } from "../hooks/useSubmitStatusContext";
 
 const http = new HttpService();
 
@@ -16,6 +19,8 @@ export const PollCreationReducer: Reducer<any, any> = (
   state: CreatePollValueType,
   action: any
 ) => {
+  const { setError, setSuccess, setMessage } = useSubmitStatusContext();
+
   const { type, payload } = action;
   switch (type) {
     case HANDLE_CHANGE:
@@ -116,19 +121,29 @@ export const PollCreationReducer: Reducer<any, any> = (
       }
 
     case SUBMIT:
-      console.log(state);
-      console.log(JSON.stringify(state));
+      // console.log(state);
+      // console.log(JSON.stringify(state));
       const tempObj = state;
       tempObj.questionSlug = urlSlug(tempObj.question);
+      tempObj.surveyType = "poll";
       const res = postSurvey(tempObj);
+      res
+        .then((data) => {
+          console.log("responseData", data);
+          setMessage("Successfully Created Survey");
+          setSuccess("success");
+        })
+        .catch((err) => {
+          console.log(err);
+          setMessage(`Error while saving Survey ${err.message}`);
+          setError("error");
+        });
       return state;
   }
 };
 
 const postSurvey = async (data: any) => {
   const response = await http.service().post(`/survey`, data);
-
-  // if (response?.length) setUsers([...response]);
   return response;
 };
 
