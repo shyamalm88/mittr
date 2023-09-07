@@ -6,11 +6,20 @@ const SurveySettings = require("./SurveySettings");
 const schema = mongoose.Schema({
   id: String,
   question: String,
-  options: [{ type: Options.schema }],
+  questionSlug: String,
+  options: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Options" }],
   surveyType: String,
   duration: Date,
-  additionalQuestions: [{ type: AdditionalQuestions.schema }],
-  settings: { type: SurveySettings.schema },
+  additionalQuestions: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "AdditionalQuestions",
+    },
+  ],
+  settings: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "SurveySettings",
+  },
 });
 
 module.exports = mongoose.model("Surveys", schema);

@@ -8,6 +8,9 @@ import { Reducer } from "react";
 import { CreatePollValueType } from "../types";
 import axios from "axios";
 import urlSlug from "url-slug";
+import HttpService from "../hooks/@http/HttpClient";
+
+const http = new HttpService();
 
 export const PollCreationReducer: Reducer<any, any> = (
   state: CreatePollValueType,
@@ -116,12 +119,17 @@ export const PollCreationReducer: Reducer<any, any> = (
       console.log(state);
       console.log(JSON.stringify(state));
       const tempObj = state;
-      tempObj.id = urlSlug(tempObj.question);
-      axios.post("http://localhost:3200/questions", state).then((data) => {
-        console.log(data);
-      });
+      tempObj.questionSlug = urlSlug(tempObj.question);
+      const res = postSurvey(tempObj);
       return state;
   }
+};
+
+const postSurvey = async (data: any) => {
+  const response = await http.service().post(`/survey`, data);
+
+  // if (response?.length) setUsers([...response]);
+  return response;
 };
 
 const handlingDataAssignment = (name: string, state: any, payload: any) => {
