@@ -10,7 +10,6 @@ import Dialog, { DialogProps } from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { CheckmarkUtility } from "../utility/checkMark";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import { useRouter } from "next/router";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -23,8 +22,11 @@ import Confetti from "react-confetti";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 import { usePollAnswerContext } from "../../hooks/usePollAnswerContext";
 import { ComponentInputProps } from "../../types";
+import CheckmarkUtility from "../../utility/checkMark";
+import { useMotionValue, motion } from "framer-motion";
 
 const AnswerPollWrapper = () => {
+  let progress = useMotionValue(90);
   const targetRef = React.useRef();
   const answerContext = usePollAnswerContext();
   const router = useRouter();
@@ -208,7 +210,13 @@ const AnswerPollWrapper = () => {
             <Typography textAlign="center" sx={{ m: 3 }}>
               You have submitted the Answer
             </Typography>
-            <CheckmarkUtility size="144px" />
+            <motion.div
+              initial={{ x: 0 }}
+              animate={{ x: 100 }}
+              style={{ x: progress }}
+              transition={{ duration: 1 }}
+            />
+            <CheckmarkUtility progress={progress} />
           </Box>
         </DialogContent>
         <DialogActions>

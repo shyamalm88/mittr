@@ -14,6 +14,14 @@ router.get("/survey", async (req, res) => {
   res.send(surveys);
 });
 
+router.get("/survey/:id", async (req, res) => {
+  const surveys = await Survey.find()
+    .populate("options")
+    .populate("additionalQuestions")
+    .populate("settings");
+  res.send(surveys);
+});
+
 router.post("/survey", async (req, res) => {
   const optionRefId = await Options.insertMany(req.body.options);
   const additionalQuestionRefId = await insertAdditionalQuestions(req);

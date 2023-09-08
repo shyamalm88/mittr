@@ -10,7 +10,8 @@ import { PaletteMode } from "@mui/material";
 import { getDesignTokens } from "../theme/designTokens";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import SubmitStatusProvider from "../providers/submitStatus.provider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
@@ -61,11 +62,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             </Fab>
             <CssBaseline />
             <RootLayout>
-              <SubmitStatusProvider>
-                <ConfirmProvider>
-                  <Component {...pageProps} />
-                </ConfirmProvider>
-              </SubmitStatusProvider>
+              <ConfirmProvider>
+                <Component {...pageProps} />
+                <ToastContainer />
+              </ConfirmProvider>
             </RootLayout>
           </ThemeProvider>
         </ColorModeContext.Provider>

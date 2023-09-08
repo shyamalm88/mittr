@@ -22,6 +22,7 @@ export const defaultPollFormValue: CreatePollValueType = {
   handleDeleteFromList: () => {},
   handleUpdateAnswerType: () => {},
   submit: () => {},
+  reset: () => {},
 };
 
 export const defaultPollQuestionValue: CreatePollQuestionType = {

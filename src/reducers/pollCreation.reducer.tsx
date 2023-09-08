@@ -3,9 +3,15 @@ import {
   DELETE_FROM_LIST,
   HANDLE_CHANGE,
   RESET,
+  SUBMIT,
 } from "../constants";
 import { Reducer } from "react";
 import { CreatePollValueType } from "../types";
+import urlSlug from "url-slug";
+import HttpService from "../services/@http/HttpClient";
+// import { useSubmitStatusContext } from "../hooks/useSubmitStatusContext";
+import { ToastContainer, toast } from "react-toastify";
+const http = new HttpService();
 
 export const PollCreationReducer: Reducer<any, any> = (
   state: CreatePollValueType,
@@ -110,11 +116,40 @@ export const PollCreationReducer: Reducer<any, any> = (
         return state;
       }
 
+    case SUBMIT:
+      const tempObj = state;
+      tempObj.questionSlug = urlSlug(tempObj.question);
+      tempObj.surveyType = "poll";
+      const res = postSurvey(tempObj);
+      res
+        .then((data: any) => {
+          console.log("responseData", data);
+          toast.success("Successfully Created Survey", {
+            position: toast.POSITION.TOP_RIGHT,
+            hideProgressBar: true,
+            theme: "colored",
+          });
+        })
+        .catch((err: any) => {
+          console.log(err);
+          toast.error(`Error while saving Survey ${err.message}`, {
+            position: toast.POSITION.TOP_RIGHT,
+            hideProgressBar: true,
+            theme: "colored",
+          });
+        });
+      return state;
+
     case RESET:
       // console.log(state);
       // console.log(JSON.stringify(state));
       return state;
   }
+};
+
+const postSurvey = async (data: any) => {
+  const response = await http.service().post(`/survey`, data);
+  return response;
 };
 
 const handlingDataAssignment = (name: string, state: any, payload: any) => {

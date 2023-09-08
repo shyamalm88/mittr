@@ -58,6 +58,7 @@ const PollFormWrapper = () => {
           variant="standard"
           size="small"
           fullWidth
+          autoFocus
           name="question"
           InputProps={{
             disableUnderline: true,

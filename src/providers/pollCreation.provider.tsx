@@ -6,6 +6,7 @@ import {
   DELETE_FROM_LIST,
   HANDLE_CHANGE,
   RESET,
+  SUBMIT,
 } from "../constants";
 import { PollCreationReducer } from "../reducers/pollCreation.reducer";
 
@@ -37,6 +38,12 @@ function PollCreationProvider({ children }: ChildrenProps) {
     });
   };
 
+  const submit = () => {
+    dispatch({
+      type: SUBMIT,
+    });
+  };
+
   const reset = () => {
     dispatch({
       type: RESET,
@@ -54,6 +61,7 @@ function PollCreationProvider({ children }: ChildrenProps) {
     handleDeleteFromList,
     handleUpdateAnswerType,
     reset,
+    submit,
   };
 
   return (

@@ -6,15 +6,10 @@ import PollFormWrapper from "./pollFormWrapper.component";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import React from "react";
-import urlSlug from "url-slug";
 
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
-import HttpService from "../../hooks/@http/HttpClient";
-import { useSubmitStatusContext } from "../../hooks/useSubmitStatusContext";
 
 const CreatePollWrapper = () => {
-  const http = new HttpService();
-  const { setError, setSuccess, setMessage } = useSubmitStatusContext();
   const contextValue = usePollCreationContext();
 
   const stringToColor = (string: string) => {
@@ -45,27 +40,8 @@ const CreatePollWrapper = () => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    const createPollFormValue = contextValue;
-    const tempObj = createPollFormValue;
-    tempObj.questionSlug = urlSlug(tempObj.question);
-    tempObj.surveyType = "poll";
-    const res = postSurvey(tempObj);
-    res
-      .then((data) => {
-        console.log("responseData", data);
-        setMessage("Successfully Created Survey");
-        setSuccess("success");
-      })
-      .catch((err) => {
-        console.log(err);
-        setMessage(`Error while saving Survey ${err.message}`);
-        setError("error");
-      });
-  };
-
-  const postSurvey = async (data: any) => {
-    const response = await http.service().post(`/survey`, data);
-    return response;
+    console.log("Submit");
+    contextValue.submit();
   };
 
   return (

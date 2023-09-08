@@ -39,6 +39,7 @@ export type CreatePollValueType = {
   handleDeleteFromList: Function;
   handleUpdateAnswerType: Function;
   submit: Function;
+  reset: Function;
 };
 
 export type CreatePollQuestionType = {
