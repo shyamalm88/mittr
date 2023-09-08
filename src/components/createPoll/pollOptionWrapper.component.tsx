@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import { v4 as uuidv4 } from "uuid";
 import { OptionProp } from "../../types";
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
+import AltRouteOutlinedIcon from "@mui/icons-material/AltRouteOutlined";
 import { Topic } from "./topic/topic.component";
 import Tooltip from "@mui/material/Tooltip";
 import { Chip, useTheme } from "@mui/material";
@@ -32,11 +33,21 @@ const PollOptionWrapper = () => {
   const open = Boolean(anchorEl);
 
   const [options, setOptions] = React.useState([
-    { id: uuidv4(), label: "Option", value: "" },
-    { id: uuidv4(), label: "Option", value: "" },
+    { id: uuidv4(), label: "Option", value: "", enabled: true },
+    { id: uuidv4(), label: "Option", value: "", enabled: true },
   ]);
   const addOption = () => {
-    const temp = { id: uuidv4(), label: "Option", value: "" };
+    const temp = { id: uuidv4(), label: "Option", value: "", enabled: true };
+    setOptions([...options, temp]);
+  };
+
+  const addOtherOption = () => {
+    const temp = {
+      id: uuidv4(),
+      label: "Other",
+      value: "Other",
+      enabled: false,
+    };
     setOptions([...options, temp]);
   };
 
@@ -88,6 +99,9 @@ const PollOptionWrapper = () => {
                   className="input"
                   name={`${fieldName}.option`}
                   multiline
+                  readOnly={!item.enabled}
+                  autoFocus
+                  defaultValue={!item.enabled ? "Other" : ""}
                   endAdornment={
                     <InputAdornment
                       position="end"
@@ -106,6 +120,9 @@ const PollOptionWrapper = () => {
                   }
                   placeholder={`${item.label} ${index + 1}`}
                   onChange={(e) => contextValue.handleChange(e)}
+                  onBlur={(e) => {
+                    !item.enabled && contextValue.handleChange(e);
+                  }}
                 />
               </fieldset>
             </FormControl>
@@ -115,10 +132,10 @@ const PollOptionWrapper = () => {
       <Box>
         <Stack
           direction="row"
-          spacing={2}
+          spacing={1}
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             color: "rgb(156, 163, 175)",
           }}
         >
@@ -128,6 +145,7 @@ const PollOptionWrapper = () => {
               sx={{ textTransform: "none" }}
               startIcon={<AddCircleOutlineIcon />}
               onClick={addOption}
+              variant="outlined"
               disabled={options.length >= 5}
             >
               Add
@@ -136,6 +154,23 @@ const PollOptionWrapper = () => {
               >
                 another
               </Box>
+            </Button>
+          </Tooltip>
+          <Typography
+            variant="body2"
+            sx={{ alignItems: "center", display: "flex" }}
+          >
+            Or
+          </Typography>
+          <Tooltip title="Add Other" arrow placement="left">
+            <Button
+              size="small"
+              sx={{ textTransform: "none" }}
+              startIcon={<AltRouteOutlinedIcon />}
+              onClick={addOtherOption}
+              disabled={options.length >= 5}
+            >
+              Add Other
             </Button>
           </Tooltip>
           {/* <Button

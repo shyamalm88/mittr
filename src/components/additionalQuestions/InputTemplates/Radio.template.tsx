@@ -37,23 +37,6 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
           mr: "135px",
         }}
       >
-        <Tooltip title="Add another choice" arrow placement="left">
-          <Button
-            size="small"
-            sx={{ textTransform: "none" }}
-            startIcon={<AddCircleOutlineIcon />}
-            onClick={addOption}
-            color="inherit"
-            disabled={options.length >= 5}
-          >
-            Add
-            <Box
-              sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}
-            >
-              another
-            </Box>
-          </Button>
-        </Tooltip>
         {options.map((item, index) => {
           return (
             <fieldset
@@ -77,6 +60,7 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
                   className="input"
                   name={`${fieldName}.choices[${index}].choice`}
                   multiline
+                  autoFocus
                   onChange={(e) => contextValue.handleChange(e)}
                   endAdornment={
                     <InputAdornment position="end">
@@ -102,6 +86,23 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
             </fieldset>
           );
         })}
+        <Tooltip title="Add another choice" arrow placement="left">
+          <Button
+            size="small"
+            sx={{ textTransform: "none" }}
+            startIcon={<AddCircleOutlineIcon />}
+            onClick={addOption}
+            color="info"
+            disabled={options.length >= 5}
+          >
+            Add
+            <Box
+              sx={{ display: { xs: "none", lg: "flex", paddingLeft: "5px" } }}
+            >
+              another
+            </Box>
+          </Button>
+        </Tooltip>
       </Box>
     </>
   );

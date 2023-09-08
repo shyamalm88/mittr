@@ -54,6 +54,7 @@ export default function CheckboxTemplate({ fieldName }: ComponentInputProps) {
             </Box>
           </Button>
         </Tooltip>
+
         {options.map((item, index) => {
           return (
             <fieldset

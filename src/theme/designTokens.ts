@@ -17,6 +17,9 @@ export const getDesignTokens = (mode: PaletteMode) => ({
           primary: {
             main: "#1B9C85",
           },
+          info: {
+            main: "#645CBB",
+          },
           divider: "#ddd",
           background: {
             default: "#f7f7f7",

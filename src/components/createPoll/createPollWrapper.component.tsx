@@ -6,17 +6,21 @@ import PollFormWrapper from "./pollFormWrapper.component";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import React from "react";
+import urlSlug from "url-slug";
 
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
+import HttpService from "../../hooks/@http/HttpClient";
+import { useSubmitStatusContext } from "../../hooks/useSubmitStatusContext";
 
 const CreatePollWrapper = () => {
+  const http = new HttpService();
+  const { setError, setSuccess, setMessage } = useSubmitStatusContext();
   const contextValue = usePollCreationContext();
 
   const stringToColor = (string: string) => {
     let hash = 0;
     let i;
 
-    /* eslint-disable no-bitwise */
     for (i = 0; i < string.length; i += 1) {
       hash = string.charCodeAt(i) + ((hash << 5) - hash);
     }
@@ -27,7 +31,6 @@ const CreatePollWrapper = () => {
       const value = (hash >> (i * 8)) & 0xff;
       color += `00${value.toString(16)}`.slice(-2);
     }
-    /* eslint-enable no-bitwise */
 
     return color;
   };
@@ -42,7 +45,27 @@ const CreatePollWrapper = () => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    contextValue.submit();
+    const createPollFormValue = contextValue;
+    const tempObj = createPollFormValue;
+    tempObj.questionSlug = urlSlug(tempObj.question);
+    tempObj.surveyType = "poll";
+    const res = postSurvey(tempObj);
+    res
+      .then((data) => {
+        console.log("responseData", data);
+        setMessage("Successfully Created Survey");
+        setSuccess("success");
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessage(`Error while saving Survey ${err.message}`);
+        setError("error");
+      });
+  };
+
+  const postSurvey = async (data: any) => {
+    const response = await http.service().post(`/survey`, data);
+    return response;
   };
 
   return (

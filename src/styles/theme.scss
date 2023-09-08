@@ -8,9 +8,6 @@ body {
             .MuiListItemIcon-root {
                 color: inherit;
             }
-            .MuiLink-root {
-                color: rgb(129, 140, 248);
-            }
         }
         .paper {
             background: rgb(31, 40, 62);
@@ -50,6 +47,9 @@ body {
         }
         .MuiOutlinedInput-root {
             color: #fff !important;
+            &.MuiInputBase-readOnly {
+                background-color: rgb(17 24 39 / 53%);
+            }
         }
         .bottomBox {
             background-color: rgb(17 24 39 / 53%);
@@ -176,9 +176,6 @@ body {
             .MuiListItemIcon-root {
                 color: inherit;
             }
-            .MuiLink-root {
-                color: #2196f3;
-            }
         }
         .paper {
             background: #fafafa;
@@ -220,8 +217,19 @@ body {
             color: #4c4c6d !important;
             background-color: #ffff;
             &.Mui-disabled {
-                background-color: #f2f2f2;
+                background-color: #efefef;
                 cursor: not-allowed;
+            }
+        }
+        .MuiOutlinedInput-root {
+            &.MuiInputBase-readOnly {
+                background-color: #efefef;
+                &.Mui-focused {
+                    border-color: #ccc;
+                }
+                .MuiInputBase-input {
+                    background-color: transparent;
+                }
             }
         }
         .bottomBox {

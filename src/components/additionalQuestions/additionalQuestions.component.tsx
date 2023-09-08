@@ -53,7 +53,8 @@ export default function AdditionalQuestions() {
             size="small"
             sx={{ textTransform: "none" }}
             startIcon={<AddTaskIcon />}
-            color="inherit"
+            color="info"
+            variant="outlined"
             onClick={addQuestionnaire}
             disabled={questionnaire.length >= 5}
           >
