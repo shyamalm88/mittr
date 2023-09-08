@@ -11,6 +11,10 @@ import AdditionalAnswers from "../additionalAnswers/additionalAnswers.component"
 import { useStepWrapperContext } from "../../hooks/useStepWrapperContext";
 import moment from "moment";
 import Tooltip from "@mui/material/Tooltip";
+import ReactTimeAgo from "react-time-ago";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+TimeAgo.addDefaultLocale(en);
 
 const AnswerPollFormWrapper = () => {
   const contextValue = usePollQuestionContext("question");
@@ -85,9 +89,10 @@ const AnswerPollFormWrapper = () => {
                   color="inherit"
                 >
                   <React.Fragment>
-                    {contextDurationValue &&
+                    {/* {contextDurationValue &&
                       handleDateDiff +
-                        moment(contextDurationValue, "YYYYMMDD").fromNow()}
+                        moment(contextDurationValue, "YYYYMMDD").fromNow()} */}
+                    <ReactTimeAgo date={contextDurationValue} />
                   </React.Fragment>
                 </Button>
               </Tooltip>

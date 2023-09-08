@@ -15,6 +15,7 @@ export const PollAnswerReducer: Reducer<any, any> = (
   switch (type) {
     case HANDLE_CHANGE:
       let key: string = "";
+      console.log(payload);
       if (payload.name.includes("[") && payload.name.includes(".")) {
         const temp = payload.name.split(".")[0];
         key = temp.split("[")[0];
@@ -28,7 +29,7 @@ export const PollAnswerReducer: Reducer<any, any> = (
             payload.value !== null
               ? { ...payload.value }
               : payload.value,
-          questionId: keyVal,
+          questionId: payload.id,
         };
         return {
           ...state,
@@ -40,7 +41,7 @@ export const PollAnswerReducer: Reducer<any, any> = (
           ...state,
           [key]: Array.isArray(payload.value)
             ? [...payload.value]
-            : payload.value,
+            : { _id: payload.id, value: payload.value },
         };
       }
 

@@ -20,6 +20,7 @@ function PollAnswerProvider({ children }: ChildrenProps) {
       payload: {
         name: (event.target as HTMLInputElement).name,
         value: (event.target as HTMLInputElement).value,
+        id: (event.target as HTMLInputElement).id,
       },
     });
   };

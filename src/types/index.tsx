@@ -1,7 +1,7 @@
 export type OptionProp = {
   [key: string]: any;
 };
-export type QuestionOptionProp = { id: string; option: string };
+export type QuestionOptionProp = { id: string; option: string; _id: string };
 
 export type OptionQProp = { id: string; questionLabel: string; value: string };
 

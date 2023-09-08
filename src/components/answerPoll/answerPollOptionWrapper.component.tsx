@@ -55,7 +55,7 @@ const AnswerPollOptionWrapper = () => {
                   >
                     <FormControlLabel
                       value={item.option}
-                      control={<Radio />}
+                      control={<Radio id={item._id} />}
                       label={item.option}
                     />
                   </fieldset>
