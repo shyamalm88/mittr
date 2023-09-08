@@ -7,7 +7,7 @@ const url = require("url");
 const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
 const mongoose = require("mongoose");
-const routes = require("./server/routes/Routes");
+const routes = require("./server/routes/Routers");
 
 const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;
@@ -18,7 +18,10 @@ const urlencodedParser = bodyParser.urlencoded({
 });
 
 mongoose
-  .connect("mongodb://localhost:27017/mittr", { useNewUrlParser: true })
+  .connect("mongodb://localhost:27017/mittr", {
+    useNewUrlParser: true,
+    serverSelectionTimeoutMS: 5000,
+  })
   .then(() => {
     // Multi-process to utilize all CPU cores.
     if (!dev && cluster.isMaster) {
@@ -102,4 +105,7 @@ mongoose
         });
       });
     }
+  })
+  .catch((err) => {
+    console.log("error reason", err.reason);
   });

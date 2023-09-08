@@ -7,19 +7,36 @@ const SurveySettings = require("../models/SurveySettings");
 const router = express.Router();
 
 router.get("/survey", async (req, res) => {
-  const surveys = await Survey.find()
-    .populate("options")
-    .populate("additionalQuestions")
-    .populate("settings");
-  res.send(surveys);
+  try {
+    const surveys = await Survey.find()
+      .populate("options")
+      .populate("additionalQuestions")
+      .populate("settings");
+    res.send(surveys);
+  } catch (err) {
+    res.status(404).send({
+      message: "Document Not Found",
+      status: 404,
+      details: err.message,
+    });
+  }
 });
 
-router.get("/survey/:id", async (req, res) => {
-  const surveys = await Survey.find()
-    .populate("options")
-    .populate("additionalQuestions")
-    .populate("settings");
-  res.send(surveys);
+router.get("/survey/:index", async (req, res) => {
+  try {
+    const survey = await Survey.findById(req.params.index)
+      .orFail()
+      .populate("options")
+      .populate("additionalQuestions")
+      .populate("settings");
+    res.send(survey);
+  } catch (err) {
+    res.status(404).send({
+      message: "Document Not Found",
+      status: 404,
+      details: err.message,
+    });
+  }
 });
 
 router.post("/survey", async (req, res) => {

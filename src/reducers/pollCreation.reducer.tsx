@@ -9,8 +9,7 @@ import { Reducer } from "react";
 import { CreatePollValueType } from "../types";
 import urlSlug from "url-slug";
 import HttpService from "../services/@http/HttpClient";
-// import { useSubmitStatusContext } from "../hooks/useSubmitStatusContext";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 const http = new HttpService();
 
 export const PollCreationReducer: Reducer<any, any> = (

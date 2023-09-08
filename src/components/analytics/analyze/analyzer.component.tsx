@@ -16,6 +16,7 @@ import {
   SelectChangeEvent,
   Stack,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import Slider, {
   SliderThumb,
@@ -24,7 +25,7 @@ import Slider, {
 import { styled } from "@mui/material/styles";
 const impressionOrEngagements = [
   { id: 1, value: "Engagements" },
-  { id: 1, value: "Impressions" },
+  { id: 2, value: "Impressions" },
 ];
 const iOSBoxShadow =
   "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)";
@@ -100,6 +101,11 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
 
 function Analyzer() {
   const analyticsValue = usePollAnalyticsContext();
+  console.log("analyticsValue", analyticsValue);
+  const choicesArr = analyticsValue?.additionalQuestions?.filter(
+    (item: any) => item.answerType === "choice"
+  );
+  console.log("choicesArr", choicesArr);
   const [pollValue, setPollValue] = React.useState<any>([]);
   const [dateRange, setDateRange] = React.useState<number[]>([7, 60]);
   const minDistance = 10;
@@ -157,34 +163,29 @@ function Analyzer() {
         direction="column"
         divider={<Divider orientation="vertical" flexItem />}
       >
-        <FormControl size="small">
+        <FormControl size="small" sx={{ width: "100%" }}>
           <InputLabel id="demo-simple-select-label">Poll Options</InputLabel>
-          <Select
-            id="demo-simple-select"
-            label="Poll Options"
-            size="small"
-            multiple
-            fullWidth
-            value={pollValue}
-            onChange={handleOptionSection}
-            input={<OutlinedInput label="Tag" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value: any) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-          >
-            {analyticsValue.options.map((item: any) => {
-              return (
-                <MenuItem value={item.option} key={item.id}>
-                  <Checkbox checked={pollValue.indexOf(item.option) > -1} />
-                  <ListItemText primary={item.option} />
-                </MenuItem>
-              );
-            })}
-          </Select>
+          <Tooltip title={pollValue.join(", ")}>
+            <Select
+              label="Poll Options"
+              size="small"
+              multiple
+              fullWidth
+              value={pollValue}
+              onChange={handleOptionSection}
+              input={<OutlinedInput label="Tag" />}
+              renderValue={(selected) => selected.join(", ")}
+            >
+              {analyticsValue.options.map((item: any) => {
+                return (
+                  <MenuItem value={item.option} key={item.id}>
+                    <Checkbox checked={pollValue.indexOf(item.option) > -1} />
+                    <ListItemText primary={item.option} />
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </Tooltip>
         </FormControl>
         <FormControl size="small">
           <IOSSlider
@@ -211,68 +212,65 @@ function Analyzer() {
             />
           </Stack>
         </FormControl>
-        <FormControl size="small">
+        {choicesArr?.map((item: any) => {
+          return (
+            <FormControl size="small" key={item._id} sx={{ width: "100%" }}>
+              <InputLabel id="demo-simple-select-label">
+                {item.question}
+              </InputLabel>
+              <Tooltip title={pollValue.join(", ")}>
+                <Select
+                  label="Poll Options"
+                  size="small"
+                  multiple
+                  value={pollValue}
+                  onChange={handleOptionSection}
+                  fullWidth
+                  input={<OutlinedInput label="Tag" />}
+                  renderValue={(selected) => selected.join(", ")}
+                >
+                  {item.choices.map((item: any) => {
+                    return (
+                      <MenuItem value={item.choice} key={item.id}>
+                        <Checkbox
+                          checked={pollValue.indexOf(item.choice) > -1}
+                        />
+                        <ListItemText primary={item.choice} />
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </Tooltip>
+            </FormControl>
+          );
+        })}
+
+        <FormControl size="small" sx={{ width: "100%" }}>
           <InputLabel id="demo-simple-select-label">
             Filtering Criteria
           </InputLabel>
-          <Select
-            id="demo-simple-select"
-            label="Poll Options"
-            size="small"
-            multiple
-            value={pollValue}
-            onChange={handleOptionSection}
-            fullWidth
-            input={<OutlinedInput label="Tag" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value: any) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-          >
-            {analyticsValue.options.map((item: any) => {
-              return (
-                <MenuItem value={item.option} key={item.id}>
-                  <Checkbox checked={pollValue.indexOf(item.option) > -1} />
-                  <ListItemText primary={item.option} />
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-        <FormControl size="small">
-          <InputLabel id="demo-simple-select-label">
-            Filtering Criteria
-          </InputLabel>
-          <Select
-            id="demo-simple-select"
-            label="Poll Options"
-            size="small"
-            multiple
-            value={pollValue}
-            fullWidth
-            input={<OutlinedInput label="Tag" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value: any) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-          >
-            {impressionOrEngagements.map((item: any) => {
-              return (
-                <MenuItem value={item.value} key={item.id}>
-                  <Checkbox
-                    checked={impressionOrEngagements.indexOf(item.value) > -1}
-                  />
-                  <ListItemText primary={item.value} />
-                </MenuItem>
-              );
-            })}
-          </Select>
+          <Tooltip title={pollValue.join(", ")}>
+            <Select
+              label="Poll Options"
+              size="small"
+              multiple
+              value={pollValue}
+              fullWidth
+              input={<OutlinedInput label="Tag" />}
+              renderValue={(selected) => selected.join(", ")}
+            >
+              {impressionOrEngagements.map((item: any) => {
+                return (
+                  <MenuItem value={item.value} key={item.id}>
+                    <Checkbox
+                      checked={impressionOrEngagements.indexOf(item.value) > -1}
+                    />
+                    <ListItemText primary={item.value} />
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </Tooltip>
         </FormControl>
       </Stack>
     </Card>

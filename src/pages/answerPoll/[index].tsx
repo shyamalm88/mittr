@@ -12,10 +12,11 @@ import dynamic from "next/dynamic";
 const AnswerPollWrapper = dynamic(
   () => import("../../components/answerPoll/answerPollWrapper.component")
 );
-// let listQuestionData: Array<any> = [];
+import HttpService from "../../services/@http/HttpClient";
+const http = new HttpService();
 
-const CreatePoll = ({ post }: ComponentInputProps) => {
-  if (!post) {
+const CreatePoll = ({ questionData }: ComponentInputProps) => {
+  if (!questionData) {
     return (
       <AnswerPollLayout>
         <Stack spacing={1}>
@@ -64,10 +65,10 @@ const CreatePoll = ({ post }: ComponentInputProps) => {
     <>
       <PollAnswerProvider>
         <NextSeo
-          title={`Mittr | Take part in a survey featuring the question: ${post.question}`}
-          description={`This Poll Answer Page is designed to assist both logged-in and anonymous individuals in responding to polls, with the current poll featuring the following question ${post.question}`}
+          title={`Mittr | Take part in a survey featuring the question: ${questionData.question}`}
+          description={`This Poll Answer Page is designed to assist both logged-in and anonymous individuals in responding to polls, with the current poll featuring the following question ${questionData.question}`}
         />
-        <PollQuestionProvider question={post}>
+        <PollQuestionProvider question={questionData}>
           <AnswerPollLayout>
             <AnswerPollWrapper />
           </AnswerPollLayout>
@@ -78,23 +79,28 @@ const CreatePoll = ({ post }: ComponentInputProps) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const resp = await axios.get("http://localhost:3200/questions");
-  const listQuestionData: Array<any> = resp.data;
-  const pollQuestions = listQuestionData.map((item) => item.id);
+  const resp: Array<any> = await http.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/survey`
+  );
+  const listQuestionData: Array<any> = resp;
+  const pollQuestions = listQuestionData.map((item) => {
+    return item._id;
+  });
   const paths = pollQuestions.map((post) => ({
-    params: { index: post.toString() },
+    params: { index: post },
   }));
-  // const paths: any = [];
 
-  return { paths, fallback: true };
+  return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const resp = await axios.get("http://localhost:3200/questions");
-  const listQuestionData = resp.data;
   const postIndex = context.params?.index as string;
-  const post = listQuestionData.find((item: any) => item.id === postIndex);
-  return { props: { post } };
+  const resp = await http.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/survey/${postIndex}`
+  );
+  const questionData = resp;
+
+  return { props: { questionData } };
 };
 
 export default CreatePoll;

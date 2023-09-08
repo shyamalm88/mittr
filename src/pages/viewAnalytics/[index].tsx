@@ -14,6 +14,9 @@ const AnalyticsPollWrapper = dynamic(
   () => import("../../components/analytics/analyticsPollWrapper.component")
 );
 
+import HttpService from "../../services/@http/HttpClient";
+const http = new HttpService();
+
 const data = {
   question:
     "If you could go for a coffee with a figure from history, who would it be?",
@@ -42,11 +45,11 @@ const data = {
   ],
 };
 
-const ViewAnalytics = ({ post }: ComponentInputProps) => {
-  if (!post) {
+const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
+  if (!analyticsData) {
     return (
       <ViewAnalyticsLayout>
-        <Stack spacing={1}>
+        <Stack spacing={2}>
           <Skeleton variant="rounded" sx={{ fontSize: "4rem" }} />
           <Skeleton variant="rounded" width={"100%"} height={40} />
           <Skeleton variant="rounded" width={"100%"} height={40} />
@@ -87,7 +90,7 @@ const ViewAnalytics = ({ post }: ComponentInputProps) => {
     <AnalyticsOfPollProvider question={data}>
       <NextSeo
         title="Mittr | View Analytics"
-        description={`The Analytics Viewing page offers individual contributors the capability to refine and analyze analytics data using various filtering options. Various analytics pertaining to the poll are available on this page for ${post.question}`}
+        description={`The Analytics Viewing page offers individual contributors the capability to refine and analyze analytics data using various filtering options. Various analytics pertaining to the poll are available on this page for ${analyticsData.question}`}
       />
       <ViewAnalyticsLayout>
         <AnalyticsPollWrapper />
@@ -97,23 +100,28 @@ const ViewAnalytics = ({ post }: ComponentInputProps) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // const resp = await axios.get("http://localhost:3200/questions");
-  const listQuestionData: Array<any> = [];
-  const pollQuestions = listQuestionData.map((item) => item.id);
+  const resp: Array<any> = await http.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/survey`
+  );
+  const listQuestionData: Array<any> = resp;
+  const pollQuestions = listQuestionData.map((item) => {
+    return item._id;
+  });
   const paths = pollQuestions.map((post) => ({
-    params: { index: post.toString() },
+    params: { index: post },
   }));
-  // const paths: any = [];
 
-  return { paths, fallback: true };
+  return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const resp = await axios.get("http://localhost:3200/questions");
-  const listQuestionData = resp.data;
   const postIndex = context.params?.index as string;
-  const post = listQuestionData.find((item: any) => item.id === postIndex);
-  return { props: { post } };
+  const resp = await http.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/survey/${postIndex}`
+  );
+  const analyticsData = resp;
+
+  return { props: { analyticsData } };
 };
 
 export default ViewAnalytics;
