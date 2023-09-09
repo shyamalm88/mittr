@@ -24,9 +24,13 @@ import { usePollAnswerContext } from "../../hooks/usePollAnswerContext";
 import { ComponentInputProps } from "../../types";
 import CheckmarkUtility from "../../utility/checkMark";
 import { useMotionValue, motion } from "framer-motion";
+import Subscribe from "../subscribe/Subscribe";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const AnswerPollWrapper = () => {
   let progress = useMotionValue(90);
+
   const targetRef = React.useRef();
   const answerContext = usePollAnswerContext();
   const router = useRouter();
@@ -46,6 +50,17 @@ const AnswerPollWrapper = () => {
   }
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const [open, setOpen] = React.useState(false);
+  const [displaySubscribeOrSave, setDisplaySubscribeOrSave] =
+    React.useState(false);
+
+  React.useEffect(() => {
+    if (open) {
+      setTimeout(() => {
+        setDisplaySubscribeOrSave(true);
+      }, 4000);
+    }
+  }, [open]);
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -55,6 +70,7 @@ const AnswerPollWrapper = () => {
   };
   const submitHandler = (e: any) => {
     e.preventDefault();
+    setActiveIndex((prev) => prev + 1);
     answerContext.handleChange({
       target: {
         name: `questionID`,
@@ -157,6 +173,7 @@ const AnswerPollWrapper = () => {
                 sx={{ float: "right" }}
                 endIcon={<ArrowForwardIosIcon />}
                 onClick={nextHandler}
+                disabled={additionalQuestionsLength === activeIndex}
               >
                 Next
               </Button>
@@ -203,39 +220,58 @@ const AnswerPollWrapper = () => {
           id="scroll-dialog-title"
           sx={{ color: (theme) => theme.palette.primary.main }}
         >
-          Success
+          {displaySubscribeOrSave ? "Subscribe" : "Success"}
         </DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <Divider />
         <DialogContent>
-          <Box sx={{ m: 2 }} ref={targetRef}>
-            <Confetti width={883} height={300} recycle={false} />
-            <Typography textAlign="center" sx={{ m: 3 }}>
-              You have submitted the Answer
-            </Typography>
-            <motion.div
-              initial={{ x: 0 }}
-              animate={{ x: 100 }}
-              style={{ x: progress }}
-              transition={{ duration: 1 }}
-            />
-            <CheckmarkUtility progress={progress} />
-          </Box>
+          {displaySubscribeOrSave ? (
+            <Subscribe />
+          ) : (
+            <Box sx={{ m: 2 }} ref={targetRef}>
+              <Confetti width={883} height={300} recycle={false} />
+              <Typography textAlign="center" sx={{ m: 3 }}>
+                You have submitted the Answer
+              </Typography>
+              <motion.div
+                initial={{ x: 0 }}
+                animate={{ x: 100 }}
+                style={{ x: progress }}
+                transition={{ duration: 1 }}
+              />
+              <CheckmarkUtility progress={progress} />
+            </Box>
+          )}
         </DialogContent>
-        <DialogActions>
-          <Button
-            variant="outlined"
-            onClick={handleClose}
-            startIcon={<ArrowBackOutlinedIcon />}
-          >
-            Back To Home
-          </Button>
-          <Button
-            variant="contained"
-            onClick={handleViewAnalytics}
-            startIcon={<BarChartOutlinedIcon />}
-          >
-            View Analytics
-          </Button>
-        </DialogActions>
+        {displaySubscribeOrSave && (
+          <DialogActions>
+            <Button
+              variant="outlined"
+              onClick={handleClose}
+              startIcon={<ArrowBackOutlinedIcon />}
+            >
+              Back To Home
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleViewAnalytics}
+              startIcon={<BarChartOutlinedIcon />}
+            >
+              View Analytics
+            </Button>
+          </DialogActions>
+        )}
       </Dialog>
     </>
   );

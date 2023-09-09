@@ -18,9 +18,12 @@ import { usePollCreationContext } from "../../hooks/usePollCreationContext";
 import PollSettings from "../additionalQuestions/pollSettings.component";
 import { Calendar } from "react-date-range";
 import { ClickAwayListener } from "@mui/base/ClickAwayListener";
-// import { useTheme } from "@mui/material";
+import { Divider, Tooltip, Typography } from "@mui/material";
+import { useTheme } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const PollFormWrapper = () => {
+  const theme = useTheme();
   const [displayCalender, setDisplayCalender] = React.useState<boolean>(false);
   const [date, setDate] = React.useState<Date>();
   const contextValue = usePollCreationContext();
@@ -209,7 +212,22 @@ const PollFormWrapper = () => {
           </Box>
         </Stack>
       </Box>
+
       <PollSettings />
+      <Stack
+        direction="row"
+        alignItems="center"
+        sx={{ color: theme.palette.text.secondary, mt: 2 }}
+      >
+        <Tooltip title="These supplementary questions can be tailored to the specific subject matter of your poll to enhance the quality of responses.">
+          <InfoOutlinedIcon color="inherit" />
+        </Tooltip>
+
+        <Typography variant="body2" component="small" sx={{ m: 2 }}>
+          Kindly suggest supplementary questions that can be incorporated to
+          elicit deeper insights from those contributing to the poll.
+        </Typography>
+      </Stack>
       <AdditionalQuestions />
     </Box>
   );

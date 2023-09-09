@@ -9,9 +9,12 @@ import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import { useStepWrapperContext } from "../../hooks/useStepWrapperContext";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
+import LinearProgress from "@mui/material/LinearProgress";
+import { Typography } from "@mui/material";
 
 const QuestionnairePollAnswer = () => {
   let questionnaire = usePollQuestionContext("additionalQuestions");
+
   const { captureCity, captureGender } =
     usePollQuestionContext("settings") || {};
   if (captureCity) {
@@ -35,15 +38,42 @@ const QuestionnairePollAnswer = () => {
     ];
   }
   const stepIndexValue = useStepWrapperContext();
+  const [progress, setProgress] = React.useState(
+    (stepIndexValue / questionnaire.length) * 100
+  );
+  const [buffer, setBuffer] = React.useState(progress + 10);
+
+  React.useEffect(() => {
+    console.log(stepIndexValue);
+    setProgress((stepIndexValue / questionnaire.length) * 100);
+    setBuffer(progress + 10);
+  }, [stepIndexValue, questionnaire.length, progress]);
 
   return (
     <Box>
+      <Box sx={{ mb: 2, mt: 1 }}>
+        <Typography
+          component="p"
+          variant="body2"
+          sx={{ mt: 1 }}
+          color="inherit"
+        >
+          <small>
+            Completed {stepIndexValue} / {questionnaire.length}
+          </small>
+        </Typography>
+        <LinearProgress
+          variant="buffer"
+          value={progress}
+          valueBuffer={buffer}
+        />
+      </Box>
       <Stepper activeStep={stepIndexValue} orientation="vertical">
         {questionnaire?.map((item: OptionProp, index: number) => {
           const fieldName = `additionalQuestions[${index}]`;
           return (
             <Step key={index}>
-              <StepLabel>{`Additional Question ${index + 1}`}</StepLabel>
+              <StepLabel>{`Supplementary Question ${index + 1}`}</StepLabel>
               <StepContent TransitionProps={{ unmountOnExit: false }}>
                 <React.Fragment key={index}>
                   <QuestionnairePollAnswerTemplate

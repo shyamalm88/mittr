@@ -64,6 +64,7 @@ export default function CountryStateCityTemplate({
                 height="10"
                 src={`https://flagcdn.com/w20/${option.isoCode.toLowerCase()}.png`}
                 alt=""
+                className="bell"
               />
               {option.name}
             </Box>

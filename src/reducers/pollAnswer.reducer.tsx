@@ -41,7 +41,7 @@ export const PollAnswerReducer: Reducer<any, any> = (
           ...state,
           [key]: Array.isArray(payload.value)
             ? [...payload.value]
-            : { _id: payload.id, value: payload.value },
+            : payload.value,
         };
       }
 
