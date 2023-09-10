@@ -77,25 +77,24 @@ const AnswerPollFormWrapper = () => {
               >
                 Created By: Arghya Majumder
               </Typography>
-              <Tooltip
-                title={`${handleDateDiff} ${moment(contextDurationValue).format(
-                  "MMM Do YY"
-                )}`}
-              >
-                <Button
-                  size="small"
-                  sx={{ textTransform: "none" }}
-                  startIcon={<AccessTimeIcon />}
-                  color="inherit"
+              {contextDurationValue && (
+                <Tooltip
+                  title={`${handleDateDiff} ${moment(
+                    contextDurationValue
+                  ).format("MMM Do YY")}`}
                 >
-                  <React.Fragment>
-                    {/* {contextDurationValue &&
-                      handleDateDiff +
-                        moment(contextDurationValue, "YYYYMMDD").fromNow()} */}
-                    <ReactTimeAgo date={contextDurationValue} />
-                  </React.Fragment>
-                </Button>
-              </Tooltip>
+                  <Button
+                    size="small"
+                    sx={{ textTransform: "none" }}
+                    startIcon={<AccessTimeIcon />}
+                    color="inherit"
+                  >
+                    <React.Fragment>
+                      <ReactTimeAgo date={contextDurationValue} />
+                    </React.Fragment>
+                  </Button>
+                </Tooltip>
+              )}
             </Stack>
           </Box>
         </Box>

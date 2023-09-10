@@ -40,6 +40,7 @@ export type CreatePollValueType = {
   handleUpdateAnswerType: Function;
   submit: Function;
   reset: Function;
+  getState: Function;
 };
 
 export type CreatePollQuestionType = {

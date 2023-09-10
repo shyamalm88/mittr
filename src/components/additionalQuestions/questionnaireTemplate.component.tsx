@@ -35,6 +35,7 @@ export default function QuestionnaireTemplate({
     index: number
   ) => {
     const value = event.target.value;
+    console.log(event.target);
     if (!oldSelectedValue.current[index].value) {
       contextValue.handleChange(event);
       setSelectedValue(value as string);

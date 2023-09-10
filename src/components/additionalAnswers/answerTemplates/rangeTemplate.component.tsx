@@ -57,7 +57,7 @@ export default function RangeTemplate({
   const handleSliderChange = (e: any) => {
     setSliderValue(e.target.value);
     answerContext.handleChange({
-      target: { name: e.target.name, value: e.target.value },
+      target: { name: e.target.name, value: e.target.value, id: item._id },
     });
   };
   return (

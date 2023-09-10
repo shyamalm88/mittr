@@ -21,7 +21,7 @@ export default function PollAnswerFieldSwitchTemplate({
       return <CountryStateCityTemplate fieldName={fieldName} item={item} />;
     case "gender":
       return <GenderTemplate fieldName={fieldName} item={item} />;
-    case "date":
+    case "date_time":
       return <DateTemplate fieldName={fieldName} item={item} />;
     default:
       return <></>;

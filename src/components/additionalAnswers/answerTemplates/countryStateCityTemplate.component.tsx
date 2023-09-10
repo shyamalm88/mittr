@@ -36,6 +36,7 @@ export default function CountryStateCityTemplate({
       target: {
         name: `${fieldName}.selectedValue`,
         value: obj,
+        id: item._id,
       },
     });
   }, [country, city]);
@@ -63,8 +64,7 @@ export default function CountryStateCityTemplate({
                 width="20"
                 height="10"
                 src={`https://flagcdn.com/w20/${option.isoCode.toLowerCase()}.png`}
-                alt=""
-                className="bell"
+                alt={option.isoCode.toLowerCase()}
               />
               {option.name}
             </Box>

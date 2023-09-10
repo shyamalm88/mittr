@@ -41,6 +41,38 @@ const CreatePollWrapper = () => {
   const submitHandler = (e: any) => {
     e.preventDefault();
     console.log("Submit");
+
+    const updatedContextValue = contextValue.getState();
+    if (updatedContextValue.settings.captureCity) {
+      contextValue.handleChange({
+        target: {
+          name: `additionalQuestions[${contextValue.additionalQuestions.length}].question`,
+          value: "Your residing Country and City",
+        },
+      });
+      contextValue.handleChange({
+        target: {
+          name: `additionalQuestions[${contextValue.additionalQuestions.length}].answerType`,
+          value: "country",
+        },
+      });
+    }
+
+    if (updatedContextValue.settings.captureGender) {
+      contextValue.handleChange({
+        target: {
+          name: `additionalQuestions[${contextValue.additionalQuestions.length}].question`,
+          value: "Please select your Gender",
+        },
+      });
+      contextValue.handleChange({
+        target: {
+          name: `additionalQuestions[${contextValue.additionalQuestions.length}].answerType`,
+          value: "gender",
+        },
+      });
+    }
+    console.log(contextValue.getState());
     contextValue.submit();
   };
 

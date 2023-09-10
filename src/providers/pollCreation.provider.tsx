@@ -44,6 +44,10 @@ function PollCreationProvider({ children }: ChildrenProps) {
     });
   };
 
+  const getState = () => {
+    return state;
+  };
+
   const reset = () => {
     dispatch({
       type: RESET,
@@ -62,6 +66,7 @@ function PollCreationProvider({ children }: ChildrenProps) {
     handleUpdateAnswerType,
     reset,
     submit,
+    getState,
   };
 
   return (

@@ -17,26 +17,26 @@ const QuestionnairePollAnswer = () => {
 
   const { captureCity, captureGender } =
     usePollQuestionContext("settings") || {};
-  if (captureCity) {
-    questionnaire = [
-      ...questionnaire,
-      {
-        answerType: "country",
-        question: "Your residing Country and City",
-        questionId: questionnaire.length + 1,
-      },
-    ];
-  }
-  if (captureGender) {
-    questionnaire = [
-      ...questionnaire,
-      {
-        answerType: "gender",
-        question: "Please select your Gender",
-        questionId: questionnaire.length + 1,
-      },
-    ];
-  }
+  // if (captureCity) {
+  //   questionnaire = [
+  //     ...questionnaire,
+  //     {
+  //       answerType: "country",
+  //       question: "Your residing Country and City",
+  //       questionId: questionnaire.length + 1,
+  //     },
+  //   ];
+  // }
+  // if (captureGender) {
+  //   questionnaire = [
+  //     ...questionnaire,
+  //     {
+  //       answerType: "gender",
+  //       question: "Please select your Gender",
+  //       questionId: questionnaire.length + 1,
+  //     },
+  //   ];
+  // }
   const stepIndexValue = useStepWrapperContext();
   const [progress, setProgress] = React.useState(
     (stepIndexValue / questionnaire.length) * 100
@@ -44,7 +44,6 @@ const QuestionnairePollAnswer = () => {
   const [buffer, setBuffer] = React.useState(progress + 10);
 
   React.useEffect(() => {
-    console.log(stepIndexValue);
     setProgress((stepIndexValue / questionnaire.length) * 100);
     setBuffer(progress + 10);
   }, [stepIndexValue, questionnaire.length, progress]);

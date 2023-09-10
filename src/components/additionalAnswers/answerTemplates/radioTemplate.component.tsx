@@ -15,8 +15,11 @@ const RadioTemplate = ({ fieldName, item }: ComponentInputProps) => {
   const answerContext = usePollAnswerContext();
   const [radioValue, setRadioValue] = React.useState("");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target);
     setRadioValue(e.target.value);
-    answerContext.handleChange(e);
+    answerContext.handleChange({
+      target: { name: e.target.name, value: e.target.value, id: item._id },
+    });
   };
   return (
     <>
@@ -28,7 +31,7 @@ const RadioTemplate = ({ fieldName, item }: ComponentInputProps) => {
           onChange={handleChange}
           value={radioValue}
         >
-          {item.choices.map((item: any, index: number) => {
+          {item.choices.map((itemIndividual: any, index: number) => {
             const fieldName = `options[${index}]`;
             return (
               <FormControl
@@ -47,9 +50,9 @@ const RadioTemplate = ({ fieldName, item }: ComponentInputProps) => {
                   }}
                 >
                   <FormControlLabel
-                    value={item.choice}
+                    value={itemIndividual.choice}
                     control={<Radio />}
-                    label={item.choice}
+                    label={itemIndividual.choice}
                   />
                 </fieldset>
               </FormControl>

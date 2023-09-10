@@ -17,7 +17,9 @@ const GenderTemplate = ({ fieldName, item }: ComponentInputProps) => {
   ]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRadioValue(e.target.value);
-    answerContext.handleChange(e);
+    answerContext.handleChange({
+      target: { name: e.target.name, value: e.target.value, id: item._id },
+    });
   };
   return (
     <>
@@ -29,7 +31,7 @@ const GenderTemplate = ({ fieldName, item }: ComponentInputProps) => {
           onChange={handleChange}
           value={radioValue}
         >
-          {genderValue.map((item: any, index: number) => {
+          {genderValue.map((itemIndividual: any, index: number) => {
             const fieldName = `options[${index}]`;
             return (
               <FormControl
@@ -48,9 +50,9 @@ const GenderTemplate = ({ fieldName, item }: ComponentInputProps) => {
                   }}
                 >
                   <FormControlLabel
-                    value={item.value}
+                    value={itemIndividual.value}
                     control={<Radio />}
-                    label={item.choice}
+                    label={itemIndividual.choice}
                   />
                 </fieldset>
               </FormControl>
