@@ -38,12 +38,12 @@ const CreatePollWrapper = () => {
     };
   };
 
-  const submitHandler = (e: any) => {
+  const submitHandler = async (e: any) => {
     e.preventDefault();
     console.log("Submit");
 
-    const updatedContextValue = contextValue.getState();
-    if (updatedContextValue.settings.captureCity) {
+    const updatedContextCityValue = await contextValue.getState();
+    if (updatedContextCityValue.settings.captureCity) {
       contextValue.handleChange({
         target: {
           name: `additionalQuestions[${contextValue.additionalQuestions.length}].question`,
@@ -58,7 +58,9 @@ const CreatePollWrapper = () => {
       });
     }
 
-    if (updatedContextValue.settings.captureGender) {
+    const updatedContextGenderValue = await contextValue.getState();
+
+    if (updatedContextGenderValue.settings.captureGender) {
       contextValue.handleChange({
         target: {
           name: `additionalQuestions[${contextValue.additionalQuestions.length}].question`,

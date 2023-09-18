@@ -34,7 +34,7 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
           borderRadius: "4px",
           px: 1,
           py: 1,
-          mr: "135px",
+          mr: { xs: "0", md: "135px" },
         }}
       >
         {options.map((item, index) => {

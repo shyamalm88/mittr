@@ -3,6 +3,9 @@ const Survey = require("../models/Surveys");
 const Options = require("../models/Options");
 const AdditionalQuestions = require("../models/AdditionalQuestions");
 const SurveySettings = require("../models/SurveySettings");
+const Answers = require("../models/Answers");
+const AdditionalQuestionsAnswers = require("../models/AdditionalQuestionsAnswers");
+const { areArraysEqual } = require("@mui/base");
 
 const router = express.Router();
 
@@ -12,6 +15,19 @@ router.get("/survey", async (req, res) => {
       .populate("options")
       .populate("additionalQuestions")
       .populate("settings");
+    res.send(surveys);
+  } catch (err) {
+    res.status(404).send({
+      message: "Document Not Found",
+      status: 404,
+      details: err.message,
+    });
+  }
+});
+
+router.get("/survey/answers", async (req, res) => {
+  try {
+    const surveys = await Answers.find().populate("additionalQuestionsAnswers");
     res.send(surveys);
   } catch (err) {
     res.status(404).send({
@@ -58,6 +74,25 @@ router.post("/survey", async (req, res) => {
 
   try {
     const surveyRes = await survey.save();
+    res.send(surveyRes);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.post("/survey/answer", async (req, res) => {
+  const additionalQuestionsAnswersRefId =
+    await AdditionalQuestionsAnswers.insertMany(
+      req.body.additionalQuestionsAnswers
+    );
+  const answer = new Answers({
+    questionID: req.body.questionID,
+    selectedOption: req.body.selectedOption,
+    contributorIP: req.header("x-forwarded-for") || req.socket.remoteAddress,
+    additionalQuestionsAnswers: additionalQuestionsAnswersRefId,
+  });
+  try {
+    const surveyRes = await answer.save();
     res.send(surveyRes);
   } catch (error) {
     res.status(500).json(error);

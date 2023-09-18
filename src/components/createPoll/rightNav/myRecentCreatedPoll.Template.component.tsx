@@ -2,14 +2,17 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { Divider, Link, Stack, Typography } from "@mui/material";
 import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const MyRecentCreatedPollTemplate = () => {
+  const mobileView = useMediaQuery("(max-width:767px)");
   return (
     <Box
       sx={{
         width: "100%",
         height: "100%",
         mb: 2,
+        display: { xs: "none", sm: "none", lg: "block" },
       }}
       className="sideNav"
     >

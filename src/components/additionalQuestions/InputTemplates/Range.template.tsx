@@ -4,9 +4,13 @@ import Stack from "@mui/material/Stack";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { ComponentInputProps } from "../../../types";
 import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export default function RangeTemplate({ fieldName }: ComponentInputProps) {
   const contextValue = usePollCreationContext();
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const [startNum, setStartNum] = React.useState();
   const [endNum, setEndNum] = React.useState();
   const [stepNum, setStepNum] = React.useState();
@@ -37,7 +41,8 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
         borderRadius: "4px",
         px: 1,
         py: 1,
-        mr: "135px",
+        mr: { xs: "40px", sm: "135px" },
+        flexDirection: { xs: "column", sm: "column", md: "row" },
       }}
     >
       <Stack
@@ -97,6 +102,7 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
           name={`${fieldName}.rangeStepValue`}
           sx={{
             borderRadius: "4px",
+            marginRight: "20px",
           }}
           className="input"
           value={stepNum}

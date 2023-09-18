@@ -44,5 +44,5 @@ export const defaultPollQuestionValue: CreatePollQuestionType = {
 export const defaultPollAnswerFormValue: CreatePollAnswerType = {
   questionID: "",
   selectedOption: "",
-  additionalQuestions: [],
+  additionalQuestionsAnswers: [],
 };

@@ -30,6 +30,7 @@ const CreatePoll = () => {
           <Box
             sx={{
               mb: 2,
+              display: { xs: "none", sm: "none", lg: "block" },
             }}
           >
             <CreatePollLayout>
@@ -39,6 +40,7 @@ const CreatePoll = () => {
           <Box
             sx={{
               mb: 2,
+              display: { xs: "none", sm: "none", lg: "block" },
             }}
           >
             <CreatePollLayout>
@@ -46,7 +48,7 @@ const CreatePoll = () => {
             </CreatePollLayout>
           </Box>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12} sm={12} lg={8}>
           <CreatePollLayout>
             <CreatePollWrapper />
           </CreatePollLayout>
@@ -56,6 +58,7 @@ const CreatePoll = () => {
           <Box
             sx={{
               mb: 2,
+              display: { xs: "none", sm: "none", lg: "block" },
             }}
           >
             <CreatePollLayout>
@@ -65,6 +68,7 @@ const CreatePoll = () => {
           <Box
             sx={{
               mb: 2,
+              display: { xs: "none", sm: "none", lg: "block" },
             }}
           >
             <CreatePollLayout>

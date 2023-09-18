@@ -6,6 +6,9 @@ import {
 } from "../constants";
 import { Reducer } from "react";
 import { CreatePollAnswerType } from "../types";
+import HttpService from "../services/@http/HttpClient";
+import { toast } from "react-toastify";
+const http = new HttpService();
 
 export const PollAnswerReducer: Reducer<any, any> = (
   state: CreatePollAnswerType,
@@ -21,7 +24,11 @@ export const PollAnswerReducer: Reducer<any, any> = (
         key = temp.split("[")[0];
         const key2 = payload.name.split(".")[1];
         const keyVal = parseInt(temp.split("[")[1].replace("]", ""));
+        console.log(keyVal);
+        console.log(key);
         const arr: any = state[key as keyof typeof state];
+        console.log(arr);
+
         arr[keyVal] = {
           [key2]:
             typeof payload.value === "object" &&
@@ -46,8 +53,30 @@ export const PollAnswerReducer: Reducer<any, any> = (
       }
 
     case SUBMIT:
-      console.log(state);
-      console.log(JSON.stringify(state));
+      const tempObj = state;
+      const res = postAnswer(tempObj);
+      res
+        .then((data: any) => {
+          console.log("responseData", data);
+          toast.success("Successfully Answered for this poll", {
+            position: toast.POSITION.TOP_RIGHT,
+            hideProgressBar: true,
+            theme: "colored",
+          });
+        })
+        .catch((err: any) => {
+          console.log(err);
+          toast.error(`Error while saving Answers ${err.message}`, {
+            position: toast.POSITION.TOP_RIGHT,
+            hideProgressBar: true,
+            theme: "colored",
+          });
+        });
       return state;
   }
+};
+
+const postAnswer = async (data: any) => {
+  const response = await http.service().post(`/survey/answer`, data);
+  return response;
 };

@@ -40,14 +40,7 @@ const AnswerPollWrapper = () => {
   let additionalQuestionsLength = usePollQuestionContext(
     "additionalQuestions"
   )?.length;
-  const { captureCity, captureGender } =
-    usePollQuestionContext("settings") || {};
-  if (captureCity) {
-    additionalQuestionsLength += 1;
-  }
-  if (captureGender) {
-    additionalQuestionsLength += 1;
-  }
+
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const [open, setOpen] = React.useState(false);
   const [displaySubscribeOrSave, setDisplaySubscribeOrSave] =
@@ -83,7 +76,6 @@ const AnswerPollWrapper = () => {
 
   const nextHandler = () => {
     setActiveIndex((prev) => prev + 1);
-    answerContext.submit();
   };
   const prevHandler = () => {
     setActiveIndex((prev) => prev - 1);
@@ -173,7 +165,7 @@ const AnswerPollWrapper = () => {
                 sx={{ float: "right" }}
                 endIcon={<ArrowForwardIosIcon />}
                 onClick={nextHandler}
-                disabled={additionalQuestionsLength === activeIndex}
+                disabled={additionalQuestionsLength < activeIndex + 1}
               >
                 Next
               </Button>

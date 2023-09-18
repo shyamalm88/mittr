@@ -44,6 +44,7 @@ function RecentTemplate() {
         width: "100%",
         height: "100%",
         mb: 2,
+        display: { xs: "none", sm: "none", lg: "block" },
       }}
       className="sideNav"
     >

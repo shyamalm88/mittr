@@ -53,6 +53,7 @@ function LeftNavigationTemplate() {
       sx={{
         width: "100%",
         height: "100%",
+        display: { sm: "none", lg: "flex" },
       }}
       className="sideNav"
     >

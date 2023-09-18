@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 const AnswerPollLayout = ({ children }: ChildrenProps) => {
   return (
     <React.Fragment>
-      <Container maxWidth="md">
+      <Container maxWidth="xl">
         <CssBaseline />
         <Paper
           sx={{

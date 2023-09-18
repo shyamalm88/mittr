@@ -82,7 +82,6 @@ export default function CountryStateCityTemplate({
           )}
         />
       </FormControl>
-
       <FormControl variant="outlined">
         <Autocomplete
           options={cities}

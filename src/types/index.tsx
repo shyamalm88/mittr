@@ -60,8 +60,9 @@ export type CreatePollQuestionType = {
 export type CreatePollAnswerType = {
   questionID: string;
   selectedOption: string;
-  additionalQuestions: [];
+  additionalQuestionsAnswers: [];
 };
+
 export type CreatePollAdditionalQuestionType = {
   question: string;
   answerType: string;
