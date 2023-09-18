@@ -14,10 +14,15 @@ import Typography from "@mui/material/Typography";
 import FollowingTopics from "../createPoll/leftNav/followingTopics";
 import TrendingTopics from "../createPoll/leftNav/trendingTopics";
 import RecentPollList from "../createPoll/rightNav/recentPollList";
+import Logo_Dark from "./../../images/svg/logo_dark.svg";
+import Logo_Light from "./../../images/svg/logo_light.svg";
+
+import Image from "next/image";
 
 const drawerWidth = 240;
 
 function DrawerPanel({ open, setDrawerOpen }: ComponentInputProps) {
+  const theme = useTheme();
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -28,70 +33,89 @@ function DrawerPanel({ open, setDrawerOpen }: ComponentInputProps) {
   }));
 
   return (
-    <>
-      <Drawer
-        sx={{
+    <Drawer
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
           width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="temporary"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <Typography textAlign="left" display="flex" flexGrow={1}>
-            Mittr Menu
-          </Typography>
+          boxSizing: "border-box",
+        },
+      }}
+      variant="temporary"
+      anchor="left"
+      open={open}
+      aria-labelledby="Mittr-menubar"
+    >
+      <DrawerHeader>
+        <Typography textAlign="left" display="flex" flexGrow={1}>
+          {theme.palette.mode === "dark" && (
+            <Image
+              src={Logo_Dark}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ marginRight: "10px" }}
+              alt="Mittr Logo"
+            />
+          )}
 
-          <IconButton onClick={() => setDrawerOpen(false)}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <LeftNavMenu />
-        <Accordion square={true}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-            <Typography>Recently Created</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <RecentPollList />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography>Trending Topics</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <TrendingTopics />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-            <Typography>Following Topics</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <FollowingTopics />
-          </AccordionDetails>
-        </Accordion>
-        <Divider />
-      </Drawer>
-    </>
+          {theme.palette.mode === "light" && (
+            <Image
+              src={Logo_Light}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ marginRight: "10px" }}
+              alt="Mittr Logo"
+            />
+          )}
+        </Typography>
+
+        <IconButton onClick={() => setDrawerOpen(false)}>
+          <ChevronLeftIcon />
+        </IconButton>
+      </DrawerHeader>
+      <Divider />
+      <LeftNavMenu />
+      <Accordion square={true}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography>Recently Created</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <RecentPollList />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Trending Topics</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <TrendingTopics />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography>Following Topics</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <FollowingTopics />
+        </AccordionDetails>
+      </Accordion>
+      <Divider />
+    </Drawer>
   );
 }
 

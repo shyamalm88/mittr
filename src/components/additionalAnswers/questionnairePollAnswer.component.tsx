@@ -46,6 +46,7 @@ const QuestionnairePollAnswer = () => {
           variant="buffer"
           value={progress}
           valueBuffer={buffer}
+          aria-label="Answer Completion Progressbar"
         />
       </Box>
       <Stepper activeStep={stepIndexValue} orientation="vertical">
@@ -58,7 +59,7 @@ const QuestionnairePollAnswer = () => {
               } ${index + 1}`}</StepLabel>
               <StepContent
                 TransitionProps={{ unmountOnExit: false }}
-                sx={{ pl: 0 }}
+                sx={{ pl: { xs: 0, sm: 2 } }}
               >
                 <React.Fragment key={index}>
                   <QuestionnairePollAnswerTemplate

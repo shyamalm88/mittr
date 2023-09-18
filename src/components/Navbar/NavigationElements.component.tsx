@@ -26,7 +26,7 @@ const NavigationElements = () => {
         <IconButton
           size="large"
           aria-label="account of current user"
-          aria-controls="menu-appbar"
+          aria-controls="Mittr-menubar"
           aria-haspopup="true"
           onClick={toggleDrawer}
           color="inherit"
