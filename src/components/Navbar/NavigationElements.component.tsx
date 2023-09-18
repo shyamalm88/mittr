@@ -10,6 +10,7 @@ import Logo_Light from "./../../images/svg/logo_light.svg";
 
 import Image from "next/image";
 import { useTheme } from "@mui/material";
+import DrawerPanel from "./DrawerPanel";
 
 const NavigationElements = () => {
   const theme = useTheme();
@@ -29,6 +30,7 @@ const NavigationElements = () => {
           aria-haspopup="true"
           onClick={toggleDrawer}
           color="inherit"
+          sx={{ display: { xs: "block", lg: "none" } }}
         >
           <MenuIcon />
         </IconButton>
@@ -71,6 +73,7 @@ const NavigationElements = () => {
       >
         Mittr
       </Typography>
+      <DrawerPanel open={drawerOpen} setDrawerOpen={setDrawerOpen} />
     </>
   );
 };
