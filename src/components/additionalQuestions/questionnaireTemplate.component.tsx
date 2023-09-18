@@ -183,8 +183,7 @@ export default function QuestionnaireTemplate({
         textAlign="center"
         sx={{
           color: "#9E9E9E",
-          mr: "135px",
-          display: { xs: "none", sm: "flex" },
+          mr: { xs: "50px", lg: "135px" },
         }}
       >
         <small>{`# End of ${item?.questionLabel} ${index + 1}`}</small>

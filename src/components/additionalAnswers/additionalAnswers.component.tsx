@@ -10,7 +10,7 @@ export default function AdditionalAnswers({
     <Box
       sx={{
         width: "100%",
-        px: 2,
+        px: { xs: 0, sm: 2 },
         height: stepIndexValue >= 0 ? "100%" : 0,
         overflow: stepIndexValue >= 0 ? "visible" : "hidden",
       }}

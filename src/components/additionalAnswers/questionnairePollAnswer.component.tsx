@@ -56,7 +56,10 @@ const QuestionnairePollAnswer = () => {
               <StepLabel>{`${
                 smallScreen ? "Supplementary Question" : "Question"
               } ${index + 1}`}</StepLabel>
-              <StepContent TransitionProps={{ unmountOnExit: false }}>
+              <StepContent
+                TransitionProps={{ unmountOnExit: false }}
+                sx={{ pl: 0 }}
+              >
                 <React.Fragment key={index}>
                   <QuestionnairePollAnswerTemplate
                     questionItem={item}

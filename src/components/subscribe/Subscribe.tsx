@@ -7,8 +7,12 @@ import { Typography } from "@mui/material";
 import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsActiveOutlined";
 import Image from "next/image";
 import Bell from "./../../images/svg/Bell.svg";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 function Subscribe() {
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   return (
     <Box sx={{ m: 2, textAlign: "center" }}>
       <Box className="bell">
@@ -33,7 +37,7 @@ function Subscribe() {
         </Typography>
       </Box>
       <Box sx={{ m: 2 }}>
-        <Stack direction="row" spacing={2}>
+        <Stack direction={smallScreen ? "row" : "column"} spacing={2}>
           <TextField id="" label="Please Enter Your Email" fullWidth />
           <Button
             variant="contained"
