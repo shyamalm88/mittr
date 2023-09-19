@@ -128,7 +128,12 @@ const AnswerPollWrapper = () => {
             <>
               <Button
                 variant="contained"
-                sx={{ float: "right" }}
+                sx={{
+                  float: { xs: "none", sm: "right" },
+                  marginRight: "10px",
+                  width: { xs: "100%", sm: "auto" },
+                  mt: { xs: 2, sm: 0 },
+                }}
                 startIcon={<DoneOutlinedIcon />}
                 onClick={submitHandler}
               >
@@ -136,7 +141,12 @@ const AnswerPollWrapper = () => {
               </Button>
               <Button
                 variant="outlined"
-                sx={{ float: "right", marginRight: "10px" }}
+                sx={{
+                  float: { xs: "none", sm: "right" },
+                  marginRight: "10px",
+                  width: { xs: "100%", sm: "auto" },
+                  mt: { xs: 2, sm: 0 },
+                }}
                 startIcon={<ArrowBackIosIcon />}
                 onClick={prevHandler}
               >
@@ -145,8 +155,10 @@ const AnswerPollWrapper = () => {
               <Button
                 variant="outlined"
                 sx={{
-                  float: "left",
-                  ml: "15px",
+                  float: { xs: "none", sm: "left" },
+                  width: { xs: "100%", sm: "auto" },
+                  ml: { xs: "0px", sm: "15px" },
+                  mt: { xs: 2, sm: 0 },
                   color: (theme) => theme.palette.grey[500],
                   borderColor: (theme) => theme.palette.grey[500],
                   "&:hover": {
@@ -164,7 +176,12 @@ const AnswerPollWrapper = () => {
             <>
               <Button
                 variant="contained"
-                sx={{ float: "right" }}
+                sx={{
+                  float: { xs: "none", sm: "right" },
+                  marginRight: "10px",
+                  width: { xs: "100%", sm: "auto" },
+                  mt: { xs: 2, sm: 0 },
+                }}
                 endIcon={<ArrowForwardIosIcon />}
                 onClick={nextHandler}
                 disabled={
@@ -176,7 +193,12 @@ const AnswerPollWrapper = () => {
               <Button
                 variant="outlined"
                 startIcon={<ArrowBackIosIcon />}
-                sx={{ float: "right", marginRight: "10px" }}
+                sx={{
+                  float: { xs: "none", sm: "right" },
+                  marginRight: "10px",
+                  width: { xs: "100%", sm: "auto" },
+                  mt: { xs: 2, sm: 0 },
+                }}
                 onClick={prevHandler}
                 disabled={activeIndex === -1}
               >
@@ -185,8 +207,10 @@ const AnswerPollWrapper = () => {
               <Button
                 variant="outlined"
                 sx={{
-                  float: "left",
-                  ml: "15px",
+                  float: { xs: "none", sm: "left" },
+                  width: { xs: "100%", sm: "auto" },
+                  ml: { xs: "0px", sm: "15px" },
+                  mt: { xs: 2, sm: 0 },
                   color: (theme) => theme.palette.grey[500],
                   borderColor: (theme) => theme.palette.grey[500],
                   "&:hover": {
