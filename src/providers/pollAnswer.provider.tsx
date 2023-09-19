@@ -31,6 +31,10 @@ function PollAnswerProvider({ children }: ChildrenProps) {
     });
   };
 
+  const getState = () => {
+    return state;
+  };
+
   const [state, dispatch] = React.useReducer(
     PollAnswerReducer,
     defaultPollAnswerFormValue
@@ -40,6 +44,7 @@ function PollAnswerProvider({ children }: ChildrenProps) {
     ...defaultPollAnswerFormValue,
     handleChange,
     submit,
+    getState,
   };
 
   return (

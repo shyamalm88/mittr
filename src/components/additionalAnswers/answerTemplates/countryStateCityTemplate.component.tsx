@@ -18,11 +18,13 @@ export default function CountryStateCityTemplate({
   const [countries] = React.useState<any[]>(Country.getAllCountries());
   const [country, setCountry] = React.useState<any | string>();
   const [cities, setCities] = React.useState<ICity[]>([]);
-  const [city, setCity] = React.useState<ICity>();
+  const [city, setCity] = React.useState<ICity | any>();
 
-  const handleCountryChange = (e: any, value: any) => {
+  const handleCountryChange = (e: any, value: any, reason: any) => {
     setCountry(value?.isoCode);
     const cities = City.getCitiesOfCountry(value?.isoCode);
+    if (reason === "clear") {
+    }
     setCities(cities ? cities : []);
   };
 
@@ -93,10 +95,10 @@ export default function CountryStateCityTemplate({
           disabled={country ? false : true}
           onChange={handleCityChange}
           className="autoComplete"
-          getOptionLabel={(option) => option.name}
+          getOptionLabel={(option) => (option ? option.name : "")}
           renderOption={(props, option) => (
             <Box component="li" {...props}>
-              {option.name}
+              {option ? option.name : ""}
             </Box>
           )}
           renderInput={(params) => (

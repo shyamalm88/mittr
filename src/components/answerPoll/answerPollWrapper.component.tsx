@@ -27,6 +27,7 @@ import { useMotionValue, motion } from "framer-motion";
 import Subscribe from "../subscribe/Subscribe";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { toast } from "react-toastify";
 
 const AnswerPollWrapper = () => {
   let progress = useMotionValue(90);
@@ -40,6 +41,7 @@ const AnswerPollWrapper = () => {
   let additionalQuestionsLength = usePollQuestionContext(
     "additionalQuestions"
   )?.length;
+  // let questionContext = usePollQuestionContext();
 
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const [open, setOpen] = React.useState(false);
@@ -62,22 +64,86 @@ const AnswerPollWrapper = () => {
     handleClose();
     router.push("/viewAnalytics/" + index);
   };
-  const submitHandler = (e: any) => {
+  const submitHandler = async (e: any) => {
     e.preventDefault();
-    setSubmitted(true);
-    setActiveIndex((prev) => prev + 1);
-    answerContext.handleChange({
-      target: {
-        name: `questionID`,
-        value: router.query.index,
-      },
-    });
-    answerContext.submit();
-    setOpen(true);
+    const updatedContextValue = await answerContext.getState();
+    if (additionalQuestionsLength === activeIndex + 1) {
+      if (
+        !updatedContextValue.additionalQuestionsAnswers[activeIndex] ||
+        !updatedContextValue.additionalQuestionsAnswers[activeIndex]
+          .selectedValue
+      ) {
+        toast.error(`Please select One Option`, {
+          position: toast.POSITION.TOP_RIGHT,
+          hideProgressBar: true,
+          theme: "colored",
+        });
+      } else if (
+        typeof updatedContextValue.additionalQuestionsAnswers[activeIndex]
+          .selectedValue === "object" &&
+        (!updatedContextValue.additionalQuestionsAnswers[activeIndex]
+          .selectedValue.country ||
+          !updatedContextValue.additionalQuestionsAnswers[activeIndex]
+            .selectedValue.city)
+      ) {
+        toast.error(`Please select Country & City`, {
+          position: toast.POSITION.TOP_RIGHT,
+          hideProgressBar: true,
+          theme: "colored",
+        });
+      } else {
+        setActiveIndex((prev) => prev + 1);
+        answerContext.handleChange({
+          target: {
+            name: `questionID`,
+            value: router.query.index,
+          },
+        });
+        answerContext.submit();
+        setOpen(true);
+        setSubmitted(true);
+      }
+    }
   };
 
-  const nextHandler = () => {
-    setActiveIndex((prev) => prev + 1);
+  const nextHandler = async () => {
+    const updatedContextValue = await answerContext.getState();
+    if (activeIndex === -1 && !updatedContextValue.selectedOption) {
+      toast.error(`Please select One Option`, {
+        position: toast.POSITION.TOP_RIGHT,
+        hideProgressBar: true,
+        theme: "colored",
+      });
+    } else if (activeIndex >= 0) {
+      if (
+        !updatedContextValue.additionalQuestionsAnswers[activeIndex] ||
+        !updatedContextValue.additionalQuestionsAnswers[activeIndex]
+          .selectedValue
+      ) {
+        toast.error(`Please select One Option`, {
+          position: toast.POSITION.TOP_RIGHT,
+          hideProgressBar: true,
+          theme: "colored",
+        });
+      } else if (
+        typeof updatedContextValue.additionalQuestionsAnswers[activeIndex]
+          .selectedValue === "object" &&
+        (!updatedContextValue.additionalQuestionsAnswers[activeIndex]
+          .selectedValue.country ||
+          !updatedContextValue.additionalQuestionsAnswers[activeIndex]
+            .selectedValue.city)
+      ) {
+        toast.error(`Please select Country & City`, {
+          position: toast.POSITION.TOP_RIGHT,
+          hideProgressBar: true,
+          theme: "colored",
+        });
+      } else {
+        setActiveIndex((prev) => prev + 1);
+      }
+    } else {
+      setActiveIndex((prev) => prev + 1);
+    }
   };
   const prevHandler = () => {
     setActiveIndex((prev) => prev - 1);
