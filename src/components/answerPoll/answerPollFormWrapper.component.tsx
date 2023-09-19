@@ -22,6 +22,7 @@ const AnswerPollFormWrapper = () => {
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const contextValue = usePollQuestionContext("question");
+  const contextQuestionSetValue = usePollQuestionContext();
   const contextDurationValue = usePollQuestionContext("duration");
 
   const stepIndexValue = useStepWrapperContext();
@@ -29,7 +30,7 @@ const AnswerPollFormWrapper = () => {
   const handleDateDiff = useMemo(() => {
     let d1 = moment(moment().format("YYYY-MM-DD"));
     let d2 = moment(moment(contextDurationValue).format("YYYY-MM-DD"));
-    return d2.diff(d1, "days") < 0 ? "ended " : "will end ";
+    return d2.diff(d1, "days") < 0 ? "Poll ended on " : "Poll will end on ";
   }, [contextDurationValue]);
 
   return (
@@ -83,15 +84,34 @@ const AnswerPollFormWrapper = () => {
               </Typography>
               {contextDurationValue && (
                 <Tooltip
-                  title={`${handleDateDiff} ${moment(
-                    contextDurationValue
-                  ).format("MMM Do YY")}`}
+                  arrow
+                  title={
+                    <React.Fragment>
+                      <Typography variant="body2" component="small">
+                        Poll started at{" "}
+                        {moment(contextQuestionSetValue.createdAt).format(
+                          "DD/MM/YYYY, hh:mm a"
+                        )}
+                        ,
+                      </Typography>
+                      <br />
+                      <Typography variant="body2" component="small">
+                        {handleDateDiff}
+                        {moment(contextDurationValue).format(
+                          "DD/MM/YYYY, hh:mm a"
+                        )}
+                      </Typography>
+                    </React.Fragment>
+                  }
                 >
                   <Typography variant="body2" component="small">
                     <React.Fragment>
                       <Stack direction="row" alignItems="center" gap={1}>
                         <AccessTimeIcon />
-                        <ReactTimeAgo date={contextDurationValue} />
+                        <ReactTimeAgo
+                          date={Date.parse(contextDurationValue)}
+                          tooltip={false}
+                        />
                       </Stack>
                     </React.Fragment>
                   </Typography>
