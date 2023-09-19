@@ -21,8 +21,8 @@ const Questionnaire = ({
   const [typeOptions] = React.useState([
     {
       id: uuidv4(),
-      label: "Date Time",
-      value: "date_time",
+      label: "Date",
+      value: "date",
       icon: <CalendarMonthOutlinedIcon />,
     },
     // {

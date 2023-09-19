@@ -5,6 +5,7 @@ const schema = mongoose.Schema({
   rangeStartValue: Number,
   rangeEndValue: Number,
   rangeStepValue: Number,
+  dateValidationOption: String,
   choices: [],
 });
 

@@ -4,12 +4,13 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import FormControl from "@mui/material/FormControl";
 import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
-import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import moment from "moment";
 
 export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
   const [date, setDate] = React.useState();
   const answerContext = usePollAnswerContext();
+  console.log(item);
   const handleChange = (e: React.ChangeEvent<HTMLElement> | any) => {
     answerContext.handleChange({
       target: {
@@ -24,17 +25,14 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
     <>
       <FormControl variant="outlined">
         <LocalizationProvider dateAdapter={AdapterMoment}>
-          <MobileDateTimePicker
-            disablePast
+          <MobileDatePicker
             formatDensity="dense"
             value={date}
-            format="DD/MM/YYYY, h:mm a"
+            disableFuture={item.dateValidationOption === "disable_future_dates"}
+            disablePast={item.dateValidationOption === "disable_past_dates"}
+            format="DD/MM/YYYY"
             onChange={(newValue) => handleChange(newValue)}
             yearsPerRow={4}
-            viewRenderers={{
-              minutes: null,
-              seconds: null,
-            }}
             slotProps={{ textField: { size: "small" } }}
           />
         </LocalizationProvider>

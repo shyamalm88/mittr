@@ -5,12 +5,16 @@ import CountryStateCityCombiTemplate from "./InputTemplates/CountryStateCityComb
 import { ComponentInputProps } from "../../types";
 import CheckboxTemplate from "./InputTemplates/Checkbox.template";
 import LinearScaleTemplate from "./InputTemplates/LinearScale.template";
+import DateTemplate from "./InputTemplates/Date.template";
 
 export default function AnswerFieldSwitchTemplate({
   selectedValue,
   fieldName,
 }: ComponentInputProps) {
+  console.log(selectedValue);
   switch (selectedValue) {
+    case "date":
+      return <DateTemplate fieldName={fieldName} />;
     case "range":
       return <RangeTemplate fieldName={fieldName} />;
     case "choice":
