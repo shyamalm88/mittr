@@ -12,10 +12,16 @@ import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
+import moment from "moment";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 
 function PollSettings() {
   const theme = useTheme();
   const contextValue = usePollCreationContext();
+  const [date, setDate] = React.useState<null | string>();
+
   const [settingsObj, setSettingsObj] = React.useState({
     settings: {
       captureGender: false,
@@ -23,6 +29,14 @@ function PollSettings() {
       captureCity: false,
     },
   });
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLElement> | any) => {
+    console.log(moment(e).format());
+    const dateValue = moment(e).format();
+    contextValue.handleChange({
+      target: { value: dateValue, name: "duration" },
+    });
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const key1 = event.target.name.split(".")[0];
@@ -89,6 +103,24 @@ function PollSettings() {
                     fontSize: ".85em",
                   }}
                 />
+                {settingsObj.settings.closePollOnScheduledDate && (
+                  <FormControl variant="outlined">
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <MobileDateTimePicker
+                        disablePast
+                        formatDensity="dense"
+                        value={date}
+                        format="DD/MM/YYYY, h:mm a"
+                        onChange={(newValue) => handleDateChange(newValue)}
+                        yearsPerRow={4}
+                        viewRenderers={{
+                          seconds: null,
+                        }}
+                        slotProps={{ textField: { size: "small" } }}
+                      />
+                    </LocalizationProvider>
+                  </FormControl>
+                )}
               </Grid>
               <Grid item xs={6}>
                 <FormControlLabel

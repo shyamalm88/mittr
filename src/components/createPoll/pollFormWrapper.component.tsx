@@ -85,7 +85,7 @@ const PollFormWrapper = () => {
       >
         <PollOptionWrapper />
       </Box>
-      <Box
+      {/* <Box
         sx={{
           width: "100%",
           backgroundColor: (theme: any) =>
@@ -109,7 +109,7 @@ const PollFormWrapper = () => {
             position: "relative",
           }}
         >
-          <Button
+          {/* <Button
             size="small"
             sx={{ textTransform: "none" }}
             startIcon={<AccessTimeIcon />}
@@ -117,8 +117,8 @@ const PollFormWrapper = () => {
             onClick={(e: any) => setDisplayCalender(!displayCalender)}
           >
             {date ? date.toDateString() : "Duration"}
-          </Button>
-          {displayCalender && (
+          </Button> */}
+      {/* {displayCalender && (
             <ClickAwayListener onClickAway={handleCloseCalendar}>
               <div
                 style={{
@@ -136,7 +136,7 @@ const PollFormWrapper = () => {
                 />
               </div>
             </ClickAwayListener>
-          )}
+          )} 
           <Box>
             <RadioGroup
               name="pollType"
@@ -152,7 +152,7 @@ const PollFormWrapper = () => {
                   color: "rgb(156, 163, 175)",
                 }}
               >
-                {/* <FormControlLabel
+                <FormControlLabel
                   value="multiple_choice"
                   className="radioImage"
                   control={
@@ -206,12 +206,12 @@ const PollFormWrapper = () => {
                   }
                   label={<Hidden smDown>Survey</Hidden>}
                   labelPlacement="bottom"
-                /> */}
+                />
               </Stack>
             </RadioGroup>
           </Box>
         </Stack>
-      </Box>
+      </Box> */}
 
       <PollSettings />
       <Stack
