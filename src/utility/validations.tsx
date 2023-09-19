@@ -1,12 +1,26 @@
 import { toast } from "react-toastify";
 export function validateQuestionCreation(validateState: any) {
-  if (!validateState.question) {
+  const whitelist = /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\/]*$/;
+  if (!validateState.question.trim()) {
     console.error("Please add a question");
     toast.error(`Please add a question`, {
       position: toast.POSITION.TOP_RIGHT,
       hideProgressBar: true,
       theme: "colored",
     });
+    return false;
+  } else if (!validateState.question.trim().match(whitelist)) {
+    console.error(
+      `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`
+    );
+    toast.error(
+      `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`,
+      {
+        position: toast.POSITION.TOP_RIGHT,
+        hideProgressBar: true,
+        theme: "colored",
+      }
+    );
     return false;
   }
   if (
@@ -35,13 +49,26 @@ export function validateQuestionCreation(validateState: any) {
   ) {
     let isValid = true;
     validateState.additionalQuestions.forEach((item: any, index: number) => {
-      if (!item.question) {
+      if (!item.question.trim()) {
         console.error(`Please specify question for ${index + 1} position`);
         toast.error(`Please specify question for ${index + 1} position`, {
           position: toast.POSITION.TOP_RIGHT,
           hideProgressBar: true,
           theme: "colored",
         });
+        isValid = false;
+      } else if (!item.question.trim().match(whitelist)) {
+        console.error(
+          `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`
+        );
+        toast.error(
+          `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`,
+          {
+            position: toast.POSITION.TOP_RIGHT,
+            hideProgressBar: true,
+            theme: "colored",
+          }
+        );
         isValid = false;
       }
       if (!item.answerType) {
@@ -77,6 +104,23 @@ export function validateQuestionCreation(validateState: any) {
             `Please provide start value, end value and step value for the range for question no. ${
               index + 1
             }`,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+              hideProgressBar: true,
+              theme: "colored",
+            }
+          );
+          isValid = false;
+        } else if (
+          !item.rangeEndValue.trim().match(whitelist) ||
+          !item.rangeStartValue.trim().match(whitelist) ||
+          !item.rangeStepValue.trim().match(whitelist)
+        ) {
+          console.error(
+            `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`
+          );
+          toast.error(
+            `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`,
             {
               position: toast.POSITION.TOP_RIGHT,
               hideProgressBar: true,
