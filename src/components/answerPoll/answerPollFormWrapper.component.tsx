@@ -14,9 +14,13 @@ import Tooltip from "@mui/material/Tooltip";
 import ReactTimeAgo from "react-time-ago";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 TimeAgo.addDefaultLocale(en);
 
 const AnswerPollFormWrapper = () => {
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const contextValue = usePollQuestionContext("question");
   const contextDurationValue = usePollQuestionContext("duration");
 
@@ -59,7 +63,7 @@ const AnswerPollFormWrapper = () => {
             }}
           >
             <Stack
-              direction="row"
+              direction={smallScreen ? "row" : "column"}
               spacing={2}
               sx={{
                 display: "flex",
@@ -83,16 +87,14 @@ const AnswerPollFormWrapper = () => {
                     contextDurationValue
                   ).format("MMM Do YY")}`}
                 >
-                  <Button
-                    size="small"
-                    sx={{ textTransform: "none" }}
-                    startIcon={<AccessTimeIcon />}
-                    color="inherit"
-                  >
+                  <Typography variant="body2" component="small">
                     <React.Fragment>
-                      <ReactTimeAgo date={contextDurationValue} />
+                      <Stack direction="row" alignItems="center" gap={1}>
+                        <AccessTimeIcon />
+                        <ReactTimeAgo date={contextDurationValue} />
+                      </Stack>
                     </React.Fragment>
-                  </Button>
+                  </Typography>
                 </Tooltip>
               )}
             </Stack>

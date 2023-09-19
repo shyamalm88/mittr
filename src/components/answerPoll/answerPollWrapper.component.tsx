@@ -43,6 +43,7 @@ const AnswerPollWrapper = () => {
 
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const [open, setOpen] = React.useState(false);
+  const [submitted, setSubmitted] = React.useState(false);
   const [displaySubscribeOrSave, setDisplaySubscribeOrSave] =
     React.useState(false);
 
@@ -63,6 +64,7 @@ const AnswerPollWrapper = () => {
   };
   const submitHandler = (e: any) => {
     e.preventDefault();
+    setSubmitted(true);
     setActiveIndex((prev) => prev + 1);
     answerContext.handleChange({
       target: {
@@ -122,7 +124,7 @@ const AnswerPollWrapper = () => {
               borderBottomWidth: 0,
             }}
           />
-          {additionalQuestionsLength === activeIndex + 1 ? (
+          {additionalQuestionsLength === activeIndex + 1 && !submitted ? (
             <>
               <Button
                 variant="contained"
@@ -165,7 +167,9 @@ const AnswerPollWrapper = () => {
                 sx={{ float: "right" }}
                 endIcon={<ArrowForwardIosIcon />}
                 onClick={nextHandler}
-                disabled={additionalQuestionsLength < activeIndex + 1}
+                disabled={
+                  additionalQuestionsLength < activeIndex + 1 && submitted
+                }
               >
                 Next
               </Button>
@@ -232,7 +236,7 @@ const AnswerPollWrapper = () => {
             <Subscribe />
           ) : (
             <Box sx={{ m: 2 }} ref={targetRef}>
-              <Confetti width={883} height={300} recycle={false} />
+              <Confetti width={900} height={445} recycle={true} />
               <Typography textAlign="center" sx={{ m: 3 }}>
                 You have submitted the Answer
               </Typography>
