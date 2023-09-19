@@ -1,11 +1,9 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 import { ComponentInputProps } from "../../../types";
 import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
 import useMediaQuery from "@mui/material/useMediaQuery";
