@@ -95,12 +95,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const postIndex = context.params?.index as string;
-  const resp = await http.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/survey/${postIndex}`
-  );
-  const questionData = resp;
-
-  return { props: { questionData } };
+  try {
+    const resp = await http.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/survey/${postIndex}`
+    );
+    const questionData = resp;
+    console.log(questionData);
+    return { props: { questionData } };
+  } catch (err) {
+    console.error("Internal Server Error");
+    return { notFound: true };
+  }
 };
 
 export default CreatePoll;
