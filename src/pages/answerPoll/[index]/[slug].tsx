@@ -1,18 +1,18 @@
 import React from "react";
-import AnswerPollLayout from "../../layout/answerPoll.layout";
-import PollQuestionProvider from "../../providers/pollQuestion.provider";
+import AnswerPollLayout from "../../../layout/answerPoll.layout";
+import PollQuestionProvider from "../../../providers/pollQuestion.provider";
 import axios from "axios";
 import { NextSeo } from "next-seo";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { ComponentInputProps } from "../../types";
-import PollAnswerProvider from "../../providers/pollAnswer.provider";
+import { ComponentInputProps } from "../../../types";
+import PollAnswerProvider from "../../../providers/pollAnswer.provider";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
 const AnswerPollWrapper = dynamic(
-  () => import("../../components/answerPoll/answerPollWrapper.component")
+  () => import("../../../components/answerPoll/answerPollWrapper.component")
 );
-import HttpService from "../../services/@http/HttpClient";
+import HttpService from "../../../services/@http/HttpClient";
 const http = new HttpService();
 
 const CreatePoll = ({ questionData }: ComponentInputProps) => {
@@ -83,11 +83,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
     `${process.env.NEXT_PUBLIC_BASE_URL}/survey`
   );
   const listQuestionData: Array<any> = resp;
+
   const pollQuestions = listQuestionData.map((item) => {
-    return item._id;
+    return { id: item._id, slug: item.questionSlug };
   });
   const paths = pollQuestions.map((post) => ({
-    params: { index: post },
+    params: { index: post.id, slug: post.slug },
   }));
 
   return { paths, fallback: false };

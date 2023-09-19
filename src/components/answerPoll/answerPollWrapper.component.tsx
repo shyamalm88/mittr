@@ -35,7 +35,7 @@ const AnswerPollWrapper = () => {
   const targetRef = React.useRef();
   const answerContext = usePollAnswerContext();
   const router = useRouter();
-  const { index } = router.query;
+  const { index, slug } = router.query;
   const theme = useTheme();
   // let questionId = usePollQuestionContext("id");
   let additionalQuestionsLength = usePollQuestionContext(
@@ -62,7 +62,7 @@ const AnswerPollWrapper = () => {
   };
   const handleViewAnalytics = () => {
     handleClose();
-    router.push("/viewAnalytics/" + index);
+    router.push("/viewAnalytics/" + index + "/" + slug);
   };
   const submitHandler = async (e: any) => {
     e.preventDefault();
