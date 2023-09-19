@@ -8,6 +8,7 @@ import SendIcon from "@mui/icons-material/Send";
 import React from "react";
 
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
+import { validateQuestionCreation } from "../../utility/validations";
 
 const CreatePollWrapper = () => {
   const contextValue = usePollCreationContext();
@@ -74,8 +75,14 @@ const CreatePollWrapper = () => {
         },
       });
     }
-    console.log(contextValue.getState());
-    contextValue.submit();
+
+    const validateState = contextValue.getState();
+    console.log(validateState);
+    const validationSuccess = validateQuestionCreation(validateState);
+    console.log(validationSuccess);
+    if (validationSuccess) {
+      contextValue.submit();
+    }
   };
 
   return (
