@@ -14,6 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 export default function RadioTemplate({ fieldName }: ComponentInputProps) {
   const contextValue = usePollCreationContext();
+  const [radioOption, setRadioOption] = React.useState([]);
   const [options, setOptions] = React.useState([
     { id: uuidv4(), label: "Option", value: "" },
   ]);
@@ -26,6 +27,21 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
     setOptions(options.filter((item) => item.id != option.id));
     contextValue.handleDeleteFromList(fieldName);
   };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: number
+  ) => {
+    const val = (e.target as HTMLInputElement).value;
+    setRadioOption((prevOptions) => {
+      const result: any = [...prevOptions];
+      result[index] = (val as any).replace(/[%{}\[\]<>~`\\$'"]/g, "");
+      return result;
+    });
+    e.target.value = e.target.value.replace(/[%{}\[\]<>~`\\$'"]/g, "");
+    contextValue.handleChange(e);
+  };
+
   return (
     <>
       <Box
@@ -61,7 +77,8 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
                   name={`${fieldName}.choices[${index}].choice`}
                   multiline
                   autoFocus
-                  onChange={(e) => contextValue.handleChange(e)}
+                  value={radioOption[index]}
+                  onChange={(e) => handleChange(e, index)}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton

@@ -27,6 +27,7 @@ export default function QuestionnaireTemplate({
   const oldSelectedQuestionValue = React.useRef<HTMLInputElement[]>([]);
 
   const [selectedValue, setSelectedValue] = React.useState("");
+  const [question, setQuestion] = React.useState();
   const item = questionItem;
 
   const handleChange = (
@@ -62,6 +63,13 @@ export default function QuestionnaireTemplate({
     contextValue.handleDeleteFromList(fieldName);
   };
 
+  const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = (e.target as HTMLInputElement).value;
+    setQuestion((val as any).replace(/[%{}\[\]<>~`\\$'"]/g, ""));
+    e.target.value = e.target.value.replace(/[%{}\[\]<>~`\\$'"]/g, "");
+    contextValue.handleChange(e);
+  };
+
   return (
     <Stack direction="column" sx={{ mb: 2, px: 1, borderRadius: "4px" }}>
       <Stack
@@ -89,7 +97,8 @@ export default function QuestionnaireTemplate({
                 size="small"
                 margin="dense"
                 name={`${fieldName}.question`}
-                onChange={(e) => contextValue.handleChange(e)}
+                value={question}
+                onChange={handleQuestionChange}
                 sx={{
                   borderRadius: "4px",
                 }}

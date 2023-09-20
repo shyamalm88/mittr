@@ -16,27 +16,23 @@ import RadioGroup from "@mui/material/RadioGroup";
 import Hidden from "@mui/material/Hidden";
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
 import PollSettings from "../additionalQuestions/pollSettings.component";
-import { Calendar } from "react-date-range";
-import { ClickAwayListener } from "@mui/base/ClickAwayListener";
 import { Divider, Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const PollFormWrapper = () => {
   const theme = useTheme();
-  const [displayCalender, setDisplayCalender] = React.useState<boolean>(false);
-  const [date, setDate] = React.useState<Date>();
-  const contextValue = usePollCreationContext();
-  const handleDateChange = (date: Date, name: string) => {
-    setDate(date);
-    setDisplayCalender(false);
-    contextValue.handleChange({ target: { value: date, name } });
+  const [question, setQuestion] = React.useState();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = (e.target as HTMLInputElement).value;
+    setQuestion((val as any).replace(/[%{}\[\]<>~`\\$'"]/g, ""));
+    e.target.value = e.target.value.replace(/[%{}\[\]<>~`\\$'"]/g, "");
+    contextValue.handleChange(e);
   };
 
-  const handleCloseCalendar = () => {
-    setDisplayCalender(false);
-  };
-  // const theme = useTheme();
+  const contextValue = usePollCreationContext();
+
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", flex: 1, width: "100%" }}
@@ -63,13 +59,14 @@ const PollFormWrapper = () => {
           fullWidth
           autoFocus
           name="question"
+          value={question}
           InputProps={{
             disableUnderline: true,
             style: {
               color: "inherit",
             },
           }}
-          onChange={(e) => contextValue.handleChange(e)}
+          onChange={handleChange}
         />
       </Box>
       <Box

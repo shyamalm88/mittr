@@ -32,6 +32,8 @@ const PollOptionWrapper = () => {
   );
   const open = Boolean(anchorEl);
 
+  const [option, setOption] = React.useState([]);
+
   const [options, setOptions] = React.useState([
     { id: uuidv4(), label: "Option", value: "", enabled: true },
     { id: uuidv4(), label: "Option", value: "", enabled: true },
@@ -69,6 +71,20 @@ const PollOptionWrapper = () => {
     handleClose();
   };
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: number
+  ) => {
+    const val = (e.target as HTMLInputElement).value;
+    setOption((prevOptions) => {
+      const result: any = [...prevOptions];
+      result[index] = (val as any).replace(/[%{}\[\]<>~`\\$'"]/g, "");
+      return result;
+    });
+    e.target.value = e.target.value.replace(/[%{}\[\]<>~`\\$'"]/g, "");
+    contextValue.handleChange(e);
+  };
+
   return (
     <>
       <React.Fragment>
@@ -101,7 +117,7 @@ const PollOptionWrapper = () => {
                   multiline
                   readOnly={!item.enabled}
                   autoFocus
-                  defaultValue={!item.enabled ? "Other" : ""}
+                  value={!item.enabled ? "Other" : option[index]}
                   endAdornment={
                     <InputAdornment
                       position="end"
@@ -119,7 +135,7 @@ const PollOptionWrapper = () => {
                     </InputAdornment>
                   }
                   placeholder={`${item.label} ${index + 1}`}
-                  onChange={(e) => contextValue.handleChange(e)}
+                  onChange={(e) => handleChange(e, index)}
                   onBlur={(e) => {
                     !item.enabled && contextValue.handleChange(e);
                   }}

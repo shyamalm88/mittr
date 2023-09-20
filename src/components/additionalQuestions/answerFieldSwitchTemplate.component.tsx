@@ -11,7 +11,6 @@ export default function AnswerFieldSwitchTemplate({
   selectedValue,
   fieldName,
 }: ComponentInputProps) {
-  console.log(selectedValue);
   switch (selectedValue) {
     case "date":
       return <DateTemplate fieldName={fieldName} />;

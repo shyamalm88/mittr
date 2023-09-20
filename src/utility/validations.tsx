@@ -1,20 +1,19 @@
 import { toast } from "react-toastify";
 export function validateQuestionCreation(validateState: any) {
-  const whitelist = /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\/]*$/;
+  const whitelist = /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/;
   if (!validateState.question.trim()) {
     console.error("Please add a question");
     toast.error(`Please add a question`, {
       position: toast.POSITION.TOP_RIGHT,
-      hideProgressBar: true,
       theme: "colored",
     });
     return false;
   } else if (!validateState.question.trim().match(whitelist)) {
     console.error(
-      `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`
+      `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`
     );
     toast.error(
-      `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`,
+      `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
       {
         position: toast.POSITION.TOP_RIGHT,
         hideProgressBar: true,
@@ -59,10 +58,10 @@ export function validateQuestionCreation(validateState: any) {
         isValid = false;
       } else if (!item.question.trim().match(whitelist)) {
         console.error(
-          `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`
+          `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`
         );
         toast.error(
-          `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`,
+          `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
           {
             position: toast.POSITION.TOP_RIGHT,
             hideProgressBar: true,
@@ -117,10 +116,10 @@ export function validateQuestionCreation(validateState: any) {
           !item.rangeStepValue.trim().match(whitelist)
         ) {
           console.error(
-            `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`
+            `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`
           );
           toast.error(
-            `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]" are not allowed`,
+            `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
             {
               position: toast.POSITION.TOP_RIGHT,
               hideProgressBar: true,
