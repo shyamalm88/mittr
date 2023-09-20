@@ -75,7 +75,6 @@ const AnswerPollWrapper = () => {
       ) {
         toast.error(`Please select One Option`, {
           position: toast.POSITION.TOP_RIGHT,
-          hideProgressBar: true,
           theme: "colored",
         });
       } else if (
@@ -88,7 +87,6 @@ const AnswerPollWrapper = () => {
       ) {
         toast.error(`Please select Country & City`, {
           position: toast.POSITION.TOP_RIGHT,
-          hideProgressBar: true,
           theme: "colored",
         });
       } else {
@@ -111,7 +109,6 @@ const AnswerPollWrapper = () => {
     if (activeIndex === -1 && !updatedContextValue.selectedOption) {
       toast.error(`Please select One Option`, {
         position: toast.POSITION.TOP_RIGHT,
-        hideProgressBar: true,
         theme: "colored",
       });
     } else if (activeIndex >= 0) {
@@ -122,7 +119,6 @@ const AnswerPollWrapper = () => {
       ) {
         toast.error(`Please select One Option`, {
           position: toast.POSITION.TOP_RIGHT,
-          hideProgressBar: true,
           theme: "colored",
         });
       } else if (
@@ -135,7 +131,6 @@ const AnswerPollWrapper = () => {
       ) {
         toast.error(`Please select Country & City`, {
           position: toast.POSITION.TOP_RIGHT,
-          hideProgressBar: true,
           theme: "colored",
         });
       } else {

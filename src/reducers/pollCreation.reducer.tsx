@@ -125,7 +125,6 @@ export const PollCreationReducer: Reducer<any, any> = (
           console.log("responseData", data);
           toast.success("Successfully Created Survey", {
             position: toast.POSITION.TOP_RIGHT,
-            hideProgressBar: true,
             theme: "colored",
           });
         })
@@ -133,7 +132,6 @@ export const PollCreationReducer: Reducer<any, any> = (
           console.log(err);
           toast.error(`Error while saving Survey ${err.message}`, {
             position: toast.POSITION.TOP_RIGHT,
-            hideProgressBar: true,
             theme: "colored",
           });
         });

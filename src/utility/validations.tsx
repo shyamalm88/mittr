@@ -16,7 +16,6 @@ export function validateQuestionCreation(validateState: any) {
       `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
       {
         position: toast.POSITION.TOP_RIGHT,
-        hideProgressBar: true,
         theme: "colored",
       }
     );
@@ -29,7 +28,6 @@ export function validateQuestionCreation(validateState: any) {
     console.error("Please add options");
     toast.error(`Please add options`, {
       position: toast.POSITION.TOP_RIGHT,
-      hideProgressBar: true,
       theme: "colored",
     });
     return false;
@@ -37,7 +35,6 @@ export function validateQuestionCreation(validateState: any) {
     console.error("Please add at-least 2 options");
     toast.error(`Please add at-least 2 options`, {
       position: toast.POSITION.TOP_RIGHT,
-      hideProgressBar: true,
       theme: "colored",
     });
     return false;
@@ -52,7 +49,6 @@ export function validateQuestionCreation(validateState: any) {
         console.error(`Please specify question for ${index + 1} position`);
         toast.error(`Please specify question for ${index + 1} position`, {
           position: toast.POSITION.TOP_RIGHT,
-          hideProgressBar: true,
           theme: "colored",
         });
         isValid = false;
@@ -64,7 +60,6 @@ export function validateQuestionCreation(validateState: any) {
           `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
           {
             position: toast.POSITION.TOP_RIGHT,
-            hideProgressBar: true,
             theme: "colored",
           }
         );
@@ -82,7 +77,6 @@ export function validateQuestionCreation(validateState: any) {
           }`,
           {
             position: toast.POSITION.TOP_RIGHT,
-            hideProgressBar: true,
             theme: "colored",
           }
         );
@@ -105,7 +99,6 @@ export function validateQuestionCreation(validateState: any) {
             }`,
             {
               position: toast.POSITION.TOP_RIGHT,
-              hideProgressBar: true,
               theme: "colored",
             }
           );
@@ -122,7 +115,6 @@ export function validateQuestionCreation(validateState: any) {
             `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
             {
               position: toast.POSITION.TOP_RIGHT,
-              hideProgressBar: true,
               theme: "colored",
             }
           );
@@ -138,7 +130,6 @@ export function validateQuestionCreation(validateState: any) {
             `Please provide at-least two choices for question no. ${index + 1}`,
             {
               position: toast.POSITION.TOP_RIGHT,
-              hideProgressBar: true,
               theme: "colored",
             }
           );

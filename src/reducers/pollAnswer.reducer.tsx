@@ -60,7 +60,6 @@ export const PollAnswerReducer: Reducer<any, any> = (
           console.log("responseData", data);
           toast.success("Successfully Answered for this poll", {
             position: toast.POSITION.TOP_RIGHT,
-            hideProgressBar: true,
             theme: "colored",
           });
         })
@@ -68,7 +67,6 @@ export const PollAnswerReducer: Reducer<any, any> = (
           console.log(err);
           toast.error(`Error while saving Answers ${err.message}`, {
             position: toast.POSITION.TOP_RIGHT,
-            hideProgressBar: true,
             theme: "colored",
           });
         });
