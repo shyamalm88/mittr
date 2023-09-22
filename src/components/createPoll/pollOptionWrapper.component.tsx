@@ -14,7 +14,6 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { v4 as uuidv4 } from "uuid";
 import { OptionProp } from "../../types";
-import { usePollCreationContext } from "../../hooks/usePollCreationContext";
 import AltRouteOutlinedIcon from "@mui/icons-material/AltRouteOutlined";
 import { Topic } from "./topic/topic.component";
 import Tooltip from "@mui/material/Tooltip";
@@ -27,8 +26,8 @@ const PollOptionWrapper = () => {
     useFormContext();
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
-      control, // control props comes from useForm (optional: if you are using FormContext)
-      name: "options", // unique name for your Field Array
+      control,
+      name: "options",
     }
   );
   const [addedTopics, setAddedTopics] = React.useState<
