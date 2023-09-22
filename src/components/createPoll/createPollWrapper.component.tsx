@@ -6,9 +6,15 @@ import PollFormWrapper from "./pollFormWrapper.component";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import React from "react";
-
+import {
+  useForm,
+  FormProvider,
+  useFormContext,
+  SubmitHandler,
+} from "react-hook-form";
 import { usePollCreationContext } from "../../hooks/usePollCreationContext";
 import { validateQuestionCreation } from "../../utility/validations";
+import { v4 as uuidv4 } from "uuid";
 
 const CreatePollWrapper = () => {
   const contextValue = usePollCreationContext();
@@ -81,58 +87,81 @@ const CreatePollWrapper = () => {
     const validationSuccess = validateQuestionCreation(validateState);
     console.log(validationSuccess);
     if (validationSuccess) {
-      contextValue.submit();
+      // contextValue.submit();
     }
   };
 
-  return (
-    <Box component="form" onSubmit={submitHandler}>
-      <Card
-        variant="outlined"
-        sx={{
-          p: 2,
-          borderRadius: "4px",
-          borderTopColor: (theme) => theme.palette.primary.main,
-          borderTopStyle: "solid",
-          borderTopWidth: "2px",
-        }}
-        className="card"
-      >
-        <Stack
-          direction="row"
-          spacing={{ xs: 0, sm: 2, md: 4 }}
-          sx={{ display: "flex" }}
-        >
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Avatar {...stringAvatar("Arghya Majumder")} />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              borderRadius: "4px",
-            }}
-          >
-            <PollFormWrapper />
-          </Box>
-        </Stack>
+  const methods = useForm({
+    defaultValues: {
+      question: "",
+      options: [
+        { id: uuidv4(), label: "Option", enabled: true },
+        { id: uuidv4(), label: "Option", enabled: true },
+      ],
+      additionalQuestions: [],
+      settings: {
+        captureGender: false,
+        closePollOnScheduledDate: false,
+        captureCity: false,
+      },
+      duration: "",
+    },
+  });
+  const { handleSubmit } = methods;
+  const onSubmit: SubmitHandler<any> = (data) => console.log(data);
 
-        <Button
-          variant="contained"
-          style={{ float: "right" }}
-          type="submit"
-          startIcon={<SendIcon />}
-        >
-          Create
-        </Button>
-        <Button
+  return (
+    // <Box component="form" onSubmit={submitHandler}>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Card
           variant="outlined"
-          style={{ float: "right", marginRight: "10px" }}
+          sx={{
+            p: 2,
+            borderRadius: "4px",
+            borderTopColor: (theme) => theme.palette.primary.main,
+            borderTopStyle: "solid",
+            borderTopWidth: "2px",
+          }}
+          className="card"
         >
-          Cancel
-        </Button>
-      </Card>
-    </Box>
+          <Stack
+            direction="row"
+            spacing={{ xs: 0, sm: 2, md: 4 }}
+            sx={{ display: "flex" }}
+          >
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              <Avatar {...stringAvatar("Arghya Majumder")} />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                borderRadius: "4px",
+              }}
+            >
+              <PollFormWrapper />
+            </Box>
+          </Stack>
+
+          <Button
+            variant="contained"
+            style={{ float: "right" }}
+            type="submit"
+            startIcon={<SendIcon />}
+          >
+            Create
+          </Button>
+          <Button
+            variant="outlined"
+            style={{ float: "right", marginRight: "10px" }}
+          >
+            Cancel
+          </Button>
+        </Card>
+      </form>
+    </FormProvider>
+    // </Box>
   );
 };
 

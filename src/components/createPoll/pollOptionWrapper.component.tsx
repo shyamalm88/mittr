@@ -19,10 +19,18 @@ import AltRouteOutlinedIcon from "@mui/icons-material/AltRouteOutlined";
 import { Topic } from "./topic/topic.component";
 import Tooltip from "@mui/material/Tooltip";
 import { Chip, useTheme } from "@mui/material";
+import { useFormContext, useFieldArray } from "react-hook-form";
 
 const PollOptionWrapper = () => {
   const theme = useTheme();
-  const contextValue = usePollCreationContext();
+  const { register, setValue, unregister, control, getValues } =
+    useFormContext();
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
+    {
+      control, // control props comes from useForm (optional: if you are using FormContext)
+      name: "options", // unique name for your Field Array
+    }
+  );
   const [addedTopics, setAddedTopics] = React.useState<
     { id: string; label: string }[]
   >([]);
@@ -32,30 +40,23 @@ const PollOptionWrapper = () => {
   );
   const open = Boolean(anchorEl);
 
-  const [option, setOption] = React.useState([]);
-
-  const [options, setOptions] = React.useState([
-    { id: uuidv4(), label: "Option", value: "", enabled: true },
-    { id: uuidv4(), label: "Option", value: "", enabled: true },
-  ]);
   const addOption = () => {
-    const temp = { id: uuidv4(), label: "Option", value: "", enabled: true };
-    setOptions([...options, temp]);
+    const temp = { id: uuidv4(), label: "Option", enabled: true };
+    append(temp);
   };
 
   const addOtherOption = () => {
     const temp = {
       id: uuidv4(),
       label: "Other",
-      value: "Other",
       enabled: false,
     };
-    setOptions([...options, temp]);
+    append(temp);
+    setValue(`options.${getValues("options").length - 1}.option`, "Other");
   };
 
-  const deleteOption = (option: OptionProp, fieldName: string) => {
-    setOptions(options.filter((item) => item.id != option.id));
-    contextValue.handleDeleteFromList(fieldName);
+  const deleteOption = (index: number) => {
+    remove(index);
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -71,24 +72,10 @@ const PollOptionWrapper = () => {
     handleClose();
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    index: number
-  ) => {
-    const val = (e.target as HTMLInputElement).value;
-    setOption((prevOptions) => {
-      const result: any = [...prevOptions];
-      result[index] = (val as any).replace(/[%{}\[\]<>~`\\$'"]/g, "");
-      return result;
-    });
-    e.target.value = e.target.value.replace(/[%{}\[\]<>~`\\$'"]/g, "");
-    contextValue.handleChange(e);
-  };
-
   return (
     <>
       <React.Fragment>
-        {options.map((item, index) => {
+        {fields.map((item: any, index) => {
           const fieldName = `options[${index}]`;
           return (
             <FormControl
@@ -113,11 +100,12 @@ const PollOptionWrapper = () => {
                     borderRadius: "4px",
                   }}
                   className="input"
-                  name={`${fieldName}.option`}
+                  {...register(`${fieldName}.option` as const, {
+                    required: true,
+                  })}
                   multiline
-                  readOnly={!item.enabled}
+                  readOnly={!item?.enabled}
                   autoFocus
-                  value={!item.enabled ? "Other" : option[index]}
                   endAdornment={
                     <InputAdornment
                       position="end"
@@ -127,18 +115,14 @@ const PollOptionWrapper = () => {
                         aria-label="Delete Option"
                         edge="end"
                         sx={{ color: "inherit" }}
-                        onClick={() => deleteOption(item, fieldName)}
-                        disabled={options.length === 1}
+                        onClick={() => deleteOption(index)}
+                        disabled={getValues("options").length === 1}
                       >
                         <DeleteOutlineIcon />
                       </IconButton>
                     </InputAdornment>
                   }
-                  placeholder={`${item.label} ${index + 1}`}
-                  onChange={(e) => handleChange(e, index)}
-                  onBlur={(e) => {
-                    !item.enabled && contextValue.handleChange(e);
-                  }}
+                  placeholder={`${item?.label} ${index + 1}`}
                 />
               </fieldset>
             </FormControl>
@@ -162,7 +146,7 @@ const PollOptionWrapper = () => {
               startIcon={<AddCircleOutlineIcon />}
               onClick={addOption}
               variant="outlined"
-              disabled={options.length >= 5}
+              disabled={getValues("options").length >= 5}
             >
               Add
               <Box
@@ -184,7 +168,7 @@ const PollOptionWrapper = () => {
               sx={{ textTransform: "none" }}
               startIcon={<AltRouteOutlinedIcon />}
               onClick={addOtherOption}
-              disabled={options.length >= 5}
+              disabled={getValues("options").length >= 5}
             >
               Add Other
             </Button>

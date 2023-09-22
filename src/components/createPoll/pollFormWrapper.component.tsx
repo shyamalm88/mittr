@@ -19,6 +19,7 @@ import PollSettings from "../additionalQuestions/pollSettings.component";
 import { Divider, Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { useFormContext } from "react-hook-form";
 
 const PollFormWrapper = () => {
   const theme = useTheme();
@@ -32,6 +33,7 @@ const PollFormWrapper = () => {
   };
 
   const contextValue = usePollCreationContext();
+  const { register } = useFormContext();
 
   return (
     <Box
@@ -58,7 +60,7 @@ const PollFormWrapper = () => {
           size="small"
           fullWidth
           autoFocus
-          name="question"
+          {...register("question" as const, { required: true })}
           value={question}
           InputProps={{
             disableUnderline: true,

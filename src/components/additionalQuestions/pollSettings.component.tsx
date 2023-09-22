@@ -16,42 +16,15 @@ import moment from "moment";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
+import { useFormContext, Controller } from "react-hook-form";
 
 function PollSettings() {
   const theme = useTheme();
-  const contextValue = usePollCreationContext();
-  const [date, setDate] = React.useState<null | string>();
+  const { register, setValue, getValues, watch, control } = useFormContext();
 
-  const [settingsObj, setSettingsObj] = React.useState({
-    settings: {
-      captureGender: false,
-      closePollOnScheduledDate: false,
-      captureCity: false,
-    },
-  });
-
-  const handleDateChange = (e: React.ChangeEvent<HTMLElement> | any) => {
-    console.log(moment(e).format());
-    const dateValue = moment(e).format();
-    contextValue.handleChange({
-      target: { value: dateValue, name: "duration" },
-    });
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const key1 = event.target.name.split(".")[0];
-    const key2 = event.target.name.split(".")[1];
-    setSettingsObj({
-      ...settingsObj,
-      [key1]: {
-        ...settingsObj.settings,
-        [key2]: event.target.checked,
-      },
-    });
-    contextValue.handleChange({
-      target: { value: event.target.checked, name: event.target.name },
-    });
-  };
+  React.useEffect(() => {
+    watch("settings");
+  }, [watch]);
 
   return (
     <Accordion
@@ -79,19 +52,14 @@ function PollSettings() {
       </AccordionSummary>
       <AccordionDetails>
         <FormControl component="fieldset" variant="standard">
-          {/* <FormLabel component="legend">Assign responsibility</FormLabel> */}
-
           <FormGroup>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <FormControlLabel
                   control={
                     <Switch
-                      checked={settingsObj.settings.closePollOnScheduledDate}
-                      onChange={handleChange}
-                      name="settings.closePollOnScheduledDate"
+                      {...register("settings.closePollOnScheduledDate")}
                       color="info"
-                      value={settingsObj.settings.closePollOnScheduledDate}
                     />
                   }
                   label="Close Poll On Scheduled Date"
@@ -103,22 +71,30 @@ function PollSettings() {
                     fontSize: ".85em",
                   }}
                 />
-                {settingsObj.settings.closePollOnScheduledDate && (
+
+                {getValues("settings").closePollOnScheduledDate && (
                   <FormControl variant="outlined">
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <MobileDateTimePicker
-                        disablePast
-                        formatDensity="dense"
-                        value={date}
-                        format="DD/MM/YYYY, h:mm a"
-                        onChange={(newValue) => handleDateChange(newValue)}
-                        yearsPerRow={4}
-                        viewRenderers={{
-                          seconds: null,
-                        }}
-                        slotProps={{ textField: { size: "small" } }}
-                      />
-                    </LocalizationProvider>
+                    <Controller
+                      name="duration"
+                      control={control}
+                      render={({ field: { onChange, ...restField } }) => (
+                        <LocalizationProvider dateAdapter={AdapterMoment}>
+                          <MobileDateTimePicker
+                            disablePast
+                            formatDensity="spacious"
+                            format="DD/MM/YYYY, h:mm a"
+                            yearsPerRow={4}
+                            viewRenderers={{
+                              seconds: null,
+                            }}
+                            onChange={(event: any) => {
+                              onChange(moment(event).format("DD/MM/YYYY"));
+                            }}
+                            slotProps={{ textField: { size: "small" } }}
+                          />
+                        </LocalizationProvider>
+                      )}
+                    />
                   </FormControl>
                 )}
               </Grid>
@@ -126,11 +102,8 @@ function PollSettings() {
                 <FormControlLabel
                   control={
                     <Switch
-                      checked={settingsObj.settings.captureGender}
-                      onChange={handleChange}
-                      name="settings.captureGender"
+                      {...register("settings.captureGender")}
                       color="info"
-                      value={settingsObj.settings.captureGender}
                     />
                   }
                   label="Require participants' gender"
@@ -142,11 +115,8 @@ function PollSettings() {
                 <FormControlLabel
                   control={
                     <Switch
-                      checked={settingsObj.settings.captureCity}
-                      onChange={handleChange}
-                      name="settings.captureCity"
+                      {...register("settings.captureCity")}
                       color="info"
-                      value={settingsObj.settings.captureCity}
                     />
                   }
                   label="Require Participants' City"
