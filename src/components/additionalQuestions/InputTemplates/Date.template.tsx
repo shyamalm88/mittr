@@ -5,22 +5,20 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import { ComponentInputProps } from "../../../types";
-import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { useFormContext } from "react-hook-form";
 
 export default function DateTemplate({ fieldName }: ComponentInputProps) {
-  const contextValue = usePollCreationContext();
+  const { register, setValue, unregister, control, getValues } =
+    useFormContext();
   const theme = useTheme();
-  const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const [dateValidationOption, setDateValidationOption] =
     React.useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = (e.target as HTMLInputElement).value;
-    console.log(val);
     setDateValidationOption(val);
-    contextValue.handleChange(e);
+    setValue(e.target.name, val);
   };
 
   return (
@@ -38,8 +36,8 @@ export default function DateTemplate({ fieldName }: ComponentInputProps) {
       <FormControl>
         <RadioGroup
           row
-          name={`${fieldName}.dateValidationOption`}
           value={dateValidationOption}
+          name={`${fieldName}.dateValidationOption`}
           onChange={handleChange}
         >
           <FormControlLabel

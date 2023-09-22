@@ -101,11 +101,9 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
 
 function Analyzer() {
   const analyticsValue = usePollAnalyticsContext();
-  console.log("analyticsValue", analyticsValue);
   const choicesArr = analyticsValue?.additionalQuestions?.filter(
     (item: any) => item.answerType === "choice"
   );
-  console.log("choicesArr", choicesArr);
   const [pollValue, setPollValue] = React.useState<any>([]);
   const [dateRange, setDateRange] = React.useState<number[]>([7, 60]);
   const minDistance = 10;

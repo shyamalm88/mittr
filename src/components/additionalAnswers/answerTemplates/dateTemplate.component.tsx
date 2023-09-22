@@ -10,7 +10,6 @@ import moment from "moment";
 export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
   const [date, setDate] = React.useState();
   const answerContext = usePollAnswerContext();
-  console.log(item);
   const handleChange = (e: React.ChangeEvent<HTMLElement> | any) => {
     answerContext.handleChange({
       target: {

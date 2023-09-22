@@ -12,62 +12,56 @@ import { usePollCreationContext } from "../../hooks/usePollCreationContext";
 import Divider from "@mui/material/Divider";
 import { useConfirm } from "material-ui-confirm";
 import Box from "@mui/material/Box";
+import { useFormContext, useWatch } from "react-hook-form";
 
 export default function QuestionnaireTemplate({
   typeOptions,
   questionItem,
   index,
   questionnaire,
-  setQuestionnaire,
   fieldName,
+  remove,
+  update,
 }: ComponentInputProps) {
   const confirm = useConfirm();
-  const contextValue = usePollCreationContext();
+  const { register, setValue, unregister, control, getValues, resetField } =
+    useFormContext();
+
   const oldSelectedValue = React.useRef<HTMLInputElement[]>([]);
   const oldSelectedQuestionValue = React.useRef<HTMLInputElement[]>([]);
 
   const [selectedValue, setSelectedValue] = React.useState("");
-  const [question, setQuestion] = React.useState();
   const item = questionItem;
 
-  const handleChange = (
-    event: SelectChangeEvent,
-    fieldName: string,
-    index: number
-  ) => {
+  const handleChange = (event: SelectChangeEvent, index: number) => {
     const value = event.target.value;
-    console.log(event.target);
     if (!oldSelectedValue.current[index].value) {
-      contextValue.handleChange(event);
       setSelectedValue(value as string);
+      setValue(event.target.name, value);
     } else {
       confirm({
         description:
           "Do you wish to proceed with changing the answer type option? Please note that selecting a different option will reset all entries related to the previous selection. Are you sure you want to continue?",
       })
         .then(() => {
+          const defaultValues = {
+            id: "",
+            questionLabel: "Question",
+            answerType: "",
+            question: "",
+          };
+          const { id, question } = getValues(`additionalQuestions.${index}`);
+          defaultValues.id = id;
+          defaultValues.question = question;
+          setValue(`additionalQuestions.${index}`, defaultValues);
           setSelectedValue(value);
-          contextValue.handleUpdateAnswerType(fieldName);
-          oldSelectedQuestionValue.current[index].value = "";
-          contextValue.handleChange(event);
+          setValue(event.target.name, value);
         })
         .catch(() => {
           setSelectedValue(oldSelectedValue.current[index].value as string);
-          // contextValue.handleChange(event);
+          setValue(event.target.name, oldSelectedValue.current[index].value);
         });
     }
-  };
-
-  const removeQuestionnaire = (item: OptionProp, fieldName: string) => {
-    setQuestionnaire(questionnaire.filter((x: OptionProp) => x.id != item.id));
-    contextValue.handleDeleteFromList(fieldName);
-  };
-
-  const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = (e.target as HTMLInputElement).value;
-    setQuestion((val as any).replace(/[%{}\[\]<>~`\\$'"]/g, ""));
-    e.target.value = e.target.value.replace(/[%{}\[\]<>~`\\$'"]/g, "");
-    contextValue.handleChange(e);
   };
 
   return (
@@ -96,9 +90,9 @@ export default function QuestionnaireTemplate({
               <OutlinedInput
                 size="small"
                 margin="dense"
-                name={`${fieldName}.question`}
-                value={question}
-                onChange={handleQuestionChange}
+                {...register(`${fieldName}.question` as const, {
+                  required: false,
+                })}
                 sx={{
                   borderRadius: "4px",
                 }}
@@ -118,12 +112,12 @@ export default function QuestionnaireTemplate({
             >
               <Select
                 fullWidth
-                onChange={(e) => handleChange(e, fieldName, index)}
-                value={selectedValue}
+                onChange={(e: any) => handleChange(e, index)}
                 name={`${fieldName}.answerType`}
                 style={{
                   color: "inherit",
                 }}
+                value={selectedValue}
                 className="select"
                 inputRef={(el) => (oldSelectedValue.current[index] = el)}
                 displayEmpty
@@ -162,7 +156,7 @@ export default function QuestionnaireTemplate({
           }}
           startIcon={<DeleteOutlineIcon />}
           color="inherit"
-          onClick={() => removeQuestionnaire(item, fieldName)}
+          onClick={() => remove(index)}
           disabled={questionnaire?.length === 1}
         >
           <Box

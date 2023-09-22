@@ -60,7 +60,7 @@ const PollFormWrapper = () => {
           size="small"
           fullWidth
           autoFocus
-          {...register("question" as const, { required: true })}
+          {...register("question" as const, { required: false })}
           value={question}
           InputProps={{
             disableUnderline: true,

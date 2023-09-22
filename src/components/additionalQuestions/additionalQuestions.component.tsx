@@ -9,19 +9,23 @@ import AddTaskIcon from "@mui/icons-material/AddTask";
 import Questionnaire from "./questionnaire.component";
 import { v4 as uuidv4 } from "uuid";
 import Tooltip from "@mui/material/Tooltip";
+import { useFormContext, useFieldArray } from "react-hook-form";
 
 export default function AdditionalQuestions() {
-  const [questionnaire, setQuestionnaire] = React.useState([
-    { id: uuidv4(), questionLabel: "Question", answerType: "" },
-  ]);
-
+  const { register, setValue, unregister, control, getValues } =
+    useFormContext();
+  const { fields, append, prepend, remove, swap, move, insert, update } =
+    useFieldArray({
+      control,
+      name: "additionalQuestions",
+    });
   const addQuestionnaire = () => {
     const temp = {
       id: uuidv4(),
       questionLabel: "Question",
       answerType: "",
     };
-    setQuestionnaire([...questionnaire, temp]);
+    append(temp);
   };
 
   return (
@@ -32,10 +36,7 @@ export default function AdditionalQuestions() {
         pt: 2,
       }}
     >
-      <Questionnaire
-        questionnaire={questionnaire}
-        setQuestionnaire={setQuestionnaire}
-      />
+      <Questionnaire questionnaire={fields} remove={remove} update={update} />
 
       <Stack
         direction="row"
@@ -56,7 +57,7 @@ export default function AdditionalQuestions() {
             color="info"
             variant="outlined"
             onClick={addQuestionnaire}
-            disabled={questionnaire.length >= 5}
+            disabled={fields.length >= 5}
           >
             Add
             <Box

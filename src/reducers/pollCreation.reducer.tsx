@@ -122,14 +122,12 @@ export const PollCreationReducer: Reducer<any, any> = (
       const res = postSurvey(tempObj);
       res
         .then((data: any) => {
-          console.log("responseData", data);
           toast.success("Successfully Created Survey", {
             position: toast.POSITION.TOP_RIGHT,
             theme: "colored",
           });
         })
         .catch((err: any) => {
-          console.log(err);
           toast.error(`Error while saving Survey ${err.message}`, {
             position: toast.POSITION.TOP_RIGHT,
             theme: "colored",
@@ -138,8 +136,6 @@ export const PollCreationReducer: Reducer<any, any> = (
       return state;
 
     case RESET:
-      // console.log(state);
-      // console.log(JSON.stringify(state));
       return state;
   }
 };

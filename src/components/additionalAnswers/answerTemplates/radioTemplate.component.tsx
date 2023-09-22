@@ -15,7 +15,6 @@ const RadioTemplate = ({ fieldName, item }: ComponentInputProps) => {
   const answerContext = usePollAnswerContext();
   const [radioValue, setRadioValue] = React.useState("");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target);
     setRadioValue(e.target.value);
     answerContext.handleChange({
       target: { name: e.target.name, value: e.target.value, id: item._id },

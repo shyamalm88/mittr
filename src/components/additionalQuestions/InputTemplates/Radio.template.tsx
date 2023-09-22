@@ -9,38 +9,34 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { v4 as uuidv4 } from "uuid";
 import { ComponentInputProps, OptionProp } from "../../../types";
-import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
 import Tooltip from "@mui/material/Tooltip";
+import { useFormContext, useFieldArray } from "react-hook-form";
+
+const choices = [{ id: uuidv4(), label: "Choice" }];
 
 export default function RadioTemplate({ fieldName }: ComponentInputProps) {
-  const contextValue = usePollCreationContext();
+  const { register, setValue, unregister, control, getValues } =
+    useFormContext();
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
+    {
+      control,
+      name: `${fieldName}.choices`,
+    }
+  );
   const [radioOption, setRadioOption] = React.useState([]);
-  const [options, setOptions] = React.useState([
-    { id: uuidv4(), label: "Option", value: "" },
-  ]);
+
   const addOption = () => {
-    const temp = { id: uuidv4(), label: "Option", value: "" };
-    setOptions([...options, temp]);
+    const temp = { id: uuidv4(), label: "Choice" };
+    append(temp);
   };
 
-  const deleteOption = (option: OptionProp, fieldName: string) => {
-    setOptions(options.filter((item) => item.id != option.id));
-    contextValue.handleDeleteFromList(fieldName);
+  const deleteOption = (index: number) => {
+    remove(index);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    index: number
-  ) => {
-    const val = (e.target as HTMLInputElement).value;
-    setRadioOption((prevOptions) => {
-      const result: any = [...prevOptions];
-      result[index] = (val as any).replace(/[%{}\[\]<>~`\\$'"]/g, "");
-      return result;
-    });
-    e.target.value = e.target.value.replace(/[%{}\[\]<>~`\\$'"]/g, "");
-    contextValue.handleChange(e);
-  };
+  React.useEffect(() => {
+    if (fields.length === 0) append(choices);
+  }, []);
 
   return (
     <>
@@ -53,7 +49,7 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
           mr: { xs: "0", md: "135px" },
         }}
       >
-        {options.map((item, index) => {
+        {fields.map((item: any, index) => {
           return (
             <fieldset
               name={`${fieldName}.choices[${index}]`}
@@ -74,24 +70,23 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
                     borderRadius: "4px",
                   }}
                   className="input"
-                  name={`${fieldName}.choices[${index}].choice`}
+                  {...register(
+                    `${fieldName}.choices[${index}].choice` as const,
+                    {
+                      required: false,
+                    }
+                  )}
                   multiline
                   autoFocus
                   value={radioOption[index]}
-                  onChange={(e) => handleChange(e, index)}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="Delete Option"
                         edge="end"
                         sx={{ color: "#a1abc1" }}
-                        onClick={() =>
-                          deleteOption(
-                            item,
-                            `${fieldName}.choices[${index}].choice`
-                          )
-                        }
-                        disabled={options.length === 1}
+                        onClick={() => deleteOption(index)}
+                        disabled={fields.length === 1}
                       >
                         <DeleteOutlineIcon />
                       </IconButton>
@@ -110,7 +105,7 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
             startIcon={<AddCircleOutlineIcon />}
             onClick={addOption}
             color="info"
-            disabled={options.length >= 5}
+            disabled={fields.length >= 5}
           >
             Add
             <Box

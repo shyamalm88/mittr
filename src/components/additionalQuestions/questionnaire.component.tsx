@@ -16,7 +16,8 @@ import HdrStrongIcon from "@mui/icons-material/HdrStrong";
 
 const Questionnaire = ({
   questionnaire,
-  setQuestionnaire,
+  remove,
+  update,
 }: ComponentInputProps) => {
   const [typeOptions] = React.useState([
     {
@@ -92,7 +93,8 @@ const Questionnaire = ({
               questionItem={item}
               index={index}
               questionnaire={questionnaire}
-              setQuestionnaire={setQuestionnaire}
+              remove={remove}
+              update={update}
               fieldName={fieldName}
             />
           </React.Fragment>

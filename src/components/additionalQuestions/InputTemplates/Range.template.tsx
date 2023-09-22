@@ -3,14 +3,11 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { ComponentInputProps } from "../../../types";
-import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+import { useFormContext } from "react-hook-form";
 
 export default function RangeTemplate({ fieldName }: ComponentInputProps) {
-  const contextValue = usePollCreationContext();
-  const theme = useTheme();
-  const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
+  const { register, setValue, unregister, control, getValues } =
+    useFormContext();
   const [startNum, setStartNum] = React.useState();
   const [endNum, setEndNum] = React.useState();
   const [stepNum, setStepNum] = React.useState();
@@ -18,19 +15,19 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
   const handleStartNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = (e.target as HTMLInputElement).value;
     setStartNum((val as any).replace(/[^0-9]/g, ""));
-    contextValue.handleChange(e);
+    setValue(e.target.name, val);
   };
 
   const handleEndNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = (e.target as HTMLInputElement).value;
     setEndNum((val as any).replace(/[^0-9]/g, ""));
-    contextValue.handleChange(e);
+    setValue(e.target.name, val);
   };
 
   const handleStepNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = (e.target as HTMLInputElement).value;
     setStepNum((val as any).replace(/[^0-9]/g, ""));
-    contextValue.handleChange(e);
+    setValue(e.target.name, val);
   };
 
   return (

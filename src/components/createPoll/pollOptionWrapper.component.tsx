@@ -100,7 +100,7 @@ const PollOptionWrapper = () => {
                   }}
                   className="input"
                   {...register(`${fieldName}.option` as const, {
-                    required: true,
+                    required: false,
                   })}
                   multiline
                   readOnly={!item?.enabled}
