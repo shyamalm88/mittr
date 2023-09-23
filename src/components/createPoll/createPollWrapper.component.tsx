@@ -5,12 +5,14 @@ import Stack from "@mui/material/Stack";
 import PollFormWrapper from "./pollFormWrapper.component";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
+import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
 import React from "react";
 import {
   useForm,
   FormProvider,
   useFormContext,
   SubmitHandler,
+  useFieldArray,
 } from "react-hook-form";
 import { validateQuestionCreation } from "../../utility/validations";
 import { v4 as uuidv4 } from "uuid";
@@ -42,52 +44,6 @@ const CreatePollWrapper = () => {
     };
   };
 
-  const submitHandler = async (e: any) => {
-    e.preventDefault();
-    console.log("Submit");
-
-    // const updatedContextCityValue = await contextValue.getState();
-    // if (updatedContextCityValue.settings.captureCity) {
-    //   contextValue.handleChange({
-    //     target: {
-    //       name: `additionalQuestions[${contextValue.additionalQuestions.length}].question`,
-    //       value: "Your residing Country and City",
-    //     },
-    //   });
-    //   contextValue.handleChange({
-    //     target: {
-    //       name: `additionalQuestions[${contextValue.additionalQuestions.length}].answerType`,
-    //       value: "country",
-    //     },
-    //   });
-    // }
-
-    // const updatedContextGenderValue = await contextValue.getState();
-
-    // if (updatedContextGenderValue.settings.captureGender) {
-    //   contextValue.handleChange({
-    //     target: {
-    //       name: `additionalQuestions[${contextValue.additionalQuestions.length}].question`,
-    //       value: "Please select your Gender",
-    //     },
-    //   });
-    //   contextValue.handleChange({
-    //     target: {
-    //       name: `additionalQuestions[${contextValue.additionalQuestions.length}].answerType`,
-    //       value: "gender",
-    //     },
-    //   });
-    // }
-
-    // const validateState = contextValue.getState();
-    // console.log(validateState);
-    // const validationSuccess = validateQuestionCreation(validateState);
-    // console.log(validationSuccess);
-    // if (validationSuccess) {
-    //   // contextValue.submit();
-    // }
-  };
-
   const methods = useForm({
     defaultValues: {
       question: "",
@@ -106,6 +62,7 @@ const CreatePollWrapper = () => {
         captureGender: false,
         closePollOnScheduledDate: false,
         captureCity: false,
+        captureCountry: false,
       },
       duration: "",
     },
@@ -114,10 +71,44 @@ const CreatePollWrapper = () => {
   const {
     handleSubmit,
     setError,
+    reset,
     formState: { errors },
+    control,
+    getValues,
   } = methods;
+
+  const { fields, append, prepend, remove, swap, move, insert, update } =
+    useFieldArray({
+      control,
+      name: "additionalQuestions",
+    });
+
+  const resetHandler = () => {
+    reset();
+  };
+
   const onSubmit: SubmitHandler<any> = (data) => {
-    console.log(JSON.stringify(data));
+    if (data.settings && data.settings.captureGender) {
+      const temp = {
+        id: uuidv4(),
+        questionLabel: "Question",
+        answerType: "gender",
+        question: "Please select your Gender",
+      };
+      append(temp);
+    }
+    if (data.settings && data.settings.captureCity) {
+      const temp = {
+        id: uuidv4(),
+        questionLabel: "Question",
+        answerType: "country",
+        question: "Your residing Country and City",
+      };
+      append(temp);
+    }
+    reset();
+    console.log(getValues("additionalQuestions"));
+    console.log(data);
   };
 
   return (
@@ -161,6 +152,15 @@ const CreatePollWrapper = () => {
             startIcon={<SendIcon />}
           >
             Create
+          </Button>
+          <Button
+            variant="outlined"
+            color="inherit"
+            style={{ float: "right", marginRight: "10px", opacity: 0.6 }}
+            startIcon={<RestartAltOutlinedIcon />}
+            onClick={resetHandler}
+          >
+            Reset
           </Button>
           <Button
             variant="outlined"

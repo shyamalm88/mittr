@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useFormContext, useFieldArray } from "react-hook-form";
 
 export default function AdditionalQuestions() {
-  const { register, setValue, unregister, control, getValues } =
+  const { register, setValue, unregister, control, getValues, reset } =
     useFormContext();
   const { fields, append, prepend, remove, swap, move, insert, update } =
     useFieldArray({
@@ -67,27 +67,6 @@ export default function AdditionalQuestions() {
             </Box>
           </Button>
         </Tooltip>
-        <Box>
-          <Stack direction="row" spacing={2}>
-            <Tooltip title="Reset Poll" arrow placement="left">
-              <Button
-                size="small"
-                sx={{ textTransform: "none" }}
-                startIcon={<RefreshOutlinedIcon />}
-                color="inherit"
-              >
-                Reset
-                <Box
-                  sx={{
-                    display: { xs: "none", lg: "flex", paddingLeft: "5px" },
-                  }}
-                >
-                  poll
-                </Box>
-              </Button>
-            </Tooltip>
-          </Stack>
-        </Box>
       </Stack>
     </Box>
   );

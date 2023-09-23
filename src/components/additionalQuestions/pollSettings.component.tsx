@@ -20,9 +20,7 @@ function PollSettings() {
   const theme = useTheme();
   const { register, setValue, getValues, watch, control } = useFormContext();
 
-  React.useEffect(() => {
-    watch("settings");
-  }, [watch]);
+  const settingsValues = getValues("settings");
 
   return (
     <Accordion
@@ -70,7 +68,7 @@ function PollSettings() {
                   }}
                 />
 
-                {getValues("settings").closePollOnScheduledDate && (
+                {settingsValues.closePollOnScheduledDate && (
                   <FormControl variant="outlined">
                     <Controller
                       name="duration"
@@ -118,6 +116,24 @@ function PollSettings() {
                     />
                   }
                   label="Require Participants' City"
+                  labelPlacement="start"
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    m: 0,
+                    fontSize: ".85em",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      {...register("settings.captureCountry")}
+                      color="info"
+                    />
+                  }
+                  label="Require Participants' Country"
                   labelPlacement="start"
                   sx={{
                     display: "flex",
