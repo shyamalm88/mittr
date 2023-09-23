@@ -19,11 +19,18 @@ import { Topic } from "./topic/topic.component";
 import Tooltip from "@mui/material/Tooltip";
 import { Chip, useTheme } from "@mui/material";
 import { useFormContext, useFieldArray } from "react-hook-form";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const PollOptionWrapper = () => {
   const theme = useTheme();
-  const { register, setValue, unregister, control, getValues } =
-    useFormContext();
+  const {
+    register,
+    setValue,
+    unregister,
+    control,
+    getValues,
+    formState: { errors },
+  } = useFormContext();
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
       control,
@@ -76,6 +83,7 @@ const PollOptionWrapper = () => {
       <React.Fragment>
         {fields.map((item: any, index) => {
           const fieldName = `options[${index}]`;
+          console.log(errors);
           return (
             <FormControl
               sx={{ mb: 1, width: "100%", color: theme.palette.text.primary }}
@@ -99,8 +107,13 @@ const PollOptionWrapper = () => {
                     borderRadius: "4px",
                   }}
                   className="input"
+                  error={!!(errors as any)?.options?.[index]?.option?.message}
                   {...register(`${fieldName}.option` as const, {
-                    required: false,
+                    required: "Please provide  Poll Option",
+                    pattern: {
+                      value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
+                      message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                    },
                   })}
                   multiline
                   readOnly={!item?.enabled}
@@ -123,6 +136,9 @@ const PollOptionWrapper = () => {
                   }
                   placeholder={`${item?.label} ${index + 1}`}
                 />
+                <FormHelperText error>
+                  {(errors as any)?.options?.[index]?.option?.message}
+                </FormHelperText>
               </fieldset>
             </FormControl>
           );

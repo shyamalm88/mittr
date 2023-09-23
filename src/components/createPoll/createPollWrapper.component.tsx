@@ -109,8 +109,15 @@ const CreatePollWrapper = () => {
       duration: "",
     },
   });
-  const { handleSubmit } = methods;
-  const onSubmit: SubmitHandler<any> = (data) => console.log(data);
+
+  const {
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = methods;
+  const onSubmit: SubmitHandler<any> = (data) => {
+    console.log(JSON.stringify(data));
+  };
 
   return (
     // <Box component="form" onSubmit={submitHandler}>

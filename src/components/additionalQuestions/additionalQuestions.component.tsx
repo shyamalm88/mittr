@@ -23,7 +23,7 @@ export default function AdditionalQuestions() {
     const temp = {
       id: uuidv4(),
       questionLabel: "Question",
-      answerType: "",
+      answerType: undefined,
     };
     append(temp);
   };

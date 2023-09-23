@@ -1,71 +1,76 @@
 {
-    "question": "If you could go for a coffee with a figure from history, who would it be?",
+    "question": "Poll Question",
     "options": [
         {
-            "option": "Leonardo Da Vinci"
+            "id": "790b4bdc-fc92-4284-9ae9-e45baa3ce082",
+            "label": "Option",
+            "enabled": true,
+            "option": "Option 1"
         },
         {
-            "option": "Michel Angelo"
+            "id": "aa9be5ad-e23c-4cd9-bd5a-be0e94e5bfee",
+            "label": "Option",
+            "enabled": true,
+            "option": "Option 2"
         },
         {
-            "option": "King Arthur"
-        }
-    ],
-    "pollType": "",
-    "duration": "",
-    "topic": [
-        {
-            "label": "topic 1",
-            "value": "topic1"
+            "id": "85673a50-dd84-4f65-bf21-5c0a854edafe",
+            "label": "Option",
+            "enabled": true,
+            "option": "Option 2"
         },
         {
-            "label": "topic 2",
-            "value": "topic2"
-        },
-        {
-            "label": "topic 3",
-            "value": "topic3"
-        },
-        {
-            "label": "topic 4",
-            "value": "topic4"
+            "id": "5d1be112-93b9-42ef-99cb-1747c7bc1866",
+            "label": "Other",
+            "enabled": false,
+            "option": "Other"
         }
     ],
     "additionalQuestions": [
         {
-            "question": "Date Of Birth",
-            "answerType": "date"
+            "id": "97d85e6f-9908-419b-9766-df77b3c6e6b4",
+            "questionLabel": "Question",
+            "answerType": "date",
+            "question": "Question 1",
+            "dateValidationOption": "disable_past_dates"
         },
         {
-            "answerType": "date_range",
-            "question": "what date range you prefer"
-        },
-        {
+            "id": "6110a5a9-96d2-45b8-8d82-b3aebef2e57a",
+            "questionLabel": "Question",
             "answerType": "range",
-            "question": "salary range",
+            "question": "Question 2",
             "rangeStartValue": "1",
-            "rangeEndValue": "50"
+            "rangeEndValue": "100",
+            "rangeStepValue": "4"
         },
         {
+            "id": "0008992b-09b2-44df-acb9-e6cc93cce10c",
+            "questionLabel": "Question",
             "answerType": "choice",
-            "question": "Multiple Choice",
+            "question": "Question 3",
             "choices": [
                 {
-                    "choice": "Option1"
+                    "id": "4982e2f4-0678-47ca-a7c3-8013b6638aa0",
+                    "label": "Choice",
+                    "choice": "Choice 1"
                 },
                 {
-                    "choice": "Option2"
+                    "id": "ec87b4a0-c081-4b8f-b60e-ae19c66d9545",
+                    "label": "Choice",
+                    "choice": "Choice 2"
                 },
                 {
-                    "choice": "Option3"
+                    "id": "db99af8a-89a4-465b-9cc5-ec0a26ba7fc1",
+                    "label": "Choice",
+                    "choice": "Choice 3"
                 }
             ]
-        },
-        {
-            "answerType": "country",
-            "allowState": true,
-            "allowCity": true,
-            "question": "Country State City"
         }
-    ]
+    ],
+    "settings": {
+        "captureGender": true,
+        "closePollOnScheduledDate": true,
+        "captureCity": true
+    },
+    "duration": "25/09/2023"
 }

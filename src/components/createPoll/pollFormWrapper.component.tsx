@@ -25,15 +25,16 @@ const PollFormWrapper = () => {
   const theme = useTheme();
   const [question, setQuestion] = React.useState();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = (e.target as HTMLInputElement).value;
-    setQuestion((val as any).replace(/[%{}\[\]<>~`\\$'"]/g, ""));
-    e.target.value = e.target.value.replace(/[%{}\[\]<>~`\\$'"]/g, "");
-    contextValue.handleChange(e);
-  };
-
   const contextValue = usePollCreationContext();
-  const { register } = useFormContext();
+  const {
+    register,
+    setFocus,
+    formState: { errors },
+  } = useFormContext();
+
+  React.useEffect(() => {
+    setFocus("question");
+  }, [setFocus]);
 
   return (
     <Box
@@ -60,15 +61,22 @@ const PollFormWrapper = () => {
           size="small"
           fullWidth
           autoFocus
-          {...register("question" as const, { required: false })}
+          error={!!errors.question}
+          helperText={<>{errors?.question?.message}</>}
+          {...register("question" as const, {
+            required: "Please provide a Poll Question",
+            pattern: {
+              value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
+              message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+            },
+          })}
           value={question}
           InputProps={{
-            disableUnderline: true,
+            disableUnderline: !Boolean(errors?.question?.message),
             style: {
               color: "inherit",
             },
           }}
-          onChange={handleChange}
         />
       </Box>
       <Box

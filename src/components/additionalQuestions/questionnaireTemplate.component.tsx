@@ -12,7 +12,8 @@ import { usePollCreationContext } from "../../hooks/usePollCreationContext";
 import Divider from "@mui/material/Divider";
 import { useConfirm } from "material-ui-confirm";
 import Box from "@mui/material/Box";
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext, useFormState } from "react-hook-form";
+import FormHelperText from "@mui/material/FormHelperText";
 
 export default function QuestionnaireTemplate({
   typeOptions,
@@ -24,8 +25,18 @@ export default function QuestionnaireTemplate({
   update,
 }: ComponentInputProps) {
   const confirm = useConfirm();
-  const { register, setValue, unregister, control, getValues, resetField } =
-    useFormContext();
+  const {
+    register,
+    setValue,
+    unregister,
+    control,
+    getValues,
+    resetField,
+    formState: { errors, dirtyFields, touchedFields, isSubmitted },
+    setError,
+    clearErrors,
+    watch,
+  } = useFormContext();
 
   const oldSelectedValue = React.useRef<HTMLInputElement[]>([]);
   const oldSelectedQuestionValue = React.useRef<HTMLInputElement[]>([]);
@@ -64,6 +75,45 @@ export default function QuestionnaireTemplate({
     }
   };
 
+  const [answerTypeValues, questionValues] = getValues([
+    `additionalQuestions.${index}.answerType`,
+    `additionalQuestions.${index}.question`,
+  ]);
+
+  React.useEffect(() => {
+    if (
+      (touchedFields?.additionalQuestions?.[index]?.answerType ||
+        isSubmitted) &&
+      !answerTypeValues
+    ) {
+      setError(`additionalQuestions.${index}.answerType`, {
+        type: "required",
+        message: "Please Select Type from Dropdown",
+      });
+    } else {
+      clearErrors(`additionalQuestions.${index}.answerType`);
+    }
+    if (
+      (touchedFields?.additionalQuestions?.[index]?.question || isSubmitted) &&
+      !questionValues
+    ) {
+      setError(`additionalQuestions.${index}.question`, {
+        type: "required",
+        message: "Please provide an Additional Question",
+      });
+    } else {
+      clearErrors(`additionalQuestions.${index}.question`);
+    }
+  }, [
+    setError,
+    answerTypeValues,
+    questionValues,
+    clearErrors,
+    index,
+    isSubmitted,
+    touchedFields,
+  ]);
+
   return (
     <Stack direction="column" sx={{ mb: 2, px: 1, borderRadius: "4px" }}>
       <Stack
@@ -90,8 +140,16 @@ export default function QuestionnaireTemplate({
               <OutlinedInput
                 size="small"
                 margin="dense"
+                error={
+                  !!(errors as any)?.additionalQuestions?.[index]?.question
+                    ?.message
+                }
                 {...register(`${fieldName}.question` as const, {
-                  required: false,
+                  required: "Please provide an Additional Question",
+                  pattern: {
+                    value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
+                    message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                  },
                 })}
                 sx={{
                   borderRadius: "4px",
@@ -104,6 +162,12 @@ export default function QuestionnaireTemplate({
                 }
                 placeholder={`${item?.questionLabel} ${index + 1}`}
               />
+              <FormHelperText error>
+                {
+                  (errors as any)?.additionalQuestions?.[index]?.question
+                    ?.message
+                }
+              </FormHelperText>
             </FormControl>
             <FormControl
               variant="outlined"
@@ -113,6 +177,10 @@ export default function QuestionnaireTemplate({
               <Select
                 fullWidth
                 onChange={(e: any) => handleChange(e, index)}
+                error={
+                  !!(errors as any)?.additionalQuestions?.[index]?.answerType
+                    ?.message
+                }
                 name={`${fieldName}.answerType`}
                 style={{
                   color: "inherit",
@@ -142,6 +210,12 @@ export default function QuestionnaireTemplate({
                   );
                 })}
               </Select>
+              <FormHelperText error>
+                {
+                  (errors as any)?.additionalQuestions?.[index]?.answerType
+                    ?.message
+                }
+              </FormHelperText>
             </FormControl>
           </fieldset>
         </Stack>
