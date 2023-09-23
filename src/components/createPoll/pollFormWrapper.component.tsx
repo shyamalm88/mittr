@@ -14,7 +14,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Hidden from "@mui/material/Hidden";
-import { usePollCreationContext } from "../../hooks/usePollCreationContext";
+
 import PollSettings from "../additionalQuestions/pollSettings.component";
 import { Divider, Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
@@ -25,7 +25,6 @@ const PollFormWrapper = () => {
   const theme = useTheme();
   const [question, setQuestion] = React.useState();
 
-  const contextValue = usePollCreationContext();
   const {
     register,
     setFocus,

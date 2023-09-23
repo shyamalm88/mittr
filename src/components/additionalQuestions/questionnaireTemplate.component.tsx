@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AnswerFieldSwitchTemplate from "./answerFieldSwitchTemplate.component";
 import { ComponentInputProps, OptionProp } from "../../types";
-import { usePollCreationContext } from "../../hooks/usePollCreationContext";
+
 import Divider from "@mui/material/Divider";
 import { useConfirm } from "material-ui-confirm";
 import Box from "@mui/material/Box";
@@ -60,11 +60,6 @@ export default function QuestionnaireTemplate({
             questionLabel: "Question",
             answerType: "",
             question: "",
-            choices: [],
-            dateValidationOption: "",
-            rangeStartValue: "",
-            rangeEndValue: "",
-            rangeStepValue: "",
           };
           const { id, question } = getValues(`additionalQuestions.${index}`);
           defaultValues.id = id;

@@ -13,7 +13,6 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { ComponentInputProps, TagOptionsType } from "../../../types";
 import { v4 as uuidv4 } from "uuid";
 import { Button, useTheme } from "@mui/material";
-import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
 
 const topics = [
   { id: uuidv4(), label: "New Topic1" },
@@ -23,7 +22,6 @@ const topics = [
 
 export const Topic = ({ handleSave, selectedTopics }: ComponentInputProps) => {
   const theme = useTheme();
-  const contextValue = usePollCreationContext();
   const [addedTopics, setAddedTopics] = React.useState<TagOptionsType[]>([
     ...selectedTopics,
   ]);
@@ -52,9 +50,6 @@ export const Topic = ({ handleSave, selectedTopics }: ComponentInputProps) => {
   };
 
   const handleTopic = () => {
-    contextValue.handleChange({
-      target: { value: addedTopics, name: "topic" },
-    });
     handleSave(addedTopics);
   };
 

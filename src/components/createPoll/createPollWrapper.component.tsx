@@ -12,13 +12,10 @@ import {
   useFormContext,
   SubmitHandler,
 } from "react-hook-form";
-import { usePollCreationContext } from "../../hooks/usePollCreationContext";
 import { validateQuestionCreation } from "../../utility/validations";
 import { v4 as uuidv4 } from "uuid";
 
 const CreatePollWrapper = () => {
-  const contextValue = usePollCreationContext();
-
   const stringToColor = (string: string) => {
     let hash = 0;
     let i;
@@ -49,46 +46,46 @@ const CreatePollWrapper = () => {
     e.preventDefault();
     console.log("Submit");
 
-    const updatedContextCityValue = await contextValue.getState();
-    if (updatedContextCityValue.settings.captureCity) {
-      contextValue.handleChange({
-        target: {
-          name: `additionalQuestions[${contextValue.additionalQuestions.length}].question`,
-          value: "Your residing Country and City",
-        },
-      });
-      contextValue.handleChange({
-        target: {
-          name: `additionalQuestions[${contextValue.additionalQuestions.length}].answerType`,
-          value: "country",
-        },
-      });
-    }
+    // const updatedContextCityValue = await contextValue.getState();
+    // if (updatedContextCityValue.settings.captureCity) {
+    //   contextValue.handleChange({
+    //     target: {
+    //       name: `additionalQuestions[${contextValue.additionalQuestions.length}].question`,
+    //       value: "Your residing Country and City",
+    //     },
+    //   });
+    //   contextValue.handleChange({
+    //     target: {
+    //       name: `additionalQuestions[${contextValue.additionalQuestions.length}].answerType`,
+    //       value: "country",
+    //     },
+    //   });
+    // }
 
-    const updatedContextGenderValue = await contextValue.getState();
+    // const updatedContextGenderValue = await contextValue.getState();
 
-    if (updatedContextGenderValue.settings.captureGender) {
-      contextValue.handleChange({
-        target: {
-          name: `additionalQuestions[${contextValue.additionalQuestions.length}].question`,
-          value: "Please select your Gender",
-        },
-      });
-      contextValue.handleChange({
-        target: {
-          name: `additionalQuestions[${contextValue.additionalQuestions.length}].answerType`,
-          value: "gender",
-        },
-      });
-    }
+    // if (updatedContextGenderValue.settings.captureGender) {
+    //   contextValue.handleChange({
+    //     target: {
+    //       name: `additionalQuestions[${contextValue.additionalQuestions.length}].question`,
+    //       value: "Please select your Gender",
+    //     },
+    //   });
+    //   contextValue.handleChange({
+    //     target: {
+    //       name: `additionalQuestions[${contextValue.additionalQuestions.length}].answerType`,
+    //       value: "gender",
+    //     },
+    //   });
+    // }
 
-    const validateState = contextValue.getState();
-    console.log(validateState);
-    const validationSuccess = validateQuestionCreation(validateState);
-    console.log(validationSuccess);
-    if (validationSuccess) {
-      // contextValue.submit();
-    }
+    // const validateState = contextValue.getState();
+    // console.log(validateState);
+    // const validationSuccess = validateQuestionCreation(validateState);
+    // console.log(validationSuccess);
+    // if (validationSuccess) {
+    //   // contextValue.submit();
+    // }
   };
 
   const methods = useForm({
@@ -103,11 +100,6 @@ const CreatePollWrapper = () => {
           id: uuidv4(),
           questionLabel: "Question",
           answerType: "",
-          choices: [],
-          dateValidationOption: "",
-          rangeStartValue: "",
-          rangeEndValue: "",
-          rangeStepValue: "",
         },
       ],
       settings: {

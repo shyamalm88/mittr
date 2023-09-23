@@ -4,7 +4,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
+
 import { ComponentInputProps } from "../../../types";
 import { useTheme } from "@emotion/react";
 
@@ -12,14 +12,13 @@ export default function CountryStateCityCombiTemplate({
   fieldName,
 }: ComponentInputProps) {
   const theme = useTheme();
-  const contextValue = usePollCreationContext();
 
   const [cityDisabled, setCityDisabled] = React.useState(true);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const eventMock = {
       target: { value: e.target.checked, name: e.target.name },
     };
-    contextValue.handleChange(eventMock);
+    // contextValue.handleChange(eventMock);
     if (e.target.checked) {
       setCityDisabled(false);
     } else {
@@ -31,7 +30,7 @@ export default function CountryStateCityCombiTemplate({
     const eventMock = {
       target: { value: e.target.checked, name: e.target.name },
     };
-    contextValue.handleChange(eventMock);
+    // contextValue.handleChange(eventMock);
   };
 
   return (

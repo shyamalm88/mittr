@@ -24,11 +24,6 @@ export default function AdditionalQuestions() {
       id: uuidv4(),
       questionLabel: "Question",
       answerType: "",
-      choices: [],
-      dateValidationOption: "",
-      rangeStartValue: "",
-      rangeEndValue: "",
-      rangeStepValue: "",
     };
     append(temp);
   };

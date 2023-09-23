@@ -3,25 +3,25 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { ComponentInputProps } from "../../../types";
-import { usePollCreationContext } from "../../../hooks/usePollCreationContext";
+// import { usePollCreationContext } from "../../../hooks/usePollCreationContext.ts.disabled";
 
 export default function LinearScaleTemplate({
   fieldName,
 }: ComponentInputProps) {
-  const contextValue = usePollCreationContext();
+  // const contextValue = usePollCreationContext();
   const [startNum, setStartNum] = React.useState();
   const [endNum, setEndNum] = React.useState();
 
   const handleStartNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = (e.target as HTMLInputElement).value;
     setStartNum((val as any).replace(/[^0-9]/g, ""));
-    contextValue.handleChange(e);
+    // contextValue.handleChange(e);
   };
 
   const handleEndNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = (e.target as HTMLInputElement).value;
     setEndNum((val as any).replace(/[^0-9]/g, ""));
-    contextValue.handleChange(e);
+    // contextValue.handleChange(e);
   };
 
   return (

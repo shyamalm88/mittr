@@ -1,5 +1,4 @@
 import CreatePollLayout from "../../layout/createPoll.layout";
-import PollCreationProvider from "../../providers/pollCreation.provider";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LeftNavigationTemplate from "../../components/createPoll/leftNav/leftNavigation.Template.component";
@@ -15,7 +14,7 @@ const CreatePollWrapper = dynamic(
 
 const CreatePoll = () => {
   return (
-    <PollCreationProvider>
+    <>
       <NextSeo
         title="Mittr | Create Poll"
         description="This Create Poll page will help individual authenticated users to create polls for their targeted audiences"
@@ -78,7 +77,7 @@ const CreatePoll = () => {
           </Box>
         </Grid>
       </Grid>
-    </PollCreationProvider>
+    </>
   );
 };
 
