@@ -99,7 +99,16 @@ const CreatePollWrapper = () => {
         { id: uuidv4(), label: "Option", enabled: true },
       ],
       additionalQuestions: [
-        { id: uuidv4(), questionLabel: "Question", answerType: "" },
+        {
+          id: uuidv4(),
+          questionLabel: "Question",
+          answerType: "",
+          choices: [],
+          dateValidationOption: "",
+          rangeStartValue: "",
+          rangeEndValue: "",
+          rangeStepValue: "",
+        },
       ],
       settings: {
         captureGender: false,

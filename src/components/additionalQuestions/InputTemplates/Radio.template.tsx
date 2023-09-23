@@ -11,12 +11,22 @@ import { v4 as uuidv4 } from "uuid";
 import { ComponentInputProps, OptionProp } from "../../../types";
 import Tooltip from "@mui/material/Tooltip";
 import { useFormContext, useFieldArray } from "react-hook-form";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const choices = [{ id: uuidv4(), label: "Choice" }];
 
-export default function RadioTemplate({ fieldName }: ComponentInputProps) {
-  const { register, setValue, unregister, control, getValues } =
-    useFormContext();
+export default function RadioTemplate({
+  fieldName,
+  index: idx,
+}: ComponentInputProps) {
+  const {
+    register,
+    setValue,
+    unregister,
+    control,
+    getValues,
+    formState: { errors, dirtyFields, touchedFields, isSubmitted },
+  } = useFormContext();
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
       control,
@@ -70,10 +80,19 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
                     borderRadius: "4px",
                   }}
                   className="input"
+                  error={
+                    !!(errors as any)?.additionalQuestions?.[idx]?.choices?.[
+                      index
+                    ]?.choice?.message
+                  }
                   {...register(
                     `${fieldName}.choices[${index}].choice` as const,
                     {
-                      required: false,
+                      required: "Please provide Choice Value",
+                      pattern: {
+                        value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
+                        message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                      },
                     }
                   )}
                   multiline
@@ -94,6 +113,13 @@ export default function RadioTemplate({ fieldName }: ComponentInputProps) {
                   }
                   placeholder={`${item.label} ${index + 1}`}
                 />
+                <FormHelperText error>
+                  {
+                    (errors as any)?.additionalQuestions?.[idx]?.choices?.[
+                      index
+                    ]?.choice?.message
+                  }
+                </FormHelperText>
               </FormControl>
             </fieldset>
           );

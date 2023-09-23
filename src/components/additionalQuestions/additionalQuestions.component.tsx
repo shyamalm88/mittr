@@ -23,7 +23,12 @@ export default function AdditionalQuestions() {
     const temp = {
       id: uuidv4(),
       questionLabel: "Question",
-      answerType: undefined,
+      answerType: "",
+      choices: [],
+      dateValidationOption: "",
+      rangeStartValue: "",
+      rangeEndValue: "",
+      rangeStepValue: "",
     };
     append(temp);
   };

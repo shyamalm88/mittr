@@ -60,6 +60,11 @@ export default function QuestionnaireTemplate({
             questionLabel: "Question",
             answerType: "",
             question: "",
+            choices: [],
+            dateValidationOption: "",
+            rangeStartValue: "",
+            rangeEndValue: "",
+            rangeStepValue: "",
           };
           const { id, question } = getValues(`additionalQuestions.${index}`);
           defaultValues.id = id;
@@ -254,6 +259,7 @@ export default function QuestionnaireTemplate({
         <AnswerFieldSwitchTemplate
           selectedValue={selectedValue}
           fieldName={fieldName}
+          index={index}
         />
       </Stack>
       <Divider

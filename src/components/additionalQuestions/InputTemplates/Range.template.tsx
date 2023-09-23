@@ -4,10 +4,22 @@ import Stack from "@mui/material/Stack";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { ComponentInputProps } from "../../../types";
 import { useFormContext } from "react-hook-form";
+import FormHelperText from "@mui/material/FormHelperText";
 
-export default function RangeTemplate({ fieldName }: ComponentInputProps) {
-  const { register, setValue, unregister, control, getValues } =
-    useFormContext();
+export default function RangeTemplate({
+  fieldName,
+  index,
+}: ComponentInputProps) {
+  const {
+    register,
+    setValue,
+    unregister,
+    control,
+    getValues,
+    formState: { errors, dirtyFields, touchedFields, isSubmitted },
+    setError,
+    clearErrors,
+  } = useFormContext();
   const [startNum, setStartNum] = React.useState();
   const [endNum, setEndNum] = React.useState();
   const [stepNum, setStepNum] = React.useState();
@@ -30,6 +42,61 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
     setValue(e.target.name, val);
   };
 
+  const [rangeStartValue, rangeEndValue, rangeStepValue] = getValues([
+    `additionalQuestions.${index}.rangeStartValue`,
+    `additionalQuestions.${index}.rangeEndValue`,
+    `additionalQuestions.${index}.rangeStepValue`,
+  ]);
+
+  React.useEffect(() => {
+    if (
+      (touchedFields?.additionalQuestions?.[index]?.rangeStartValue ||
+        isSubmitted) &&
+      !rangeStartValue
+    ) {
+      setError(`additionalQuestions.${index}.rangeStartValue`, {
+        type: "required",
+        message: "Please provide Range Start Value",
+      });
+    } else {
+      clearErrors(`additionalQuestions.${index}.rangeStartValue`);
+    }
+    if (
+      (touchedFields?.additionalQuestions?.[index]?.rangeEndValue ||
+        isSubmitted) &&
+      !rangeEndValue
+    ) {
+      setError(`additionalQuestions.${index}.rangeEndValue`, {
+        type: "required",
+        message: "Please provide Range End Value",
+      });
+    } else {
+      clearErrors(`additionalQuestions.${index}.rangeEndValue`);
+    }
+
+    if (
+      (touchedFields?.additionalQuestions?.[index]?.rangeStepValue ||
+        isSubmitted) &&
+      !rangeStepValue
+    ) {
+      setError(`additionalQuestions.${index}.rangeStepValue`, {
+        type: "required",
+        message: "Please provide Range End Value",
+      });
+    } else {
+      clearErrors(`additionalQuestions.${index}.rangeStepValue`);
+    }
+  }, [
+    setError,
+    rangeStartValue,
+    rangeEndValue,
+    rangeStepValue,
+    clearErrors,
+    index,
+    isSubmitted,
+    touchedFields,
+  ]);
+
   return (
     <Box
       sx={{
@@ -49,20 +116,32 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
         marginTop={2}
         marginBottom={2}
       >
-        <OutlinedInput
-          size="small"
-          margin="dense"
-          name={`${fieldName}.rangeStartValue`}
-          sx={{
-            borderRadius: "4px",
-            marginRight: "20px",
-          }}
-          className="input"
-          value={startNum}
-          onChange={handleStartNumChange}
-          fullWidth
-          placeholder="Start Value"
-        />
+        <Stack direction="column" spacing={1} sx={{ mr: { md: 1 } }}>
+          <OutlinedInput
+            size="small"
+            margin="dense"
+            name={`${fieldName}.rangeStartValue`}
+            error={
+              !!(errors as any)?.additionalQuestions?.[index]?.rangeStartValue
+                ?.message
+            }
+            sx={{
+              borderRadius: "4px",
+              marginRight: "20px",
+            }}
+            className="input"
+            value={startNum}
+            onChange={handleStartNumChange}
+            fullWidth
+            placeholder="Start Value"
+          />
+          <FormHelperText error>
+            {
+              (errors as any)?.additionalQuestions?.[index]?.rangeStartValue
+                ?.message
+            }
+          </FormHelperText>
+        </Stack>
       </Stack>
       <Stack
         direction="row"
@@ -71,20 +150,32 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
         marginTop={2}
         marginBottom={2}
       >
-        <OutlinedInput
-          size="small"
-          margin="dense"
-          name={`${fieldName}.rangeEndValue`}
-          sx={{
-            borderRadius: "4px",
-            marginRight: "20px",
-          }}
-          className="input"
-          value={endNum}
-          onChange={handleEndNumChange}
-          fullWidth
-          placeholder="End Value"
-        />
+        <Stack direction="column" spacing={1} sx={{ mr: { md: 1 } }}>
+          <OutlinedInput
+            size="small"
+            margin="dense"
+            name={`${fieldName}.rangeEndValue`}
+            error={
+              !!(errors as any)?.additionalQuestions?.[index]?.rangeEndValue
+                ?.message
+            }
+            sx={{
+              borderRadius: "4px",
+              marginRight: "20px",
+            }}
+            className="input"
+            value={endNum}
+            onChange={handleEndNumChange}
+            fullWidth
+            placeholder="End Value"
+          />
+          <FormHelperText error>
+            {
+              (errors as any)?.additionalQuestions?.[index]?.rangeEndValue
+                ?.message
+            }
+          </FormHelperText>
+        </Stack>
       </Stack>
       <Stack
         direction="row"
@@ -93,20 +184,32 @@ export default function RangeTemplate({ fieldName }: ComponentInputProps) {
         marginTop={2}
         marginBottom={2}
       >
-        <OutlinedInput
-          size="small"
-          margin="dense"
-          name={`${fieldName}.rangeStepValue`}
-          sx={{
-            borderRadius: "4px",
-            marginRight: "20px",
-          }}
-          className="input"
-          value={stepNum}
-          onChange={handleStepNumChange}
-          fullWidth
-          placeholder="Step Value"
-        />
+        <Stack direction="column" spacing={1}>
+          <OutlinedInput
+            size="small"
+            margin="dense"
+            name={`${fieldName}.rangeStepValue`}
+            error={
+              !!(errors as any)?.additionalQuestions?.[index]?.rangeStepValue
+                ?.message
+            }
+            sx={{
+              borderRadius: "4px",
+              marginRight: "20px",
+            }}
+            className="input"
+            value={stepNum}
+            onChange={handleStepNumChange}
+            fullWidth
+            placeholder="Step Value"
+          />
+          <FormHelperText error>
+            {
+              (errors as any)?.additionalQuestions?.[index]?.rangeStepValue
+                ?.message
+            }
+          </FormHelperText>
+        </Stack>
       </Stack>
     </Box>
   );

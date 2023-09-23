@@ -10,14 +10,15 @@ import DateTemplate from "./InputTemplates/Date.template";
 export default function AnswerFieldSwitchTemplate({
   selectedValue,
   fieldName,
+  index,
 }: ComponentInputProps) {
   switch (selectedValue) {
     case "date":
       return <DateTemplate fieldName={fieldName} />;
     case "range":
-      return <RangeTemplate fieldName={fieldName} />;
+      return <RangeTemplate fieldName={fieldName} index={index} />;
     case "choice":
-      return <RadioTemplate fieldName={fieldName} />;
+      return <RadioTemplate fieldName={fieldName} index={index} />;
     case "check":
       return <CheckboxTemplate fieldName={fieldName} />;
     case "linear_scale":
