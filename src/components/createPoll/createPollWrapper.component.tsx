@@ -106,9 +106,9 @@ const CreatePollWrapper = () => {
       };
       append(temp);
     }
-    reset();
     console.log(getValues("additionalQuestions"));
     console.log(data);
+    reset();
   };
 
   return (

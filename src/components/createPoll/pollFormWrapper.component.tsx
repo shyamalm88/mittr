@@ -20,6 +20,9 @@ import { Divider, Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useFormContext } from "react-hook-form";
+import FormHelperText from "@mui/material/FormHelperText";
+import Alert from "@mui/material/Alert";
+import FormValidationError from "../../utility/FormValidationError";
 
 const PollFormWrapper = () => {
   const theme = useTheme();
@@ -61,7 +64,6 @@ const PollFormWrapper = () => {
           fullWidth
           autoFocus
           error={!!errors.question}
-          helperText={<>{errors?.question?.message}</>}
           {...register("question" as const, {
             required: "Please provide a Poll Question",
             pattern: {
@@ -77,6 +79,7 @@ const PollFormWrapper = () => {
             },
           }}
         />
+        <FormValidationError errorText={(errors as any)?.question?.message} />
       </Box>
       <Box
         sx={{

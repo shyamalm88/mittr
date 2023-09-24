@@ -13,7 +13,7 @@ import Divider from "@mui/material/Divider";
 import { useConfirm } from "material-ui-confirm";
 import Box from "@mui/material/Box";
 import { useFormContext, useFormState } from "react-hook-form";
-import FormHelperText from "@mui/material/FormHelperText";
+import FormValidationError from "../../utility/FormValidationError";
 
 export default function QuestionnaireTemplate({
   typeOptions,
@@ -162,12 +162,12 @@ export default function QuestionnaireTemplate({
                 }
                 placeholder={`${item?.questionLabel} ${index + 1}`}
               />
-              <FormHelperText error>
-                {
+              <FormValidationError
+                errorText={
                   (errors as any)?.additionalQuestions?.[index]?.question
                     ?.message
                 }
-              </FormHelperText>
+              />
             </FormControl>
             <FormControl
               variant="outlined"
@@ -210,12 +210,12 @@ export default function QuestionnaireTemplate({
                   );
                 })}
               </Select>
-              <FormHelperText error>
-                {
+              <FormValidationError
+                errorText={
                   (errors as any)?.additionalQuestions?.[index]?.answerType
                     ?.message
                 }
-              </FormHelperText>
+              />
             </FormControl>
           </fieldset>
         </Stack>

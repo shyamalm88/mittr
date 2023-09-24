@@ -5,6 +5,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import { ComponentInputProps } from "../../../types";
 import { useFormContext } from "react-hook-form";
 import FormHelperText from "@mui/material/FormHelperText";
+import FormValidationError from "../../../utility/FormValidationError";
 
 export default function RangeTemplate({
   fieldName,
@@ -135,12 +136,13 @@ export default function RangeTemplate({
             fullWidth
             placeholder="Start Value"
           />
-          <FormHelperText error>
-            {
+
+          <FormValidationError
+            errorText={
               (errors as any)?.additionalQuestions?.[index]?.rangeStartValue
                 ?.message
             }
-          </FormHelperText>
+          />
         </Stack>
       </Stack>
       <Stack
@@ -169,12 +171,13 @@ export default function RangeTemplate({
             fullWidth
             placeholder="End Value"
           />
-          <FormHelperText error>
-            {
+
+          <FormValidationError
+            errorText={
               (errors as any)?.additionalQuestions?.[index]?.rangeEndValue
                 ?.message
             }
-          </FormHelperText>
+          />
         </Stack>
       </Stack>
       <Stack
@@ -203,12 +206,13 @@ export default function RangeTemplate({
             fullWidth
             placeholder="Step Value"
           />
-          <FormHelperText error>
-            {
+
+          <FormValidationError
+            errorText={
               (errors as any)?.additionalQuestions?.[index]?.rangeStepValue
                 ?.message
             }
-          </FormHelperText>
+          />
         </Stack>
       </Stack>
     </Box>

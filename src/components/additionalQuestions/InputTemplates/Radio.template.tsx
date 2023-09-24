@@ -12,6 +12,7 @@ import { ComponentInputProps, OptionProp } from "../../../types";
 import Tooltip from "@mui/material/Tooltip";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import FormHelperText from "@mui/material/FormHelperText";
+import FormValidationError from "../../../utility/FormValidationError";
 
 const choices = [{ id: uuidv4(), label: "Choice" }];
 
@@ -113,13 +114,13 @@ export default function RadioTemplate({
                   }
                   placeholder={`${item.label} ${index + 1}`}
                 />
-                <FormHelperText error>
-                  {
+                <FormValidationError
+                  errorText={
                     (errors as any)?.additionalQuestions?.[idx]?.choices?.[
                       index
                     ]?.choice?.message
                   }
-                </FormHelperText>
+                />
               </FormControl>
             </fieldset>
           );

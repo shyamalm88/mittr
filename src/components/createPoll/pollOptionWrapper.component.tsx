@@ -20,6 +20,8 @@ import Tooltip from "@mui/material/Tooltip";
 import { Chip, useTheme } from "@mui/material";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import FormHelperText from "@mui/material/FormHelperText";
+import Alert from "@mui/material/Alert";
+import FormValidationError from "../../utility/FormValidationError";
 
 const PollOptionWrapper = () => {
   const theme = useTheme();
@@ -136,9 +138,9 @@ const PollOptionWrapper = () => {
                   }
                   placeholder={`${item?.label} ${index + 1}`}
                 />
-                <FormHelperText error>
-                  {(errors as any)?.options?.[index]?.option?.message}
-                </FormHelperText>
+                <FormValidationError
+                  errorText={(errors as any)?.options?.[index]?.option?.message}
+                />
               </fieldset>
             </FormControl>
           );
