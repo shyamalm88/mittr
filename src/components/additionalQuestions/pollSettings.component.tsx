@@ -21,6 +21,9 @@ function PollSettings() {
   const { register, setValue, getValues, watch, control } = useFormContext();
 
   const settingsValues = getValues("settings");
+  React.useEffect(() => {
+    console.log(settingsValues);
+  }, [settingsValues]);
 
   return (
     <Accordion
@@ -54,6 +57,7 @@ function PollSettings() {
                 <FormControlLabel
                   control={
                     <Switch
+                      checked={settingsValues.closePollOnScheduledDate}
                       {...register("settings.closePollOnScheduledDate")}
                       color="info"
                     />
@@ -98,6 +102,7 @@ function PollSettings() {
                 <FormControlLabel
                   control={
                     <Switch
+                      checked={settingsValues.captureGender}
                       {...register("settings.captureGender")}
                       color="info"
                     />
@@ -111,6 +116,7 @@ function PollSettings() {
                 <FormControlLabel
                   control={
                     <Switch
+                      checked={settingsValues.captureCity}
                       {...register("settings.captureCity")}
                       color="info"
                     />
@@ -129,6 +135,7 @@ function PollSettings() {
                 <FormControlLabel
                   control={
                     <Switch
+                      checked={settingsValues.captureCountry}
                       {...register("settings.captureCountry")}
                       color="info"
                     />

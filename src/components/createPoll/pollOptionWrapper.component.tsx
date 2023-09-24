@@ -85,7 +85,7 @@ const PollOptionWrapper = () => {
       <React.Fragment>
         {fields.map((item: any, index) => {
           const fieldName = `options[${index}]`;
-          console.log(errors);
+          // console.log(errors);
           return (
             <FormControl
               sx={{ mb: 1, width: "100%", color: theme.palette.text.primary }}
