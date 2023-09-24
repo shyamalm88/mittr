@@ -81,28 +81,13 @@ export default function QuestionnaireTemplate({
   ]);
 
   React.useEffect(() => {
-    if (
-      (touchedFields?.additionalQuestions?.[index]?.answerType ||
-        isSubmitted) &&
-      !answerTypeValues
-    ) {
+    if (isSubmitted && questionValues && !answerTypeValues) {
       setError(`additionalQuestions.${index}.answerType`, {
         type: "required",
         message: "Please Select Type from Dropdown",
       });
     } else {
       clearErrors(`additionalQuestions.${index}.answerType`);
-    }
-    if (
-      (touchedFields?.additionalQuestions?.[index]?.question || isSubmitted) &&
-      !questionValues
-    ) {
-      setError(`additionalQuestions.${index}.question`, {
-        type: "required",
-        message: "Please provide an Additional Question",
-      });
-    } else {
-      clearErrors(`additionalQuestions.${index}.question`);
     }
   }, [
     setError,
@@ -145,7 +130,6 @@ export default function QuestionnaireTemplate({
                     ?.message
                 }
                 {...register(`${fieldName}.question` as const, {
-                  required: "Please provide an Additional Question",
                   pattern: {
                     value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
                     message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,

@@ -81,6 +81,7 @@ const CreatePollWrapper = () => {
     control,
     getValues,
     setValue,
+    clearErrors,
   } = methods;
 
   const { fields, append, prepend, remove, swap, move, insert, update } =
@@ -150,6 +151,7 @@ const CreatePollWrapper = () => {
     try {
       const resp = await postSurvey(dataToBeSubmitted);
       console.log(resp);
+      clearErrors();
       reset();
       toast.success(`You have successfully created Poll`, {
         position: toast.POSITION.TOP_RIGHT,
