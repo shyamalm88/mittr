@@ -7,17 +7,21 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
 import React from "react";
+import * as _ from "underscore";
+import urlSlug from "url-slug";
+import { toast } from "react-toastify";
 import {
   useForm,
   FormProvider,
-  useFormContext,
   SubmitHandler,
   useFieldArray,
 } from "react-hook-form";
-import { validateQuestionCreation } from "../../utility/validations";
 import { v4 as uuidv4 } from "uuid";
+import { CreatePollSubmittedValueType } from "../../types";
+import HttpService from "../../services/@http/HttpClient";
 
 const CreatePollWrapper = () => {
+  const http = new HttpService();
   const stringToColor = (string: string) => {
     let hash = 0;
     let i;
@@ -44,18 +48,19 @@ const CreatePollWrapper = () => {
     };
   };
 
-  const methods = useForm({
+  const methods = useForm<CreatePollSubmittedValueType>({
     defaultValues: {
       question: "",
       options: [
-        { id: uuidv4(), label: "Option", enabled: true },
-        { id: uuidv4(), label: "Option", enabled: true },
+        { id: uuidv4(), label: "Option", enabled: true, option: "" },
+        { id: uuidv4(), label: "Option", enabled: true, option: "" },
       ],
       additionalQuestions: [
         {
           id: uuidv4(),
           questionLabel: "Question",
           answerType: "",
+          question: "",
         },
       ],
       settings: {
@@ -75,6 +80,7 @@ const CreatePollWrapper = () => {
     formState: { errors },
     control,
     getValues,
+    setValue,
   } = methods;
 
   const { fields, append, prepend, remove, swap, move, insert, update } =
@@ -87,8 +93,18 @@ const CreatePollWrapper = () => {
     reset();
   };
 
-  const onSubmit: SubmitHandler<any> = (data) => {
-    if (data.settings && data.settings.captureGender) {
+  const onSubmit: SubmitHandler<CreatePollSubmittedValueType> = async (
+    data
+  ) => {
+    setValue("questionSlug", urlSlug(data.question));
+    const additionalQuestions = getValues("additionalQuestions");
+    const genderFound = additionalQuestions.some(
+      (item) => item.answerType === "gender"
+    );
+    const countryFound = additionalQuestions.some(
+      (item) => item.answerType === "country"
+    );
+    if (data.settings && data.settings.captureGender && !genderFound) {
       const temp = {
         id: uuidv4(),
         questionLabel: "Question",
@@ -96,8 +112,15 @@ const CreatePollWrapper = () => {
         question: "Please select your Gender",
       };
       append(temp);
+    } else {
+      if (data.settings && !data.settings.captureGender && genderFound) {
+        const idx = additionalQuestions.findIndex(
+          (item) => item.answerType === "gender"
+        );
+        remove(idx);
+      }
     }
-    if (data.settings && data.settings.captureCity) {
+    if (data.settings && data.settings.captureCity && !countryFound) {
       const temp = {
         id: uuidv4(),
         questionLabel: "Question",
@@ -105,10 +128,44 @@ const CreatePollWrapper = () => {
         question: "Your residing Country and City",
       };
       append(temp);
+    } else {
+      if (data.settings && !data.settings.captureGender && countryFound) {
+        const idx = additionalQuestions.findIndex(
+          (item) => item.answerType === "country"
+        );
+        remove(idx);
+      }
     }
-    console.log(getValues("additionalQuestions"));
-    console.log(data);
-    reset();
+    const dataToBeSubmitted = getValues();
+    dataToBeSubmitted.options = _.map(dataToBeSubmitted.options, function (o) {
+      return _.omit(o, ["id", "enabled", "label"]);
+    });
+    dataToBeSubmitted.additionalQuestions = _.map(
+      dataToBeSubmitted.additionalQuestions,
+      function (o) {
+        return _.omit(o, ["id", "questionLabel"]);
+      }
+    );
+    console.log(dataToBeSubmitted);
+    try {
+      const resp = await postSurvey(dataToBeSubmitted);
+      console.log(resp);
+      reset();
+      toast.success(`You have successfully created Poll`, {
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored",
+      });
+    } catch (err) {
+      toast.error(`Error While Creating Poll`, {
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored",
+      });
+    }
+  };
+
+  const postSurvey = async (data: any) => {
+    const response = await http.service().post(`/survey`, data);
+    return response;
   };
 
   return (

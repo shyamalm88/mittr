@@ -84,7 +84,7 @@ function PollSettings() {
                               seconds: null,
                             }}
                             onChange={(event: any) => {
-                              onChange(moment(event).format("DD/MM/YYYY"));
+                              onChange(moment(event).format());
                             }}
                             slotProps={{ textField: { size: "small" } }}
                           />

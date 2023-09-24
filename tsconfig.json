@@ -30,6 +30,9 @@
     "src",
     ".next/types/**/*.ts"
   ],
+  "types": [
+    "underscore"
+  ],
   "exclude": [
     "node_modules"
   ]

@@ -43,6 +43,45 @@ export type CreatePollValueType = {
   getState: Function;
 };
 
+export type CreatePollSubmittedValueType = {
+  question: string;
+  options: Option[];
+  questionSlug: string;
+  additionalQuestions: AdditionalQuestion[];
+  settings: Settings;
+  duration: string;
+};
+
+export type Option = {
+  option: string;
+  id?: string;
+  label?: string;
+  enabled?: boolean;
+};
+
+export type AdditionalQuestion = {
+  id?: string;
+  questionLabel?: string;
+  answerType: string;
+  question: string;
+  dateValidationOption?: string;
+  rangeStartValue?: string;
+  rangeEndValue?: string;
+  rangeStepValue?: string;
+  choices?: Choice[];
+};
+
+export type Choice = {
+  choice: string;
+};
+
+export type Settings = {
+  captureGender: boolean;
+  closePollOnScheduledDate: boolean;
+  captureCity: boolean;
+  captureCountry: boolean;
+};
+
 export type CreatePollQuestionType = {
   id: string;
   question: string;
