@@ -23,8 +23,7 @@ export default function AnswerFieldSwitchTemplate({
       return <CheckboxTemplate fieldName={fieldName} />;
     case "linear_scale":
       return <LinearScaleTemplate fieldName={fieldName} />;
-    case "country":
-      return <CountryStateCityCombiTemplate fieldName={fieldName} />;
+
     default:
       return <></>;
   }

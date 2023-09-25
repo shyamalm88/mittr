@@ -96,7 +96,6 @@ export default function QuestionnaireTemplate({
     clearErrors,
     index,
     isSubmitted,
-    touchedFields,
   ]);
 
   return (

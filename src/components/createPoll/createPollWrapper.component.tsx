@@ -125,8 +125,24 @@ const CreatePollWrapper = () => {
       const temp = {
         id: uuidv4(),
         questionLabel: "Question",
-        answerType: "country",
+        answerType: "city",
         question: "Your residing Country and City",
+      };
+      append(temp);
+    } else {
+      if (data.settings && !data.settings.captureGender && countryFound) {
+        const idx = additionalQuestions.findIndex(
+          (item) => item.answerType === "city"
+        );
+        remove(idx);
+      }
+    }
+    if (data.settings && data.settings.captureCountry && !countryFound) {
+      const temp = {
+        id: uuidv4(),
+        questionLabel: "Question",
+        answerType: "country",
+        question: "Your residing Country",
       };
       append(temp);
     } else {

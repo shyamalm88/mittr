@@ -4,7 +4,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Divider, Grid, Stack, useTheme } from "@mui/material";
+import { Divider, Grid, Stack, TextField, useTheme } from "@mui/material";
 import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
 import Switch from "@mui/material/Switch";
 import FormControl from "@mui/material/FormControl";
@@ -12,18 +12,43 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import moment from "moment";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { useFormContext, Controller } from "react-hook-form";
+import FormValidationError from "../../utility/FormValidationError";
 
 function PollSettings() {
   const theme = useTheme();
-  const { register, setValue, getValues, watch, control } = useFormContext();
+  const d = new Date().toISOString();
+  const {
+    register,
+    setValue,
+    getValues,
+    watch,
+    control,
+    formState: { errors, dirtyFields, touchedFields, isSubmitted },
+    setError,
+    clearErrors,
+  } = useFormContext();
+
+  // const [closePollOnScheduledDate, duration] = getValues([
+  //   "settings.closePollOnScheduledDate",
+  //   "duration",
+  // ]);
+
+  // React.useEffect(() => {
+  //   if (isSubmitted && closePollOnScheduledDate && !duration) {
+  //     setError("duration", {
+  //       type: "required",
+  //       message: "Please Provide date and time for scheduled end.",
+  //     });
+  //   } else {
+  //     clearErrors("duration");
+  //   }
+  // }, [setError, closePollOnScheduledDate, duration, clearErrors, isSubmitted]);
 
   const settingsValues = getValues("settings");
-  React.useEffect(() => {
-    console.log(settingsValues);
-  }, [settingsValues]);
 
   return (
     <Accordion
@@ -77,23 +102,41 @@ function PollSettings() {
                     <Controller
                       name="duration"
                       control={control}
-                      render={({ field: { onChange, ...restField } }) => (
-                        <LocalizationProvider dateAdapter={AdapterMoment}>
-                          <MobileDateTimePicker
-                            disablePast
-                            formatDensity="spacious"
-                            format="DD/MM/YYYY, h:mm a"
-                            yearsPerRow={4}
-                            viewRenderers={{
-                              seconds: null,
-                            }}
-                            onChange={(event: any) => {
-                              onChange(moment(event).format());
-                            }}
-                            slotProps={{ textField: { size: "small" } }}
+                      render={({
+                        field: { onChange, value, ...restField },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                          <input
+                            value={value}
+                            hidden
+                            {...register("duration" as const, {
+                              required:
+                                "Please Provide date and time for scheduled end.",
+                            })}
                           />
-                        </LocalizationProvider>
+                          <LocalizationProvider dateAdapter={AdapterMoment}>
+                            <MobileDateTimePicker
+                              disablePast
+                              formatDensity="spacious"
+                              format="DD/MM/YYYY, h:mm a"
+                              yearsPerRow={4}
+                              viewRenderers={{
+                                seconds: null,
+                              }}
+                              onChange={(event: any) => {
+                                onChange(moment(event).format());
+                              }}
+                              slotProps={{
+                                textField: { size: "small", error: !!error },
+                              }}
+                            />
+                          </LocalizationProvider>
+                        </>
                       )}
+                    />
+                    <FormValidationError
+                      errorText={(errors as any)?.duration?.message}
                     />
                   </FormControl>
                 )}

@@ -6,6 +6,7 @@ import RadioTemplate from "./answerTemplates/radioTemplate.component";
 import CountryStateCityTemplate from "./answerTemplates/countryStateCityTemplate.component";
 import { ComponentInputProps } from "../../types";
 import GenderTemplate from "./answerTemplates/genderTemplate.component";
+import CountryTemplate from "./answerTemplates/countryTemplate.component";
 
 export default function PollAnswerFieldSwitchTemplate({
   selectedValue,
@@ -18,6 +19,8 @@ export default function PollAnswerFieldSwitchTemplate({
     case "choice":
       return <RadioTemplate fieldName={fieldName} item={item} />;
     case "country":
+      return <CountryTemplate fieldName={fieldName} item={item} />;
+    case "city":
       return <CountryStateCityTemplate fieldName={fieldName} item={item} />;
     case "gender":
       return <GenderTemplate fieldName={fieldName} item={item} />;
