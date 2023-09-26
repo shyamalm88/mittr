@@ -19,19 +19,22 @@ import { Topic } from "./topic/topic.component";
 import Tooltip from "@mui/material/Tooltip";
 import { Chip, useTheme } from "@mui/material";
 import { useFormContext, useFieldArray } from "react-hook-form";
-import FormHelperText from "@mui/material/FormHelperText";
-import Alert from "@mui/material/Alert";
 import FormValidationError from "../../utility/FormValidationError";
+import VotingType from "./votingType";
+import VotingTemplateSwitch from "./votingTemplateSwitch";
 
 const PollOptionWrapper = () => {
   const theme = useTheme();
+  const [selectedValue, setSelectedValue] = React.useState("multiple_choice");
+
   const {
     register,
     setValue,
     unregister,
     control,
     getValues,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
+    reset,
   } = useFormContext();
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
@@ -82,70 +85,20 @@ const PollOptionWrapper = () => {
 
   return (
     <>
-      <React.Fragment>
-        {fields.map((item: any, index) => {
-          const fieldName = `options[${index}]`;
-          // console.log(errors);
-          return (
-            <FormControl
-              sx={{ mb: 1, width: "100%", color: theme.palette.text.primary }}
-              variant="outlined"
-              key={item.id}
-            >
-              <fieldset
-                name={fieldName}
-                style={{
-                  border: "none",
-                  margin: 0,
-                  padding: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <OutlinedInput
-                  size="small"
-                  margin="dense"
-                  sx={{
-                    borderRadius: "4px",
-                  }}
-                  className="input"
-                  error={!!(errors as any)?.options?.[index]?.option?.message}
-                  {...register(`${fieldName}.option` as const, {
-                    required: "Please provide  Poll Option",
-                    pattern: {
-                      value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                      message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
-                    },
-                  })}
-                  multiline
-                  readOnly={!item?.enabled}
-                  autoFocus
-                  endAdornment={
-                    <InputAdornment
-                      position="end"
-                      sx={{ color: theme.palette.action.active }}
-                    >
-                      <IconButton
-                        aria-label="Delete Option"
-                        edge="end"
-                        sx={{ color: "inherit" }}
-                        onClick={() => deleteOption(index)}
-                        disabled={getValues("options").length === 1}
-                      >
-                        <DeleteOutlineIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  placeholder={`${item?.label} ${index + 1}`}
-                />
-                <FormValidationError
-                  errorText={(errors as any)?.options?.[index]?.option?.message}
-                />
-              </fieldset>
-            </FormControl>
-          );
-        })}
-      </React.Fragment>
+      <VotingType
+        setSelectedValue={setSelectedValue}
+        selectedValue={selectedValue}
+      />
+      <VotingTemplateSwitch
+        fields={fields}
+        errors={errors}
+        register={register}
+        deleteOption={deleteOption}
+        getValues={getValues}
+        selectedValue={selectedValue}
+        isSubmitSuccessful={isSubmitSuccessful}
+        reset={reset}
+      />
       <Box>
         <Stack
           direction="row"
@@ -163,7 +116,7 @@ const PollOptionWrapper = () => {
               startIcon={<AddCircleOutlineIcon />}
               onClick={addOption}
               variant="outlined"
-              disabled={getValues("options").length >= 5}
+              disabled={getValues("options")?.length >= 5}
             >
               Add
               <Box

@@ -20,8 +20,6 @@ import { Divider, Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useFormContext } from "react-hook-form";
-import FormHelperText from "@mui/material/FormHelperText";
-import Alert from "@mui/material/Alert";
 import FormValidationError from "../../utility/FormValidationError";
 
 const PollFormWrapper = () => {

@@ -186,7 +186,9 @@ export default function QuestionnaireTemplate({
                         alignSelf="end"
                         useFlexGap
                       >
-                        <Box sx={{ color: "inherit" }}>{item.icon}</Box>
+                        <Box sx={{ color: "inherit", display: "flex" }}>
+                          {item.icon}
+                        </Box>
                         <Box>{item.label}</Box>
                       </Stack>
                     </MenuItem>
