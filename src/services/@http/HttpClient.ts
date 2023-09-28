@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 export enum EHttpMethod {
   GET = "GET",
   POST = "POST",
@@ -48,7 +49,7 @@ class HttpService {
     method: EHttpMethod,
     url: string,
     options: AxiosRequestConfig
-  ): Promise<T> {
+  ): Promise<T | any> {
     try {
       const response: AxiosResponse<T> = await this.http.request<T>({
         method,
@@ -80,6 +81,19 @@ class HttpService {
     payload: P,
     params?: { [key: string]: any },
     hasAttachment = false
+  ): Promise<T> {
+    return this.request<T>(EHttpMethod.POST, url, {
+      params,
+      data: payload,
+      headers: this.setupHeaders(hasAttachment),
+    });
+  }
+
+  public async postMultipart<T, P>(
+    url: string,
+    payload: P,
+    params?: { [key: string]: any },
+    hasAttachment = true
   ): Promise<T> {
     return this.request<T>(EHttpMethod.POST, url, {
       params,
@@ -139,6 +153,13 @@ class HttpService {
 
   // Normalize errors
   private normalizeError(error: any) {
+    toast.error(
+      `Something went Wrong! We Could not process your request. Please try again.`,
+      {
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored",
+      }
+    );
     return Promise.reject(error);
   }
 }

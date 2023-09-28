@@ -31,7 +31,7 @@ export default function QuestionnairePollAnswerTemplate({
               flexDirection: "column",
             }}
           >
-            <FormControl variant="outlined">
+            {/* <FormControl variant="outlined">
               <Typography
                 variant="body1"
                 component="h2"
@@ -39,7 +39,7 @@ export default function QuestionnairePollAnswerTemplate({
               >
                 {item.question}
               </Typography>
-            </FormControl>
+            </FormControl> */}
             <FormControl variant="outlined" style={{ marginTop: "5px" }}>
               <PollAnswerFieldSwitchTemplate
                 selectedValue={item.answerType}

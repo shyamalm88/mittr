@@ -25,7 +25,6 @@ import VotingTemplateSwitch from "./votingTemplateSwitch";
 
 const PollOptionWrapper = () => {
   const theme = useTheme();
-  const [selectedValue, setSelectedValue] = React.useState("multiple_choice");
 
   const {
     register,
@@ -35,13 +34,24 @@ const PollOptionWrapper = () => {
     getValues,
     formState: { errors, isSubmitSuccessful },
     reset,
+    resetField,
   } = useFormContext();
+
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
       control,
       name: "options",
     }
   );
+
+  const [selectedValue, setSelectedValue] = React.useState(
+    getValues("votingType")
+  );
+
+  React.useEffect(() => {
+    resetField("options");
+  }, [selectedValue]);
+
   const [addedTopics, setAddedTopics] = React.useState<
     { id: string; label: string }[]
   >([]);
@@ -88,6 +98,7 @@ const PollOptionWrapper = () => {
       <VotingType
         setSelectedValue={setSelectedValue}
         selectedValue={selectedValue}
+        register={register}
       />
       <VotingTemplateSwitch
         fields={fields}

@@ -129,6 +129,7 @@ export default function QuestionnaireTemplate({
                     ?.message
                 }
                 {...register(`${fieldName}.question` as const, {
+                  required: "Please provide at-least One Additional Question",
                   pattern: {
                     value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
                     message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,

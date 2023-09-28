@@ -8,13 +8,14 @@ const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
 const mongoose = require("mongoose");
 const routes = require("./server/routes/Routers");
+const morgan = require("morgan");
 
 const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;
 
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({
-  extended: true,
+  extended: false,
 });
 
 mongoose
@@ -44,6 +45,7 @@ mongoose
       nextApp.prepare().then(() => {
         const server = express();
         server.use(urlencodedParser);
+        // server.use(morgan("combined"));
         server.use(jsonParser);
         server.use(favicon(path.join(__dirname, "public", "favicon.png")));
 
@@ -64,8 +66,8 @@ mongoose
         // Static files
         // https://github.com/zeit/next.js/tree/4.2.3#user-content-static-file-serving-eg-images
         server.use(
-          "/static",
-          express.static(path.join(__dirname, "static"), {
+          "/uploads",
+          express.static(path.join(__dirname, "uploads"), {
             maxAge: dev ? "0" : "365d",
           })
         );

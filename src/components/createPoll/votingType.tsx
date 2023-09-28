@@ -11,20 +11,24 @@ import { ComponentInputProps, OptionProp } from "../../types";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material";
 
-function VotingType({ setSelectedValue, selectedValue }: ComponentInputProps) {
+function VotingType({
+  setSelectedValue,
+  selectedValue,
+  register,
+}: ComponentInputProps) {
   const theme = useTheme();
   const [votingTypeOptions] = React.useState([
-    {
-      id: uuidv4(),
-      label: "Image Poll",
-      value: "image",
-      icon: <ImageOutlinedIcon />,
-    },
     {
       id: uuidv4(),
       label: "Multiple Choice",
       value: "multiple_choice",
       icon: <RadioButtonCheckedOutlinedIcon />,
+    },
+    {
+      id: uuidv4(),
+      label: "Image Poll",
+      value: "image",
+      icon: <ImageOutlinedIcon />,
     },
   ]);
 
@@ -54,7 +58,11 @@ function VotingType({ setSelectedValue, selectedValue }: ComponentInputProps) {
           className="select"
           displayEmpty
           defaultValue={selectedValue}
-          onChange={(e) => setSelectedValue(e.target.value)}
+          {...register(`votingType` as const, {
+            onChange: (e: any) => {
+              setSelectedValue(e.target.value);
+            },
+          })}
         >
           <MenuItem value="">
             <em style={{ color: "#b3b3b3" }}>Please Select Type</em>

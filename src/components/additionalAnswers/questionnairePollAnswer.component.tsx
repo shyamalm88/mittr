@@ -54,9 +54,7 @@ const QuestionnairePollAnswer = () => {
           const fieldName = `additionalQuestionsAnswers[${index}]`;
           return (
             <Step key={index}>
-              <StepLabel>{`${
-                smallScreen ? "Supplementary Question" : "Question"
-              } ${index + 1}`}</StepLabel>
+              <StepLabel>{`${item.question}`}</StepLabel>
               <StepContent
                 TransitionProps={{ unmountOnExit: false }}
                 sx={{ pl: { xs: 0, sm: 2 } }}

@@ -52,6 +52,7 @@ const CreatePollWrapper = () => {
   const methods = useForm<CreatePollSubmittedValueType>({
     defaultValues: {
       question: "",
+      votingType: "multiple_choice",
       options: [
         { id: uuidv4(), label: "Option", enabled: true, option: "" },
         { id: uuidv4(), label: "Option", enabled: true, option: "" },
@@ -99,7 +100,9 @@ const CreatePollWrapper = () => {
     data
   ) => {
     setValue("questionSlug", urlSlug(data.question));
-    const additionalQuestions = getValues("additionalQuestions");
+    const additionalQuestions = getValues("additionalQuestions").filter(
+      (item) => item.question
+    );
     const genderFound = additionalQuestions.some(
       (item) => item.answerType === "gender"
     );
@@ -156,7 +159,7 @@ const CreatePollWrapper = () => {
     }
     const dataToBeSubmitted = getValues();
     dataToBeSubmitted.options = _.map(dataToBeSubmitted.options, function (o) {
-      return _.omit(o, ["id", "enabled", "label"]);
+      return _.omit(o, ["id", "enabled", "label", "image"]);
     });
     dataToBeSubmitted.additionalQuestions = _.map(
       dataToBeSubmitted.additionalQuestions,
@@ -165,6 +168,7 @@ const CreatePollWrapper = () => {
       }
     );
     console.log(dataToBeSubmitted);
+
     try {
       const resp = await postSurvey(dataToBeSubmitted);
       console.log(resp);
@@ -184,11 +188,11 @@ const CreatePollWrapper = () => {
 
   const postSurvey = async (data: any) => {
     const response = await http.service().post(`/survey`, data);
+
     return response;
   };
 
   return (
-    // <Box component="form" onSubmit={submitHandler}>
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card
@@ -247,7 +251,6 @@ const CreatePollWrapper = () => {
         </Card>
       </form>
     </FormProvider>
-    // </Box>
   );
 };
 

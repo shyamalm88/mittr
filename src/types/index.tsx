@@ -1,7 +1,13 @@
 export type OptionProp = {
   [key: string]: any;
 };
-export type QuestionOptionProp = { id: string; option: string; _id: string };
+export type QuestionOptionProp = {
+  id: string;
+  option: string;
+  _id: string;
+  description?: string;
+  imageId: any;
+};
 
 export type OptionQProp = { id: string; questionLabel: string; value: string };
 
@@ -45,6 +51,7 @@ export type CreatePollValueType = {
 
 export type CreatePollSubmittedValueType = {
   question: string;
+  votingType: string;
   options: Option[];
   questionSlug: string;
   additionalQuestions: AdditionalQuestion[];

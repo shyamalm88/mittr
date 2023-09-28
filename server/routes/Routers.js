@@ -1,18 +1,64 @@
 const express = require("express");
 const Survey = require("../models/Surveys");
 const Options = require("../models/Options");
+const Images = require("../models/Images");
 const AdditionalQuestions = require("../models/AdditionalQuestions");
 const SurveySettings = require("../models/SurveySettings");
 const Answers = require("../models/Answers");
 const AdditionalQuestionsAnswers = require("../models/AdditionalQuestionsAnswers");
-const { areArraysEqual } = require("@mui/base");
+const multer = require("multer");
+const path = require("path");
+const sharp = require("sharp");
+
+const checkFileType = function (req, file, cb) {
+  //Allowed file extensions
+  const fileTypes = /jpeg|jpg|png|gif|svg/;
+
+  //check extension names
+  const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
+
+  const mimeType = fileTypes.test(file.mimetype);
+
+  if (mimeType && extName) {
+    return cb(null, true);
+  } else {
+    // cb("Error: You can Only Upload Images!!");
+    req.fileValidationError = "Forbidden extension";
+    return cb(null, false, req.fileValidationError);
+  }
+};
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}--${file.originalname}`);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 5000000 },
+  fileFilter: (req, file, cb) => {
+    checkFileType(req, file, cb);
+  },
+});
 
 const router = express.Router();
 
 router.get("/survey", async (req, res) => {
   try {
     const surveys = await Survey.find()
-      .populate("options")
+      .lean()
+      .populate({
+        path: "options",
+        populate: {
+          path: "imageId",
+          model: "Images",
+        },
+      })
+      .populate("questionImageRef")
       .populate("additionalQuestions")
       .populate("settings");
     res.send(surveys);
@@ -42,7 +88,14 @@ router.get("/survey/:index", async (req, res) => {
   try {
     const survey = await Survey.findById(req.params.index)
       .orFail()
-      .populate("options")
+      .populate({
+        path: "options",
+        populate: {
+          path: "imageId",
+          model: "Images",
+        },
+      })
+      .populate("questionImageRef")
       .populate("additionalQuestions")
       .populate("settings");
     res.send(survey);
@@ -64,6 +117,8 @@ router.post("/survey", async (req, res) => {
 
   const survey = new Survey({
     question: req.body.question,
+    votingType: req.body.votingType,
+    questionImageRef: req.body.questionImageRef,
     surveyType: req.body.pollType,
     duration: req.body.duration,
     questionSlug: req.body.questionSlug,
@@ -77,6 +132,27 @@ router.post("/survey", async (req, res) => {
     res.send(surveyRes);
   } catch (error) {
     res.status(500).json(error);
+  }
+});
+
+router.post("/survey/image", upload.single("image"), async (req, res) => {
+  if (req.file) {
+    const sharpObject = sharp(req.file.path);
+    const dimensions = await sharpObject.metadata();
+    req.file.dimensions = dimensions;
+    const ImageRefId = await Images.collection.insertOne(req.file);
+    req.file.imageId = ImageRefId.insertedId;
+    res.send({ message: "Single file uploaded successfully", body: req.file });
+  } else {
+    if (req.fileValidationError) {
+      res.status(400).send({
+        message: "Please Upload a valid image",
+        status: 400,
+        details:
+          "Only These types of files are supported 'jpeg|jpg|png|gif|svg'",
+      });
+    }
+    // res.status(400).send("Please upload a valid image");
   }
 });
 

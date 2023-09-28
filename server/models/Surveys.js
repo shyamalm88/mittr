@@ -8,8 +8,13 @@ const schema = mongoose.Schema(
     id: String,
     question: String,
     questionSlug: String,
+    questionImageRef: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Images",
+    },
     options: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Options" }],
     surveyType: String,
+    votingType: String,
     duration: Date,
     additionalQuestions: [
       {
