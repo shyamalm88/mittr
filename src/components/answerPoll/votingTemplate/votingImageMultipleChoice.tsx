@@ -84,6 +84,7 @@ function VotingImageMultipleChoice({
               {item.imageId && (
                 <CardMedia
                   component="img"
+                  loading="lazy"
                   sx={{ maxWidth: "20%" }}
                   image={`${item.imageId.destination.slice(1)}/${
                     item.imageId.filename

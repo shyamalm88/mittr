@@ -290,12 +290,14 @@ function ImageChoice({
                             />
                             <Card sx={{ position: "relative", height: "100%" }}>
                               <CardMedia
+                                component="img"
                                 sx={{
                                   minHeight: "100px",
                                   maxHeight: "auto",
                                   backgroundSize: "contain",
                                   backgroundPosition: "top",
                                 }}
+                                loading="lazy"
                                 image={
                                   value[index].destination +
                                   "/" +

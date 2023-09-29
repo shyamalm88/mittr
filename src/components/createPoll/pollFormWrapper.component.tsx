@@ -147,11 +147,13 @@ const PollFormWrapper = () => {
             />
             <Card sx={{ position: "relative" }}>
               <CardMedia
+                component="img"
                 sx={{
                   height: "300px",
                   backgroundSize: "contain",
                   backgroundPosition: "top",
                 }}
+                loading="lazy"
                 image={
                   questionImageValue.destination +
                   "/" +

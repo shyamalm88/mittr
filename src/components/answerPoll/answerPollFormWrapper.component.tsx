@@ -64,6 +64,7 @@ const AnswerPollFormWrapper = () => {
           {contextValueImage && (
             <CardMedia
               component="img"
+              loading="lazy"
               sx={{
                 maxWidth: "100%",
                 backgroundSize: "contain",
@@ -73,7 +74,7 @@ const AnswerPollFormWrapper = () => {
               image={`${contextValueImage.destination.slice(1)}/${
                 contextValueImage.filename
               }`}
-              alt={contextValueImage.option}
+              alt={contextValue}
             />
           )}
           <Box
