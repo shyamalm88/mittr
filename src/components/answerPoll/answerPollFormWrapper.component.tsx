@@ -16,7 +16,7 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { CardMedia } from "@mui/material";
+import { Card, CardActionArea, CardContent, CardMedia } from "@mui/material";
 TimeAgo.addDefaultLocale(en);
 
 const AnswerPollFormWrapper = () => {
@@ -51,93 +51,100 @@ const AnswerPollFormWrapper = () => {
           }}
           className="customPaper"
         >
-          <Typography
-            variant="body1"
-            component="h2"
+          <Card
             sx={{
-              fontSize: "1.2rem",
-            }}
-            className="typography"
-          >
-            {contextValue}
-          </Typography>
-          {contextValueImage && (
-            <CardMedia
-              component="img"
-              loading="lazy"
-              sx={{
-                maxWidth: "100%",
-                backgroundSize: "contain",
-                maxHeight: "200px",
-                backgroundPosition: "top",
-              }}
-              image={`${contextValueImage.destination.slice(1)}/${
-                contextValueImage.filename
-              }`}
-              alt={contextValue}
-            />
-          )}
-          <Box
-            sx={{
-              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: { xs: "column", lg: "row" },
             }}
           >
-            <Stack
-              direction={smallScreen ? "row" : "column"}
-              spacing={2}
+            <Box
               sx={{
                 display: "flex",
-                justifyContent: "space-between",
-                color: "rgb(156, 163, 175)",
+                flexDirection: "column",
               }}
             >
-              <Typography
-                variant="body2"
-                component="small"
-                sx={{
-                  fontSize: "1.2rem",
-                  color: "inherit",
-                }}
-              >
-                Created By: Arghya Majumder
-              </Typography>
-              {contextDurationValue && (
-                <Tooltip
-                  arrow
-                  title={
-                    <React.Fragment>
-                      <Typography variant="body2" component="small">
-                        Poll started at{" "}
-                        {moment(contextQuestionSetValue.createdAt).format(
-                          "DD/MM/YYYY, hh:mm a"
-                        )}
-                        ,
-                      </Typography>
-                      <br />
-                      <Typography variant="body2" component="small">
-                        {handleDateDiff}
-                        {moment(contextDurationValue).format(
-                          "DD/MM/YYYY, hh:mm a"
-                        )}
-                      </Typography>
-                    </React.Fragment>
-                  }
+              <CardContent sx={{ flex: "1 0 auto" }}>
+                <Typography component="div" variant="h5">
+                  {contextValue}
+                </Typography>
+                <Box
+                  sx={{
+                    width: "100%",
+                  }}
                 >
-                  <Typography variant="body2" component="small">
-                    <React.Fragment>
-                      <Stack direction="row" alignItems="center" gap={1}>
-                        <AccessTimeIcon />
-                        <ReactTimeAgo
-                          date={Date.parse(contextDurationValue)}
-                          tooltip={false}
-                        />
-                      </Stack>
-                    </React.Fragment>
-                  </Typography>
-                </Tooltip>
-              )}
-            </Stack>
-          </Box>
+                  <Stack
+                    direction={smallScreen ? "row" : "column"}
+                    spacing={2}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      color: "rgb(156, 163, 175)",
+                    }}
+                  >
+                    <Typography
+                      variant="body2"
+                      component="small"
+                      sx={{
+                        fontSize: "1.2rem",
+                        color: "inherit",
+                      }}
+                    >
+                      Created By: Arghya Majumder
+                    </Typography>
+                    {contextDurationValue && (
+                      <Tooltip
+                        arrow
+                        title={
+                          <React.Fragment>
+                            <Typography variant="body2" component="small">
+                              Poll started at{" "}
+                              {moment(contextQuestionSetValue.createdAt).format(
+                                "DD/MM/YYYY, hh:mm a"
+                              )}
+                              ,
+                            </Typography>
+                            <br />
+                            <Typography variant="body2" component="small">
+                              {handleDateDiff}
+                              {moment(contextDurationValue).format(
+                                "DD/MM/YYYY, hh:mm a"
+                              )}
+                            </Typography>
+                          </React.Fragment>
+                        }
+                      >
+                        <Typography variant="body2" component="small">
+                          <React.Fragment>
+                            <Stack direction="row" alignItems="center" gap={1}>
+                              <AccessTimeIcon />
+                              <ReactTimeAgo
+                                date={Date.parse(contextDurationValue)}
+                                tooltip={false}
+                              />
+                            </Stack>
+                          </React.Fragment>
+                        </Typography>
+                      </Tooltip>
+                    )}
+                  </Stack>
+                </Box>
+              </CardContent>
+            </Box>
+            {contextValueImage && (
+              <CardMedia
+                component="img"
+                sx={{
+                  maxWidth: { xs: "100%", lg: 251 },
+                  backgroundSize: "contain",
+                  backgroundPosition: "top",
+                }}
+                image={`${contextValueImage.destination.slice(1)}/${
+                  contextValueImage.filename
+                }`}
+              />
+            )}
+          </Card>
         </Box>
         <Box
           sx={{

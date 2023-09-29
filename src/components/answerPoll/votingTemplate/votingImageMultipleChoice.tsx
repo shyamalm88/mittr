@@ -12,13 +12,19 @@ import RadioGroup from "@mui/material/RadioGroup";
 import { ComponentInputProps, QuestionOptionProp } from "../../../types";
 import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
 import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
+import TextTruncate from "react-text-truncate";
+import { useTheme } from "@mui/material";
+import Image from "next/image";
+import NoImage from "./../../../images/svg/no-image.svg";
 
 function VotingImageMultipleChoice({
   handleChange,
   radioValue,
 }: ComponentInputProps) {
+  const theme = useTheme();
   const contextValue = usePollQuestionContext("options");
   return (
     <RadioGroup
@@ -28,74 +34,118 @@ function VotingImageMultipleChoice({
       onChange={handleChange}
       value={radioValue}
     >
-      <Stack
-        direction="column"
-        spacing={2}
-        sx={{ mb: 2, flexWrap: "wrap" }}
-        useFlexGap
-      >
+      <Grid container spacing={2} sx={{ mb: 2 }}>
         {contextValue?.map((item: QuestionOptionProp, index: number) => {
           const fieldName = `options[${index}]`;
           return (
-            <Card
-              sx={{
-                display: "flex",
-                flex: "1",
-                justifyContent: "space-between",
-              }}
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              lg={4}
+              xl={3}
               key={item._id}
+              sx={{ alignItems: "stretch", display: "flex" }}
             >
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Box
-                  sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}
-                >
-                  <FormControl sx={{ mb: 1, width: "100%" }} variant="outlined">
+              <Card
+                sx={{
+                  flex: "1",
+                  position: "relative",
+                }}
+                key={item._id}
+              >
+                {item.imageId ? (
+                  <CardMedia
+                    component="img"
+                    loading="lazy"
+                    image={`${item.imageId.destination.slice(1)}/${
+                      item.imageId.filename
+                    }`}
+                    sx={{ height: "200px" }}
+                    alt={item.option}
+                  />
+                ) : (
+                  <Image
+                    src={NoImage}
+                    width={0}
+                    height={200}
+                    sizes="100vw"
+                    alt="No Image"
+                    style={{ width: "100%" }}
+                  />
+                )}
+                <CardContent>
+                  <Stack
+                    direction={"row"}
+                    spacing={2}
+                    useFlexGap
+                    justifyContent={"space-between"}
+                  >
+                    <Typography
+                      gutterBottom
+                      variant="subtitle2"
+                      component="div"
+                    >
+                      {item.option}
+                    </Typography>
+                  </Stack>
+
+                  <Typography variant="body2" color="text.secondary">
+                    <TextTruncate
+                      line={3}
+                      element="span"
+                      truncateText="…"
+                      text={item.description}
+                      textTruncateChild={<a href="#">Read more</a>}
+                    />
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing sx={{ p: 0 }}>
+                  <FormControl
+                    sx={{
+                      border: "none",
+                      margin: 0,
+                      padding: 0,
+                      position: "absolute",
+                      width: 0,
+                      height: 0,
+                      top: 0,
+                      right: 0,
+                      borderStyle: "solid",
+                      borderWidth: "0 62px 62px 0",
+                      borderColor: `transparent ${
+                        theme.palette.mode === "dark" ? "#1f283e" : "#fdfdfd"
+                      } transparent transparent`,
+                    }}
+                    variant="outlined"
+                  >
                     <fieldset
                       name={fieldName}
                       style={{
                         border: "none",
-                        margin: 0,
-                        padding: 0,
                       }}
                     >
                       <FormControlLabel
                         value={item.option}
                         control={<Radio id={item._id} />}
                         label=""
+                        style={{
+                          position: "absolute",
+                          top: -4,
+                          right: -80,
+                          width: "42px",
+                          height: "42px",
+                          border: "none",
+                        }}
                       />
                     </fieldset>
                   </FormControl>
-                </Box>
-                <CardContent sx={{}}>
-                  <Typography component="div" variant="h5">
-                    {item.option}
-                  </Typography>
-                  <Divider sx={{ my: 1 }} />
-                  <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    component="div"
-                    sx={{ height: "100px", overflow: "auto" }}
-                  >
-                    {item.description}
-                  </Typography>
-                </CardContent>
-              </Box>
-              {item.imageId && (
-                <CardMedia
-                  component="img"
-                  loading="lazy"
-                  sx={{ maxWidth: "20%" }}
-                  image={`${item.imageId.destination.slice(1)}/${
-                    item.imageId.filename
-                  }`}
-                  alt={item.option}
-                />
-              )}
-            </Card>
+                </CardActions>
+              </Card>
+            </Grid>
           );
         })}
-      </Stack>
+      </Grid>
     </RadioGroup>
   );
 }

@@ -181,7 +181,6 @@ function ImageChoice({
                             ?.message
                         }
                         {...register(`${fieldName}.description` as const, {
-                          required: "Please provide Poll Image Description",
                           pattern: {
                             value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
                             message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
@@ -196,7 +195,7 @@ function ImageChoice({
                             sx={{ color: theme.palette.action.active }}
                           ></InputAdornment>
                         }
-                        placeholder={`Description ${index + 1}`}
+                        placeholder={`Description ${index + 1} (optional)`}
                       />
                       <FormValidationError
                         errorText={
