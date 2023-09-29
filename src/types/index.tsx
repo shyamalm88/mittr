@@ -92,6 +92,8 @@ export type Settings = {
 export type CreatePollQuestionType = {
   id: string;
   question: string;
+  questionImageRef: any;
+  contextValueImage: any;
   options: QuestionOptionProp[] | OptionQProp[];
   surveyType: string;
   duration: string;

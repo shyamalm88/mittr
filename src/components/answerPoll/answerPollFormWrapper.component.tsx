@@ -16,12 +16,15 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { CardMedia } from "@mui/material";
 TimeAgo.addDefaultLocale(en);
 
 const AnswerPollFormWrapper = () => {
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const contextValue = usePollQuestionContext("question");
+  const contextValueImage = usePollQuestionContext("questionImageRef");
+  console.log(contextValueImage);
   const contextQuestionSetValue = usePollQuestionContext();
   const contextDurationValue = usePollQuestionContext("duration");
 
@@ -58,6 +61,21 @@ const AnswerPollFormWrapper = () => {
           >
             {contextValue}
           </Typography>
+          {contextValueImage && (
+            <CardMedia
+              component="img"
+              sx={{
+                maxWidth: "100%",
+                backgroundSize: "contain",
+                maxHeight: "200px",
+                backgroundPosition: "top",
+              }}
+              image={`${contextValueImage.destination.slice(1)}/${
+                contextValueImage.filename
+              }`}
+              alt={contextValueImage.option}
+            />
+          )}
           <Box
             sx={{
               width: "100%",
