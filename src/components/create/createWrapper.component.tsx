@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
-const PollFormWrapper = dynamic(() => import("./pollFormWrapper.component"));
+const PollFormWrapper = dynamic(() => import("./createFormWrapper.component"));
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
@@ -20,7 +20,8 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { CreatePollSubmittedValueType } from "../../types";
 import HttpService from "../../services/@http/HttpClient";
-import OptionChoose from "./optionChoose";
+import PollOrSurveyOptionChoose from "./pollOrSurveyOptionChoose";
+import PollOrSurveyProvider from "../../providers/pollOrSurvey.provider";
 
 const CreatePollWrapper = () => {
   const http = new HttpService();
@@ -194,76 +195,93 @@ const CreatePollWrapper = () => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Card
-          variant="outlined"
-          sx={{
-            p: 2,
-            borderRadius: "4px",
-            borderTopColor: (theme) => theme.palette.primary.main,
-            borderTopStyle: "solid",
-            borderTopWidth: "2px",
-          }}
-          className="card"
-        >
-          <Stack
-            direction="row"
-            spacing={{ xs: 0, sm: 2 }}
-            sx={{ display: "flex" }}
+    <PollOrSurveyProvider>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Card
+            variant="outlined"
+            sx={{
+              p: 2,
+              borderRadius: "4px",
+              borderTopColor: (theme) => theme.palette.primary.main,
+              borderTopStyle: "solid",
+              borderTopWidth: "2px",
+            }}
+            className="card"
           >
-            <Box
-              sx={{
-                display: { xs: "none", sm: "flex", justifyContent: "center" },
-              }}
+            <Stack
+              direction="row"
+              spacing={{ xs: 0, sm: 2 }}
+              sx={{ display: "flex" }}
             >
-              <Stack
-                direction={"column"}
-                spacing={2}
-                useFlexGap
-                alignItems={"center"}
+              <Box
+                sx={{
+                  display: { xs: "none", sm: "flex", justifyContent: "center" },
+                }}
               >
-                <Avatar {...stringAvatar("Arghya Majumder")} />
-                <OptionChoose />
-              </Stack>
-            </Box>
-            <Box
+                <Stack
+                  direction={"column"}
+                  spacing={2}
+                  useFlexGap
+                  alignItems={"center"}
+                >
+                  <Avatar {...stringAvatar("Arghya Majumder")} />
+                  <PollOrSurveyOptionChoose />
+                </Stack>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  borderRadius: "4px",
+                }}
+              >
+                <PollFormWrapper />
+              </Box>
+            </Stack>
+
+            <Button
+              variant="contained"
               sx={{
-                display: "flex",
-                width: "100%",
-                borderRadius: "4px",
+                float: { xs: "none", sm: "right" },
+                width: { xs: "100%", sm: "auto" },
+                mb: { xs: 1, sm: 0 },
+              }}
+              type="submit"
+              startIcon={<SendIcon />}
+            >
+              Create
+            </Button>
+            <Button
+              variant="outlined"
+              color="inherit"
+              sx={{
+                float: { xs: "none", sm: "right" },
+                width: { xs: "100%", sm: "auto" },
+                mb: { xs: 1, sm: 0 },
+                marginRight: "10px",
+                opacity: 0.6,
+              }}
+              startIcon={<RestartAltOutlinedIcon />}
+              onClick={resetHandler}
+            >
+              Reset
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{
+                float: { xs: "none", sm: "right" },
+                width: { xs: "100%", sm: "auto" },
+                mb: { xs: 4, sm: 0 },
+                marginRight: "10px",
               }}
             >
-              <PollFormWrapper />
-            </Box>
-          </Stack>
-
-          <Button
-            variant="contained"
-            style={{ float: "right" }}
-            type="submit"
-            startIcon={<SendIcon />}
-          >
-            Create
-          </Button>
-          <Button
-            variant="outlined"
-            color="inherit"
-            style={{ float: "right", marginRight: "10px", opacity: 0.6 }}
-            startIcon={<RestartAltOutlinedIcon />}
-            onClick={resetHandler}
-          >
-            Reset
-          </Button>
-          <Button
-            variant="outlined"
-            style={{ float: "right", marginRight: "10px" }}
-          >
-            Cancel
-          </Button>
-        </Card>
-      </form>
-    </FormProvider>
+              Cancel
+            </Button>
+          </Card>
+        </form>
+      </FormProvider>
+    </PollOrSurveyProvider>
   );
 };
 

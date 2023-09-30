@@ -47,3 +47,7 @@ export const defaultPollAnswerFormValue: CreatePollAnswerType = {
   selectedOption: "",
   additionalQuestionsAnswers: [],
 };
+
+export const pollOrSurvey: any = {
+  pollOrSurvey: "",
+};

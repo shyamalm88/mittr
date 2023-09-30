@@ -9,7 +9,7 @@ import MyRecentCreatedPollTemplate from "../../components/create/rightNav/myRece
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 const CreatePollWrapper = dynamic(
-  () => import("../../components/create/createPollWrapper.component")
+  () => import("../../components/create/createWrapper.component")
 );
 
 const CreatePoll = () => {

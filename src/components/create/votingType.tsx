@@ -15,6 +15,66 @@ import Box from "@mui/material/Box";
 import { ComponentInputProps, OptionProp } from "../../types";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material";
+import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
+
+const pollOrSurveyOptionsType = [
+  {
+    id: uuidv4(),
+    label: "Multiple Choice",
+    value: "multiple_choice",
+    displayFor: "all",
+    icon: <RadioButtonCheckedOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Check Boxes",
+    value: "check_box",
+    displayFor: "survey",
+    icon: <CheckBoxOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Image Poll",
+    value: "image",
+    displayFor: "poll",
+    icon: <ImageOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Date",
+    value: "date",
+    displayFor: "survey",
+    icon: <EventOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Time",
+    value: "time",
+    displayFor: "survey",
+    icon: <AccessTimeOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Linear Scale",
+    value: "linear_scale",
+    displayFor: "survey",
+    icon: <LinearScaleOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Multiple Choice Grid",
+    value: "multiple_choice_grid",
+    displayFor: "survey",
+    icon: <AppsRoundedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Checkbox Grid",
+    value: "checkbox_grid",
+    displayFor: "survey",
+    icon: <AppsRoundedIcon />,
+  },
+];
 
 function VotingType({
   setSelectedValue,
@@ -22,57 +82,19 @@ function VotingType({
   register,
 }: ComponentInputProps) {
   const theme = useTheme();
+  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
 
-  const [votingTypeOptions] = React.useState([
-    {
-      id: uuidv4(),
-      label: "Multiple Choice",
-      value: "multiple_choice",
-      icon: <RadioButtonCheckedOutlinedIcon />,
-    },
-    // {
-    //   id: uuidv4(),
-    //   label: "Check Boxes",
-    //   value: "check_box",
-    //   icon: <CheckBoxOutlinedIcon />,
-    // },
-    {
-      id: uuidv4(),
-      label: "Image Poll",
-      value: "image",
-      icon: <ImageOutlinedIcon />,
-    },
-    // {
-    //   id: uuidv4(),
-    //   label: "Date",
-    //   value: "date",
-    //   icon: <EventOutlinedIcon />,
-    // },
-    // {
-    //   id: uuidv4(),
-    //   label: "Time",
-    //   value: "time",
-    //   icon: <AccessTimeOutlinedIcon />,
-    // },
-    // {
-    //   id: uuidv4(),
-    //   label: "Linear Scale",
-    //   value: "linear_scale",
-    //   icon: <LinearScaleOutlinedIcon />,
-    // },
-    // {
-    //   id: uuidv4(),
-    //   label: "Multiple Choice Grid",
-    //   value: "multiple_choice_grid",
-    //   icon: <AppsRoundedIcon />,
-    // },
-    // {
-    //   id: uuidv4(),
-    //   label: "Checkbox Grid",
-    //   value: "checkbox_grid",
-    //   icon: <AppsRoundedIcon />,
-    // },
-  ]);
+  const [votingTypeOptions, setVotingTypeOptions] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    if (pollOrSurvey === "poll") {
+      setVotingTypeOptions(
+        pollOrSurveyOptionsType.filter((x) => x.displayFor != "survey")
+      );
+    } else {
+      setVotingTypeOptions(pollOrSurveyOptionsType);
+    }
+  }, [pollOrSurvey]);
 
   return (
     <>
@@ -81,7 +103,7 @@ function VotingType({
         variant="subtitle2"
         sx={{ mb: 1, color: theme.palette.text.primary }}
       >
-        Voting Type
+        {pollOrSurvey === "poll" ? "Voting Type" : "Question Type"}
       </Typography>
       <FormControl
         variant="outlined"
