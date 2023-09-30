@@ -1,15 +1,15 @@
-import CreatePollLayout from "../../layout/createPoll.layout";
+import CreatePollLayout from "../../layout/create.layout";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LeftNavigationTemplate from "../../components/createPoll/leftNav/leftNavigation.Template.component";
-import RecentTemplate from "../../components/createPoll/leftNav/recent.Template.component";
-import FollowingTemplate from "../../components/createPoll/leftNav/following.Template.component";
-import AdSpaceTemplate from "../../components/createPoll/rightNav/adSpace.Template.component";
-import MyRecentCreatedPollTemplate from "../../components/createPoll/rightNav/myRecentCreatedPoll.Template.component";
+import LeftNavigationTemplate from "../../components/create/leftNav/leftNavigation.Template.component";
+import RecentTemplate from "../../components/create/leftNav/recent.Template.component";
+import FollowingTemplate from "../../components/create/leftNav/following.Template.component";
+import AdSpaceTemplate from "../../components/create/rightNav/adSpace.Template.component";
+import MyRecentCreatedPollTemplate from "../../components/create/rightNav/myRecentCreatedPoll.Template.component";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 const CreatePollWrapper = dynamic(
-  () => import("../../components/createPoll/createPollWrapper.component")
+  () => import("../../components/create/createPollWrapper.component")
 );
 
 const CreatePoll = () => {

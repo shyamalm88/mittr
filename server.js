@@ -84,12 +84,12 @@ mongoose
 
         // Example server-side routing
         server.get("/home", (req, res) => {
-          return nextApp.render(req, res, "/createPoll", req.query);
+          return nextApp.render(req, res, "/create", req.query);
         });
 
         // Example server-side routing
         server.get("/", (req, res) => {
-          return nextApp.render(req, res, "/createPoll", req.query);
+          return nextApp.render(req, res, "/create", req.query);
         });
 
         // Default catch-all renders Next app

@@ -20,6 +20,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { CreatePollSubmittedValueType } from "../../types";
 import HttpService from "../../services/@http/HttpClient";
+import OptionChoose from "./optionChoose";
 
 const CreatePollWrapper = () => {
   const http = new HttpService();
@@ -208,11 +209,23 @@ const CreatePollWrapper = () => {
         >
           <Stack
             direction="row"
-            spacing={{ xs: 0, sm: 2, md: 4 }}
+            spacing={{ xs: 0, sm: 2 }}
             sx={{ display: "flex" }}
           >
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <Avatar {...stringAvatar("Arghya Majumder")} />
+            <Box
+              sx={{
+                display: { xs: "none", sm: "flex", justifyContent: "center" },
+              }}
+            >
+              <Stack
+                direction={"column"}
+                spacing={2}
+                useFlexGap
+                alignItems={"center"}
+              >
+                <Avatar {...stringAvatar("Arghya Majumder")} />
+                <OptionChoose />
+              </Stack>
             </Box>
             <Box
               sx={{

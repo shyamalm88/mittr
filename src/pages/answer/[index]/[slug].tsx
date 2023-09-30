@@ -1,5 +1,5 @@
 import React from "react";
-import AnswerPollLayout from "../../../layout/answerPoll.layout";
+import AnswerPollLayout from "../../../layout/answer.layout";
 import PollQuestionProvider from "../../../providers/pollQuestion.provider";
 import axios from "axios";
 import { NextSeo } from "next-seo";
@@ -10,7 +10,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
 const AnswerPollWrapper = dynamic(
-  () => import("../../../components/answerPoll/answerPollWrapper.component")
+  () => import("../../../components/answer/answerPollWrapper.component")
 );
 import HttpService from "../../../services/@http/HttpClient";
 const http = new HttpService();

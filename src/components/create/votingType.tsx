@@ -1,6 +1,11 @@
 import React from "react";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheckedOutlined";
+import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import LinearScaleOutlinedIcon from "@mui/icons-material/LinearScaleOutlined";
+import AppsRoundedIcon from "@mui/icons-material/AppsRounded";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
@@ -17,6 +22,7 @@ function VotingType({
   register,
 }: ComponentInputProps) {
   const theme = useTheme();
+
   const [votingTypeOptions] = React.useState([
     {
       id: uuidv4(),
@@ -24,12 +30,48 @@ function VotingType({
       value: "multiple_choice",
       icon: <RadioButtonCheckedOutlinedIcon />,
     },
+    // {
+    //   id: uuidv4(),
+    //   label: "Check Boxes",
+    //   value: "check_box",
+    //   icon: <CheckBoxOutlinedIcon />,
+    // },
     {
       id: uuidv4(),
       label: "Image Poll",
       value: "image",
       icon: <ImageOutlinedIcon />,
     },
+    // {
+    //   id: uuidv4(),
+    //   label: "Date",
+    //   value: "date",
+    //   icon: <EventOutlinedIcon />,
+    // },
+    // {
+    //   id: uuidv4(),
+    //   label: "Time",
+    //   value: "time",
+    //   icon: <AccessTimeOutlinedIcon />,
+    // },
+    // {
+    //   id: uuidv4(),
+    //   label: "Linear Scale",
+    //   value: "linear_scale",
+    //   icon: <LinearScaleOutlinedIcon />,
+    // },
+    // {
+    //   id: uuidv4(),
+    //   label: "Multiple Choice Grid",
+    //   value: "multiple_choice_grid",
+    //   icon: <AppsRoundedIcon />,
+    // },
+    // {
+    //   id: uuidv4(),
+    //   label: "Checkbox Grid",
+    //   value: "checkbox_grid",
+    //   icon: <AppsRoundedIcon />,
+    // },
   ]);
 
   return (

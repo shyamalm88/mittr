@@ -7,6 +7,8 @@ function VotingTemplateSwitch(props: ComponentInputProps) {
   switch (props.selectedValue) {
     case "multiple_choice":
       return <MultipleChoice {...props} />;
+    case "check_box":
+      return <MultipleChoice {...props} />;
     case "image":
       return <ImageChoice {...props} />;
     default:

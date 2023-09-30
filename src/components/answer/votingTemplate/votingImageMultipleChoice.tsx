@@ -30,7 +30,7 @@ function VotingImageMultipleChoice({
     <RadioGroup
       aria-labelledby="demo-radio-buttons-group-label"
       name="selectedOption"
-      className="answerPoll"
+      className="answer"
       onChange={handleChange}
       value={radioValue}
     >

@@ -27,7 +27,7 @@ const GenderTemplate = ({ fieldName, item }: ComponentInputProps) => {
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
           name={`${fieldName}.selectedValue`}
-          className="answerPoll"
+          className="answer"
           onChange={handleChange}
           value={radioValue}
         >
