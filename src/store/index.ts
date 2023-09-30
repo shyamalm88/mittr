@@ -48,6 +48,6 @@ export const defaultPollAnswerFormValue: CreatePollAnswerType = {
   additionalQuestionsAnswers: [],
 };
 
-export const pollOrSurvey: any = {
+export const pollOrSurveyDefaultVal: any = {
   pollOrSurvey: "",
 };

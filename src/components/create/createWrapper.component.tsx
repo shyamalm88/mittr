@@ -3,28 +3,30 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
-const PollFormWrapper = dynamic(() => import("./createFormWrapper.component"));
-import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
-import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
+const PollFormWrapper = dynamic(
+  () => import("./poll/createPollFormWrapper.component")
+);
+
+const SurveyFormWrapper = dynamic(
+  () => import("./survey/createSurveyFormWrapper.component")
+);
+
 import React from "react";
-import * as _ from "underscore";
-import urlSlug from "url-slug";
-import { toast } from "react-toastify";
-import {
-  useForm,
-  FormProvider,
-  SubmitHandler,
-  useFieldArray,
-} from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
-import { CreatePollSubmittedValueType } from "../../types";
-import HttpService from "../../services/@http/HttpClient";
+
 import PollOrSurveyOptionChoose from "./pollOrSurveyOptionChoose";
 import PollOrSurveyProvider from "../../providers/pollOrSurvey.provider";
+import { pollOrSurveyDefaultVal } from "../../store";
+import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 
 const CreatePollWrapper = () => {
-  const http = new HttpService();
+  const { pollOrSurvey } = usePollOrSurveyContext();
+  const [pollOrSurveySwitch, setPollOrSurveySwitch] =
+    React.useState(pollOrSurvey);
+
+  React.useEffect(() => {
+    setPollOrSurveySwitch(pollOrSurvey);
+  }, [pollOrSurvey]);
+
   const stringToColor = (string: string) => {
     let hash = 0;
     let i;
@@ -51,237 +53,53 @@ const CreatePollWrapper = () => {
     };
   };
 
-  const methods = useForm<CreatePollSubmittedValueType>({
-    defaultValues: {
-      question: "",
-      votingType: "multiple_choice",
-      options: [
-        { id: uuidv4(), label: "Option", enabled: true, option: "" },
-        { id: uuidv4(), label: "Option", enabled: true, option: "" },
-      ],
-      additionalQuestions: [
-        {
-          id: uuidv4(),
-          questionLabel: "Question",
-          answerType: "",
-          question: "",
-        },
-      ],
-      settings: {
-        captureGender: false,
-        closePollOnScheduledDate: false,
-        captureCity: false,
-        captureCountry: false,
-      },
-      duration: "",
-    },
-  });
-
-  const {
-    handleSubmit,
-    setError,
-    reset,
-    formState: { errors },
-    control,
-    getValues,
-    setValue,
-    clearErrors,
-  } = methods;
-
-  const { fields, append, prepend, remove, swap, move, insert, update } =
-    useFieldArray({
-      control,
-      name: "additionalQuestions",
-    });
-
-  const resetHandler = () => {
-    reset();
-  };
-
-  const onSubmit: SubmitHandler<CreatePollSubmittedValueType> = async (
-    data
-  ) => {
-    setValue("questionSlug", urlSlug(data.question));
-    const additionalQuestions = getValues("additionalQuestions").filter(
-      (item) => item.question
-    );
-    const genderFound = additionalQuestions.some(
-      (item) => item.answerType === "gender"
-    );
-    const countryFound = additionalQuestions.some(
-      (item) => item.answerType === "country"
-    );
-    if (data.settings && data.settings.captureGender && !genderFound) {
-      const temp = {
-        id: uuidv4(),
-        questionLabel: "Question",
-        answerType: "gender",
-        question: "Please select your Gender",
-      };
-      append(temp);
-    } else {
-      if (data.settings && !data.settings.captureGender && genderFound) {
-        const idx = additionalQuestions.findIndex(
-          (item) => item.answerType === "gender"
-        );
-        remove(idx);
-      }
-    }
-    if (data.settings && data.settings.captureCity && !countryFound) {
-      const temp = {
-        id: uuidv4(),
-        questionLabel: "Question",
-        answerType: "city",
-        question: "Your residing Country and City",
-      };
-      append(temp);
-    } else {
-      if (data.settings && !data.settings.captureGender && countryFound) {
-        const idx = additionalQuestions.findIndex(
-          (item) => item.answerType === "city"
-        );
-        remove(idx);
-      }
-    }
-    if (data.settings && data.settings.captureCountry && !countryFound) {
-      const temp = {
-        id: uuidv4(),
-        questionLabel: "Question",
-        answerType: "country",
-        question: "Your residing Country",
-      };
-      append(temp);
-    } else {
-      if (data.settings && !data.settings.captureGender && countryFound) {
-        const idx = additionalQuestions.findIndex(
-          (item) => item.answerType === "country"
-        );
-        remove(idx);
-      }
-    }
-    const dataToBeSubmitted = getValues();
-    dataToBeSubmitted.options = _.map(dataToBeSubmitted.options, function (o) {
-      return _.omit(o, ["id", "enabled", "label", "image"]);
-    });
-    dataToBeSubmitted.additionalQuestions = _.map(
-      dataToBeSubmitted.additionalQuestions,
-      function (o) {
-        return _.omit(o, ["id", "questionLabel"]);
-      }
-    );
-    console.log(dataToBeSubmitted);
-
-    try {
-      const resp = await postSurvey(dataToBeSubmitted);
-      console.log(resp);
-      clearErrors();
-      reset();
-      toast.success(`You have successfully created Poll`, {
-        position: toast.POSITION.TOP_RIGHT,
-        theme: "colored",
-      });
-    } catch (err) {
-      toast.error(`Error While Creating Poll`, {
-        position: toast.POSITION.TOP_RIGHT,
-        theme: "colored",
-      });
-    }
-  };
-
-  const postSurvey = async (data: any) => {
-    const response = await http.service().post(`/survey`, data);
-
-    return response;
-  };
-
   return (
-    <PollOrSurveyProvider>
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Card
-            variant="outlined"
-            sx={{
-              p: 2,
-              borderRadius: "4px",
-              borderTopColor: (theme) => theme.palette.primary.main,
-              borderTopStyle: "solid",
-              borderTopWidth: "2px",
-            }}
-            className="card"
+    <Card
+      variant="outlined"
+      sx={{
+        p: 2,
+        borderRadius: "4px",
+        borderTopColor: (theme) => theme.palette.primary.main,
+        borderTopStyle: "solid",
+        borderTopWidth: "2px",
+      }}
+      className="card"
+    >
+      <Stack
+        direction="row"
+        spacing={{ xs: 0, sm: 2 }}
+        sx={{ display: "flex" }}
+      >
+        <Box
+          sx={{
+            display: { xs: "none", sm: "flex", justifyContent: "center" },
+          }}
+        >
+          <Stack
+            direction={"column"}
+            spacing={2}
+            useFlexGap
+            alignItems={"center"}
           >
-            <Stack
-              direction="row"
-              spacing={{ xs: 0, sm: 2 }}
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  display: { xs: "none", sm: "flex", justifyContent: "center" },
-                }}
-              >
-                <Stack
-                  direction={"column"}
-                  spacing={2}
-                  useFlexGap
-                  alignItems={"center"}
-                >
-                  <Avatar {...stringAvatar("Arghya Majumder")} />
-                  <PollOrSurveyOptionChoose />
-                </Stack>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  width: "100%",
-                  borderRadius: "4px",
-                }}
-              >
-                <PollFormWrapper />
-              </Box>
-            </Stack>
-
-            <Button
-              variant="contained"
-              sx={{
-                float: { xs: "none", sm: "right" },
-                width: { xs: "100%", sm: "auto" },
-                mb: { xs: 1, sm: 0 },
-              }}
-              type="submit"
-              startIcon={<SendIcon />}
-            >
-              Create
-            </Button>
-            <Button
-              variant="outlined"
-              color="inherit"
-              sx={{
-                float: { xs: "none", sm: "right" },
-                width: { xs: "100%", sm: "auto" },
-                mb: { xs: 1, sm: 0 },
-                marginRight: "10px",
-                opacity: 0.6,
-              }}
-              startIcon={<RestartAltOutlinedIcon />}
-              onClick={resetHandler}
-            >
-              Reset
-            </Button>
-            <Button
-              variant="outlined"
-              sx={{
-                float: { xs: "none", sm: "right" },
-                width: { xs: "100%", sm: "auto" },
-                mb: { xs: 4, sm: 0 },
-                marginRight: "10px",
-              }}
-            >
-              Cancel
-            </Button>
-          </Card>
-        </form>
-      </FormProvider>
-    </PollOrSurveyProvider>
+            <Avatar {...stringAvatar("Arghya Majumder")} />
+            <PollOrSurveyOptionChoose />
+          </Stack>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            borderRadius: "4px",
+          }}
+        >
+          {pollOrSurveySwitch == "poll" ? (
+            <PollFormWrapper />
+          ) : (
+            <SurveyFormWrapper />
+          )}
+        </Box>
+      </Stack>
+    </Card>
   );
 };
 

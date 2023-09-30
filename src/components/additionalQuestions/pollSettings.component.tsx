@@ -32,22 +32,6 @@ function PollSettings() {
     clearErrors,
   } = useFormContext();
 
-  // const [closePollOnScheduledDate, duration] = getValues([
-  //   "settings.closePollOnScheduledDate",
-  //   "duration",
-  // ]);
-
-  // React.useEffect(() => {
-  //   if (isSubmitted && closePollOnScheduledDate && !duration) {
-  //     setError("duration", {
-  //       type: "required",
-  //       message: "Please Provide date and time for scheduled end.",
-  //     });
-  //   } else {
-  //     clearErrors("duration");
-  //   }
-  // }, [setError, closePollOnScheduledDate, duration, clearErrors, isSubmitted]);
-
   const settingsValues = getValues("settings");
 
   return (

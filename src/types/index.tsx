@@ -52,6 +52,8 @@ export type CreatePollValueType = {
 export type CreatePollSubmittedValueType = {
   question: string;
   votingType: string;
+  questionImage: string;
+  questionImageRef: string;
   options: Option[];
   questionSlug: string;
   additionalQuestions: AdditionalQuestion[];
