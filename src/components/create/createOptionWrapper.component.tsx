@@ -13,7 +13,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { v4 as uuidv4 } from "uuid";
-import { OptionProp } from "../../types";
+import { ComponentInputProps, OptionProp } from "../../types";
 import AltRouteOutlinedIcon from "@mui/icons-material/AltRouteOutlined";
 import { Topic } from "./topic/topic.component";
 import Tooltip from "@mui/material/Tooltip";
@@ -22,10 +22,11 @@ import { useFormContext, useFieldArray } from "react-hook-form";
 import FormValidationError from "../../utility/FormValidationError";
 import VotingType from "./votingType";
 import VotingTemplateSwitch from "./votingTemplateSwitch";
+import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 
-const PollOptionWrapper = () => {
+const PollOptionWrapper = ({ fieldName }: ComponentInputProps) => {
   const theme = useTheme();
-
+  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const {
     register,
     setValue,
@@ -40,16 +41,20 @@ const PollOptionWrapper = () => {
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
       control,
-      name: "options",
+      name: pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`,
     }
   );
 
   const [selectedValue, setSelectedValue] = React.useState(
-    getValues("votingType")
+    getValues(
+      pollOrSurvey === "poll" ? "votingType" : `${fieldName}.votingType`
+    )
   );
 
   React.useEffect(() => {
-    resetField("options");
+    resetField(
+      pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`
+    );
   }, [selectedValue]);
 
   const [addedTopics, setAddedTopics] = React.useState<
@@ -73,7 +78,14 @@ const PollOptionWrapper = () => {
       enabled: false,
     };
     append(temp);
-    setValue(`options.${getValues("options").length - 1}.option`, "Other");
+    setValue(
+      `${fieldName}.${
+        getValues(
+          `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}`
+        ).length - 1
+      }.option`,
+      "Other"
+    );
   };
 
   const deleteOption = (index: number) => {
@@ -109,6 +121,7 @@ const PollOptionWrapper = () => {
         selectedValue={selectedValue}
         isSubmitSuccessful={isSubmitSuccessful}
         reset={reset}
+        fieldName={fieldName}
       />
       <Box>
         <Stack
@@ -127,7 +140,13 @@ const PollOptionWrapper = () => {
               startIcon={<AddCircleOutlineIcon />}
               onClick={addOption}
               variant="outlined"
-              disabled={getValues("options")?.length >= 5}
+              disabled={
+                getValues(
+                  pollOrSurvey === "poll"
+                    ? `${fieldName}`
+                    : `${fieldName}.options`
+                )?.length >= 5
+              }
             >
               Add
               <Box
@@ -149,7 +168,13 @@ const PollOptionWrapper = () => {
               sx={{ textTransform: "none" }}
               startIcon={<AltRouteOutlinedIcon />}
               onClick={addOtherOption}
-              disabled={getValues("options").length >= 5}
+              disabled={
+                getValues(
+                  pollOrSurvey === "poll"
+                    ? `${fieldName}`
+                    : `${fieldName}.options`
+                )?.length >= 5
+              }
             >
               Add Other
             </Button>

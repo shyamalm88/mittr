@@ -118,7 +118,9 @@ router.post("/survey", async (req, res) => {
   const survey = new Survey({
     question: req.body.question,
     votingType: req.body.votingType,
-    questionImageRef: req.body.questionImageRef,
+    questionImageRef: req.body.questionImageRef
+      ? req.body.questionImageRef
+      : null,
     surveyType: req.body.pollType,
     duration: req.body.duration,
     questionSlug: req.body.questionSlug,
@@ -152,7 +154,6 @@ router.post("/survey/image", upload.single("image"), async (req, res) => {
           "Only These types of files are supported 'jpeg|jpg|png|gif|svg'",
       });
     }
-    // res.status(400).send("Please upload a valid image");
   }
 });
 

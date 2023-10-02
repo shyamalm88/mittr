@@ -30,9 +30,11 @@ import {
   useFieldArray,
 } from "react-hook-form";
 import { CreatePollSubmittedValueType } from "../../../types";
+import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
+import SurveyQuestionnaire from "../common/surveyQuestionnaire";
 
-const PollFormWrapper = React.forwardRef((props, ref) => {
-  PollFormWrapper.displayName = "PollFormWrapper";
+const PollFormWrapper = () => {
+  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const http = new HttpService();
   const theme = useTheme();
   const [question, setQuestion] = React.useState();
@@ -50,6 +52,8 @@ const PollFormWrapper = React.forwardRef((props, ref) => {
     defaultValues: {
       question: "",
       votingType: "multiple_choice",
+      questionImageRef: null,
+      questionSlug: "",
       options: [
         { id: uuidv4(), label: "Option", enabled: true, option: "" },
         { id: uuidv4(), label: "Option", enabled: true, option: "" },
@@ -101,14 +105,6 @@ const PollFormWrapper = React.forwardRef((props, ref) => {
 
   const handleRemove = (e: any) => {};
 
-  React.useImperativeHandle(ref, () => ({
-    childFunction1() {
-      console.log("child function 1 called");
-    },
-    childFunction2() {
-      console.log("child function 2 called");
-    },
-  }));
   const onSubmit = async (fileData: any) => {
     const formData: any = new FormData();
     formData.append("image", fileData);
@@ -235,127 +231,7 @@ const PollFormWrapper = React.forwardRef((props, ref) => {
             position: "relative",
           }}
         >
-          <Box
-            sx={{
-              width: "100%",
-              backgroundColor: (theme: any) =>
-                theme.palette.customColors.backgroundColor,
-              borderRadius: "4px 4px 0px 0px",
-              px: 2,
-              py: 1,
-              borderWidth: "1px",
-              borderStyle: "solid",
-              borderColor: (theme: any) => theme.palette.customColors.border,
-            }}
-          >
-            <TextField
-              multiline
-              rows={4}
-              placeholder="Write Poll Question Here"
-              variant="standard"
-              size="small"
-              fullWidth
-              autoFocus
-              error={!!errors.question}
-              {...register("question" as const, {
-                required: "Please provide a Poll Question",
-                pattern: {
-                  value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                  message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
-                },
-              })}
-              value={question}
-              InputProps={{
-                disableUnderline: !Boolean(errors?.question?.message),
-                style: {
-                  color: "inherit",
-                },
-              }}
-            />
-            <input
-              accept="image/*"
-              type="file"
-              style={{
-                position: "absolute",
-                right: "0px",
-                zIndex: 1,
-                cursor: "pointer",
-                opacity: 0,
-                height: "40px",
-                width: "40px",
-                top: 0,
-              }}
-              id={"questionImage"}
-              {...register(`questionImage` as const, {
-                onChange: (e: any) => {
-                  handleChange(e);
-                },
-              })}
-            />
-            <label htmlFor={"questionImage"}>
-              <IconButton
-                aria-label="questionImage"
-                sx={{ position: "absolute", top: 0, right: 0 }}
-              >
-                <WallpaperIcon />
-              </IconButton>
-            </label>
-            <FormValidationError
-              errorText={(errors as any)?.question?.message}
-            />
-
-            {questionImageValue && (
-              <>
-                {console.log(questionImageValue.imageId)}
-                <input
-                  type="text"
-                  value={questionImageValue.imageId}
-                  {...register(`questionImageRef`)}
-                />
-                <Card sx={{ position: "relative" }}>
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      height: "300px",
-                      backgroundSize: "contain",
-                      backgroundPosition: "top",
-                    }}
-                    loading="lazy"
-                    image={
-                      questionImageValue.destination +
-                      "/" +
-                      questionImageValue.filename
-                    }
-                    title="green iguana"
-                  />
-                  <CardActions sx={{ p: 0 }}>
-                    <IconButton
-                      aria-label="delete"
-                      sx={{ position: "absolute", top: 0, right: 0 }}
-                      onClick={(e) => handleRemove(e)}
-                    >
-                      <CloseRoundedIcon />
-                    </IconButton>
-                  </CardActions>
-                </Card>
-              </>
-            )}
-          </Box>
-
-          <Box
-            sx={{
-              width: "100%",
-              backgroundColor: "transparent",
-              borderWidth: "1px",
-              borderStyle: "solid",
-              borderColor: (theme: any) => theme.palette.customColors.borderAlt,
-              px: 2,
-              py: 1,
-            }}
-          >
-            <PollOptionWrapper />
-          </Box>
-
+          <SurveyQuestionnaire fieldName={"options"} />
           <PollSettings />
           <Stack
             direction="row"
@@ -414,6 +290,6 @@ const PollFormWrapper = React.forwardRef((props, ref) => {
       </form>
     </FormProvider>
   );
-});
+};
 
 export default PollFormWrapper;

@@ -87,7 +87,6 @@ const CreatePollWrapper = () => {
         </Box>
         <Box
           sx={{
-            display: "flex",
             width: "100%",
             borderRadius: "4px",
           }}

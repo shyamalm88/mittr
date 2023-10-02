@@ -92,7 +92,9 @@ function VotingType({
         pollOrSurveyOptionsType.filter((x) => x.displayFor != "survey")
       );
     } else {
-      setVotingTypeOptions(pollOrSurveyOptionsType);
+      setVotingTypeOptions(
+        pollOrSurveyOptionsType.filter((x) => x.displayFor != "poll")
+      );
     }
   }, [pollOrSurvey]);
 

@@ -61,6 +61,23 @@ export type CreatePollSubmittedValueType = {
   duration: string;
 };
 
+export type CreateSurveySubmittedValueType = {
+  type: "";
+  survey: [
+    {
+      question: string;
+      votingType: string;
+      questionImage: string;
+      questionImageRef: string;
+      options: Option[];
+    }
+  ];
+  questionSlug: string;
+  additionalQuestions: AdditionalQuestion[];
+  settings: Settings;
+  duration: string;
+};
+
 export type Option = {
   option: string;
   id?: string;

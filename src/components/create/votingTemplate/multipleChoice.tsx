@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import { ComponentInputProps } from "../../../types";
 import { useTheme } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
+import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 
 function MultipleChoice({
   fields,
@@ -15,8 +16,10 @@ function MultipleChoice({
   register,
   deleteOption,
   getValues,
+  fieldName,
 }: ComponentInputProps) {
   const theme = useTheme();
+  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   return (
     <React.Fragment>
       <Typography
@@ -27,7 +30,10 @@ function MultipleChoice({
         Answer Options
       </Typography>
       {fields.map((item: any, index: number) => {
-        const fieldName = `options[${index}]`;
+        const fieldNameOptions =
+          pollOrSurvey === "poll"
+            ? `${fieldName}.${index}`
+            : `${fieldName}.options.${index}`;
         // console.log(errors);
         return (
           <FormControl
@@ -36,7 +42,7 @@ function MultipleChoice({
             key={item.id}
           >
             <fieldset
-              name={fieldName}
+              name={fieldNameOptions}
               style={{
                 border: "none",
                 margin: 0,
@@ -45,6 +51,7 @@ function MultipleChoice({
                 flexDirection: "column",
               }}
             >
+              {/* {console.log(errors)} */}
               <OutlinedInput
                 size="small"
                 margin="dense"
@@ -52,8 +59,17 @@ function MultipleChoice({
                   borderRadius: "4px",
                 }}
                 className="input"
-                error={!!(errors as any)?.options?.[index]?.option?.message}
-                {...register(`${fieldName}.option` as const, {
+                error={
+                  pollOrSurvey === "poll"
+                    ? !!(errors as any)?.[fieldNameOptions.split(".")[0]]?.[
+                        index
+                      ]?.option?.message
+                    : !!(errors as any)?.[fieldNameOptions.split(".")[0]]?.[
+                        fieldNameOptions.split(".")[1]
+                      ]?.[fieldNameOptions.split(".")[2]]?.[index]?.option
+                        ?.message
+                }
+                {...register(`${fieldNameOptions}.option` as const, {
                   required: "Please provide  Poll Option",
                   pattern: {
                     value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
@@ -73,7 +89,9 @@ function MultipleChoice({
                       edge="end"
                       sx={{ color: "inherit" }}
                       onClick={() => deleteOption(index)}
-                      disabled={getValues("options").length === 1}
+                      disabled={
+                        getValues(`${fieldNameOptions}.option`)?.length === 1
+                      }
                     >
                       <DeleteOutlineIcon />
                     </IconButton>
@@ -82,7 +100,15 @@ function MultipleChoice({
                 placeholder={`${item?.label} ${index + 1}`}
               />
               <FormValidationError
-                errorText={(errors as any)?.options?.[index]?.option?.message}
+                errorText={
+                  pollOrSurvey === "poll"
+                    ? (errors as any)?.[fieldNameOptions.split(".")[0]]?.[index]
+                        ?.option?.message
+                    : (errors as any)?.[fieldNameOptions.split(".")[0]]?.[
+                        fieldNameOptions.split(".")[1]
+                      ]?.[fieldNameOptions.split(".")[2]]?.[index]?.option
+                        ?.message
+                }
               />
             </fieldset>
           </FormControl>
