@@ -34,7 +34,7 @@ function MultipleChoice({
           pollOrSurvey === "poll"
             ? `${fieldName}.${index}`
             : `${fieldName}.options.${index}`;
-        // console.log(errors);
+
         return (
           <FormControl
             sx={{ mb: 1, width: "100%", color: theme.palette.text.primary }}
@@ -51,7 +51,6 @@ function MultipleChoice({
                 flexDirection: "column",
               }}
             >
-              {/* {console.log(errors)} */}
               <OutlinedInput
                 size="small"
                 margin="dense"

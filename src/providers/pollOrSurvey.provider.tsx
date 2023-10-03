@@ -1,6 +1,5 @@
 import React from "react";
 import { ComponentInputProps } from "../types";
-import { pollOrSurvey } from "../store";
 
 export const PollOrSurveyProviderContext = React.createContext<{
   pollOrSurvey: string;

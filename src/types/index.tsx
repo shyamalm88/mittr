@@ -52,7 +52,7 @@ export type CreatePollValueType = {
 export type CreatePollSubmittedValueType = {
   question: string;
   votingType: string;
-  questionImage: string;
+  questionImage: string | undefined;
   questionImageRef: string;
   options: Option[];
   questionSlug: string;
@@ -66,6 +66,7 @@ export type CreateSurveySubmittedValueType = {
   survey: [
     {
       question: string;
+      id: string;
       votingType: string;
       questionImage: string;
       questionImageRef: string;

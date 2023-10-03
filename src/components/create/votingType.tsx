@@ -80,6 +80,7 @@ function VotingType({
   setSelectedValue,
   selectedValue,
   register,
+  fieldName,
 }: ComponentInputProps) {
   const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
@@ -123,12 +124,17 @@ function VotingType({
           }}
           className="select"
           displayEmpty
-          defaultValue={selectedValue}
-          {...register(`votingType` as const, {
-            onChange: (e: any) => {
-              setSelectedValue(e.target.value);
-            },
-          })}
+          value={selectedValue}
+          {...register(
+            `${
+              pollOrSurvey === "poll" ? "votingType" : `${fieldName}.votingType`
+            }` as const,
+            {
+              onChange: (e: any) => {
+                setSelectedValue(e.target.value);
+              },
+            }
+          )}
         >
           <MenuItem value="">
             <em style={{ color: "#b3b3b3" }}>Please Select Type</em>

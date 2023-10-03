@@ -37,6 +37,7 @@ const PollFormWrapper = () => {
       survey: [
         {
           question: "",
+          id: uuidv4(),
           votingType: "multiple_choice",
           options: [
             { id: uuidv4(), label: "Option", enabled: true, option: "" },
@@ -89,6 +90,7 @@ const PollFormWrapper = () => {
   const onSubmitSubmitForm: SubmitHandler<
     CreateSurveySubmittedValueType
   > = async (data) => {
+    console.log(data);
     // setValue("questionSlug", urlSlug(data.question));
     // const additionalQuestions = getValues("additionalQuestions").filter(
     //   (item) => item.question
@@ -199,12 +201,13 @@ const PollFormWrapper = () => {
         >
           {fields.map((item: any, index: number) => {
             return (
-              <>
-                <SurveyQuestionnaire
-                  key={item.id}
-                  fieldName={`survey.${index}`}
-                />
-              </>
+              <SurveyQuestionnaire
+                key={item.id}
+                fieldName={`survey.${index}`}
+                append={append}
+                update={update}
+                index={index}
+              />
             );
           })}
 

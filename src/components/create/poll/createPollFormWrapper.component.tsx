@@ -52,7 +52,7 @@ const PollFormWrapper = () => {
     defaultValues: {
       question: "",
       votingType: "multiple_choice",
-      questionImageRef: null,
+      questionImageRef: undefined,
       questionSlug: "",
       options: [
         { id: uuidv4(), label: "Option", enabled: true, option: "" },

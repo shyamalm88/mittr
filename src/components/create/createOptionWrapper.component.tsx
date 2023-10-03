@@ -18,13 +18,13 @@ import AltRouteOutlinedIcon from "@mui/icons-material/AltRouteOutlined";
 import { Topic } from "./topic/topic.component";
 import Tooltip from "@mui/material/Tooltip";
 import { Chip, useTheme } from "@mui/material";
-import { useFormContext, useFieldArray } from "react-hook-form";
+import { useFormContext, useFieldArray, useWatch } from "react-hook-form";
 import FormValidationError from "../../utility/FormValidationError";
 import VotingType from "./votingType";
 import VotingTemplateSwitch from "./votingTemplateSwitch";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 
-const PollOptionWrapper = ({ fieldName }: ComponentInputProps) => {
+const PollOptionWrapper = ({ fieldName, index }: ComponentInputProps) => {
   const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const {
@@ -35,6 +35,7 @@ const PollOptionWrapper = ({ fieldName }: ComponentInputProps) => {
     getValues,
     formState: { errors, isSubmitSuccessful },
     reset,
+    watch,
     resetField,
   } = useFormContext();
 
@@ -67,19 +68,15 @@ const PollOptionWrapper = ({ fieldName }: ComponentInputProps) => {
   const open = Boolean(anchorEl);
 
   const addOption = () => {
-    const temp = { id: uuidv4(), label: "Option", enabled: true };
+    const temp = { id: uuidv4(), label: "Option", enabled: true, option: "" };
     append(temp);
   };
 
   const addOtherOption = () => {
-    const temp = {
-      id: uuidv4(),
-      label: "Other",
-      enabled: false,
-    };
+    const temp = { id: uuidv4(), label: "Other", enabled: false, option: "" };
     append(temp);
     setValue(
-      `${fieldName}.${
+      `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}.${
         getValues(
           `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}`
         ).length - 1
@@ -111,6 +108,7 @@ const PollOptionWrapper = ({ fieldName }: ComponentInputProps) => {
         setSelectedValue={setSelectedValue}
         selectedValue={selectedValue}
         register={register}
+        fieldName={fieldName}
       />
       <VotingTemplateSwitch
         fields={fields}

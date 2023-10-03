@@ -36,7 +36,7 @@ function PollOrSurveyOptionChoose() {
           <RadioGroup
             aria-labelledby="demo-form-control-label-placement"
             name="type"
-            defaultValue={pollOrSurvey}
+            value={pollOrSurvey}
             onChange={handleChange}
           >
             <MenuList
@@ -85,33 +85,8 @@ function PollOrSurveyOptionChoose() {
             </MenuList>
           </RadioGroup>
         </Paper>
-        {pollOrSurvey == "survey" && (
-          <Paper sx={{ width: 60 }}>
-            <MenuList>
-              <MenuItem>
-                <ListItemIcon>
-                  <Tooltip title="Add Section" placement="top">
-                    <AddCircleOutlineIcon />
-                  </Tooltip>
-                </ListItemIcon>
-              </MenuItem>
-              <MenuItem>
-                <ListItemIcon>
-                  <Tooltip title="Add Title Description" placement="top">
-                    <TextFieldsOutlinedIcon />
-                  </Tooltip>
-                </ListItemIcon>
-              </MenuItem>
-              <MenuItem>
-                <ListItemIcon>
-                  <Tooltip title="Duplicate Section" placement="top">
-                    <ContentCopy />
-                  </Tooltip>
-                </ListItemIcon>
-              </MenuItem>
-            </MenuList>
-          </Paper>
-        )}
+
+        <div id="surveyActionMenuPortal"></div>
       </Hidden>
       <Hidden smUp>
         <Portal>
@@ -173,56 +148,7 @@ function PollOrSurveyOptionChoose() {
                     </MenuItem>
                   </MenuList>
                 </RadioGroup>
-                {pollOrSurvey == "survey" && (
-                  <MenuList
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      p: 0,
-                      alignItems: "center",
-                    }}
-                  >
-                    <MenuItem sx={{ p: 0 }}>
-                      <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <ListItemIcon
-                          sx={{
-                            justifyContent: "center",
-                            alignItems: "center",
-                            alignContent: "center",
-                          }}
-                        >
-                          <Tooltip title="Add Section" placement="top">
-                            <IconButton aria-label="Add">
-                              <AddCircleOutlineIcon />
-                            </IconButton>
-                          </Tooltip>
-                        </ListItemIcon>
-                      </Stack>
-                    </MenuItem>
-                    <MenuItem sx={{ p: 0 }}>
-                      <ListItemIcon sx={{ justifyContent: "center" }}>
-                        <Tooltip title="Add Title Description" placement="top">
-                          <IconButton aria-label="Add">
-                            <TextFieldsOutlinedIcon />
-                          </IconButton>
-                        </Tooltip>
-                      </ListItemIcon>
-                    </MenuItem>
-                    <MenuItem sx={{ p: 0 }}>
-                      <ListItemIcon sx={{ justifyContent: "center" }}>
-                        <Tooltip title="Duplicate Section" placement="top">
-                          <IconButton aria-label="Add">
-                            <ContentCopy />
-                          </IconButton>
-                        </Tooltip>
-                      </ListItemIcon>
-                    </MenuItem>
-                  </MenuList>
-                )}
+                <div id="surveyActionMenuPortal"></div>
               </Stack>
             </Paper>
           </Drawer>

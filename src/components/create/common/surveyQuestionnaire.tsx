@@ -8,15 +8,35 @@ import CardMedia from "@mui/material/CardMedia";
 import { IconButton } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import HttpService from "../../../services/@http/HttpClient";
 import WallpaperIcon from "@mui/icons-material/Wallpaper";
 import { ComponentInputProps } from "../../../types";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
+import Paper from "@mui/material/Paper";
+import MenuList from "@mui/material/MenuList";
+import MenuItem from "@mui/material/MenuItem";
+import Divider from "@mui/material/Divider";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ContentCopy from "@mui/icons-material/ContentCopy";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import TextFieldsOutlinedIcon from "@mui/icons-material/TextFieldsOutlined";
+import Portal from "@mui/material/Portal";
+import Tooltip from "@mui/material/Tooltip";
+import { v4 as uuidv4 } from "uuid";
 
-function SurveyQuestionnaire({ fieldName }: ComponentInputProps) {
+function SurveyQuestionnaire({
+  fieldName,
+  append,
+  index,
+  update,
+}: ComponentInputProps) {
   const http = new HttpService();
+
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
+
+  let fieldNameQuestion: any =
+    pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}`.split(".");
 
   const [question, setQuestion] = React.useState();
   const [questionImageValue, setQuestionImageValue] = React.useState<{
@@ -62,6 +82,29 @@ function SurveyQuestionnaire({ fieldName }: ComponentInputProps) {
     }
   };
 
+  const handleAddNewSurvey = async () => {
+    const tempQuestion = {
+      question: "",
+      id: uuidv4(),
+      votingType: "multiple_choice",
+      options: [
+        { id: uuidv4(), label: "Option", enabled: true, option: "" },
+        { id: uuidv4(), label: "Option", enabled: true, option: "" },
+      ],
+    };
+    await append(tempQuestion);
+    const surveyValues = getValues("survey");
+    const getValuesSurveyLastIndex = surveyValues.length - 1;
+    setValue(`survey.${getValuesSurveyLastIndex}`, {
+      ...surveyValues[getValuesSurveyLastIndex],
+      options: [
+        { id: uuidv4(), label: "Option", enabled: true, option: "" },
+        { id: uuidv4(), label: "Option", enabled: true, option: "" },
+      ],
+    });
+    console.log(getValues("survey"));
+  };
+
   return (
     <>
       <Box
@@ -85,17 +128,34 @@ function SurveyQuestionnaire({ fieldName }: ComponentInputProps) {
           size="small"
           fullWidth
           autoFocus
-          error={!!errors.question}
-          {...register("question" as const, {
-            required: "Please provide a Poll Question",
-            pattern: {
-              value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-              message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
-            },
-          })}
+          error={
+            pollOrSurvey === "poll"
+              ? !!errors.question
+              : !!(errors as any)?.[fieldNameQuestion[0]]?.[
+                  fieldNameQuestion[1]
+                ]?.question
+          }
+          {...register(
+            `${
+              pollOrSurvey === "poll" ? "question" : `${fieldName}.question`
+            }` as const,
+            {
+              required: "Please provide a Poll Question",
+              pattern: {
+                value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
+                message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+              },
+            }
+          )}
           value={question}
           InputProps={{
-            disableUnderline: !Boolean(errors?.question?.message),
+            disableUnderline: !Boolean(
+              pollOrSurvey === "poll"
+                ? errors?.question?.message
+                : (errors as any)?.[fieldNameQuestion[0]]?.[
+                    fieldNameQuestion[1]
+                  ]?.question?.message
+            ),
             style: {
               color: "inherit",
             },
@@ -129,7 +189,14 @@ function SurveyQuestionnaire({ fieldName }: ComponentInputProps) {
             <WallpaperIcon />
           </IconButton>
         </label>
-        <FormValidationError errorText={(errors as any)?.question?.message} />
+        <FormValidationError
+          errorText={
+            pollOrSurvey === "poll"
+              ? errors?.question?.message
+              : (errors as any)?.[fieldNameQuestion[0]]?.[fieldNameQuestion[1]]
+                  ?.question?.message
+          }
+        />
 
         {questionImageValue && (
           <>
@@ -180,8 +247,44 @@ function SurveyQuestionnaire({ fieldName }: ComponentInputProps) {
           py: 1,
         }}
       >
-        <PollOptionWrapper fieldName={`${fieldName}`} />
+        <PollOptionWrapper fieldName={`${fieldName}`} index={index} />
       </Box>
+
+      {pollOrSurvey == "survey" && index == 0 && (
+        <Portal container={document.getElementById("surveyActionMenuPortal")}>
+          <Paper
+            sx={{
+              width: 60,
+              top: "auto !important",
+              position: "sticky !important",
+            }}
+          >
+            <MenuList>
+              <MenuItem onClick={handleAddNewSurvey}>
+                <ListItemIcon>
+                  <Tooltip title="Add Section" placement="top">
+                    <AddCircleOutlineIcon />
+                  </Tooltip>
+                </ListItemIcon>
+              </MenuItem>
+              <MenuItem>
+                <ListItemIcon>
+                  <Tooltip title="Add Title Description" placement="top">
+                    <TextFieldsOutlinedIcon />
+                  </Tooltip>
+                </ListItemIcon>
+              </MenuItem>
+              <MenuItem>
+                <ListItemIcon>
+                  <Tooltip title="Duplicate Section" placement="top">
+                    <ContentCopy />
+                  </Tooltip>
+                </ListItemIcon>
+              </MenuItem>
+            </MenuList>
+          </Paper>
+        </Portal>
+      )}
     </>
   );
 }
