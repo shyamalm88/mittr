@@ -30,7 +30,7 @@ export default function CountryTemplate({
         id: item._id,
       },
     });
-  }, [country]);
+  }, [country, answerContext, fieldName, item._id]);
 
   return (
     <>

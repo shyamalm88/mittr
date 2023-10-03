@@ -41,7 +41,7 @@ export default function CountryStateCityTemplate({
         id: item._id,
       },
     });
-  }, [country, city]);
+  }, [country, city, fieldName, item._id, answerContext]);
 
   return (
     <>

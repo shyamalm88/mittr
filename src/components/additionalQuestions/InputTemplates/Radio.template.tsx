@@ -47,7 +47,7 @@ export default function RadioTemplate({
 
   React.useEffect(() => {
     if (fields.length === 0) append(choices);
-  }, []);
+  }, [fields.length, append]);
 
   return (
     <>

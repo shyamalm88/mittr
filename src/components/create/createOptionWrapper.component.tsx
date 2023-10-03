@@ -56,7 +56,7 @@ const PollOptionWrapper = ({ fieldName, index }: ComponentInputProps) => {
     resetField(
       pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`
     );
-  }, [selectedValue]);
+  }, [selectedValue, fieldName, pollOrSurvey, resetField]);
 
   const [addedTopics, setAddedTopics] = React.useState<
     { id: string; label: string }[]

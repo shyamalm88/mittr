@@ -1,17 +1,19 @@
 import { v4 as uuidv4 } from "uuid";
 
 export const surveyQuestion = {
-  survey: [{
-    question: "",
-    questionImage: "",
-    questionImageRef: null,
-    questionSlug: "",
-    votingType: "multiple_choice",
-    options: [
-      { id: uuidv4(), label: "Option", enabled: true, option: "" },
-      { id: uuidv4(), label: "Option", enabled: true, option: "" },
-    ],
-  }],
+  survey: [
+    {
+      question: "",
+      questionImage: "",
+      questionImageRef: null,
+      questionSlug: "",
+      votingType: "multiple_choice",
+      options: [
+        { id: uuidv4(), label: "Option", enabled: true, option: "" },
+        { id: uuidv4(), label: "Option", enabled: true, option: "" },
+      ],
+    },
+  ],
   additionalQuestions: [
     {
       id: uuidv4(),
@@ -27,5 +29,4 @@ export const surveyQuestion = {
     captureCountry: false,
   },
   duration: "",
-  },
 };
