@@ -1,5 +1,5 @@
 import React from "react";
-import { ChildrenProps, CreatePollQuestionType } from "../types";
+import { CreatePollQuestionType } from "../types";
 import { defaultPollQuestionValue } from "../store";
 
 export const AnalyticsOfPollContext = React.createContext(

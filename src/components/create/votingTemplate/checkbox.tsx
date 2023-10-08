@@ -9,24 +9,25 @@ import { ComponentInputProps } from "../../../types";
 import { useTheme } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
-import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
+import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
+import OptionActions from "../common/optionActions";
 import { useFieldArray } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import OptionActions from "../common/optionActions";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 
-function MultipleChoice({
+function Checkbox({
   control,
   errors,
   register,
   getValues,
   fieldName,
   index,
+  selectedValue,
   setValue,
 }: ComponentInputProps) {
+  const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
-  const theme = useTheme();
   const {
     fields,
     append,
@@ -39,27 +40,31 @@ function MultipleChoice({
     replace,
   } = useFieldArray({
     control,
-    name: pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`,
+    name: `${fieldName}.options`,
   });
 
   const addOption = () => {
     const temp = {
       id: uuidv4(),
-      label: "Option",
+      label: "Choice",
       enabled: true,
       option: "",
     };
     append(temp);
   };
 
+  React.useEffect(() => {
+    if (getValues("survey")?.[index]?.options?.length === 0) {
+      addOption();
+    }
+  }, []);
+
   const addOtherOption = () => {
     const temp = { id: uuidv4(), label: "Other", enabled: false, option: "" };
     append(temp);
     setValue(
-      `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}.${
-        getValues(
-          `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}`
-        ).length - 1
+      `{${fieldName}.options}.${
+        getValues(`${fieldName}.options}`)?.length - 1
       }.option`,
       "Other"
     );
@@ -68,15 +73,6 @@ function MultipleChoice({
   const deleteOption = (index: number) => {
     remove(index);
   };
-
-  React.useEffect(() => {
-    if (!fields.length) {
-      addOption();
-    }
-    return () => {
-      remove(0);
-    };
-  }, []);
 
   return (
     <React.Fragment>
@@ -120,14 +116,14 @@ function MultipleChoice({
                   pollOrSurvey === "poll"
                     ? !!(errors as any)?.[fieldNameOptions.split(".")[0]]?.[
                         index
-                      ]?.option?.message
+                      ]?.choice?.message
                     : !!(errors as any)?.[fieldNameOptions.split(".")[0]]?.[
                         fieldNameOptions.split(".")[1]
-                      ]?.[fieldNameOptions.split(".")[2]]?.[index]?.option
+                      ]?.[fieldNameOptions.split(".")[2]]?.[index]?.choice
                         ?.message
                 }
-                {...register(`${fieldNameOptions}.option` as const, {
-                  required: "Please provide  Poll Option",
+                {...register(`${fieldNameOptions}.choice` as const, {
+                  required: "Please provide  Survey Checkbox Options",
                   pattern: {
                     value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
                     message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
@@ -140,7 +136,7 @@ function MultipleChoice({
                     position="start"
                     sx={{ color: theme.palette.action.disabled }}
                   >
-                    <RadioButtonUncheckedOutlinedIcon />
+                    <CheckBoxOutlineBlankOutlinedIcon />
                   </InputAdornment>
                 }
                 endAdornment={
@@ -154,13 +150,7 @@ function MultipleChoice({
                       sx={{ color: "inherit" }}
                       onClick={() => deleteOption(index)}
                       disabled={
-                        getValues(
-                          `${
-                            pollOrSurvey === "poll"
-                              ? `${fieldName}`
-                              : `${fieldName}.options`
-                          }`
-                        )?.length === 1
+                        getValues(`${fieldNameOptions}.options`)?.length === 1
                       }
                     >
                       <DeleteOutlineIcon />
@@ -173,10 +163,10 @@ function MultipleChoice({
                 errorText={
                   pollOrSurvey === "poll"
                     ? (errors as any)?.[fieldNameOptions.split(".")[0]]?.[index]
-                        ?.option?.message
+                        ?.choice?.message
                     : (errors as any)?.[fieldNameOptions.split(".")[0]]?.[
                         fieldNameOptions.split(".")[1]
-                      ]?.[fieldNameOptions.split(".")[2]]?.[index]?.option
+                      ]?.[fieldNameOptions.split(".")[2]]?.[index]?.choice
                         ?.message
                 }
               />
@@ -198,4 +188,4 @@ function MultipleChoice({
   );
 }
 
-export default MultipleChoice;
+export default Checkbox;

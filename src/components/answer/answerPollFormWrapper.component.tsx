@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 // import PollOptionWrapper from "./pollOptionWrapper.component";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 import AnswerPollOptionWrapper from "./answerPollOptionWrapper.component";
@@ -16,7 +15,7 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { Card, CardActionArea, CardContent, CardMedia } from "@mui/material";
+import { Card, CardContent, CardMedia } from "@mui/material";
 TimeAgo.addDefaultLocale(en);
 
 const AnswerPollFormWrapper = () => {

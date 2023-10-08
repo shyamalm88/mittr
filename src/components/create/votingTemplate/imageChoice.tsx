@@ -18,24 +18,44 @@ import Button from "@mui/material/Button";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import HttpService from "../../../services/@http/HttpClient";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
+import { v4 as uuidv4 } from "uuid";
+import { useFieldArray } from "react-hook-form";
+import OptionActions from "../common/optionActions";
 
 function ImageChoice({
-  fields,
+  control,
   errors,
   register,
-  deleteOption,
+  fieldName,
   getValues,
   isSubmitSuccessful,
   reset,
+  setValue,
+  selectedValue,
+  index,
 }: ComponentInputProps) {
   const theme = useTheme();
   const http = new HttpService();
 
-  const [value, setValue] = React.useState<any[]>([]);
+  const [imageValue, setImageValue] = React.useState<any[]>([]);
+  const {
+    fields,
+    append,
+    prepend,
+    remove,
+    swap,
+    move,
+    insert,
+    update,
+    replace,
+  } = useFieldArray({
+    control,
+    name: `${fieldName}`,
+  });
 
   React.useEffect(() => {
     if (isSubmitSuccessful) {
-      setValue([]);
+      setImageValue([]);
     }
   }, [isSubmitSuccessful]);
 
@@ -44,9 +64,9 @@ function ImageChoice({
   };
 
   const handleRemove = (e: any, index: number) => {
-    const items = [...value];
+    const items = [...imageValue];
     items[index] = null;
-    setValue(items);
+    setImageValue(items);
   };
 
   const onSubmit = async (fileData: any, index: number) => {
@@ -57,12 +77,41 @@ function ImageChoice({
         .service()
         .postMultipart(`/survey/image`, formData);
       console.log(response);
-      const items = [...value];
+      const items = [...imageValue];
       items[index] = response.body;
-      setValue(items);
+      setImageValue(items);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const addOption = () => {
+    const temp = {
+      id: uuidv4(),
+      label: "Option",
+      enabled: true,
+      option: "",
+    };
+    append(temp);
+  };
+
+  const addOtherOption = () => {
+    const temp = { id: uuidv4(), label: "Other", enabled: false, option: "" };
+    append(temp);
+    setValue(fieldName, "Other");
+  };
+
+  React.useEffect(() => {
+    if (!fields.length) {
+      addOption();
+    }
+    return () => {
+      // unregister()
+    };
+  }, []);
+
+  const deleteOption = (index: number) => {
+    remove(index);
   };
 
   return (
@@ -75,7 +124,7 @@ function ImageChoice({
         Answer Options Image
       </Typography>
       {fields.map((item: any, index: number) => {
-        const fieldName = `options[${index}]`;
+        const fieldName = `options.${index}`;
         return (
           <Box sx={{ mb: 2 }} key={item.id}>
             <Grid
@@ -123,7 +172,8 @@ function ImageChoice({
                       }}
                       className="input"
                       error={
-                        !!(errors as any)?.options?.[index]?.option?.message
+                        !!(errors as any)?.[fieldName.split(".")[0]]?.[index]
+                          ?.option?.message
                       }
                       {...register(`${fieldName}.option` as const, {
                         required: "Please provide  Poll Option",
@@ -134,7 +184,6 @@ function ImageChoice({
                       })}
                       multiline
                       readOnly={!item?.enabled}
-                      autoFocus
                       endAdornment={
                         <InputAdornment
                           position="end"
@@ -177,8 +226,8 @@ function ImageChoice({
                         }}
                         className="input"
                         error={
-                          !!(errors as any)?.options?.[index]?.description
-                            ?.message
+                          !!(errors as any)?.[fieldName.split(".")[0]]?.[index]
+                            ?.description?.message
                         }
                         {...register(`${fieldName}.description` as const, {
                           pattern: {
@@ -188,7 +237,6 @@ function ImageChoice({
                         })}
                         multiline
                         readOnly={!item?.enabled}
-                        autoFocus
                         endAdornment={
                           <InputAdornment
                             position="end"
@@ -217,113 +265,106 @@ function ImageChoice({
                   alignSelf: "center",
                 }}
               >
-                <form encType="multipart/form-data">
-                  {item.enabled && (
-                    <Card
-                      variant="outlined"
-                      sx={{
-                        borderRadius: "4px",
-                        border: "none",
-                      }}
+                {item.enabled && (
+                  <Card
+                    variant="outlined"
+                    sx={{
+                      borderRadius: "4px",
+                      border: "none",
+                    }}
+                  >
+                    <Stack
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="stretch"
+                      sx={{ display: "flex" }}
                     >
-                      <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="stretch"
-                        sx={{ display: "flex" }}
-                      >
-                        {!value[index] ? (
-                          <>
-                            <input
-                              accept="image/*"
-                              style={{ display: "none" }}
-                              type="file"
-                              id={item.id}
-                              error={
-                                !!(errors as any)?.options?.[index]?.image
-                                  ?.message
-                              }
-                              {...register(`${fieldName}.image` as const, {
-                                onChange: (e: any) => {
-                                  handleChange(e, index);
-                                },
-                                required: "Please provide  Poll Image",
-                              })}
-                            />
+                      {!imageValue[index] ? (
+                        <>
+                          <input
+                            accept="image/*"
+                            style={{ display: "none" }}
+                            type="file"
+                            id={item.id}
+                            {...register(`${fieldName}.image` as const, {
+                              onChange: (e: any) => {
+                                handleChange(e, index);
+                              },
+                              required: "Please provide  Poll Image",
+                            })}
+                          />
 
-                            <label htmlFor={item.id}>
-                              <Button
-                                component="span"
-                                fullWidth
-                                sx={{ border: "1px dashed" }}
+                          <label htmlFor={item.id}>
+                            <Button
+                              component="span"
+                              fullWidth
+                              sx={{ border: "1px dashed" }}
+                            >
+                              <Stack
+                                spacing={1}
+                                direction="column"
+                                justifyContent="center"
+                                alignItems="center"
+                                sx={{ display: "flex" }}
                               >
-                                <Stack
-                                  spacing={1}
-                                  direction="column"
-                                  justifyContent="center"
-                                  alignItems="center"
-                                  sx={{ display: "flex" }}
-                                >
-                                  <Typography variant="button">
-                                    Click to Upload
-                                  </Typography>
-                                  <CloudUploadOutlinedIcon />
-                                </Stack>
-                              </Button>
-                            </label>
-                            <FormValidationError
-                              errorText={
-                                (errors as any)?.options?.[index]?.image
-                                  ?.message
+                                <Typography variant="button">
+                                  Click to Upload
+                                </Typography>
+                                <CloudUploadOutlinedIcon />
+                              </Stack>
+                            </Button>
+                          </label>
+                          <FormValidationError
+                            errorText={
+                              (errors as any)?.options?.[index]?.image?.message
+                            }
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <input
+                            type="hidden"
+                            value={imageValue[index].imageId}
+                            {...register(`${fieldName}.imageId` as const, {
+                              required: "Please provide  Poll Image",
+                            })}
+                          />
+                          <Card sx={{ position: "relative", height: "100%" }}>
+                            <CardMedia
+                              component="img"
+                              sx={{
+                                minHeight: "100px",
+                                maxHeight: "auto",
+                                backgroundSize: "contain",
+                                backgroundPosition: "top",
+                              }}
+                              loading="lazy"
+                              image={
+                                imageValue[index].destination +
+                                "/" +
+                                imageValue[index].filename
                               }
+                              title="green iguana"
                             />
-                          </>
-                        ) : (
-                          <>
-                            <input
-                              type="hidden"
-                              value={value[index].imageId}
-                              {...register(`${fieldName}.imageId` as const, {
-                                required: "Please provide  Poll Image",
-                              })}
-                            />
-                            <Card sx={{ position: "relative", height: "100%" }}>
-                              <CardMedia
-                                component="img"
+                            <CardActions>
+                              <IconButton
+                                aria-label="delete"
                                 sx={{
-                                  minHeight: "100px",
-                                  maxHeight: "auto",
-                                  backgroundSize: "contain",
-                                  backgroundPosition: "top",
+                                  position: "absolute",
+                                  top: 0,
+                                  right: 0,
                                 }}
-                                loading="lazy"
-                                image={
-                                  value[index].destination +
-                                  "/" +
-                                  value[index].filename
-                                }
-                                title="green iguana"
-                              />
-                              <CardActions>
-                                <IconButton
-                                  aria-label="delete"
-                                  sx={{
-                                    position: "absolute",
-                                    top: 0,
-                                    right: 0,
-                                  }}
-                                  onClick={(e) => handleRemove(e, index)}
-                                >
-                                  <CloseRoundedIcon />
-                                </IconButton>
-                              </CardActions>
-                            </Card>
-                          </>
-                        )}
-                      </Stack>
-                    </Card>
-                  )}
-                </form>
+                                onClick={(e) => handleRemove(e, index)}
+                              >
+                                <CloseRoundedIcon />
+                              </IconButton>
+                            </CardActions>
+                          </Card>
+                        </>
+                      )}
+                    </Stack>
+                  </Card>
+                )}
               </Grid>
               <Grid
                 item
@@ -353,6 +394,14 @@ function ImageChoice({
           </Box>
         );
       })}
+      <OptionActions
+        addOption={addOption}
+        addOtherOption={addOtherOption}
+        getValues={getValues}
+        fieldName={fieldName}
+        selectedValue={selectedValue}
+        index={index}
+      />
     </React.Fragment>
   );
 }

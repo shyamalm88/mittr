@@ -1,14 +1,8 @@
 import * as React from "react";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import Badge from "@mui/material/Badge";
-import MenuIcon from "@mui/icons-material/Menu";
-import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 
 const DesktopMenu = () => {
   const menuId = "primary-search-account-menu";

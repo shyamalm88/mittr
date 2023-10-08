@@ -5,10 +5,10 @@ import PollOptionWrapper from "../createOptionWrapper.component";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
-import { IconButton } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import HttpService from "../../../services/@http/HttpClient";
 import WallpaperIcon from "@mui/icons-material/Wallpaper";
 import { ComponentInputProps } from "../../../types";
@@ -24,6 +24,10 @@ import TextFieldsOutlinedIcon from "@mui/icons-material/TextFieldsOutlined";
 import Portal from "@mui/material/Portal";
 import Tooltip from "@mui/material/Tooltip";
 import { v4 as uuidv4 } from "uuid";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
+import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
+import CalendarViewDayOutlinedIcon from "@mui/icons-material/CalendarViewDayOutlined";
 
 function SurveyQuestionnaire({
   fieldName,
@@ -34,6 +38,7 @@ function SurveyQuestionnaire({
   const http = new HttpService();
 
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
+  const { questionType, setQuestionType } = useQuestionTypeContext();
 
   let fieldNameQuestion: any =
     pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}`.split(".");
@@ -87,22 +92,22 @@ function SurveyQuestionnaire({
       question: "",
       id: uuidv4(),
       votingType: "multiple_choice",
-      options: [
-        { id: uuidv4(), label: "Option", enabled: true, option: "" },
-        { id: uuidv4(), label: "Option", enabled: true, option: "" },
-      ],
     };
     await append(tempQuestion);
-    const surveyValues = getValues("survey");
-    const getValuesSurveyLastIndex = surveyValues.length - 1;
-    setValue(`survey.${getValuesSurveyLastIndex}`, {
-      ...surveyValues[getValuesSurveyLastIndex],
-      options: [
-        { id: uuidv4(), label: "Option", enabled: true, option: "" },
-        { id: uuidv4(), label: "Option", enabled: true, option: "" },
-      ],
-    });
+
+    setQuestionType([...questionType, "multiple_choice"]);
+
     console.log(getValues("survey"));
+  };
+
+  const handleAddNewSection = async () => {
+    const tempQuestion = {
+      title: "Section Title",
+      id: uuidv4(),
+      description: "",
+      type: "section",
+    };
+    await append(tempQuestion);
   };
 
   return (
@@ -127,7 +132,6 @@ function SurveyQuestionnaire({
           variant="standard"
           size="small"
           fullWidth
-          autoFocus
           error={
             pollOrSurvey === "poll"
               ? !!errors.question
@@ -161,34 +165,40 @@ function SurveyQuestionnaire({
             },
           }}
         />
-        <input
-          accept="image/*"
-          type="file"
-          style={{
-            position: "absolute",
-            right: "0px",
-            zIndex: 1,
-            cursor: "pointer",
-            opacity: 0,
-            height: "40px",
-            width: "40px",
-            top: 0,
-          }}
-          id={"questionImage"}
-          {...register(`questionImage` as const, {
-            onChange: (e: any) => {
-              handleChange(e);
-            },
-          })}
-        />
-        <label htmlFor={"questionImage"}>
-          <IconButton
-            aria-label="questionImage"
-            sx={{ position: "absolute", top: 0, right: 0 }}
-          >
-            <WallpaperIcon />
-          </IconButton>
-        </label>
+
+        {pollOrSurvey === "poll" && (
+          <>
+            <input
+              accept="image/*"
+              type="file"
+              style={{
+                position: "absolute",
+                right: "0px",
+                zIndex: 1,
+                cursor: "pointer",
+                opacity: 0,
+                height: "40px",
+                width: "40px",
+                top: 0,
+              }}
+              id={"questionImage"}
+              {...register(`questionImage` as const, {
+                onChange: (e: any) => {
+                  handleChange(e);
+                },
+              })}
+            />
+            <label htmlFor={"questionImage"}>
+              <IconButton
+                aria-label="questionImage"
+                sx={{ position: "absolute", top: 0, right: 0 }}
+              >
+                <WallpaperIcon />
+              </IconButton>
+            </label>
+          </>
+        )}
+
         <FormValidationError
           errorText={
             pollOrSurvey === "poll"
@@ -235,13 +245,13 @@ function SurveyQuestionnaire({
           </>
         )}
       </Box>
-
       <Box
         sx={{
           width: "100%",
           backgroundColor: "transparent",
           borderWidth: "1px",
           borderStyle: "solid",
+          borderBottomWidth: pollOrSurvey === "poll" ? "1px" : "0px",
           borderColor: (theme: any) => theme.palette.customColors.borderAlt,
           px: 2,
           py: 1,
@@ -249,14 +259,41 @@ function SurveyQuestionnaire({
       >
         <PollOptionWrapper fieldName={`${fieldName}`} index={index} />
       </Box>
-
+      {pollOrSurvey === "survey" && (
+        <Box
+          sx={{
+            width: "100%",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderRadius: "0px 0px 4px 4px",
+            borderColor: (theme: any) => theme.palette.customColors.borderAlt,
+            backgroundColor: (theme: any) =>
+              theme.palette.customColors.backgroundColor,
+            px: 2,
+            py: 1,
+            mb: 2,
+          }}
+        >
+          <Stack
+            direction={"row"}
+            spacing={2}
+            useFlexGap
+            divider={<Divider orientation="vertical" flexItem />}
+          >
+            <IconButton>
+              <DeleteOutlinedIcon fontSize="small" />
+            </IconButton>
+            <IconButton>
+              <ContentCopyOutlinedIcon fontSize="small" />
+            </IconButton>
+          </Stack>
+        </Box>
+      )}
       {pollOrSurvey == "survey" && index == 0 && (
         <Portal container={document.getElementById("surveyActionMenuPortal")}>
           <Paper
             sx={{
               width: 60,
-              top: "auto !important",
-              position: "sticky !important",
             }}
           >
             <MenuList>
@@ -274,10 +311,10 @@ function SurveyQuestionnaire({
                   </Tooltip>
                 </ListItemIcon>
               </MenuItem>
-              <MenuItem>
+              <MenuItem onClick={handleAddNewSection}>
                 <ListItemIcon>
-                  <Tooltip title="Duplicate Section" placement="top">
-                    <ContentCopy />
+                  <Tooltip title="Add Section" placement="top">
+                    <CalendarViewDayOutlinedIcon />
                   </Tooltip>
                 </ListItemIcon>
               </MenuItem>

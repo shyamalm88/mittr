@@ -1,21 +1,12 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import PollOptionWrapper from "../createOptionWrapper.component";
 import Stack from "@mui/material/Stack";
 import AdditionalQuestions from "../../additionalQuestions/additionalQuestions.component";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardMedia from "@mui/material/CardMedia";
 import PollSettings from "../../additionalQuestions/pollSettings.component";
-import { IconButton, Tooltip, Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { useFormContext } from "react-hook-form";
-import FormValidationError from "../../../utility/FormValidationError";
-import WallpaperIcon from "@mui/icons-material/Wallpaper";
 import HttpService from "../../../services/@http/HttpClient";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import * as _ from "underscore";
 import urlSlug from "url-slug";
 import { v4 as uuidv4 } from "uuid";
@@ -32,6 +23,7 @@ import {
 import { CreatePollSubmittedValueType } from "../../../types";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import SurveyQuestionnaire from "../common/surveyQuestionnaire";
+import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 
 const PollFormWrapper = () => {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
@@ -54,10 +46,7 @@ const PollFormWrapper = () => {
       votingType: "multiple_choice",
       questionImageRef: undefined,
       questionSlug: "",
-      options: [
-        { id: uuidv4(), label: "Option", enabled: true, option: "" },
-        { id: uuidv4(), label: "Option", enabled: true, option: "" },
-      ],
+      options: [],
       additionalQuestions: [
         {
           id: uuidv4(),
@@ -193,14 +182,14 @@ const PollFormWrapper = () => {
     console.log(dataToBeSubmitted);
 
     try {
-      const resp = await postSurvey(dataToBeSubmitted);
-      console.log(resp);
-      clearErrors();
-      reset();
-      toast.success(`You have successfully created Poll`, {
-        position: toast.POSITION.TOP_RIGHT,
-        theme: "colored",
-      });
+      // const resp = await postSurvey(dataToBeSubmitted);
+      // console.log(resp);
+      // clearErrors();
+      // reset();
+      // toast.success(`You have successfully created Poll`, {
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   theme: "colored",
+      // });
     } catch (err) {
       toast.error(`Error While Creating Poll`, {
         position: toast.POSITION.TOP_RIGHT,

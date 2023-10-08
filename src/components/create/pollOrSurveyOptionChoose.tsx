@@ -1,19 +1,14 @@
-import React from "react";
 import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
 import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
 import Paper from "@mui/material/Paper";
 import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ContentCopy from "@mui/icons-material/ContentCopy";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import TextFieldsOutlinedIcon from "@mui/icons-material/TextFieldsOutlined";
+import Sticky from "react-sticky-el";
 import {
   Drawer,
   FormControlLabel,
   Hidden,
-  IconButton,
   Portal,
   Radio,
   RadioGroup,
@@ -21,12 +16,19 @@ import {
   Tooltip,
 } from "@mui/material";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
+import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
 
 function PollOrSurveyOptionChoose() {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
+  const { questionType, setQuestionType } = useQuestionTypeContext();
 
   const handleChange = (e: any) => {
     setPollOrSurvey(e.target.value);
+    if (e.target.value === "poll") {
+      setQuestionType("multiple_choice");
+    } else {
+      setQuestionType(["multiple_choice"]);
+    }
   };
 
   return (
@@ -86,7 +88,17 @@ function PollOrSurveyOptionChoose() {
           </RadioGroup>
         </Paper>
 
-        <div id="surveyActionMenuPortal"></div>
+        <Sticky
+          boundaryElement=".MuiBox-root"
+          hideOnBoundaryHit={false}
+          stickyStyle={{
+            marginLeft: "-30px",
+            marginTop: "60px",
+            background: "red",
+          }}
+        >
+          <div id="surveyActionMenuPortal" style={{ width: "60px" }} />
+        </Sticky>
       </Hidden>
       <Hidden smUp>
         <Portal>

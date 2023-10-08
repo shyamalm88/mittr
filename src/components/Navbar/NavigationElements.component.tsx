@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { NavigationPageProps as PageProps } from "../../types";
 import Logo_Dark from "./../../images/svg/logo_dark.svg";
 import Logo_Light from "./../../images/svg/logo_light.svg";
 

@@ -1,10 +1,6 @@
-import React from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
-import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import Questionnaire from "./questionnaire.component";
 import { v4 as uuidv4 } from "uuid";

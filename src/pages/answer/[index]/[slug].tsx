@@ -1,7 +1,5 @@
-import React from "react";
 import AnswerPollLayout from "../../../layout/answer.layout";
 import PollQuestionProvider from "../../../providers/pollQuestion.provider";
-import axios from "axios";
 import { NextSeo } from "next-seo";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ComponentInputProps } from "../../../types";

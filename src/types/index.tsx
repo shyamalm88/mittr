@@ -63,6 +63,8 @@ export type CreatePollSubmittedValueType = {
 
 export type CreateSurveySubmittedValueType = {
   type: "";
+  title: "Untitled Survey";
+  description: "";
   survey: [
     {
       question: string;

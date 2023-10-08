@@ -4,7 +4,6 @@ import Stack from "@mui/material/Stack";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { ComponentInputProps } from "../../../types";
 import { useFormContext } from "react-hook-form";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormValidationError from "../../../utility/FormValidationError";
 
 export default function RangeTemplate({

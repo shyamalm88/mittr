@@ -1,5 +1,4 @@
 import React from "react";
-import { ChildrenProps, CreatePollQuestionType } from "../types";
 
 export const StepWrapperProviderContext = React.createContext(0);
 

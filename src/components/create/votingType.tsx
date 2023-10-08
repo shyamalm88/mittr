@@ -7,7 +7,7 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import LinearScaleOutlinedIcon from "@mui/icons-material/LinearScaleOutlined";
 import AppsRoundedIcon from "@mui/icons-material/AppsRounded";
 import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import { v4 as uuidv4 } from "uuid";
 import FormControl from "@mui/material/FormControl";
@@ -16,6 +16,8 @@ import { ComponentInputProps, OptionProp } from "../../types";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
+import { useConfirm } from "material-ui-confirm";
+import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
 
 const pollOrSurveyOptionsType = [
   {
@@ -77,15 +79,77 @@ const pollOrSurveyOptionsType = [
 ];
 
 function VotingType({
-  setSelectedValue,
-  selectedValue,
   register,
   fieldName,
+  index,
+  setValue,
+  control,
+  unregister,
+  getValues,
 }: ComponentInputProps) {
+  const confirm = useConfirm();
   const theme = useTheme();
+  const { questionType, setQuestionType } = useQuestionTypeContext();
+
+  const oldSelectedValue = React.useRef<HTMLInputElement[]>([]);
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
 
   const [votingTypeOptions, setVotingTypeOptions] = React.useState<any>([]);
+
+  const handleChangeVotingOptions = async (e: any) => {
+    if (!oldSelectedValue.current[index]?.value) {
+      if (pollOrSurvey === "poll") {
+        setQuestionType(e.target.value);
+        setValue(`votingType`, e.target.value);
+      } else {
+        const temp = questionType;
+        temp[index] = e.target.value;
+        setQuestionType(temp);
+        setValue(`${fieldName}.votingType`, e.target.value);
+      }
+    } else {
+      confirm({
+        description:
+          "Do you wish to proceed with changing the answer type option? Please note that selecting a different option will reset all entries related to the previous selection. Are you sure you want to continue?",
+      })
+        .then(async () => {
+          pollOrSurvey === "poll"
+            ? unregister("options")
+            : unregister(`${fieldName}.options`);
+          if (pollOrSurvey === "poll") {
+            setQuestionType(e.target.value);
+            setValue(`votingType`, e.target.value);
+            console.log(getValues());
+          } else {
+            const temp = questionType;
+            temp[index] = e.target.value;
+            setQuestionType(temp);
+            setValue(`${fieldName}.votingType`, e.target.value);
+            console.log(getValues("survey"));
+          }
+        })
+        .catch((r) => {
+          if (pollOrSurvey === "poll") {
+            console.log("old", oldSelectedValue.current[index].value);
+            setQuestionType(oldSelectedValue.current[index].value as string);
+            setValue(
+              "votingType",
+              oldSelectedValue.current[index].value as string
+            );
+            console.log(getValues());
+          } else {
+            const temp = questionType;
+            temp[index] = oldSelectedValue.current[index].value as string;
+            setQuestionType(temp);
+            setValue(
+              `${fieldName}.votingType`,
+              oldSelectedValue.current[index].value as string
+            );
+            console.log(getValues("survey"));
+          }
+        });
+    }
+  };
 
   React.useEffect(() => {
     if (pollOrSurvey === "poll") {
@@ -124,19 +188,23 @@ function VotingType({
           }}
           className="select"
           displayEmpty
-          value={selectedValue}
-          {...register(
-            `${
-              pollOrSurvey === "poll" ? "votingType" : `${fieldName}.votingType`
-            }` as const,
-            {
-              onChange: (e: any) => {
-                setSelectedValue(e.target.value);
-              },
-            }
-          )}
+          inputRef={(el) => (oldSelectedValue.current[index] = el)}
+          onChange={(e: any) => handleChangeVotingOptions(e)}
+          value={
+            pollOrSurvey === "poll"
+              ? getValues()?.votingType
+              : getValues("survey")?.[index]?.votingType
+          }
+          // {...register(
+          //   `${
+          //     pollOrSurvey === "poll" ? "votingType" : `${fieldName}.votingType`
+          //   }` as const,
+          //   {
+          //     onChange: (e: any) => handleChangeVotingOptions(e),
+          //   }
+          // )}
         >
-          <MenuItem value="">
+          <MenuItem value={``}>
             <em style={{ color: "#b3b3b3" }}>Please Select Type</em>
           </MenuItem>
           {votingTypeOptions?.map((item: OptionProp) => {

@@ -2,12 +2,7 @@ import React from "react";
 import { ChildrenProps } from "../types";
 import { PollAnswerReducer } from "../reducers/pollAnswer.reducer";
 import { defaultPollAnswerFormValue } from "../store";
-import {
-  CHANGE_ANSWER_TYPE,
-  DELETE_FROM_LIST,
-  HANDLE_CHANGE,
-  SUBMIT,
-} from "../constants";
+import { HANDLE_CHANGE, SUBMIT } from "../constants";
 
 export const PollAnswerProviderContext = React.createContext(
   defaultPollAnswerFormValue

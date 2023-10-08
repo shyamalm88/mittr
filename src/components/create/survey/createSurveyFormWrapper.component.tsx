@@ -5,20 +5,16 @@ import Stack from "@mui/material/Stack";
 import AdditionalQuestions from "../../additionalQuestions/additionalQuestions.component";
 
 import PollSettings from "../../additionalQuestions/pollSettings.component";
-import { IconButton, Tooltip, Typography } from "@mui/material";
+import { Card, Paper, TextField, Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { useFormContext } from "react-hook-form";
 
 import HttpService from "../../../services/@http/HttpClient";
 
-import * as _ from "underscore";
-import urlSlug from "url-slug";
 import { v4 as uuidv4 } from "uuid";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
-import { toast } from "react-toastify";
 import {
   useForm,
   FormProvider,
@@ -27,6 +23,7 @@ import {
 } from "react-hook-form";
 import { CreateSurveySubmittedValueType } from "../../../types";
 import SurveyQuestionnaire from "../common/surveyQuestionnaire";
+import NewSection from "../common/newSection";
 
 const PollFormWrapper = () => {
   const http = new HttpService();
@@ -34,15 +31,13 @@ const PollFormWrapper = () => {
 
   const methods = useForm<CreateSurveySubmittedValueType>({
     defaultValues: {
+      title: "Untitled Survey",
+      description: "",
       survey: [
         {
           question: "",
           id: uuidv4(),
           votingType: "multiple_choice",
-          options: [
-            { id: uuidv4(), label: "Option", enabled: true, option: "" },
-            { id: uuidv4(), label: "Option", enabled: true, option: "" },
-          ],
         },
       ],
 
@@ -84,7 +79,7 @@ const PollFormWrapper = () => {
     });
 
   React.useEffect(() => {
-    // setFocus("question");
+    setFocus("title");
   }, [setFocus]);
 
   const onSubmitSubmitForm: SubmitHandler<
@@ -190,6 +185,11 @@ const PollFormWrapper = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmitSubmitForm)}>
+        <NewSection
+          register={register}
+          titleFieldName="title"
+          descriptionFieldName="description"
+        />
         <Box
           sx={{
             display: "flex",
@@ -200,6 +200,17 @@ const PollFormWrapper = () => {
           }}
         >
           {fields.map((item: any, index: number) => {
+            if (item.type === "section") {
+              return (
+                <NewSection
+                  key={item.id}
+                  register={register}
+                  titleFieldName={`survey.${index}.title`}
+                  descriptionFieldName={`survey.${index}.description`}
+                  index={index}
+                />
+              );
+            }
             return (
               <SurveyQuestionnaire
                 key={item.id}

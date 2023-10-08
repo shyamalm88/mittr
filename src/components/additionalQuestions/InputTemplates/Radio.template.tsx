@@ -8,10 +8,9 @@ import IconButton from "@mui/material/IconButton";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { v4 as uuidv4 } from "uuid";
-import { ComponentInputProps, OptionProp } from "../../../types";
+import { ComponentInputProps } from "../../../types";
 import Tooltip from "@mui/material/Tooltip";
 import { useFormContext, useFieldArray } from "react-hook-form";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormValidationError from "../../../utility/FormValidationError";
 
 const choices = [{ id: uuidv4(), label: "Choice" }];
@@ -97,7 +96,6 @@ export default function RadioTemplate({
                     }
                   )}
                   multiline
-                  autoFocus
                   value={radioOption[index]}
                   endAdornment={
                     <InputAdornment position="end">

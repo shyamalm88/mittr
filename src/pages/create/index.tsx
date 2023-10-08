@@ -9,6 +9,7 @@ import MyRecentCreatedPollTemplate from "../../components/create/rightNav/myRece
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import PollOrSurveyProvider from "../../providers/pollOrSurvey.provider";
+import QuestionTypeProvider from "../../providers/questionType.provider";
 const CreatePollWrapper = dynamic(
   () => import("../../components/create/createWrapper.component")
 );
@@ -51,7 +52,9 @@ const CreatePoll = () => {
         <Grid item xs={12} sm={12} lg={8}>
           <CreatePollLayout>
             <PollOrSurveyProvider>
-              <CreatePollWrapper />
+              <QuestionTypeProvider>
+                <CreatePollWrapper />
+              </QuestionTypeProvider>
             </PollOrSurveyProvider>
           </CreatePollLayout>
         </Grid>
