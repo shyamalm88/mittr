@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import Logo_Dark from "./../../images/svg/logo_dark.svg";
 import Logo_Light from "./../../images/svg/logo_light.svg";
 
 import Image from "next/image";
@@ -36,7 +35,7 @@ const NavigationElements = () => {
       </Box>
       {theme.palette.mode === "dark" && (
         <Image
-          src={Logo_Dark}
+          src={Logo_Light}
           width={0}
           height={0}
           sizes="100vw"

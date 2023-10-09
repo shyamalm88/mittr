@@ -14,9 +14,14 @@ function FormValidationError({ errorText }: ComponentInputProps) {
           variant="standard"
           sx={{
             py: 0,
-            border: "1px solid #f44336",
+            border:
+              theme.palette.mode === "dark"
+                ? "1px solid #b5544d"
+                : "1px solid #f44336",
             backgroundColor:
-              theme.palette.mode === "dark" ? "#271622" : "rgb(253, 237, 237)",
+              theme.palette.mode === "dark"
+                ? "#b5544d42"
+                : "rgb(253, 237, 237)",
           }}
         >
           {errorText}

@@ -1,13 +1,14 @@
 import React from "react";
-import { Divider, Link, Stack, Typography } from "@mui/material";
+import { Divider, Link, Stack, Typography, useTheme } from "@mui/material";
 import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
 
 function RecentPollList() {
+  const theme = useTheme();
   return (
     <>
       <Typography variant="body2" component="h2">
         <small>
-          <Link href="#" underline="hover" color="rgb(129, 140, 248)">
+          <Link href="#" underline="hover" color={theme.palette.info.main}>
             If you could go for a coffee with a figure from history, who would
             it be?
           </Link>
@@ -24,7 +25,7 @@ function RecentPollList() {
                 19 Contributions
               </Typography>
             </Stack>
-            <Link href="#" underline="hover" color="rgb(129, 140, 248)">
+            <Link href="#" underline="hover" color={theme.palette.info.main}>
               view
             </Link>
           </Stack>
@@ -33,7 +34,7 @@ function RecentPollList() {
       <Divider sx={{ my: 1 }} />
       <Typography variant="body2" component="h2">
         <small>
-          <Link href="#" underline="hover" color="rgb(129, 140, 248)">
+          <Link href="#" underline="hover" color={theme.palette.info.main}>
             If you could go for a coffee with a figure from history, who would
             it be?
           </Link>
@@ -50,7 +51,7 @@ function RecentPollList() {
                 5 Contributions
               </Typography>
             </Stack>
-            <Link href="#" underline="hover" color="rgb(129, 140, 248)">
+            <Link href="#" underline="hover" color={theme.palette.info.main}>
               view
             </Link>
           </Stack>
@@ -59,7 +60,7 @@ function RecentPollList() {
       <Divider sx={{ my: 1 }} />
       <Typography variant="body2" component="h2">
         <small>
-          <Link href="#" underline="hover" color="rgb(129, 140, 248)">
+          <Link href="#" underline="hover" color={theme.palette.info.main}>
             If you could go for a coffee with a figure from history, who would
             it be?
           </Link>
@@ -76,7 +77,7 @@ function RecentPollList() {
                 9 Contributions
               </Typography>
             </Stack>
-            <Link href="#" underline="hover" color="rgb(129, 140, 248)">
+            <Link href="#" underline="hover" color={theme.palette.info.main}>
               view
             </Link>
           </Stack>
