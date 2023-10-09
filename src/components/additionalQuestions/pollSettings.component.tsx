@@ -16,6 +16,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { useFormContext, Controller } from "react-hook-form";
 import FormValidationError from "../../utility/FormValidationError";
+import { REQUIRED, PATTERN } from "../../constants/error";
 
 function PollSettings() {
   const theme = useTheme();
@@ -94,8 +95,7 @@ function PollSettings() {
                             value={value}
                             hidden
                             {...register("duration" as const, {
-                              required:
-                                "Please Provide date and time for scheduled end.",
+                              required: REQUIRED.DATE,
                             })}
                           />
                           <LocalizationProvider dateAdapter={AdapterMoment}>

@@ -14,6 +14,7 @@ import FormValidationError from "../../../utility/FormValidationError";
 import OptionActions from "../common/optionActions";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
+import { REQUIRED } from "../../../constants/error";
 
 function RowTemplate({
   register,
@@ -22,6 +23,7 @@ function RowTemplate({
   getValues,
   index,
   errors,
+  parentIndex,
 }: ComponentInputProps) {
   const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
@@ -98,7 +100,7 @@ function RowTemplate({
                 }
                 placeholder={`Row ${index + 1}`}
                 {...register(`${fieldNameOptions}.option` as const, {
-                  required: "Please provide  Survey Row Choices for Grid",
+                  required: REQUIRED.SURVEY_ROW,
                 })}
                 endAdornment={
                   <InputAdornment
@@ -135,12 +137,13 @@ function RowTemplate({
           </FormControl>
         );
       })}
+
       <OptionActions
         addOption={addRows}
         getValues={getValues}
         fieldName={fieldName}
         selectedValue={
-          pollOrSurvey === "poll" ? questionType : questionType[index]
+          pollOrSurvey === "poll" ? questionType : questionType[parentIndex]
         }
         index={index}
       />

@@ -189,6 +189,7 @@ const PollFormWrapper = () => {
           register={register}
           titleFieldName="title"
           descriptionFieldName="description"
+          errors={errors}
         />
         <Box
           sx={{
@@ -208,6 +209,7 @@ const PollFormWrapper = () => {
                   titleFieldName={`survey.${index}.title`}
                   descriptionFieldName={`survey.${index}.description`}
                   index={index}
+                  errors={errors}
                 />
               );
             }
@@ -218,6 +220,8 @@ const PollFormWrapper = () => {
                 append={append}
                 update={update}
                 index={index}
+                remove={remove}
+                fields={fields}
               />
             );
           })}
@@ -234,7 +238,7 @@ const PollFormWrapper = () => {
 
             <Typography variant="body2" component="small" sx={{ m: 2 }}>
               Kindly suggest supplementary questions that can be incorporated to
-              elicit deeper insights from those contributing to the poll.
+              elicit deeper insights from those contributing to the Survey.
             </Typography>
           </Stack>
           <AdditionalQuestions />

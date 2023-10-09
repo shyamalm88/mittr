@@ -14,7 +14,7 @@ function MultipleChoiceGrid({
   deleteOption,
   getValues,
   fieldName,
-  index,
+  index: idx,
 }: ComponentInputProps) {
   const theme = useTheme();
   const {
@@ -41,7 +41,7 @@ function MultipleChoiceGrid({
   };
 
   React.useEffect(() => {
-    if (getValues("survey")?.[index]?.options?.length === 0) {
+    if (getValues("survey")?.[idx]?.options?.length === 0) {
       addOption();
     }
   }, []);
@@ -61,6 +61,7 @@ function MultipleChoiceGrid({
                 getValues={getValues}
                 register={register}
                 index={index}
+                parentIndex={idx}
                 errors={errors}
               />
             </Grid>
@@ -73,6 +74,7 @@ function MultipleChoiceGrid({
                 getValues={getValues}
                 register={register}
                 index={index}
+                parentIndex={idx}
                 errors={errors}
                 type="radio"
               />

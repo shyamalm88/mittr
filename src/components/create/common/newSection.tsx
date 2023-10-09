@@ -1,13 +1,17 @@
 import { Box, Card, Stack, TextField } from "@mui/material";
 import React from "react";
 import { ComponentInputProps } from "../../../types";
+import FormValidationError from "../../../utility/FormValidationError";
+import { PATTERN, REQUIRED } from "../../../constants/error";
 
 function NewSection({
   register,
   titleFieldName,
   descriptionFieldName,
   index,
+  errors,
 }: ComponentInputProps) {
+  console.log(errors);
   return (
     <Box
       sx={{
@@ -34,15 +38,24 @@ function NewSection({
           <TextField
             multiline
             rows={1}
-            placeholder="Write Survey Title Here"
+            placeholder={
+              index ? "Write Section Title Here" : "Write Survey Title Here"
+            }
             variant="standard"
             size="small"
             fullWidth
+            error={
+              index
+                ? !!(errors as any)?.[titleFieldName.split(".")[0]]?.[
+                    titleFieldName.split(".")[1]
+                  ]?.[titleFieldName.split(".")[2]]?.message
+                : !!(errors as any)?.[titleFieldName]?.message
+            }
             {...register(`${titleFieldName}` as const, {
-              required: "Please provide a Survey Title",
+              required: index ? REQUIRED.SECTION_TITLE : REQUIRED.SURVEY_TITLE,
               pattern: {
-                value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                value: PATTERN,
+                message: REQUIRED.PATTERN,
               },
             })}
             InputProps={{
@@ -51,18 +64,37 @@ function NewSection({
               },
             }}
           />
+          <FormValidationError
+            errorText={
+              index
+                ? (errors as any)?.[titleFieldName.split(".")[0]]?.[
+                    titleFieldName.split(".")[1]
+                  ]?.[titleFieldName.split(".")[2]]?.message
+                : (errors as any)?.[titleFieldName]?.message
+            }
+          />
           <TextField
             multiline
             rows={2}
-            placeholder="Write Survey Description Here"
+            placeholder={
+              index
+                ? "Write Section Description Here"
+                : "Write Survey Description Here"
+            }
             variant="standard"
             size="small"
             fullWidth
+            error={
+              index
+                ? !!(errors as any)?.[descriptionFieldName.split(".")[0]]?.[
+                    descriptionFieldName.split(".")[1]
+                  ]?.[descriptionFieldName.split(".")[2]]?.message
+                : !!(errors as any)?.[descriptionFieldName]?.message
+            }
             {...register(`${descriptionFieldName}` as const, {
-              required: "Please provide a Survey Description",
               pattern: {
-                value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                value: PATTERN,
+                message: REQUIRED.PATTERN,
               },
             })}
             InputProps={{
@@ -70,6 +102,15 @@ function NewSection({
                 color: "inherit",
               },
             }}
+          />
+          <FormValidationError
+            errorText={
+              index
+                ? (errors as any)?.[descriptionFieldName.split(".")[0]]?.[
+                    descriptionFieldName.split(".")[1]
+                  ]?.[descriptionFieldName.split(".")[2]]?.message
+                : (errors as any)?.[descriptionFieldName]?.message
+            }
           />
         </Stack>
       </Card>

@@ -10,6 +10,7 @@ import FormValidationError from "../../../utility/FormValidationError";
 import OptionActions from "../common/optionActions";
 import { useFieldArray } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
+import { PATTERN, REQUIRED } from "../../../constants/error";
 
 function LinearScale({
   control,
@@ -77,8 +78,7 @@ function LinearScale({
                         ?.message
                     }
                     {...register(`${fieldNameOptions}.from` as const, {
-                      required:
-                        "Please provide  Survey Linear Scale from Value",
+                      required: REQUIRED.LINEAR_SCALE,
                     })}
                   >
                     <MenuItem value={""}>Please Select</MenuItem>
@@ -111,7 +111,7 @@ function LinearScale({
                       ]?.[fieldNameOptions.split(".")[2]]?.[index]?.to?.message
                     }
                     {...register(`${fieldNameOptions}.to` as const, {
-                      required: "Please provide  Survey Linear Scale to Value",
+                      required: REQUIRED.LINEAR_SCALE,
                     })}
                   >
                     <MenuItem value={""}>Please Select</MenuItem>
@@ -161,8 +161,8 @@ function LinearScale({
                       }
                       {...register(`${fieldNameOptions}.formText` as const, {
                         pattern: {
-                          value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                          message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                          value: PATTERN,
+                          message: REQUIRED.PATTERN,
                         },
                       })}
                     />
@@ -194,8 +194,8 @@ function LinearScale({
                       }
                       {...register(`${fieldNameOptions}.toText` as const, {
                         pattern: {
-                          value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                          message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                          value: PATTERN,
+                          message: REQUIRED.PATTERN,
                         },
                       })}
                     />

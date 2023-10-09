@@ -16,6 +16,7 @@ import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
+import { PATTERN, REQUIRED } from "../../../constants/error";
 
 function ColumnTemplate({
   register,
@@ -25,6 +26,7 @@ function ColumnTemplate({
   index,
   errors,
   type,
+  parentIndex,
 }: ComponentInputProps) {
   const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
@@ -101,7 +103,11 @@ function ColumnTemplate({
                   ]?.option?.message
                 }
                 {...register(`${fieldNameOptions}.option` as const, {
-                  required: "Please provide  Survey Column Choices for Grid",
+                  required: REQUIRED.SURVEY_COLUMNS,
+                  pattern: {
+                    value: PATTERN,
+                    message: REQUIRED.PATTERN,
+                  },
                 })}
                 startAdornment={
                   <InputAdornment
@@ -150,13 +156,12 @@ function ColumnTemplate({
           </FormControl>
         );
       })}
-
       <OptionActions
         addOtherOption={addColumns}
         getValues={getValues}
         fieldName={fieldName}
         selectedValue={
-          pollOrSurvey === "poll" ? questionType : questionType[index]
+          pollOrSurvey === "poll" ? questionType : questionType[parentIndex]
         }
         index={index}
       />

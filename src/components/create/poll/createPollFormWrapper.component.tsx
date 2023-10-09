@@ -233,7 +233,7 @@ const PollFormWrapper = () => {
 
             <Typography variant="body2" component="small" sx={{ m: 2 }}>
               Kindly suggest supplementary questions that can be incorporated to
-              elicit deeper insights from those contributing to the poll.
+              elicit deeper insights from those contributing to the Poll.
             </Typography>
           </Stack>
           <AdditionalQuestions />

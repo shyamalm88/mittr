@@ -28,12 +28,15 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import CalendarViewDayOutlinedIcon from "@mui/icons-material/CalendarViewDayOutlined";
+import { REQUIRED, PATTERN } from "../../../constants/error";
 
 function SurveyQuestionnaire({
   fieldName,
   append,
   index,
   update,
+  remove,
+  fields,
 }: ComponentInputProps) {
   const http = new HttpService();
 
@@ -110,6 +113,10 @@ function SurveyQuestionnaire({
     await append(tempQuestion);
   };
 
+  const handleSurveyQuestionRemove = (index: Number) => {
+    remove(index);
+  };
+
   return (
     <>
       <Box
@@ -144,10 +151,10 @@ function SurveyQuestionnaire({
               pollOrSurvey === "poll" ? "question" : `${fieldName}.question`
             }` as const,
             {
-              required: "Please provide a Poll Question",
+              required: REQUIRED.DATE,
               pattern: {
-                value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                value: PATTERN,
+                message: REQUIRED.PATTERN,
               },
             }
           )}
@@ -280,7 +287,10 @@ function SurveyQuestionnaire({
             useFlexGap
             divider={<Divider orientation="vertical" flexItem />}
           >
-            <IconButton>
+            <IconButton
+              onClick={() => handleSurveyQuestionRemove(index)}
+              disabled={fields?.length === 1}
+            >
               <DeleteOutlinedIcon fontSize="small" />
             </IconButton>
             <IconButton>

@@ -14,6 +14,7 @@ import { useConfirm } from "material-ui-confirm";
 import Box from "@mui/material/Box";
 import { useFormContext, useFormState } from "react-hook-form";
 import FormValidationError from "../../utility/FormValidationError";
+import { PATTERN, REQUIRED } from "../../constants/error";
 
 export default function QuestionnaireTemplate({
   typeOptions,
@@ -129,10 +130,10 @@ export default function QuestionnaireTemplate({
                     ?.message
                 }
                 {...register(`${fieldName}.question` as const, {
-                  required: "Please provide at-least One Additional Question",
+                  required: REQUIRED.ADDITIONAL_QUESTION,
                   pattern: {
-                    value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                    message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                    value: PATTERN,
+                    message: REQUIRED.PATTERN,
                   },
                 })}
                 sx={{

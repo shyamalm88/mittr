@@ -21,6 +21,7 @@ import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import { v4 as uuidv4 } from "uuid";
 import { useFieldArray } from "react-hook-form";
 import OptionActions from "../common/optionActions";
+import { PATTERN, REQUIRED } from "../../../constants/error";
 
 function ImageChoice({
   control,
@@ -176,10 +177,10 @@ function ImageChoice({
                           ?.option?.message
                       }
                       {...register(`${fieldName}.option` as const, {
-                        required: "Please provide  Poll Option",
+                        required: REQUIRED.POLL_OPTION,
                         pattern: {
-                          value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                          message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                          value: PATTERN,
+                          message: REQUIRED.PATTERN,
                         },
                       })}
                       multiline
@@ -231,8 +232,8 @@ function ImageChoice({
                         }
                         {...register(`${fieldName}.description` as const, {
                           pattern: {
-                            value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                            message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                            value: PATTERN,
+                            message: REQUIRED.PATTERN,
                           },
                         })}
                         multiline
@@ -290,7 +291,7 @@ function ImageChoice({
                               onChange: (e: any) => {
                                 handleChange(e, index);
                               },
-                              required: "Please provide  Poll Image",
+                              required: REQUIRED.POLL_IMAGE,
                             })}
                           />
 
@@ -326,7 +327,7 @@ function ImageChoice({
                             type="hidden"
                             value={imageValue[index].imageId}
                             {...register(`${fieldName}.imageId` as const, {
-                              required: "Please provide  Poll Image",
+                              required: REQUIRED.POLL_IMAGE,
                             })}
                           />
                           <Card sx={{ position: "relative", height: "100%" }}>

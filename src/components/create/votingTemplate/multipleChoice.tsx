@@ -14,6 +14,7 @@ import { useFieldArray } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import OptionActions from "../common/optionActions";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
+import { PATTERN, REQUIRED } from "../../../constants/error";
 
 function MultipleChoice({
   control,
@@ -127,10 +128,10 @@ function MultipleChoice({
                         ?.message
                 }
                 {...register(`${fieldNameOptions}.option` as const, {
-                  required: "Please provide  Poll Option",
+                  required: REQUIRED.POLL_OPTION,
                   pattern: {
-                    value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                    message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                    value: PATTERN,
+                    message: REQUIRED.PATTERN,
                   },
                 })}
                 multiline

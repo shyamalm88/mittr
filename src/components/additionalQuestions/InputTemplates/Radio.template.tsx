@@ -12,6 +12,7 @@ import { ComponentInputProps } from "../../../types";
 import Tooltip from "@mui/material/Tooltip";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import FormValidationError from "../../../utility/FormValidationError";
+import { PATTERN, REQUIRED } from "../../../constants/error";
 
 const choices = [{ id: uuidv4(), label: "Choice" }];
 
@@ -88,10 +89,10 @@ export default function RadioTemplate({
                   {...register(
                     `${fieldName}.choices[${index}].choice` as const,
                     {
-                      required: "Please provide Choice Value",
+                      required: REQUIRED.CHOICE,
                       pattern: {
-                        value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                        message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                        value: PATTERN,
+                        message: REQUIRED.PATTERN,
                       },
                     }
                   )}

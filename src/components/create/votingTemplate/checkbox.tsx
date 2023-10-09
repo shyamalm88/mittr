@@ -14,6 +14,7 @@ import OptionActions from "../common/optionActions";
 import { useFieldArray } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
+import { PATTERN, REQUIRED } from "../../../constants/error";
 
 function Checkbox({
   control,
@@ -123,10 +124,10 @@ function Checkbox({
                         ?.message
                 }
                 {...register(`${fieldNameOptions}.choice` as const, {
-                  required: "Please provide  Survey Checkbox Options",
+                  required: REQUIRED.SURVEY_CHOICE,
                   pattern: {
-                    value: /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/,
-                    message: `Please enter a valid text. Only few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,
+                    value: PATTERN,
+                    message: REQUIRED.PATTERN,
                   },
                 })}
                 multiline
