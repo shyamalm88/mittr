@@ -68,6 +68,6 @@ export const PollAnswerReducer: Reducer<any, any> = (
 };
 
 const postAnswer = async (data: any) => {
-  const response = await http.service().post(`/survey/answer`, data);
+  const response = await http.service().post(`/poll/answer`, data);
   return response;
 };

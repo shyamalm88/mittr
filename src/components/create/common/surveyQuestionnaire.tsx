@@ -135,7 +135,11 @@ function SurveyQuestionnaire({
         <TextField
           multiline
           rows={4}
-          placeholder="Write Survey Question Here"
+          placeholder={
+            pollOrSurvey === "poll"
+              ? "Write Poll Question Here"
+              : "Write Survey Question Here"
+          }
           variant="standard"
           size="small"
           fullWidth

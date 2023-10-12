@@ -182,14 +182,14 @@ const PollFormWrapper = () => {
     console.log(dataToBeSubmitted);
 
     try {
-      // const resp = await postSurvey(dataToBeSubmitted);
-      // console.log(resp);
-      // clearErrors();
-      // reset();
-      // toast.success(`You have successfully created Poll`, {
-      //   position: toast.POSITION.TOP_RIGHT,
-      //   theme: "colored",
-      // });
+      const resp = await postSurvey(dataToBeSubmitted);
+      console.log(resp);
+      clearErrors();
+      reset();
+      toast.success(`You have successfully created Poll`, {
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored",
+      });
     } catch (err) {
       toast.error(`Error While Creating Poll`, {
         position: toast.POSITION.TOP_RIGHT,
@@ -199,7 +199,7 @@ const PollFormWrapper = () => {
   };
 
   const postSurvey = async (data: any) => {
-    const response = await http.service().post(`/survey`, data);
+    const response = await http.service().post(`/poll`, data);
 
     return response;
   };

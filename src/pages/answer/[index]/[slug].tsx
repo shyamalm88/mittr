@@ -78,7 +78,7 @@ const CreatePoll = ({ questionData }: ComponentInputProps) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const resp: Array<any> = await http.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/survey`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/poll`
   );
   const listQuestionData: Array<any> = resp;
 
@@ -96,7 +96,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const postIndex = context.params?.index as string;
   try {
     const resp = await http.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/survey/${postIndex}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/poll/${postIndex}`
     );
     const questionData = resp;
     return { props: { questionData } };

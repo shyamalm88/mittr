@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-const Options = require("./Options");
-const AdditionalQuestions = require("./AdditionalQuestions");
-const SurveySettings = require("./SurveySettings");
 
 const schema = mongoose.Schema(
   {

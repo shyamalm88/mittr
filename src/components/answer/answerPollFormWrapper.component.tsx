@@ -16,6 +16,7 @@ import en from "javascript-time-ago/locale/en.json";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { Card, CardContent, CardMedia } from "@mui/material";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 TimeAgo.addDefaultLocale(en);
 
 const AnswerPollFormWrapper = () => {
@@ -43,7 +44,6 @@ const AnswerPollFormWrapper = () => {
         <Box
           sx={{
             width: "100%",
-            px: 2,
             py: stepIndexValue === -1 ? 1 : 0,
             height: stepIndexValue === -1 ? "100%" : 0,
             overflow: stepIndexValue === -1 ? "visible" : "hidden",
@@ -55,79 +55,96 @@ const AnswerPollFormWrapper = () => {
               display: "flex",
               justifyContent: "space-between",
               flexDirection: { xs: "column", lg: "row" },
+              boxShadow: "0px 0px 2px 0px #333333ab",
             }}
           >
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
+                width: "100%",
               }}
             >
-              <CardContent sx={{ flex: "1 0 auto" }}>
-                <Typography component="div" variant="h5">
-                  {contextValue}
-                </Typography>
-                <Box
-                  sx={{
-                    width: "100%",
-                  }}
+              <CardContent sx={{ flex: "1 0 auto", py: "10px !important" }}>
+                <Stack
+                  direction={"column"}
+                  alignContent={"space-between"}
+                  spacing={2}
+                  useFlexGap
                 >
-                  <Stack
-                    direction={smallScreen ? "row" : "column"}
-                    spacing={2}
+                  <Typography component="div" variant="h5">
+                    {contextValue}
+                  </Typography>
+                  <Box
                     sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      color: "rgb(156, 163, 175)",
+                      width: "100%",
                     }}
                   >
-                    <Typography
-                      variant="body2"
-                      component="small"
+                    <Stack
+                      direction={smallScreen ? "row" : "column"}
+                      spacing={2}
                       sx={{
-                        fontSize: "1.2rem",
-                        color: "inherit",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        color: "rgb(156, 163, 175)",
                       }}
                     >
-                      Created By: Arghya Majumder
-                    </Typography>
-                    {contextDurationValue && (
-                      <Tooltip
-                        arrow
-                        title={
-                          <React.Fragment>
-                            <Typography variant="body2" component="small">
-                              Poll started at{" "}
-                              {moment(contextQuestionSetValue.createdAt).format(
-                                "DD/MM/YYYY, hh:mm a"
-                              )}
-                              ,
-                            </Typography>
-                            <br />
-                            <Typography variant="body2" component="small">
-                              {handleDateDiff}
-                              {moment(contextDurationValue).format(
-                                "DD/MM/YYYY, hh:mm a"
-                              )}
-                            </Typography>
-                          </React.Fragment>
-                        }
-                      >
-                        <Typography variant="body2" component="small">
-                          <React.Fragment>
-                            <Stack direction="row" alignItems="center" gap={1}>
-                              <AccessTimeIcon />
-                              <ReactTimeAgo
-                                date={Date.parse(contextDurationValue)}
-                                tooltip={false}
-                              />
-                            </Stack>
-                          </React.Fragment>
+                      <Stack direction="row" alignItems="center" gap={1}>
+                        <PermIdentityOutlinedIcon fontSize="small" />
+                        <Typography
+                          variant="body2"
+                          component="small"
+                          sx={{
+                            fontSize: "1.2rem",
+                            color: "inherit",
+                          }}
+                        >
+                          Arghya Majumder
                         </Typography>
-                      </Tooltip>
-                    )}
-                  </Stack>
-                </Box>
+                      </Stack>
+                      {contextDurationValue && (
+                        <Tooltip
+                          arrow
+                          title={
+                            <React.Fragment>
+                              <Typography variant="body2" component="small">
+                                Poll started at{" "}
+                                {moment(
+                                  contextQuestionSetValue.createdAt
+                                ).format("DD/MM/YYYY, hh:mm a")}
+                                ,
+                              </Typography>
+                              <br />
+                              <Typography variant="body2" component="small">
+                                {handleDateDiff}
+                                {moment(contextDurationValue).format(
+                                  "DD/MM/YYYY, hh:mm a"
+                                )}
+                              </Typography>
+                            </React.Fragment>
+                          }
+                        >
+                          <Typography variant="body2" component="small">
+                            <React.Fragment>
+                              <Stack
+                                direction="row"
+                                alignItems="center"
+                                gap={1}
+                              >
+                                <AccessTimeIcon fontSize="small" />
+                                <ReactTimeAgo
+                                  date={Date.parse(contextDurationValue)}
+                                  tooltip={false}
+                                />
+                              </Stack>
+                            </React.Fragment>
+                          </Typography>
+                        </Tooltip>
+                      )}
+                    </Stack>
+                  </Box>
+                </Stack>
               </CardContent>
             </Box>
             {contextValueImage && (
