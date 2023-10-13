@@ -35,12 +35,7 @@ function PollOrSurveyOptionChoose() {
     <>
       <Hidden smDown>
         <Paper sx={{ width: 60 }}>
-          <RadioGroup
-            aria-labelledby="demo-form-control-label-placement"
-            name="type"
-            value={pollOrSurvey}
-            onChange={handleChange}
-          >
+          <RadioGroup name="type" value={pollOrSurvey} onChange={handleChange}>
             <MenuList
               sx={{
                 alignItems: "center",
@@ -94,7 +89,6 @@ function PollOrSurveyOptionChoose() {
           stickyStyle={{
             marginLeft: "-30px",
             marginTop: "60px",
-            background: "red",
           }}
         >
           <div id="surveyActionMenuPortal" style={{ width: "60px" }} />

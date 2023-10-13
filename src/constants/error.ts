@@ -2,7 +2,7 @@ export const REQUIRED = {
   QUESTION: "Please provide a Poll Question",
   DATE: "Please Provide date and time for scheduled end.",
   PATTERN:
-    "Please enter a valid text. Only few special characters allowed. '>', '\\','`', '~', '{', '}', '[', ']',  '\"' are not allowed",
+    "Please enter a valid text. Only few special characters allowed. '>', '\\','`', '~', '{', '}', '[', ']' are not allowed",
   ADDITIONAL_QUESTION: "Please provide at-least One Additional Question",
   CHOICE: "Please provide Choice Value",
   SURVEY_TITLE: "Please provide a Survey Title",
@@ -14,4 +14,4 @@ export const REQUIRED = {
   POLL_IMAGE: "Please provide  Poll Image",
   LINEAR_SCALE: "Please provide  Survey Linear Scale from Value",
 };
-export const PATTERN = /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:"|\\]*$/;
+export const PATTERN = /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:\'\"|\\]*$/;

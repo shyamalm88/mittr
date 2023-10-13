@@ -111,6 +111,7 @@ function SurveyQuestionnaire({
       type: "section",
     };
     await append(tempQuestion);
+    setQuestionType([...questionType, ""]);
   };
 
   const handleSurveyQuestionRemove = (index: Number) => {

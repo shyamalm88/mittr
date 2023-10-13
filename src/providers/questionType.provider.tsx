@@ -15,7 +15,6 @@ function QuestionTypeProvider({ children }: ComponentInputProps) {
 
   return (
     <>
-      {console.log(questionType)}
       <QuestionTypeProviderContext.Provider
         value={{ questionType, setQuestionType }}
       >

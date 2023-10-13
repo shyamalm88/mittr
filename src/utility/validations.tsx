@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 export function validateQuestionCreation(validateState: any) {
-  const whitelist = /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:'"|\\]*$/;
+  const whitelist = /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:"|\\]*$/;
   if (!validateState.question.trim()) {
     console.error("Please add a question");
     toast.error(`Please add a question`, {
@@ -10,7 +10,7 @@ export function validateQuestionCreation(validateState: any) {
     return false;
   } else if (!validateState.question.trim().match(whitelist)) {
     console.error(
-      `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`
+      `Only alpha numeric and few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "\"" are not allowed`
     );
     toast.error(
       `Only alpha numeric and " few special characters allowed. ">", "\`", "~", "{", "}", "[", "]", "'", "\"" are not allowed`,

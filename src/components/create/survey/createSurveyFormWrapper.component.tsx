@@ -85,7 +85,7 @@ const PollFormWrapper = () => {
   const onSubmitSubmitForm: SubmitHandler<
     CreateSurveySubmittedValueType
   > = async (data) => {
-    console.log(data);
+    console.log(JSON.stringify(data));
     // setValue("questionSlug", urlSlug(data.question));
     // const additionalQuestions = getValues("additionalQuestions").filter(
     //   (item) => item.question
@@ -198,6 +198,7 @@ const PollFormWrapper = () => {
             flex: 1,
             width: "100%",
             position: "relative",
+            mb: 2,
           }}
         >
           {fields.map((item: any, index: number) => {
@@ -227,7 +228,7 @@ const PollFormWrapper = () => {
           })}
 
           <PollSettings />
-          <Stack
+          {/* <Stack
             direction="row"
             alignItems="center"
             sx={{ color: theme.palette.text.secondary, mt: 2 }}
@@ -240,8 +241,8 @@ const PollFormWrapper = () => {
               Kindly suggest supplementary questions that can be incorporated to
               elicit deeper insights from those contributing to the Survey.
             </Typography>
-          </Stack>
-          <AdditionalQuestions />
+          </Stack> */}
+          {/* <AdditionalQuestions /> */}
         </Box>
         <Button
           variant="contained"

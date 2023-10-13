@@ -49,7 +49,7 @@ function Checkbox({
       id: uuidv4(),
       label: "Choice",
       enabled: true,
-      option: "",
+      choice: "",
     };
     append(temp);
   };
@@ -60,13 +60,14 @@ function Checkbox({
     }
   }, []);
 
-  const addOtherOption = () => {
-    const temp = { id: uuidv4(), label: "Other", enabled: false, option: "" };
-    append(temp);
+  const addOtherOption = async () => {
+    const temp = { id: uuidv4(), label: "Other", enabled: false, choice: "" };
+    await append(temp);
+
     setValue(
-      `{${fieldName}.options}.${
-        getValues(`${fieldName}.options}`)?.length - 1
-      }.option`,
+      `${fieldName}.options.${
+        getValues(`${fieldName}.options`)?.length - 1
+      }.choice`,
       "Other"
     );
   };
