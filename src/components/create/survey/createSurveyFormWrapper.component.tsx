@@ -1,13 +1,10 @@
 import React from "react";
 import Box from "@mui/material/Box";
 
-import Stack from "@mui/material/Stack";
-import AdditionalQuestions from "../../additionalQuestions/additionalQuestions.component";
+import urlSlug from "url-slug";
 
 import PollSettings from "../../additionalQuestions/pollSettings.component";
-import { Card, Paper, TextField, Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import HttpService from "../../../services/@http/HttpClient";
 
@@ -15,6 +12,9 @@ import { v4 as uuidv4 } from "uuid";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
+import { toast } from "react-toastify";
+import * as _ from "underscore";
+
 import {
   useForm,
   FormProvider,
@@ -41,14 +41,6 @@ const PollFormWrapper = () => {
         },
       ],
 
-      additionalQuestions: [
-        {
-          id: uuidv4(),
-          questionLabel: "Question",
-          answerType: "",
-          question: "",
-        },
-      ],
       settings: {
         captureGender: false,
         closePollOnScheduledDate: false,
@@ -86,90 +78,31 @@ const PollFormWrapper = () => {
     CreateSurveySubmittedValueType
   > = async (data) => {
     console.log(JSON.stringify(data));
-    // setValue("questionSlug", urlSlug(data.question));
-    // const additionalQuestions = getValues("additionalQuestions").filter(
-    //   (item) => item.question
-    // );
-    // const genderFound = additionalQuestions.some(
-    //   (item) => item.answerType === "gender"
-    // );
-    // const countryFound = additionalQuestions.some(
-    //   (item) => item.answerType === "country"
-    // );
-    // if (data.settings && data.settings.captureGender && !genderFound) {
-    //   const temp = {
-    //     id: uuidv4(),
-    //     questionLabel: "Question",
-    //     answerType: "gender",
-    //     question: "Please select your Gender",
-    //   };
-    //   append(temp);
-    // } else {
-    //   if (data.settings && !data.settings.captureGender && genderFound) {
-    //     const idx = additionalQuestions.findIndex(
-    //       (item) => item.answerType === "gender"
-    //     );
-    //     remove(idx);
-    //   }
-    // }
-    // if (data.settings && data.settings.captureCity && !countryFound) {
-    //   const temp = {
-    //     id: uuidv4(),
-    //     questionLabel: "Question",
-    //     answerType: "city",
-    //     question: "Your residing Country and City",
-    //   };
-    //   append(temp);
-    // } else {
-    //   if (data.settings && !data.settings.captureGender && countryFound) {
-    //     const idx = additionalQuestions.findIndex(
-    //       (item) => item.answerType === "city"
-    //     );
-    //     remove(idx);
-    //   }
-    // }
-    // if (data.settings && data.settings.captureCountry && !countryFound) {
-    //   const temp = {
-    //     id: uuidv4(),
-    //     questionLabel: "Question",
-    //     answerType: "country",
-    //     question: "Your residing Country",
-    //   };
-    //   append(temp);
-    // } else {
-    //   if (data.settings && !data.settings.captureGender && countryFound) {
-    //     const idx = additionalQuestions.findIndex(
-    //       (item) => item.answerType === "country"
-    //     );
-    //     remove(idx);
-    //   }
-    // }
-    // const dataToBeSubmitted = getValues();
-    // dataToBeSubmitted.options = _.map(dataToBeSubmitted.options, function (o) {
-    //   return _.omit(o, ["id", "enabled", "label", "image"]);
-    // });
-    // dataToBeSubmitted.additionalQuestions = _.map(
-    //   dataToBeSubmitted.additionalQuestions,
-    //   function (o) {
-    //     return _.omit(o, ["id", "questionLabel"]);
-    //   }
-    // );
-    // console.log(dataToBeSubmitted);
-    // try {
-    //   const resp = await postSurvey(dataToBeSubmitted);
-    //   console.log(resp);
-    //   clearErrors();
-    //   reset();
-    //   toast.success(`You have successfully created Poll`, {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //     theme: "colored",
-    //   });
-    // } catch (err) {
-    //   toast.error(`Error While Creating Poll`, {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //     theme: "colored",
-    //   });
-    // }
+    setValue("questionSlug", urlSlug(data.title));
+
+    const dataToBeSubmitted = getValues();
+    (dataToBeSubmitted.survey as any) = _.map(
+      dataToBeSubmitted.survey,
+      function (o) {
+        return _.omit(o, ["id"]);
+      }
+    );
+    console.log(dataToBeSubmitted);
+    try {
+      const resp = await postSurvey(dataToBeSubmitted);
+      console.log(resp);
+      clearErrors();
+      reset();
+      toast.success(`You have successfully created Poll`, {
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored",
+      });
+    } catch (err) {
+      toast.error(`Error While Creating Poll`, {
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored",
+      });
+    }
   };
 
   const postSurvey = async (data: any) => {
@@ -228,21 +161,6 @@ const PollFormWrapper = () => {
           })}
 
           <PollSettings />
-          {/* <Stack
-            direction="row"
-            alignItems="center"
-            sx={{ color: theme.palette.text.secondary, mt: 2 }}
-          >
-            <Tooltip title="These supplementary questions can be tailored to the specific subject matter of your poll to enhance the quality of responses.">
-              <InfoOutlinedIcon color="inherit" />
-            </Tooltip>
-
-            <Typography variant="body2" component="small" sx={{ m: 2 }}>
-              Kindly suggest supplementary questions that can be incorporated to
-              elicit deeper insights from those contributing to the Survey.
-            </Typography>
-          </Stack> */}
-          {/* <AdditionalQuestions /> */}
         </Box>
         <Button
           variant="contained"

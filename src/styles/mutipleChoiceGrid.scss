@@ -1,0 +1,33 @@
+$background-color_1: #5a5a5a1a;
+
+.tableWithGrid {
+    width: 100%;
+    display: grid;
+    > div {
+        display: contents;
+        &.tableHeader {
+            display: grid;
+            margin: 1px;
+            padding: 5px;
+        }
+        strong {
+            font-weight: 600;
+        }
+        > div {
+            background-color: $background-color_1;
+            margin: 1px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            &.tableHeader {
+                display: grid;
+                margin: 1px;
+                padding: 5px;
+            }
+            &.wrapperScroller {
+                display: contents;
+            }
+        }
+    }
+}

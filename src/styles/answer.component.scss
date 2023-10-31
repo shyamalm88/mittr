@@ -109,3 +109,12 @@ small {
         }
     }
 }
+
+.surveyStep {
+    .MuiStepContent-root {
+        border: none;
+    }
+    .MuiStepConnector-vertical {
+        display: none;
+    }
+}

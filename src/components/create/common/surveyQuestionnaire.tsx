@@ -5,7 +5,7 @@ import PollOptionWrapper from "../createOptionWrapper.component";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
-import { IconButton, Stack } from "@mui/material";
+import { Hidden, IconButton, Stack } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useFormContext } from "react-hook-form";
@@ -308,32 +308,53 @@ function SurveyQuestionnaire({
         <Portal container={document.getElementById("surveyActionMenuPortal")}>
           <Paper
             sx={{
-              width: 60,
+              width: { xs: "auto", lg: 60 },
             }}
           >
-            <MenuList>
-              <MenuItem onClick={handleAddNewSurvey}>
-                <ListItemIcon>
-                  <Tooltip title="Add Section" placement="top">
-                    <AddCircleOutlineIcon />
-                  </Tooltip>
-                </ListItemIcon>
-              </MenuItem>
-              <MenuItem>
-                <ListItemIcon>
-                  <Tooltip title="Add Title Description" placement="top">
-                    <TextFieldsOutlinedIcon />
-                  </Tooltip>
-                </ListItemIcon>
-              </MenuItem>
-              <MenuItem onClick={handleAddNewSection}>
-                <ListItemIcon>
-                  <Tooltip title="Add Section" placement="top">
-                    <CalendarViewDayOutlinedIcon />
-                  </Tooltip>
-                </ListItemIcon>
-              </MenuItem>
-            </MenuList>
+            <Hidden smDown>
+              <MenuList>
+                <MenuItem onClick={handleAddNewSurvey}>
+                  <ListItemIcon>
+                    <Tooltip title="Add Survey Question" placement="top">
+                      <AddCircleOutlineIcon />
+                    </Tooltip>
+                  </ListItemIcon>
+                </MenuItem>
+                <MenuItem onClick={handleAddNewSection}>
+                  <ListItemIcon>
+                    <Tooltip
+                      title="Add Title Description Section"
+                      placement="top"
+                    >
+                      <CalendarViewDayOutlinedIcon />
+                    </Tooltip>
+                  </ListItemIcon>
+                </MenuItem>
+              </MenuList>
+            </Hidden>
+            <Hidden smUp>
+              <Stack
+                direction="row"
+                spacing={2}
+                useFlexGap
+                alignItems="stretch"
+                height={50}
+                justifyContent="center"
+              >
+                <IconButton
+                  onClick={handleAddNewSurvey}
+                  sx={{ borderRadius: 0, pt: 0 }}
+                >
+                  <AddCircleOutlineIcon />
+                </IconButton>
+                <IconButton
+                  onClick={handleAddNewSection}
+                  sx={{ borderRadius: 0, pt: 0 }}
+                >
+                  <CalendarViewDayOutlinedIcon />
+                </IconButton>
+              </Stack>
+            </Hidden>
           </Paper>
         </Portal>
       )}

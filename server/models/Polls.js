@@ -27,4 +27,4 @@ const schema = mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Surveys", schema);
+module.exports = mongoose.model("Polls", schema);

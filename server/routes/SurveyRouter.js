@@ -1,15 +1,16 @@
 const express = require("express");
-const Poll = require("../models/Polls");
+const Survey = require("../models/Surveys");
 const Options = require("../models/Options");
 const Images = require("../models/Images");
 const SurveySettings = require("../models/SurveySettings");
 const Answers = require("../models/Answers");
-const AdditionalQuestionsAnswers = require("../models/AdditionalQuestionsAnswers");
+// const AdditionalQuestionsAnswers = require("../models/AdditionalQuestionsAnswers");
 const AdditionalQuestions = require("../models/AdditionalQuestions");
 
 const multer = require("multer");
 const path = require("path");
 const sharp = require("sharp");
+const SurveySection = require("../models/SurveySection");
 
 const surveyRouter = express.Router();
 
@@ -50,19 +51,11 @@ const upload = multer({
 
 surveyRouter.get("/", async (req, res) => {
   try {
-    const polls = await Poll.find()
+    const surveys = await Survey.find()
       .lean()
-      .populate({
-        path: "options",
-        populate: {
-          path: "imageId",
-          model: "Images",
-        },
-      })
-      .populate("questionImageRef")
-      .populate("additionalQuestions")
+      .populate("survey")
       .populate("settings");
-    res.send(polls);
+    res.send(surveys);
   } catch (err) {
     res.status(404).send({
       message: "Document Not Found",
@@ -88,20 +81,13 @@ surveyRouter.get("/answers", async (req, res) => {
 });
 
 surveyRouter.get("/:index", async (req, res) => {
+  console.log(req.params);
   try {
-    const poll = await Poll.findById(req.params.index)
+    const survey = await Survey.findById(req.params.index)
       .orFail()
-      .populate({
-        path: "options",
-        populate: {
-          path: "imageId",
-          model: "Images",
-        },
-      })
-      .populate("questionImageRef")
-      .populate("additionalQuestions")
+      .populate("survey")
       .populate("settings");
-    res.send(poll);
+    res.send(survey);
   } catch (err) {
     res.status(404).send({
       message: "Document Not Found",
@@ -112,29 +98,23 @@ surveyRouter.get("/:index", async (req, res) => {
 });
 
 surveyRouter.post("", async (req, res) => {
-  const optionRefId = await Options.insertMany(req.body.options);
-  const additionalQuestionRefId = await insertAdditionalQuestions(req);
+  const surveyRefId = await SurveySection.insertMany(req.body.survey);
   const settingsRefId = await SurveySettings.collection.insertOne(
     req.body.settings
   );
 
-  const poll = new Poll({
-    question: req.body.question,
-    votingType: req.body.votingType,
-    questionImageRef: req.body.questionImageRef
-      ? req.body.questionImageRef
-      : null,
-    surveyType: req.body.pollType,
+  const survey = new Survey({
+    title: req.body.title,
+    description: req.body.description,
+    survey: surveyRefId,
     duration: req.body.duration,
     questionSlug: req.body.questionSlug,
-    options: optionRefId,
-    additionalQuestions: additionalQuestionRefId,
     settings: settingsRefId.insertedId,
   });
 
   try {
-    const pollRes = await poll.save();
-    res.send(pollRes);
+    const surveyRes = await survey.save();
+    res.send(surveyRes);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -161,10 +141,6 @@ surveyRouter.post("/image", upload.single("image"), async (req, res) => {
 });
 
 surveyRouter.post("/answer", async (req, res) => {
-  const additionalQuestionsAnswersRefId =
-    await AdditionalQuestionsAnswers.insertMany(
-      req.body.additionalQuestionsAnswers
-    );
   const answer = new Answers({
     questionID: req.body.questionID,
     selectedOption: req.body.selectedOption,
@@ -178,22 +154,5 @@ surveyRouter.post("/answer", async (req, res) => {
     res.status(500).json(error);
   }
 });
-
-async function insertAdditionalQuestions(req) {
-  return await AdditionalQuestions.insertMany(
-    req.body.additionalQuestions
-  ).then((res) => {
-    const temp = insertAdditionalIds(res);
-    return temp;
-  });
-}
-
-const insertAdditionalIds = (res) => {
-  const tempIds = [];
-  for (const content of res) {
-    tempIds.push(content._id);
-  }
-  return tempIds;
-};
 
 module.exports = surveyRouter;

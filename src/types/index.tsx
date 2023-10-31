@@ -68,15 +68,12 @@ export type CreateSurveySubmittedValueType = {
   survey: [
     {
       question: string;
-      id: string;
+      id?: string;
       votingType: string;
-      questionImage: string;
-      questionImageRef: string;
       options: Option[];
     }
   ];
   questionSlug: string;
-  additionalQuestions: AdditionalQuestion[];
   settings: Settings;
   duration: string;
 };

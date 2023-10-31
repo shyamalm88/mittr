@@ -26,8 +26,10 @@ function PollOrSurveyOptionChoose() {
     setPollOrSurvey(e.target.value);
     if (e.target.value === "poll") {
       setQuestionType("multiple_choice");
+      document.title = "Mittr | Create Poll";
     } else {
       setQuestionType(["multiple_choice"]);
+      document.title = "Mittr | Create Survey";
     }
   };
 
