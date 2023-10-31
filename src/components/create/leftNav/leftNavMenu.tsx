@@ -10,18 +10,27 @@ import BookmarkAddedOutlinedIcon from "@mui/icons-material/BookmarkAddedOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import InsightsOutlinedIcon from "@mui/icons-material/InsightsOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import BackupTableOutlinedIcon from "@mui/icons-material/BackupTableOutlined";
+import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 import { v4 as uuidv4 } from "uuid";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const pages = [
   {
     id: uuidv4(),
-    icon: <CottageOutlinedIcon fontSize="small" />,
-    label: "Home",
+    icon: <BackupTableOutlinedIcon fontSize="small" />,
+    label: "Feed",
   },
   {
     id: uuidv4(),
     icon: <DashboardCustomizeOutlinedIcon fontSize="small" />,
+    label: "Create",
+  },
+  {
+    id: uuidv4(),
+    icon: <WidgetsOutlinedIcon fontSize="small" />,
     label: "Dashboard",
   },
   {
@@ -47,16 +56,38 @@ const pages = [
 ];
 
 function LeftNavigationMenu() {
+  const pathname = usePathname();
+  const theme = useTheme();
+
   return (
     <List>
       {pages.map((item: any) => {
         return (
-          <ListItem disablePadding key={item.id} dense disableGutters>
-            <ListItemButton sx={{ pl: 0, borderRadius: "4px" }}>
+          <ListItem
+            disablePadding
+            key={item.id}
+            dense
+            disableGutters
+            component={Link}
+            href={item.label.toLowerCase().replace(/ /g, "_")}
+          >
+            <ListItemButton
+              selected={pathname.includes(
+                item.label.toLowerCase().replace(/ /g, "_")
+              )}
+              sx={{
+                pl: 0,
+                borderRadius: "4px",
+                color: theme.palette.info.dark,
+              }}
+            >
               <ListItemIcon sx={{ minWidth: "30px", px: 2 }}>
                 {item.icon}
               </ListItemIcon>
-              <ListItemText primary={item.label} />
+              <ListItemText
+                primary={item.label}
+                sx={{ color: theme.palette.info.dark }}
+              />
             </ListItemButton>
           </ListItem>
         );

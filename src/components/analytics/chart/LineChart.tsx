@@ -2,6 +2,7 @@ import React from "react";
 import { Chart } from "react-google-charts";
 import { faker } from "@faker-js/faker";
 import { useTheme } from "@mui/material";
+import { ComponentInputProps } from "../../../types";
 
 export const data = [
   ["Month", "Anonymous Users vote", "Logged-in Users vote"],
@@ -67,38 +68,70 @@ export const data = [
   ],
 ];
 
-export function LineChart() {
+export const singleData = [
+  ["Month", "Anonymous Users vote"],
+  ["Jan", faker.number.int({ min: 0, max: 100 })],
+  ["Feb", faker.number.int({ min: 0, max: 200 })],
+  ["Mar", faker.number.int({ min: 0, max: 100 })],
+  ["Apr", faker.number.int({ min: 0, max: 200 })],
+  ["May", faker.number.int({ min: 0, max: 100 })],
+  ["Jun", faker.number.int({ min: 0, max: 200 })],
+  ["Jul", faker.number.int({ min: 0, max: 100 })],
+  ["Aug", faker.number.int({ min: 0, max: 200 })],
+  ["Sep", faker.number.int({ min: 0, max: 100 })],
+  ["Oct", faker.number.int({ min: 0, max: 100 })],
+  ["Nov", faker.number.int({ min: 0, max: 100 })],
+  ["Dec", faker.number.int({ min: 0, max: 100 })],
+];
+
+export function LineChart({ white, single, noLegends }: ComponentInputProps) {
   const theme = useTheme();
 
   const options = {
     title: "Monthly Poll Interaction by User",
     subtitle: "user interactions",
-    colors: ["#2979FF", "#FF7728", "#E8471A", "#FF2D1C"],
+    colors: white
+      ? ["#fff", "#fff", "#fff", "#fff"]
+      : ["#2979FF", "#FF7728", "#E8471A", "#FF2D1C"],
     is3D: true,
     backgroundColor: "transparent",
     titleTextStyle: {
-      color: theme.palette.mode === "dark" ? "#fff" : "#333",
+      color: theme.palette.mode === white ? "#fff" : "dark" ? "#fff" : "#333",
     },
-    legend: {
-      position: "bottom",
-      textStyle: {
-        color: theme.palette.mode === "dark" ? "#fff" : "#333",
-      },
-      pagingTextStyle: { color: "grey" },
-      scrollArrows: {
-        inactiveColor: theme.palette.mode === "dark" ? "grey" : "lightGrey",
-        activeColor: theme.palette.mode === "dark" ? "lightGrey" : "grey",
-      },
-    },
+    baselineColor: white ? "#fff" : "dark" ? "#fff" : "#333",
+    legend: noLegends
+      ? { position: "none" }
+      : {
+          position: "bottom",
+          textStyle: {
+            color:
+              theme.palette.mode === white ? "#fff" : "dark" ? "#fff" : "#333",
+          },
+          pagingTextStyle: { color: white ? "#fff" : "grey" },
+          scrollArrows: {
+            inactiveColor:
+              theme.palette.mode === white
+                ? "#fff"
+                : "dark"
+                ? "grey"
+                : "lightGrey",
+            activeColor:
+              theme.palette.mode === white
+                ? "#fff"
+                : "dark"
+                ? "lightGrey"
+                : "grey",
+          },
+        },
 
     hAxis: {
       textStyle: {
-        color: theme.palette.mode === "dark" ? "#fff" : "#333",
+        color: theme.palette.mode === white ? "#fff" : "dark" ? "#fff" : "#333",
       },
     },
     vAxis: {
       textStyle: {
-        color: theme.palette.mode === "dark" ? "#fff" : "#333",
+        color: theme.palette.mode === white ? "#fff" : "dark" ? "#fff" : "#333",
       },
     },
   };
@@ -109,7 +142,7 @@ export function LineChart() {
       chartType="LineChart"
       width="100%"
       height="100%"
-      data={data}
+      data={single ? singleData : data}
       options={options}
     />
   );
