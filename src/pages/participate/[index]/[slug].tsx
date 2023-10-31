@@ -101,7 +101,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       `${process.env.NEXT_PUBLIC_BASE_URL}/survey/${postIndex}`
     );
     const surveyQuestionData = resp;
-    console.log(surveyQuestionData);
     return { props: { surveyQuestionData } };
   } catch (err) {
     console.error("Internal Server Error");

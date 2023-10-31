@@ -49,7 +49,6 @@ const upload = multer({
 });
 
 pollRouter.get("/", async (req, res) => {
-  console.log("hi");
   try {
     const polls = await Poll.find()
       .lean()

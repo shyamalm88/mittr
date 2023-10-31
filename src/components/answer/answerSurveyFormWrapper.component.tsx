@@ -27,9 +27,6 @@ const AnswerSurveyFormWrapper = ({
 }: ComponentInputProps) => {
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
-  // const contextValue = usePollQuestionContext();
-  // const contextValueImage = usePollQuestionContext("questionImageRef");
-  // console.log(contextValueImage);
   const contextQuestionSetValue = usePollQuestionContext();
   const contextDurationValue = usePollQuestionContext("duration");
 

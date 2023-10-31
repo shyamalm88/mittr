@@ -24,7 +24,6 @@ const AnswerPollFormWrapper = () => {
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const contextValue = usePollQuestionContext("question");
   const contextValueImage = usePollQuestionContext("questionImageRef");
-  console.log(contextValueImage);
   const contextQuestionSetValue = usePollQuestionContext();
   const contextDurationValue = usePollQuestionContext("duration");
 

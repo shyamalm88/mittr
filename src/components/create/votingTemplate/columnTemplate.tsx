@@ -56,7 +56,6 @@ function ColumnTemplate({
 
   React.useEffect(() => {
     if (getValues(`${fieldName}.columns`)?.length === 0) {
-      console.log("columns");
       addColumns();
     }
   }, []);

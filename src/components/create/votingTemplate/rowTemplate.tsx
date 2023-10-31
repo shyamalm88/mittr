@@ -53,7 +53,6 @@ function RowTemplate({
 
   React.useEffect(() => {
     if (getValues(`${fieldName}.rows`)?.length === 0) {
-      console.log("row");
       addRows();
     }
   }, []);

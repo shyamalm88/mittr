@@ -56,7 +56,6 @@ function MultipleChoice({
   const addOtherOption = () => {
     const temp = { id: uuidv4(), label: "Other", enabled: false, option: "" };
     append(temp);
-    console.log(fieldName);
     setValue(
       `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}.${
         getValues(

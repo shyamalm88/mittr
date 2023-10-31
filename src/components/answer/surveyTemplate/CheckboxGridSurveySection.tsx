@@ -24,7 +24,6 @@ function CheckboxGridSurveySection({ selectedValue }: ComponentInputProps) {
       </Typography>
       <Box sx={{ width: "100%", p: 2 }}>
         {selectedValue?.options.map((item: any) => {
-          console.log(item);
           return (
             <div
               className="tableWithGrid"

@@ -15,7 +15,6 @@ export const updateForCheckBox = async (
   };
   await resetField(`survey.${index}.options`);
   await remove([0, 1]);
-  console.log(index, index);
   [0, 1].forEach((item, index) => {
     update(index, defaultValues);
   });
@@ -35,7 +34,6 @@ export const updateForMultipleChoice = async (
   };
   await resetField(`survey.${index}.options`);
   await remove([0, 1]);
-  console.log(index, index);
   [0, 1].forEach((item, index) => {
     update(index, defaultValues);
   });
@@ -85,7 +83,6 @@ export const updateForLinearScale = async (
     formText: "",
     toText: "",
   };
-  console.log(index, index);
   await resetField(`survey.${index}.options`);
   await remove([0, 1]);
   update(0, defaultValues);

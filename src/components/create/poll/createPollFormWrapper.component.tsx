@@ -101,7 +101,6 @@ const PollFormWrapper = () => {
       const response: any = await http
         .service()
         .postMultipart(`/survey/image`, formData);
-      console.log(response);
       setQuestionImageValue(response.body);
     } catch (error) {
       console.log(error);
@@ -179,11 +178,9 @@ const PollFormWrapper = () => {
         return _.omit(o, ["id", "questionLabel"]);
       }
     );
-    console.log(dataToBeSubmitted);
 
     try {
       const resp = await postSurvey(dataToBeSubmitted);
-      console.log(resp);
       clearErrors();
       reset();
       toast.success(`You have successfully created Poll`, {

@@ -77,7 +77,6 @@ const PollFormWrapper = () => {
   const onSubmitSubmitForm: SubmitHandler<
     CreateSurveySubmittedValueType
   > = async (data) => {
-    console.log(JSON.stringify(data));
     setValue("questionSlug", urlSlug(data.title));
 
     const dataToBeSubmitted = getValues();
@@ -87,10 +86,8 @@ const PollFormWrapper = () => {
         return _.omit(o, ["id"]);
       }
     );
-    console.log(dataToBeSubmitted);
     try {
       const resp = await postSurvey(dataToBeSubmitted);
-      console.log(resp);
       clearErrors();
       reset();
       toast.success(`You have successfully created Poll`, {

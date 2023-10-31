@@ -77,7 +77,6 @@ function ImageChoice({
       const response: any = await http
         .service()
         .postMultipart(`/survey/image`, formData);
-      console.log(response);
       const items = [...imageValue];
       items[index] = response.body;
       setImageValue(items);

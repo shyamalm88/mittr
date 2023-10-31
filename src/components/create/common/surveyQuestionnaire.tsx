@@ -83,7 +83,6 @@ function SurveyQuestionnaire({
       const response: any = await http
         .service()
         .postMultipart(`/survey/image`, formData);
-      console.log(response);
       setQuestionImageValue(response.body);
     } catch (error) {
       console.log(error);
@@ -99,8 +98,6 @@ function SurveyQuestionnaire({
     await append(tempQuestion);
 
     setQuestionType([...questionType, "multiple_choice"]);
-
-    console.log(getValues("survey"));
   };
 
   const handleAddNewSection = async () => {
@@ -222,7 +219,6 @@ function SurveyQuestionnaire({
 
         {questionImageValue && (
           <>
-            {console.log(questionImageValue.imageId)}
             <input
               type="text"
               value={questionImageValue.imageId}

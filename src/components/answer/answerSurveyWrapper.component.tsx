@@ -46,7 +46,6 @@ const AnswerSurveyWrapper = () => {
     ...tempSegmentation,
     ...tempSegmentation,
   ]);
-  console.log(surveySegmentation);
   const [progress, setProgress] = React.useState(0);
   const [buffer, setBuffer] = React.useState(progress + 10);
 

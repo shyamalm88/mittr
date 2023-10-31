@@ -119,24 +119,20 @@ function VotingType({
           if (pollOrSurvey === "poll") {
             setQuestionType(e.target.value);
             setValue(`votingType`, e.target.value);
-            console.log(getValues());
           } else {
             const temp = questionType;
             temp[index] = e.target.value;
             setQuestionType(temp);
             setValue(`${fieldName}.votingType`, e.target.value);
-            console.log(getValues("survey"));
           }
         })
         .catch((r) => {
           if (pollOrSurvey === "poll") {
-            console.log("old", oldSelectedValue.current[index].value);
             setQuestionType(oldSelectedValue.current[index].value as string);
             setValue(
               "votingType",
               oldSelectedValue.current[index].value as string
             );
-            console.log(getValues());
           } else {
             const temp = questionType;
             temp[index] = oldSelectedValue.current[index].value as string;
@@ -145,7 +141,6 @@ function VotingType({
               `${fieldName}.votingType`,
               oldSelectedValue.current[index].value as string
             );
-            console.log(getValues("survey"));
           }
         });
     }
