@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ComponentInputProps } from "../../types";
-import { useTheme } from "@mui/material";
+import { Box, ButtonGroup, IconButton, useTheme } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import VotingType from "./votingType";
 import VotingTemplateSwitch from "./votingTemplateSwitch";

@@ -5,7 +5,7 @@ import PollOptionWrapper from "../createOptionWrapper.component";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
-import { Hidden, IconButton, Stack } from "@mui/material";
+import { Hidden, IconButton, Menu, Stack, useTheme } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useFormContext } from "react-hook-form";
@@ -29,6 +29,10 @@ import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import CalendarViewDayOutlinedIcon from "@mui/icons-material/CalendarViewDayOutlined";
 import { REQUIRED, PATTERN } from "../../../constants/error";
+import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 function SurveyQuestionnaire({
   fieldName,
@@ -42,6 +46,16 @@ function SurveyQuestionnaire({
 
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+  const theme = useTheme();
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   let fieldNameQuestion: any =
     pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}`.split(".");
@@ -278,25 +292,60 @@ function SurveyQuestionnaire({
             backgroundColor: (theme: any) =>
               theme.palette.customColors.backgroundColor,
             px: 2,
-            py: 1,
             mb: 2,
           }}
         >
           <Stack
             direction={"row"}
-            spacing={2}
+            spacing={1}
             useFlexGap
-            divider={<Divider orientation="vertical" flexItem />}
+            justifyContent="flex-end"
           >
             <IconButton
               onClick={() => handleSurveyQuestionRemove(index)}
               disabled={fields?.length === 1}
+              size="small"
             >
-              <DeleteOutlinedIcon fontSize="small" />
+              <DeleteOutlinedIcon
+                fontSize="small"
+                sx={{ color: theme.palette.text.secondary }}
+              />
             </IconButton>
-            <IconButton>
-              <ContentCopyOutlinedIcon fontSize="small" />
+            <IconButton size="small">
+              <ContentCopyOutlinedIcon
+                fontSize="small"
+                sx={{ color: theme.palette.text.secondary }}
+              />
             </IconButton>
+            <IconButton size="small" onClick={handleClick}>
+              <MoreVertIcon sx={{ color: theme.palette.text.secondary }} />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+            >
+              <MenuItem dense disabled={index === 0}>
+                <Stack direction="row" spacing={2} useFlexGap>
+                  <ExpandLessIcon />
+                  Move Up
+                </Stack>
+              </MenuItem>
+              <MenuItem dense disabled={fields?.length - 1 === index}>
+                <Stack direction="row" spacing={2} useFlexGap>
+                  <ExpandMoreIcon />
+                  Move Down
+                </Stack>
+              </MenuItem>
+            </Menu>
           </Stack>
         </Box>
       )}

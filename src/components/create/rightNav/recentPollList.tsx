@@ -17,7 +17,12 @@ function RecentPollList() {
             alignItems="center"
             justifyContent="space-between"
             gap={0.3}
-            sx={{ color: "rgb(156, 163, 175)" }}
+            sx={{
+              color:
+                theme.palette.mode === "dark"
+                  ? theme.palette.info.light
+                  : theme.palette.info.dark,
+            }}
           >
             <Stack direction="row">
               <PollOutlinedIcon fontSize="small" color="inherit" />

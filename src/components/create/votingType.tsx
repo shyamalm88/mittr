@@ -14,7 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import { ComponentInputProps, OptionProp } from "../../types";
 import Stack from "@mui/material/Stack";
-import { useTheme } from "@mui/material";
+import { IconButton, Menu, useTheme } from "@mui/material";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 import { useConfirm } from "material-ui-confirm";
 import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
@@ -160,13 +160,16 @@ function VotingType({
 
   return (
     <>
-      <Typography
-        component="h2"
-        variant="subtitle2"
-        sx={{ mb: 1, color: theme.palette.text.primary }}
-      >
-        {pollOrSurvey === "poll" ? "Voting Type" : "Question Type"}
-      </Typography>
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Typography
+          component="h2"
+          variant="subtitle2"
+          sx={{ mb: 1, color: theme.palette.text.primary }}
+        >
+          {pollOrSurvey === "poll" ? "Voting Type" : "Question Type"}
+        </Typography>
+      </Stack>
+
       <FormControl
         variant="outlined"
         sx={{

@@ -78,7 +78,10 @@ function LeftNavigationMenu() {
               sx={{
                 pl: 0,
                 borderRadius: "4px",
-                color: theme.palette.info.dark,
+                color:
+                  theme.palette.mode === "dark"
+                    ? theme.palette.info.light
+                    : theme.palette.info.dark,
               }}
             >
               <ListItemIcon sx={{ minWidth: "30px", px: 2 }}>
@@ -86,7 +89,12 @@ function LeftNavigationMenu() {
               </ListItemIcon>
               <ListItemText
                 primary={item.label}
-                sx={{ color: theme.palette.info.dark }}
+                sx={{
+                  color:
+                    theme.palette.mode === "dark"
+                      ? theme.palette.info.light
+                      : theme.palette.info.dark,
+                }}
               />
             </ListItemButton>
           </ListItem>

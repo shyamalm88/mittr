@@ -141,6 +141,8 @@ const PollFormWrapper = () => {
                   descriptionFieldName={`survey.${index}.description`}
                   index={index}
                   errors={errors}
+                  fields={fields}
+                  remove={remove}
                 />
               );
             }
