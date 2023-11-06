@@ -8,10 +8,6 @@ import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
 
 const PollOptionWrapper = ({ fieldName, index }: ComponentInputProps) => {
-  const theme = useTheme();
-  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
-  const { questionType, setQuestionType } = useQuestionTypeContext();
-
   const {
     register,
     setValue,

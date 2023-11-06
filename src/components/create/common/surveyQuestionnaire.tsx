@@ -40,6 +40,7 @@ function SurveyQuestionnaire({
   index,
   update,
   remove,
+  swap,
   fields,
 }: ComponentInputProps) {
   const http = new HttpService();
@@ -127,6 +128,20 @@ function SurveyQuestionnaire({
 
   const handleSurveyQuestionRemove = (index: Number) => {
     remove(index);
+  };
+
+  const swapPositions = (fromIndex: number, toIndex: number) => {
+    swap(fromIndex, toIndex);
+    handleClose();
+    const tempQType = questionType;
+    let temp = tempQType[fromIndex];
+    tempQType[fromIndex] = tempQType[toIndex];
+    tempQType[toIndex] = temp;
+    setQuestionType(tempQType);
+    setTimeout(() => {
+      console.log(getValues());
+      console.log(questionType);
+    }, 0);
   };
 
   return (
@@ -308,7 +323,10 @@ function SurveyQuestionnaire({
             >
               <DeleteOutlinedIcon
                 fontSize="small"
-                sx={{ color: theme.palette.text.secondary }}
+                sx={{
+                  color: theme.palette.text.secondary,
+                  opacity: fields?.length === 1 ? 0.4 : 1,
+                }}
               />
             </IconButton>
             <IconButton size="small">
@@ -333,13 +351,21 @@ function SurveyQuestionnaire({
                 horizontal: "left",
               }}
             >
-              <MenuItem dense disabled={index === 0}>
+              <MenuItem
+                dense
+                disabled={index === 0}
+                onClick={() => swapPositions(index, index - 1)}
+              >
                 <Stack direction="row" spacing={2} useFlexGap>
                   <ExpandLessIcon />
                   Move Up
                 </Stack>
               </MenuItem>
-              <MenuItem dense disabled={fields?.length - 1 === index}>
+              <MenuItem
+                dense
+                disabled={fields?.length - 1 === index}
+                onClick={() => swapPositions(index, index + 1)}
+              >
                 <Stack direction="row" spacing={2} useFlexGap>
                   <ExpandMoreIcon />
                   Move Down

@@ -19,6 +19,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
+import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 
 function NewSection({
   register,
@@ -28,9 +29,12 @@ function NewSection({
   errors,
   fields,
   remove,
+  swap,
+  getValues,
 }: ComponentInputProps) {
   const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
+  const { questionType, setQuestionType } = useQuestionTypeContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -42,7 +46,22 @@ function NewSection({
   const handleSurveyQuestionRemove = (index: Number) => {
     remove(index);
   };
-  console.log(errors);
+  // console.log(errors);
+
+  const swapPositions = (fromIndex: number, toIndex: number) => {
+    swap(fromIndex, toIndex);
+    handleClose();
+    const tempQType = questionType;
+    let temp = tempQType[fromIndex];
+    tempQType[fromIndex] = tempQType[toIndex];
+    tempQType[toIndex] = temp;
+    setQuestionType(tempQType);
+    setTimeout(() => {
+      console.log(getValues());
+      console.log(questionType);
+    }, 0);
+  };
+
   return (
     <Box
       sx={{
@@ -199,13 +218,21 @@ function NewSection({
                   horizontal: "left",
                 }}
               >
-                <MenuItem dense disabled={index === 0}>
+                <MenuItem
+                  dense
+                  disabled={index === 0}
+                  onClick={() => swapPositions(index, index - 1)}
+                >
                   <Stack direction="row" spacing={2} useFlexGap>
                     <ExpandLessIcon />
                     Move Up
                   </Stack>
                 </MenuItem>
-                <MenuItem dense disabled={fields?.length - 1 === index}>
+                <MenuItem
+                  dense
+                  disabled={fields?.length - 1 === index}
+                  onClick={() => swapPositions(index, index + 1)}
+                >
                   <Stack direction="row" spacing={2} useFlexGap>
                     <ExpandMoreIcon />
                     Move Down

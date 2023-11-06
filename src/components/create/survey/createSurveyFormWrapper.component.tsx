@@ -143,6 +143,8 @@ const PollFormWrapper = () => {
                   errors={errors}
                   fields={fields}
                   remove={remove}
+                  swap={swap}
+                  getValues={getValues}
                 />
               );
             }
@@ -155,6 +157,7 @@ const PollFormWrapper = () => {
                 index={index}
                 remove={remove}
                 fields={fields}
+                swap={swap}
               />
             );
           })}
