@@ -15,6 +15,7 @@ import OptionActions from "../common/optionActions";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { REQUIRED } from "../../../constants/error";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function RowTemplate({
   register,
@@ -116,7 +117,7 @@ function RowTemplate({
                           ?.length === 1
                       }
                     >
-                      <DeleteOutlineIcon />
+                      <CloseOutlinedIcon />
                     </IconButton>
                   </InputAdornment>
                 }

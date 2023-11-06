@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 import OptionActions from "../common/optionActions";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { PATTERN, REQUIRED } from "../../../constants/error";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function MultipleChoice({
   control,
@@ -164,7 +165,7 @@ function MultipleChoice({
                         )?.length === 1
                       }
                     >
-                      <DeleteOutlineIcon />
+                      <CloseOutlinedIcon />
                     </IconButton>
                   </InputAdornment>
                 }

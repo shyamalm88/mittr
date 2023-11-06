@@ -15,6 +15,7 @@ import { useFieldArray } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { PATTERN, REQUIRED } from "../../../constants/error";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function Checkbox({
   control,
@@ -152,10 +153,16 @@ function Checkbox({
                       sx={{ color: "inherit" }}
                       onClick={() => deleteOption(index)}
                       disabled={
-                        getValues(`${fieldNameOptions}.options`)?.length === 1
+                        getValues(
+                          `${
+                            pollOrSurvey === "poll"
+                              ? `${fieldName}`
+                              : `${fieldName}.options`
+                          }`
+                        )?.length === 1
                       }
                     >
-                      <DeleteOutlineIcon />
+                      <CloseOutlinedIcon />
                     </IconButton>
                   </InputAdornment>
                 }

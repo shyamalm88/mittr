@@ -17,6 +17,7 @@ import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import { PATTERN, REQUIRED } from "../../../constants/error";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function ColumnTemplate({
   register,
@@ -135,7 +136,7 @@ function ColumnTemplate({
                           ?.length === 1
                       }
                     >
-                      <DeleteOutlineIcon />
+                      <CloseOutlinedIcon />
                     </IconButton>
                   </InputAdornment>
                 }
