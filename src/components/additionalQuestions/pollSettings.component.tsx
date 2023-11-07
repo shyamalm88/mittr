@@ -17,9 +17,11 @@ import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { useFormContext, Controller } from "react-hook-form";
 import FormValidationError from "../../utility/FormValidationError";
 import { REQUIRED, PATTERN } from "../../constants/error";
+import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 
 function PollSettings() {
   const theme = useTheme();
+  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const d = new Date().toISOString();
   const {
     register,
@@ -54,7 +56,7 @@ function PollSettings() {
             <TuneRoundedIcon />
           </Typography>
           <Typography sx={{ color: theme.palette.text.secondary }}>
-            Settings
+            {pollOrSurvey === "poll" ? "Poll Settings" : "Survey Settings"}
           </Typography>
         </Stack>
       </AccordionSummary>

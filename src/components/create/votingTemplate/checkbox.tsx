@@ -52,7 +52,14 @@ function Checkbox({
       enabled: true,
       choice: "",
     };
-    append(temp);
+    append(temp, {
+      shouldFocus:
+        getValues(
+          `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}`
+        )?.length === 0
+          ? false
+          : true,
+    });
   };
 
   React.useEffect(() => {

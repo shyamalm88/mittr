@@ -45,6 +45,9 @@ function NewSection({
   };
   const handleSurveyQuestionRemove = (index: Number) => {
     remove(index);
+    const tempQType = questionType;
+    tempQType.splice(index, 1);
+    setQuestionType(tempQType);
   };
   // console.log(errors);
 
@@ -175,6 +178,7 @@ function NewSection({
           <Box
             sx={{
               width: "100%",
+              p: 0.5,
               borderRadius: "0px 0px 4px 4px",
               backgroundColor: (theme: any) =>
                 theme.palette.customColors.backgroundColor,
@@ -185,6 +189,7 @@ function NewSection({
               spacing={1}
               useFlexGap
               justifyContent="flex-end"
+              divider={<Divider orientation="vertical" flexItem />}
             >
               <IconButton
                 onClick={() => handleSurveyQuestionRemove(index)}
@@ -192,7 +197,6 @@ function NewSection({
                 size="small"
               >
                 <DeleteOutlinedIcon
-                  fontSize="small"
                   sx={{ color: theme.palette.text.secondary }}
                 />
               </IconButton>

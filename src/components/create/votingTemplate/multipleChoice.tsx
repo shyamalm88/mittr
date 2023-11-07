@@ -51,7 +51,14 @@ function MultipleChoice({
       enabled: true,
       option: "",
     };
-    append(temp);
+    append(temp, {
+      shouldFocus:
+        getValues(
+          `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}`
+        )?.length === 0
+          ? false
+          : true,
+    });
   };
 
   const addOtherOption = () => {

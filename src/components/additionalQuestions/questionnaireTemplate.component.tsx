@@ -228,7 +228,7 @@ export default function QuestionnaireTemplate({
               },
             }}
           >
-            Remove This
+            Remove
           </Box>
         </Button>
       </Stack>

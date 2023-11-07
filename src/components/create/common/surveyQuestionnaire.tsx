@@ -128,6 +128,9 @@ function SurveyQuestionnaire({
 
   const handleSurveyQuestionRemove = (index: Number) => {
     remove(index);
+    const tempQType = questionType;
+    tempQType.splice(index, 1);
+    setQuestionType(tempQType);
   };
 
   const swapPositions = (fromIndex: number, toIndex: number) => {
@@ -161,7 +164,8 @@ function SurveyQuestionnaire({
       >
         <TextField
           multiline
-          rows={4}
+          rows={2}
+          sx={{ pt: 0.7 }}
           placeholder={
             pollOrSurvey === "poll"
               ? "Write Poll Question Here"
@@ -170,6 +174,7 @@ function SurveyQuestionnaire({
           variant="standard"
           size="small"
           fullWidth
+          autoFocus
           error={
             pollOrSurvey === "poll"
               ? !!errors.question
@@ -306,6 +311,7 @@ function SurveyQuestionnaire({
             borderColor: (theme: any) => theme.palette.customColors.borderAlt,
             backgroundColor: (theme: any) =>
               theme.palette.customColors.backgroundColor,
+            p: 0.5,
             px: 2,
             mb: 2,
           }}
@@ -315,6 +321,7 @@ function SurveyQuestionnaire({
             spacing={1}
             useFlexGap
             justifyContent="flex-end"
+            divider={<Divider orientation="vertical" flexItem />}
           >
             <IconButton
               onClick={() => handleSurveyQuestionRemove(index)}
@@ -322,7 +329,6 @@ function SurveyQuestionnaire({
               size="small"
             >
               <DeleteOutlinedIcon
-                fontSize="small"
                 sx={{
                   color: theme.palette.text.secondary,
                   opacity: fields?.length === 1 ? 0.4 : 1,
