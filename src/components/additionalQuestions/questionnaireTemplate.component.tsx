@@ -146,7 +146,7 @@ export default function QuestionnaireTemplate({
                 inputRef={(el) =>
                   (oldSelectedQuestionValue.current[index] = el)
                 }
-                placeholder={`${item?.questionLabel} ${index + 1}`}
+                placeholder={`Please enter ${item?.questionLabel} ${index + 1}`}
               />
               <FormValidationError
                 errorText={

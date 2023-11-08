@@ -1,4 +1,6 @@
 import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
+import PollIcon from "@mui/icons-material/Poll";
+import BallotIcon from "@mui/icons-material/Ballot";
 import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
 import Paper from "@mui/material/Paper";
 import MenuList from "@mui/material/MenuList";
@@ -54,7 +56,7 @@ function PollOrSurveyOptionChoose() {
                     control={
                       <Radio
                         icon={<PollOutlinedIcon />}
-                        checkedIcon={<PollOutlinedIcon />}
+                        checkedIcon={<PollIcon />}
                         sx={{ p: 0 }}
                       />
                     }
@@ -72,7 +74,7 @@ function PollOrSurveyOptionChoose() {
                     control={
                       <Radio
                         icon={<BallotOutlinedIcon />}
-                        checkedIcon={<BallotOutlinedIcon />}
+                        checkedIcon={<BallotIcon />}
                         sx={{ p: 0 }}
                       />
                     }
@@ -127,7 +129,7 @@ function PollOrSurveyOptionChoose() {
                           control={
                             <Radio
                               icon={<PollOutlinedIcon />}
-                              checkedIcon={<PollOutlinedIcon />}
+                              checkedIcon={<PollIcon />}
                               sx={{ pb: 0 }}
                             />
                           }
@@ -145,7 +147,7 @@ function PollOrSurveyOptionChoose() {
                           control={
                             <Radio
                               icon={<BallotOutlinedIcon />}
-                              checkedIcon={<BallotOutlinedIcon />}
+                              checkedIcon={<BallotIcon />}
                               sx={{ pb: 0 }}
                             />
                           }

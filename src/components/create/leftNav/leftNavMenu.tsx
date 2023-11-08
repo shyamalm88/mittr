@@ -63,25 +63,20 @@ function LeftNavigationMenu() {
     <List>
       {pages.map((item: any) => {
         return (
-          <ListItem
-            disablePadding
-            key={item.id}
-            dense
-            disableGutters
-            component={Link}
-            href={item.label.toLowerCase().replace(/ /g, "_")}
-          >
+          <ListItem disablePadding key={item.id} dense disableGutters>
             <ListItemButton
               selected={pathname.includes(
                 item.label.toLowerCase().replace(/ /g, "_")
               )}
+              component={Link}
+              href={item.label.toLowerCase().replace(/ /g, "_")}
               sx={{
                 pl: 0,
                 borderRadius: "4px",
                 color:
                   theme.palette.mode === "dark"
-                    ? theme.palette.info.light
-                    : theme.palette.info.dark,
+                    ? theme.palette.getContrastText("rgb(31, 40, 62)")
+                    : theme.palette.getContrastText("#fff"),
               }}
             >
               <ListItemIcon sx={{ minWidth: "30px", px: 2 }}>
@@ -92,8 +87,8 @@ function LeftNavigationMenu() {
                 sx={{
                   color:
                     theme.palette.mode === "dark"
-                      ? theme.palette.info.light
-                      : theme.palette.info.dark,
+                      ? theme.palette.getContrastText("rgb(31, 40, 62)")
+                      : theme.palette.getContrastText("#fff"),
                 }}
               />
             </ListItemButton>

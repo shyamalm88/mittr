@@ -6,6 +6,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@faker-js/faker": "^8.0.2",
+    "@fontsource/montserrat": "^5.0.15",
     "@fontsource/noto-serif": "^5.0.9",
     "@fontsource/roboto": "^5.0.5",
     "@mui/base": "^5.0.0-beta.12",

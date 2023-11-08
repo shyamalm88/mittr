@@ -15,7 +15,7 @@ const MyRecentCreatedPollTemplate = () => {
       }}
       className="sideNav"
     >
-      <Typography variant="body2" component="h2">
+      <Typography variant="body2" component="h2" sx={{ fontWeight: 500 }}>
         Recently Created
       </Typography>
       <Divider sx={{ my: 1 }} />

@@ -9,6 +9,9 @@ import {
 import { PaletteMode } from "@mui/material";
 
 export const getDesignTokens = (mode: PaletteMode) => ({
+  typography: {
+    fontFamily: "Montserrat, Arial",
+  },
   palette: {
     mode,
     ...(mode === "light"

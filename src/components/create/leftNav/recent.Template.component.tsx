@@ -14,7 +14,7 @@ function RecentTemplate() {
       }}
       className="sideNav"
     >
-      <Typography variant="body2" component="h2">
+      <Typography variant="body1" component="h2" sx={{ fontWeight: 500 }}>
         Trending Topics
       </Typography>
       <Divider sx={{ mt: 1 }} />

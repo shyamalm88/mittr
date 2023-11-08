@@ -8,7 +8,15 @@ function RecentPollList() {
     <>
       <Typography variant="body2" component="h2">
         <small>
-          <Link href="#" underline="hover" color={theme.palette.info.main}>
+          <Link
+            href="#"
+            underline="hover"
+            color={
+              theme.palette.mode === "dark"
+                ? theme.palette.info.light
+                : theme.palette.info.main
+            }
+          >
             If you could go for a coffee with a figure from history, who would
             it be?
           </Link>
@@ -20,7 +28,7 @@ function RecentPollList() {
             sx={{
               color:
                 theme.palette.mode === "dark"
-                  ? theme.palette.info.light
+                  ? theme.palette.info.dark
                   : theme.palette.info.dark,
             }}
           >
@@ -39,7 +47,15 @@ function RecentPollList() {
       <Divider sx={{ my: 1 }} />
       <Typography variant="body2" component="h2">
         <small>
-          <Link href="#" underline="hover" color={theme.palette.info.main}>
+          <Link
+            href="#"
+            underline="hover"
+            color={
+              theme.palette.mode === "dark"
+                ? theme.palette.info.light
+                : theme.palette.info.main
+            }
+          >
             If you could go for a coffee with a figure from history, who would
             it be?
           </Link>
@@ -48,12 +64,17 @@ function RecentPollList() {
             alignItems="center"
             justifyContent="space-between"
             gap={0.3}
-            sx={{ color: "rgb(156, 163, 175)" }}
+            sx={{
+              color:
+                theme.palette.mode === "dark"
+                  ? theme.palette.info.dark
+                  : theme.palette.info.dark,
+            }}
           >
             <Stack direction="row">
               <PollOutlinedIcon fontSize="small" color="inherit" />
               <Typography variant="caption" component="p">
-                5 Contributions
+                19 Contributions
               </Typography>
             </Stack>
             <Link href="#" underline="hover" color={theme.palette.info.main}>
@@ -65,7 +86,15 @@ function RecentPollList() {
       <Divider sx={{ my: 1 }} />
       <Typography variant="body2" component="h2">
         <small>
-          <Link href="#" underline="hover" color={theme.palette.info.main}>
+          <Link
+            href="#"
+            underline="hover"
+            color={
+              theme.palette.mode === "dark"
+                ? theme.palette.info.light
+                : theme.palette.info.main
+            }
+          >
             If you could go for a coffee with a figure from history, who would
             it be?
           </Link>
@@ -74,12 +103,17 @@ function RecentPollList() {
             alignItems="center"
             justifyContent="space-between"
             gap={0.3}
-            sx={{ color: "rgb(156, 163, 175)" }}
+            sx={{
+              color:
+                theme.palette.mode === "dark"
+                  ? theme.palette.info.dark
+                  : theme.palette.info.dark,
+            }}
           >
             <Stack direction="row">
               <PollOutlinedIcon fontSize="small" color="inherit" />
               <Typography variant="caption" component="p">
-                9 Contributions
+                19 Contributions
               </Typography>
             </Stack>
             <Link href="#" underline="hover" color={theme.palette.info.main}>

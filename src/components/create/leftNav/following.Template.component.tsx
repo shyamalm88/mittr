@@ -15,7 +15,7 @@ function FollowingTemplate() {
       }}
       className="sideNav"
     >
-      <Typography variant="body2" component="h2">
+      <Typography variant="body2" component="h2" sx={{ fontWeight: 500 }}>
         Following Topics
       </Typography>
       <Divider sx={{ mt: 1 }} />
