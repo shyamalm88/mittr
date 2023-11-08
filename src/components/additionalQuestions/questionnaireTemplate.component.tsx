@@ -141,6 +141,7 @@ export default function QuestionnaireTemplate({
                 }}
                 fullWidth
                 multiline
+                autoFocus
                 className="input"
                 inputRef={(el) =>
                   (oldSelectedQuestionValue.current[index] = el)

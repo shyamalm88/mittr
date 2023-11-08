@@ -7,6 +7,8 @@ import { ComponentInputProps } from "../../../types";
 import { Box, Stack, Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 function LinearScaleChoiceSurveySection({
   selectedValue,
@@ -50,8 +52,8 @@ function LinearScaleChoiceSurveySection({
               )}
               <Box
                 sx={{
-                  pl: 3,
-                  pr: 3,
+                  pl: 1,
+                  pr: 1,
                   display: { xs: "block", sm: "flex" },
                   justifyContent: "center",
                 }}
@@ -61,31 +63,28 @@ function LinearScaleChoiceSurveySection({
                   className="answer"
                   row={largeScreen ? true : false}
                 >
-                  {Array.from(
-                    Array(linearScaleUpto + (item?.from === 0 ? 1 : 0)),
-                    (e, i) => {
-                      i = i + item?.from;
-                      return (
-                        <fieldset
-                          style={{
-                            border: "none",
-                            margin: 0,
-                            padding: 0,
-                            display: "flex",
-                            flexDirection: "column",
-                          }}
-                          key={i}
-                        >
-                          <FormControlLabel
+                  <ToggleButtonGroup>
+                    {Array.from(
+                      Array(linearScaleUpto + (item?.from === 0 ? 1 : 0)),
+                      (e, i) => {
+                        i = i + item?.from;
+                        return (
+                          <ToggleButton
                             value={i}
-                            control={<Radio id={item._id} />}
-                            label={i}
-                            labelPlacement="top"
-                          />
-                        </fieldset>
-                      );
-                    }
-                  )}
+                            key={i}
+                            sx={{ px: 0, border: "1px solid #ccc" }}
+                          >
+                            <FormControlLabel
+                              value={i}
+                              control={<Radio id={item._id} />}
+                              label={i}
+                              labelPlacement="top"
+                            />
+                          </ToggleButton>
+                        );
+                      }
+                    )}
+                  </ToggleButtonGroup>
                 </RadioGroup>
               </Box>
 

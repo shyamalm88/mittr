@@ -157,9 +157,15 @@ function SurveyQuestionnaire({
           borderRadius: "4px 4px 0px 0px",
           px: 2,
           py: 1,
+          pt: 2,
           borderWidth: "1px",
           borderStyle: "solid",
           borderColor: (theme: any) => theme.palette.customColors.border,
+          borderTopColor: (theme: any) =>
+            pollOrSurvey === "poll"
+              ? theme.palette.customColors.border
+              : theme.palette.info.light,
+          borderTopWidth: pollOrSurvey === "poll" ? "1px" : "2px",
         }}
       >
         <TextField

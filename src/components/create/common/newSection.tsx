@@ -84,7 +84,7 @@ function NewSection({
           borderTopColor: (theme) => theme.palette.info.main,
           borderTopStyle: "solid",
           borderTopWidth: "4px",
-          pb: fields ? 0 : 4,
+          pb: index ? 0 : 3,
         }}
         className="card"
       >
