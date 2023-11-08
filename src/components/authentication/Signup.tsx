@@ -1,7 +1,10 @@
 import React from "react";
-import facebook from "./../../images/svg/facebook.svg";
-import google from "./../../images/svg/google.svg";
-import linkedin from "./../../images/svg/linkedin.svg";
+import facebook_dark from "./../../images/svg/facebook_dark.svg";
+import facebook_light from "./../../images/svg/facebook_light.svg";
+import google_dark from "./../../images/svg/google_dark.svg";
+import google_light from "./../../images/svg/google_light.svg";
+import linkedin_dark from "./../../images/svg/linkedin_dark.svg";
+import linkedin_light from "./../../images/svg/linkedin_light.svg";
 import Image from "next/image";
 import { useTheme } from "@mui/material";
 
@@ -46,7 +49,9 @@ function SignUpForm() {
         <div className="social-container">
           <a href="#" className="social">
             <Image
-              src={facebook}
+              src={
+                theme.palette.mode === "dark" ? facebook_light : facebook_dark
+              }
               width={20}
               height={20}
               sizes="100vw"
@@ -55,7 +60,7 @@ function SignUpForm() {
           </a>
           <a href="#" className="social">
             <Image
-              src={google}
+              src={theme.palette.mode === "dark" ? google_light : google_dark}
               width={20}
               height={20}
               sizes="100vw"
@@ -64,7 +69,9 @@ function SignUpForm() {
           </a>
           <a href="#" className="social">
             <Image
-              src={linkedin}
+              src={
+                theme.palette.mode === "dark" ? linkedin_light : linkedin_dark
+              }
               width={20}
               height={20}
               sizes="100vw"

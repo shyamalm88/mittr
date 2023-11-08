@@ -24,10 +24,12 @@ import {
 import { CreateSurveySubmittedValueType } from "../../../types";
 import SurveyQuestionnaire from "../common/surveyQuestionnaire";
 import NewSection from "../common/newSection";
+import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 
 const PollFormWrapper = () => {
   const http = new HttpService();
   const theme = useTheme();
+  const { questionType, setQuestionType } = useQuestionTypeContext();
 
   const methods = useForm<CreateSurveySubmittedValueType>({
     defaultValues: {
@@ -89,7 +91,7 @@ const PollFormWrapper = () => {
     try {
       const resp = await postSurvey(dataToBeSubmitted);
       clearErrors();
-      reset();
+      resetHandler();
       toast.success(`You have successfully created Poll`, {
         position: toast.POSITION.TOP_RIGHT,
         theme: "colored",
@@ -109,6 +111,7 @@ const PollFormWrapper = () => {
   };
 
   const resetHandler = () => {
+    setQuestionType(["multiple_choice"]);
     reset();
   };
 

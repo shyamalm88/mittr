@@ -42,10 +42,7 @@ const AnswerSurveyWrapper = () => {
     }
   });
 
-  const [surveySegmentation]: any[] = React.useState([
-    ...tempSegmentation,
-    ...tempSegmentation,
-  ]);
+  const [surveySegmentation]: any[] = React.useState([...tempSegmentation]);
   const [progress, setProgress] = React.useState(0);
   const [buffer, setBuffer] = React.useState(progress + 10);
 

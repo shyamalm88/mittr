@@ -28,7 +28,7 @@ const Authentication = () => {
           <div
             className="overlay"
             style={{
-              background: `background-image: linear-gradient(120deg, ${blue[500]} 0%, ${purple[500]} 100%);`,
+              backgroundImage: `linear-gradient(120deg, ${blue[500]} 0%, ${purple[500]} 100%);`,
             }}
           >
             <div className="overlay-panel overlay-left">

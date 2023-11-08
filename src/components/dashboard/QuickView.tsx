@@ -16,7 +16,13 @@ function QuickView() {
   return (
     <Grid container spacing={2} sx={{ my: 2, px: { xs: 2 } }}>
       <Grid item xs={12} sm={6} lg={3} sx={{ mt: { xs: 2 } }}>
-        <Card sx={{ overflow: "visible" }}>
+        <Card
+          sx={{
+            overflow: "visible",
+            boxShadow:
+              "rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem, rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0.0625rem",
+          }}
+        >
           <CardHeader
             sx={{ position: "relative", pt: 2 }}
             avatar={
@@ -27,6 +33,8 @@ function QuickView() {
                   top: "-15px",
                   width: 56,
                   height: 56,
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.14) 0rem 0.25rem 1.25rem 0rem, rgba(64, 64, 64, 0.4) 0rem 0.4375rem 0.625rem -0.3125rem",
                 }}
                 variant="rounded"
               >
@@ -63,7 +71,13 @@ function QuickView() {
         </Card>
       </Grid>
       <Grid item xs={12} sm={6} lg={3} sx={{ mt: { xs: 2 } }}>
-        <Card sx={{ overflow: "visible" }}>
+        <Card
+          sx={{
+            overflow: "visible",
+            boxShadow:
+              "rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem, rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0.0625rem",
+          }}
+        >
           <CardHeader
             sx={{ position: "relative", pt: 2 }}
             avatar={
@@ -74,6 +88,8 @@ function QuickView() {
                   top: "-15px",
                   width: 56,
                   height: 56,
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.14) 0rem 0.25rem 1.25rem 0rem, rgba(64, 64, 64, 0.4) 0rem 0.4375rem 0.625rem -0.3125rem",
                 }}
                 variant="rounded"
               >
@@ -110,7 +126,13 @@ function QuickView() {
         </Card>
       </Grid>
       <Grid item xs={12} sm={6} lg={3} sx={{ mt: { xs: 2 } }}>
-        <Card sx={{ overflow: "visible" }}>
+        <Card
+          sx={{
+            overflow: "visible",
+            boxShadow:
+              "rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem, rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0.0625rem",
+          }}
+        >
           <CardHeader
             sx={{ position: "relative", pt: 2 }}
             avatar={
@@ -121,6 +143,8 @@ function QuickView() {
                   top: "-15px",
                   width: 56,
                   height: 56,
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.14) 0rem 0.25rem 1.25rem 0rem, rgba(64, 64, 64, 0.4) 0rem 0.4375rem 0.625rem -0.3125rem",
                 }}
                 variant="rounded"
               >
@@ -157,7 +181,13 @@ function QuickView() {
         </Card>
       </Grid>
       <Grid item xs={12} sm={6} lg={3} sx={{ mt: { xs: 2 } }}>
-        <Card sx={{ overflow: "visible" }}>
+        <Card
+          sx={{
+            overflow: "visible",
+            boxShadow:
+              "rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem, rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0.0625rem",
+          }}
+        >
           <CardHeader
             sx={{ position: "relative", pt: 2 }}
             avatar={
@@ -168,6 +198,8 @@ function QuickView() {
                   top: "-15px",
                   width: 56,
                   height: 56,
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.14) 0rem 0.25rem 1.25rem 0rem, rgba(64, 64, 64, 0.4) 0rem 0.4375rem 0.625rem -0.3125rem",
                 }}
                 variant="rounded"
               >

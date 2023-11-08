@@ -30,7 +30,7 @@ function LinearScaleChoiceSurveySection({
         {selectedValue?.options.map((item: any) => {
           return (
             <Stack
-              key={item._id}
+              key={item.id}
               spacing={2}
               useFlexGap
               direction={largeScreen ? "row" : "column"}
@@ -39,7 +39,7 @@ function LinearScaleChoiceSurveySection({
             >
               {JSON.stringify(item?.from) && (
                 <Typography
-                  variant="h5"
+                  variant="h6"
                   sx={{
                     pr: { xs: 0, lg: 3 },
                     pt: 3,
@@ -90,7 +90,7 @@ function LinearScaleChoiceSurveySection({
 
               {JSON.stringify(item?.to) && (
                 <Typography
-                  variant="h5"
+                  variant="h6"
                   sx={{ pl: { xs: 0, lg: 3 }, pt: 3 }}
                   align="center"
                 >
