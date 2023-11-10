@@ -21,6 +21,9 @@ const urlencodedParser = bodyParser.urlencoded({
 
 mongoose
   .connect("mongodb://localhost:27017/mittr", {
+    // .connect(
+    //   `mongodb+srv://shyamalm89:w0Yj7d1QoeNQTicp@cluster1.eplbqph.mongodb.net/?retryWrites=true&w=majority`,
+    //   {
     useNewUrlParser: true,
     serverSelectionTimeoutMS: 5000,
   })

@@ -37,133 +37,138 @@ function PollOrSurveyOptionChoose() {
 
   return (
     <>
-      <Hidden smDown>
-        <Paper sx={{ width: 60 }}>
-          <RadioGroup name="type" value={pollOrSurvey} onChange={handleChange}>
-            <MenuList
-              sx={{
-                alignItems: "center",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <MenuItem sx={{ px: 1 }}>
-                <Tooltip title="Poll" placement="right">
-                  <FormControlLabel
-                    value="poll"
-                    className="radioImage"
-                    sx={{ m: 0 }}
-                    control={
-                      <Radio
-                        icon={<PollOutlinedIcon />}
-                        checkedIcon={<PollIcon />}
-                        sx={{ p: 0 }}
-                      />
-                    }
-                    label="Poll"
-                    labelPlacement="bottom"
-                  />
-                </Tooltip>
-              </MenuItem>
-              <MenuItem sx={{ p: 1 }}>
-                <Tooltip title="Survey" placement="right">
-                  <FormControlLabel
-                    value="survey"
-                    className="radioImage"
-                    sx={{ m: 0 }}
-                    control={
-                      <Radio
-                        icon={<BallotOutlinedIcon />}
-                        checkedIcon={<BallotIcon />}
-                        sx={{ p: 0 }}
-                      />
-                    }
-                    label="Survey"
-                    labelPlacement="bottom"
-                  />
-                </Tooltip>
-              </MenuItem>
-            </MenuList>
-          </RadioGroup>
-        </Paper>
+      <Paper sx={{ width: 60 }}>
+        <RadioGroup name="type" value={pollOrSurvey} onChange={handleChange}>
+          <MenuList
+            sx={{
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <MenuItem sx={{ px: 1 }}>
+              <Tooltip title="Poll" placement="right">
+                <FormControlLabel
+                  value="poll"
+                  className="radioImage"
+                  sx={{ m: 0 }}
+                  control={
+                    <Radio
+                      icon={<PollOutlinedIcon />}
+                      checkedIcon={<PollIcon />}
+                      sx={{ p: 0 }}
+                    />
+                  }
+                  label="Poll"
+                  labelPlacement="bottom"
+                />
+              </Tooltip>
+            </MenuItem>
+            <MenuItem sx={{ p: 1 }}>
+              <Tooltip title="Survey" placement="right">
+                <FormControlLabel
+                  value="survey"
+                  className="radioImage"
+                  sx={{ m: 0 }}
+                  control={
+                    <Radio
+                      icon={<BallotOutlinedIcon />}
+                      checkedIcon={<BallotIcon />}
+                      sx={{ p: 0 }}
+                    />
+                  }
+                  label="Survey"
+                  labelPlacement="bottom"
+                />
+              </Tooltip>
+            </MenuItem>
+          </MenuList>
+        </RadioGroup>
+      </Paper>
+      <Sticky
+        boundaryElement=".MuiBox-root"
+        hideOnBoundaryHit={false}
+        stickyStyle={{
+          marginLeft: "-30px",
+          marginTop: "60px",
+        }}
+      >
+        <div id="surveyActionMenuPortalDesktop" style={{ width: "60px" }} />
+      </Sticky>
 
-        <Sticky
-          boundaryElement=".MuiBox-root"
-          hideOnBoundaryHit={false}
-          stickyStyle={{
-            marginLeft: "-30px",
-            marginTop: "60px",
+      <Portal>
+        <Drawer
+          open={true}
+          anchor="bottom"
+          variant="permanent"
+          sx={{
+            background: "red",
+            height: { xs: "auto", sm: 0 },
+            visibility: { xs: "visible", sm: "hidden" },
           }}
         >
-          <div id="surveyActionMenuPortal" style={{ width: "60px" }} />
-        </Sticky>
-      </Hidden>
-      <Hidden smUp>
-        <Portal>
-          <Drawer open={true} anchor="bottom" variant="permanent">
-            <Paper>
-              <Stack
-                direction={"row"}
-                divider={<Divider orientation="vertical" flexItem />}
+          <Paper>
+            <Stack
+              direction={"row"}
+              divider={<Divider orientation="vertical" flexItem />}
+            >
+              <RadioGroup
+                aria-labelledby="demo-form-control-label-placement"
+                name="type"
+                defaultValue={pollOrSurvey}
+                onChange={handleChange}
               >
-                <RadioGroup
-                  aria-labelledby="demo-form-control-label-placement"
-                  name="type"
-                  defaultValue={pollOrSurvey}
-                  onChange={handleChange}
+                <MenuList
+                  sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    flexDirection: "row",
+                    p: 0,
+                  }}
                 >
-                  <MenuList
-                    sx={{
-                      alignItems: "center",
-                      display: "flex",
-                      flexDirection: "row",
-                      p: 0,
-                    }}
-                  >
-                    <MenuItem sx={{ p: 0 }}>
-                      <Tooltip title="Poll" placement="right">
-                        <FormControlLabel
-                          value="poll"
-                          className="radioImage"
-                          sx={{ m: 0, P: 0 }}
-                          control={
-                            <Radio
-                              icon={<PollOutlinedIcon />}
-                              checkedIcon={<PollIcon />}
-                              sx={{ pb: 0 }}
-                            />
-                          }
-                          label="Poll"
-                          labelPlacement="bottom"
-                        />
-                      </Tooltip>
-                    </MenuItem>
-                    <MenuItem sx={{ p: 0 }}>
-                      <Tooltip title="Survey" placement="right">
-                        <FormControlLabel
-                          value="survey"
-                          className="radioImage"
-                          sx={{ m: 0 }}
-                          control={
-                            <Radio
-                              icon={<BallotOutlinedIcon />}
-                              checkedIcon={<BallotIcon />}
-                              sx={{ pb: 0 }}
-                            />
-                          }
-                          label="Survey"
-                          labelPlacement="bottom"
-                        />
-                      </Tooltip>
-                    </MenuItem>
-                  </MenuList>
-                </RadioGroup>
-                <div id="surveyActionMenuPortal"></div>
-              </Stack>
-            </Paper>
-          </Drawer>
-        </Portal>
-      </Hidden>
+                  <MenuItem sx={{ p: 0 }}>
+                    <Tooltip title="Poll" placement="right">
+                      <FormControlLabel
+                        value="poll"
+                        className="radioImage"
+                        sx={{ m: 0, P: 0 }}
+                        control={
+                          <Radio
+                            icon={<PollOutlinedIcon />}
+                            checkedIcon={<PollIcon />}
+                            sx={{ pb: 0 }}
+                          />
+                        }
+                        label="Poll"
+                        labelPlacement="bottom"
+                      />
+                    </Tooltip>
+                  </MenuItem>
+                  <MenuItem sx={{ p: 0, px: { xs: 1, lg: 0 } }}>
+                    <Tooltip title="Survey" placement="right">
+                      <FormControlLabel
+                        value="survey"
+                        className="radioImage"
+                        sx={{ m: 0 }}
+                        control={
+                          <Radio
+                            icon={<BallotOutlinedIcon />}
+                            checkedIcon={<BallotIcon />}
+                            sx={{ pb: 0 }}
+                          />
+                        }
+                        label="Survey"
+                        labelPlacement="bottom"
+                      />
+                    </Tooltip>
+                  </MenuItem>
+                </MenuList>
+              </RadioGroup>
+              <div id="surveyActionMenuPortalMobile"></div>
+            </Stack>
+          </Paper>
+        </Drawer>
+      </Portal>
     </>
   );
 }
