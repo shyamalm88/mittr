@@ -451,18 +451,21 @@ function SurveyQuestionnaire({
                     sx={{
                       borderRadius: 0,
                       pb: 0,
-                      pt: "8px",
+                      pt: "11px",
                       justifyContent: "center",
                     }}
                   >
                     <Stack direction="column" alignItems="center">
-                      <AddCircleOutlineIcon fontSize="small" />
+                      <AddCircleOutlineIcon fontSize="small" sx={{ mb: 0.3 }} />
                       <Typography
                         variant="caption"
                         component="small"
-                        sx={{ fontSize: "10px", textTransform: "capitalize" }}
+                        sx={{
+                          fontSize: "11px !important",
+                          textTransform: "capitalize",
+                        }}
                       >
-                        Add Section
+                        Add Question
                       </Typography>
                     </Stack>
                   </Button>
@@ -472,18 +475,24 @@ function SurveyQuestionnaire({
                     sx={{
                       borderRadius: 0,
                       pb: 0,
-                      pt: "8px",
+                      pt: "11px",
                       justifyContent: "center",
                     }}
                   >
                     <Stack direction="column" alignItems="center">
-                      <CalendarViewDayOutlinedIcon fontSize="small" />
+                      <CalendarViewDayOutlinedIcon
+                        fontSize="small"
+                        sx={{ mb: 0.3 }}
+                      />
                       <Typography
                         variant="caption"
                         component="small"
-                        sx={{ fontSize: "10px", textTransform: "capitalize" }}
+                        sx={{
+                          fontSize: "11px !important",
+                          textTransform: "capitalize",
+                        }}
                       >
-                        Add Main
+                        Add Section
                       </Typography>
                     </Stack>
                   </Button>
