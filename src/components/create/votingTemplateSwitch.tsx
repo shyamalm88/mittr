@@ -7,10 +7,15 @@ import MultipleChoiceGrid from "./votingTemplate/multipleChoiceGrid";
 import CheckboxGrid from "./votingTemplate/checkboxGrid";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
+import ImageChoiceSurvey from "./votingTemplate/imageChoiceSurvey";
+import RangeSlider from "./votingTemplate/range";
+import StarRating from "./votingTemplate/starRating";
 
 function VotingTemplateSwitch(props: ComponentInputProps) {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+
+  console.log(questionType);
 
   switch (pollOrSurvey === "poll" ? questionType : questionType[props.index]) {
     case "multiple_choice":
@@ -21,6 +26,12 @@ function VotingTemplateSwitch(props: ComponentInputProps) {
       return <ImageChoice {...props} />;
     case "linear_scale":
       return <LinearScale {...props} />;
+    case "star_rating":
+      return <StarRating {...props} />;
+    case "image_choice":
+      return <ImageChoiceSurvey {...props} />;
+    case "range":
+      return <RangeSlider {...props} />;
     case "multiple_choice_grid":
       return <MultipleChoiceGrid {...props} />;
     case "checkbox_grid":

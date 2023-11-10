@@ -29,7 +29,8 @@ function OptionActions({
       >
         {(selectedValue === "multiple_choice" ||
           selectedValue === "check_box" ||
-          selectedValue === "image") && (
+          selectedValue === "image" ||
+          selectedValue === "image_choice") && (
           <>
             <Tooltip title="Add another choice" arrow placement="left">
               <Button

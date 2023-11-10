@@ -2,9 +2,20 @@ import React from "react";
 import Box from "@mui/material/Box";
 
 import urlSlug from "url-slug";
-
+import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
+import LaunchIcon from "@mui/icons-material/Launch";
 import PollSettings from "../../additionalQuestions/pollSettings.component";
-import { useTheme } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  useTheme,
+} from "@mui/material";
 
 import HttpService from "../../../services/@http/HttpClient";
 
@@ -30,6 +41,8 @@ const PollFormWrapper = () => {
   const http = new HttpService();
   const theme = useTheme();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+  const [shareUrlDialog, setShareUrlDialog] = React.useState(false);
+  const [shareUrl, setShareUrl] = React.useState("");
 
   const methods = useForm<CreateSurveySubmittedValueType>({
     defaultValues: {
@@ -90,6 +103,12 @@ const PollFormWrapper = () => {
     );
     try {
       const resp = await postSurvey(dataToBeSubmitted);
+      setShareUrlDialog(true);
+      setShareUrl(
+        `${location.protocol}//${location.hostname}/participate/${
+          (resp as any)?._id
+        }/${(resp as any)?.questionSlug}`
+      );
       clearErrors();
       resetHandler();
       toast.success(`You have successfully created Poll`, {
@@ -115,98 +134,158 @@ const PollFormWrapper = () => {
     reset();
   };
 
+  const handleShareUrlDialogClose = () => {
+    setShareUrlDialog(false);
+  };
+
+  const viewSurveyParticipatePage = () => {
+    window.open(shareUrl, "_blank");
+  };
+
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmitSubmitForm)}>
-        <NewSection
-          register={register}
-          titleFieldName="title"
-          descriptionFieldName="description"
-          errors={errors}
-        />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            flex: 1,
-            width: "100%",
-            position: "relative",
-            mb: 2,
-          }}
-        >
-          {fields.map((item: any, index: number) => {
-            if (item.type === "section") {
+    <>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmitSubmitForm)}>
+          <NewSection
+            register={register}
+            titleFieldName="title"
+            descriptionFieldName="description"
+            errors={errors}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              flex: 1,
+              width: "100%",
+              position: "relative",
+              mb: 2,
+            }}
+          >
+            {fields.map((item: any, index: number) => {
+              if (item.type === "section") {
+                return (
+                  <NewSection
+                    key={item.id}
+                    register={register}
+                    titleFieldName={`survey.${index}.title`}
+                    descriptionFieldName={`survey.${index}.description`}
+                    index={index}
+                    errors={errors}
+                    fields={fields}
+                    remove={remove}
+                    swap={swap}
+                    getValues={getValues}
+                  />
+                );
+              }
               return (
-                <NewSection
+                <SurveyQuestionnaire
                   key={item.id}
-                  register={register}
-                  titleFieldName={`survey.${index}.title`}
-                  descriptionFieldName={`survey.${index}.description`}
+                  fieldName={`survey.${index}`}
+                  append={append}
+                  update={update}
                   index={index}
-                  errors={errors}
-                  fields={fields}
                   remove={remove}
+                  fields={fields}
                   swap={swap}
-                  getValues={getValues}
                 />
               );
-            }
-            return (
-              <SurveyQuestionnaire
-                key={item.id}
-                fieldName={`survey.${index}`}
-                append={append}
-                update={update}
-                index={index}
-                remove={remove}
-                fields={fields}
-                swap={swap}
-              />
-            );
-          })}
+            })}
 
-          <PollSettings />
-        </Box>
-        <Button
-          variant="contained"
+            <PollSettings />
+          </Box>
+          <Button
+            variant="contained"
+            sx={{
+              float: { xs: "none", sm: "right" },
+              width: { xs: "100%", sm: "auto" },
+              mb: { xs: 1, sm: 0 },
+            }}
+            type="submit"
+            startIcon={<SendIcon />}
+          >
+            Create
+          </Button>
+          <Button
+            variant="outlined"
+            color="inherit"
+            sx={{
+              float: { xs: "none", sm: "right" },
+              width: { xs: "100%", sm: "auto" },
+              mb: { xs: 1, sm: 0 },
+              marginRight: "10px",
+              opacity: 0.6,
+            }}
+            startIcon={<RestartAltOutlinedIcon />}
+            onClick={resetHandler}
+          >
+            Reset
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              float: { xs: "none", sm: "right" },
+              width: { xs: "100%", sm: "auto" },
+              mb: { xs: 4, sm: 0 },
+              marginRight: "10px",
+            }}
+          >
+            Cancel
+          </Button>
+        </form>
+      </FormProvider>
+      <Dialog
+        open={shareUrlDialog}
+        onClose={handleShareUrlDialogClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        fullWidth
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Share Survey URL within you network"}
+        </DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={handleShareUrlDialogClose}
           sx={{
-            float: { xs: "none", sm: "right" },
-            width: { xs: "100%", sm: "auto" },
-            mb: { xs: 1, sm: 0 },
-          }}
-          type="submit"
-          startIcon={<SendIcon />}
-        >
-          Create
-        </Button>
-        <Button
-          variant="outlined"
-          color="inherit"
-          sx={{
-            float: { xs: "none", sm: "right" },
-            width: { xs: "100%", sm: "auto" },
-            mb: { xs: 1, sm: 0 },
-            marginRight: "10px",
-            opacity: 0.6,
-          }}
-          startIcon={<RestartAltOutlinedIcon />}
-          onClick={resetHandler}
-        >
-          Reset
-        </Button>
-        <Button
-          variant="outlined"
-          sx={{
-            float: { xs: "none", sm: "right" },
-            width: { xs: "100%", sm: "auto" },
-            mb: { xs: 4, sm: 0 },
-            marginRight: "10px",
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
           }}
         >
-          Cancel
-        </Button>
-      </form>
-    </FormProvider>
+          <CloseIcon />
+        </IconButton>
+        <DialogContent dividers>
+          <OutlinedInput
+            value={shareUrl}
+            fullWidth
+            endAdornment={
+              <InputAdornment position="end">
+                <Button
+                  autoFocus
+                  variant="outlined"
+                  startIcon={<FileCopyOutlinedIcon />}
+                >
+                  Copy Link
+                </Button>
+              </InputAdornment>
+            }
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={viewSurveyParticipatePage}
+            autoFocus
+            variant="contained"
+            startIcon={<LaunchIcon />}
+          >
+            Open in a New Tab
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 

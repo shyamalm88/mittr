@@ -18,6 +18,8 @@ import { IconButton, Menu, useTheme } from "@mui/material";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 import { useConfirm } from "material-ui-confirm";
 import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
+import HdrStrongOutlinedIcon from "@mui/icons-material/HdrStrongOutlined";
+import StarHalfOutlinedIcon from "@mui/icons-material/StarHalfOutlined";
 
 const pollOrSurveyOptionsType = [
   {
@@ -40,6 +42,27 @@ const pollOrSurveyOptionsType = [
     value: "image",
     displayFor: "poll",
     icon: <ImageOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Image Choice",
+    value: "image_choice",
+    displayFor: "survey",
+    icon: <ImageOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Star Rating",
+    value: "star_rating",
+    displayFor: "survey",
+    icon: <StarHalfOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Range",
+    value: "range",
+    displayFor: "survey",
+    icon: <HdrStrongOutlinedIcon />,
   },
   {
     id: uuidv4(),
@@ -95,6 +118,7 @@ function VotingType({
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
 
   const [votingTypeOptions, setVotingTypeOptions] = React.useState<any>([]);
+  console.log(questionType);
 
   const handleChangeVotingOptions = async (e: any) => {
     if (!oldSelectedValue.current[index]?.value) {

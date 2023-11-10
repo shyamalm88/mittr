@@ -53,7 +53,16 @@ surveyRouter.get("/", async (req, res) => {
   try {
     const surveys = await Survey.find()
       .lean()
-      .populate("survey")
+      .populate({
+        path: "survey",
+        populate: {
+          path: "options",
+          populate: {
+            path: "imageId",
+            model: "Images",
+          },
+        },
+      })
       .populate("settings");
     res.send(surveys);
   } catch (err) {
@@ -85,7 +94,16 @@ surveyRouter.get("/:index", async (req, res) => {
   try {
     const survey = await Survey.findById(req.params.index)
       .orFail()
-      .populate("survey")
+      .populate({
+        path: "survey",
+        populate: {
+          path: "options",
+          populate: {
+            path: "imageId",
+            model: "Images",
+          },
+        },
+      })
       .populate("settings");
     res.send(survey);
   } catch (err) {

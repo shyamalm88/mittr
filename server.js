@@ -9,6 +9,7 @@ const numCPUs = require("os").cpus().length;
 const mongoose = require("mongoose");
 const routes = require("./server/routes/Routers");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;
@@ -44,6 +45,7 @@ mongoose
 
       nextApp.prepare().then(() => {
         const server = express();
+        server.use(cors());
         server.use(urlencodedParser);
         // server.use(morgan("combined"));
         server.use(jsonParser);
