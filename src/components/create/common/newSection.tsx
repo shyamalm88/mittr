@@ -75,6 +75,7 @@ function NewSection({
         position: "relative",
         mb: 2,
       }}
+      className="newSection"
     >
       <Card
         variant="outlined"
