@@ -73,7 +73,8 @@ function NewSection({
         flex: 1,
         width: "100%",
         position: "relative",
-        mb: 2,
+        mb: 4,
+        mt: index ? 4 : 0,
       }}
       className="newSection"
     >

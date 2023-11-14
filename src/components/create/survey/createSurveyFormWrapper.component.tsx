@@ -105,9 +105,9 @@ const PollFormWrapper = () => {
       const resp = await postSurvey(dataToBeSubmitted);
       setShareUrlDialog(true);
       setShareUrl(
-        `${location.protocol}//${location.hostname}/participate/${
-          (resp as any)?._id
-        }/${(resp as any)?.questionSlug}`
+        `${location.protocol}:${location.port}//${
+          location.hostname
+        }/participate/${(resp as any)?._id}/${(resp as any)?.questionSlug}`
       );
       clearErrors();
       resetHandler();
