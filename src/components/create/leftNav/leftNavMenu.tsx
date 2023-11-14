@@ -20,18 +20,13 @@ import { usePathname } from "next/navigation";
 const pages = [
   {
     id: uuidv4(),
-    icon: <BackupTableOutlinedIcon fontSize="small" />,
-    label: "Feed",
+    icon: <WidgetsOutlinedIcon fontSize="small" />,
+    label: "Dashboard",
   },
   {
     id: uuidv4(),
     icon: <DashboardCustomizeOutlinedIcon fontSize="small" />,
     label: "Create",
-  },
-  {
-    id: uuidv4(),
-    icon: <WidgetsOutlinedIcon fontSize="small" />,
-    label: "Dashboard",
   },
   {
     id: uuidv4(),

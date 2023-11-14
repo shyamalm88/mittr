@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import { Typography, Divider } from "@mui/material";
 
 import RecentPollList from "./recentPollList";
+import { ComponentInputProps } from "../../../types";
 
 const MyRecentCreatedPollTemplate = () => {
   return (
@@ -13,11 +14,7 @@ const MyRecentCreatedPollTemplate = () => {
         mb: 2,
         display: { xs: "none", sm: "none", lg: "block" },
       }}
-      className="sideNav"
     >
-      <Typography variant="body2" component="h2" sx={{ fontWeight: 500 }}>
-        Recently Created
-      </Typography>
       <Divider sx={{ my: 1 }} />
       <RecentPollList />
     </Box>

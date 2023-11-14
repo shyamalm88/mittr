@@ -27,26 +27,14 @@ const CreatePoll = () => {
         justifyContent="center"
         direction="row-reverse"
       >
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Box
             sx={{
               mb: 2,
               display: { xs: "none", sm: "none", lg: "block" },
             }}
           >
-            <CreatePollLayout>
-              <MyRecentCreatedPollTemplate />
-            </CreatePollLayout>
-          </Box>
-          <Box
-            sx={{
-              mb: 2,
-              display: { xs: "none", sm: "none", lg: "block" },
-            }}
-          >
-            <CreatePollLayout>
-              <AdSpaceTemplate />
-            </CreatePollLayout>
+            <CreatePollLayout>{}</CreatePollLayout>
           </Box>
         </Grid>
         <Grid item xs={12} sm={12} lg={8}>

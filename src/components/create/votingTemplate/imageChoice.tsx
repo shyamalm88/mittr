@@ -22,6 +22,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useFieldArray } from "react-hook-form";
 import OptionActions from "../common/optionActions";
 import { PATTERN, REQUIRED } from "../../../constants/error";
+import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
+import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 
 function ImageChoice({
   control,
@@ -36,6 +38,9 @@ function ImageChoice({
   index,
 }: ComponentInputProps) {
   const theme = useTheme();
+  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
+  const { questionType, setQuestionType } = useQuestionTypeContext();
+
   const http = new HttpService();
 
   const [imageValue, setImageValue] = React.useState<any[]>([]);
@@ -399,7 +404,9 @@ function ImageChoice({
         addOtherOption={addOtherOption}
         getValues={getValues}
         fieldName={fieldName}
-        selectedValue={selectedValue}
+        selectedValue={
+          pollOrSurvey === "poll" ? questionType : questionType[index]
+        }
         index={index}
       />
     </React.Fragment>
