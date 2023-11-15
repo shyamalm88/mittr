@@ -67,13 +67,15 @@ function StarRating({
 
   React.useEffect(() => {
     const fieldNameOp = `${fieldName}.options`;
-    setValue(
-      `${fieldNameOp.split(".")[0]}.${fieldNameOp.split(".")[1]}.${
-        fieldNameOp.split(".")[2]
-      }.0.color`,
-      colorState
-    );
-  }, [colorState, setValue, fieldName]);
+    if (getValues("survey")?.[index]?.options?.[0]?.color) {
+      setValue(
+        `${fieldNameOp.split(".")[0]}.${fieldNameOp.split(".")[1]}.${
+          fieldNameOp.split(".")[2]
+        }.0.color`,
+        colorState
+      );
+    }
+  }, [colorState]);
 
   React.useEffect(() => {
     if (getValues("survey")?.[index]?.options?.length === 0) {
