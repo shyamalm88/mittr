@@ -111,7 +111,7 @@ function StarRating({
                         ?.message
                     }
                     {...register(`${fieldNameOptions}.starCount` as const, {
-                      required: REQUIRED.LINEAR_SCALE,
+                      required: REQUIRED.STAR_COUNT,
                     })}
                   >
                     <MenuItem value={""}>Please Select</MenuItem>
@@ -140,7 +140,7 @@ function StarRating({
                   onClick={() => setDisplayColorPicker(!displayColorPicker)}
                   value={colorState}
                   {...register(`${fieldNameOptions}.color` as const, {
-                    required: REQUIRED.LINEAR_SCALE,
+                    required: REQUIRED.STAR_COLOR,
                   })}
                 />
                 <FormValidationError
@@ -190,7 +190,7 @@ function StarRating({
                             ?.message
                         }
                         {...register(`${fieldNameOptions}.icon` as const, {
-                          required: REQUIRED.LINEAR_SCALE,
+                          required: REQUIRED.STAR_ICON,
                         })}
                       >
                         <MenuItem value={""}>Please Select</MenuItem>
@@ -233,7 +233,7 @@ function StarRating({
                             ?.precision?.message
                         }
                         {...register(`${fieldNameOptions}.precision` as const, {
-                          required: REQUIRED.LINEAR_SCALE,
+                          required: REQUIRED.STAR_PRECISION,
                         })}
                       >
                         <MenuItem value={""}>Please Select</MenuItem>

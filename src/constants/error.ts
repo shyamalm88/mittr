@@ -13,5 +13,9 @@ export const REQUIRED = {
   POLL_OPTION: "Please provide  Poll Option",
   POLL_IMAGE: "Please provide  Poll Image",
   LINEAR_SCALE: "Please provide  Survey Linear Scale from Value",
+  STAR_COUNT: "Please provide  Survey Star Rating Count Value",
+  STAR_COLOR: "Please provide  Survey Star Rating Color Value",
+  STAR_ICON: "Please provide  Survey Star Rating Icon Value",
+  STAR_PRECISION: "Please provide  Survey Star Rating Precision Value",
 };
 export const PATTERN = /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:\'\"|\\]*$/;
