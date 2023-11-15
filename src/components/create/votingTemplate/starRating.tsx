@@ -29,6 +29,7 @@ function StarRating({
   deleteOption,
   getValues,
   fieldName,
+  setValue,
   index,
 }: ComponentInputProps) {
   const [colorState, setColorState] = React.useState(colors[0]);
@@ -63,6 +64,16 @@ function StarRating({
     setColorState(color.hex);
     setDisplayColorPicker(false);
   };
+
+  React.useEffect(() => {
+    const fieldNameOp = `${fieldName}.options`;
+    setValue(
+      `${fieldNameOp.split(".")[0]}.${fieldNameOp.split(".")[1]}.${
+        fieldNameOp.split(".")[2]
+      }.0.color`,
+      colorState
+    );
+  }, [colorState, setValue, fieldName]);
 
   React.useEffect(() => {
     if (getValues("survey")?.[index]?.options?.length === 0) {

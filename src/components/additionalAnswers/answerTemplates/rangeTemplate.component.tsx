@@ -32,19 +32,10 @@ const PrettoSlider = styled(Slider)(({ theme }) => ({
     fontSize: 12,
     background: theme.palette.primary.dark,
     color: "#fff",
-    padding: 0,
-    width: 32,
-    height: 32,
-    borderRadius: "50% 50% 50% 0",
-    transformOrigin: "bottom left",
-    transform: "translate(50%, -100%) rotate(-45deg) scale(0)",
+    padding: "5px",
     "&:before": { display: "none" },
-    "&.MuiSlider-valueLabelOpen": {
-      transform: "translate(50%, -100%) rotate(-45deg) scale(1)",
-    },
-    "& > *": {
-      transform: "rotate(45deg)",
-    },
+    "&.MuiSlider-valueLabelOpen": {},
+    "& > *": {},
   },
 }));
 

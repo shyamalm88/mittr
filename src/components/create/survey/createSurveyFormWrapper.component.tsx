@@ -105,8 +105,8 @@ const PollFormWrapper = () => {
       const resp = await postSurvey(dataToBeSubmitted);
       setShareUrlDialog(true);
       setShareUrl(
-        `${location.protocol}:${location.port}//${
-          location.hostname
+        `${location.protocol}//${location.hostname}:${
+          location.port
         }/participate/${(resp as any)?._id}/${(resp as any)?.questionSlug}`
       );
       clearErrors();
@@ -267,6 +267,7 @@ const PollFormWrapper = () => {
                   autoFocus
                   variant="outlined"
                   startIcon={<FileCopyOutlinedIcon />}
+                  onClick={() => navigator.clipboard.writeText(shareUrl)}
                 >
                   Copy Link
                 </Button>
