@@ -401,7 +401,6 @@ function ImageChoice({
       })}
       <OptionActions
         addOption={addOption}
-        addOtherOption={addOtherOption}
         getValues={getValues}
         fieldName={fieldName}
         selectedValue={

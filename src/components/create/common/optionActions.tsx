@@ -32,54 +32,62 @@ function OptionActions({
           selectedValue === "image" ||
           selectedValue === "image_choice") && (
           <>
-            <Tooltip title="Add another choice" arrow placement="left">
-              <Button
-                size="small"
-                sx={{ textTransform: "none" }}
-                startIcon={<AddCircleOutlineIcon />}
-                onClick={addOption}
-                variant="outlined"
-                disabled={
-                  getValues(
-                    pollOrSurvey === "poll"
-                      ? `${fieldName}`
-                      : `${fieldName}.options`
-                  )?.length >= 5
-                }
-              >
-                Add
-                <Box
-                  sx={{
-                    display: { xs: "none", lg: "flex", paddingLeft: "5px" },
-                  }}
+            {addOption && (
+              <Tooltip title="Add another choice" arrow placement="left">
+                <Button
+                  size="small"
+                  sx={{ textTransform: "none" }}
+                  startIcon={<AddCircleOutlineIcon />}
+                  onClick={addOption}
+                  variant="outlined"
+                  disabled={
+                    getValues(
+                      pollOrSurvey === "poll"
+                        ? `${fieldName}`
+                        : `${fieldName}.options`
+                    )?.length >= 5
+                  }
                 >
-                  another
-                </Box>
-              </Button>
-            </Tooltip>
-            <Typography
-              variant="body2"
-              sx={{ alignItems: "center", display: "flex" }}
-            >
-              Or
-            </Typography>
-            <Tooltip title="Add Other" arrow placement="left">
-              <Button
-                size="small"
-                sx={{ textTransform: "none" }}
-                startIcon={<AltRouteOutlinedIcon />}
-                onClick={addOtherOption}
-                disabled={
-                  getValues(
-                    pollOrSurvey === "poll"
-                      ? `${fieldName}`
-                      : `${fieldName}.options`
-                  )?.length >= 5
-                }
+                  Add
+                  <Box
+                    sx={{
+                      display: { xs: "none", lg: "flex", paddingLeft: "5px" },
+                    }}
+                  >
+                    another
+                  </Box>
+                </Button>
+              </Tooltip>
+            )}
+
+            {addOtherOption && (
+              <Typography
+                variant="body2"
+                sx={{ alignItems: "center", display: "flex" }}
               >
-                Add Other
-              </Button>
-            </Tooltip>
+                Or
+              </Typography>
+            )}
+
+            {addOtherOption && (
+              <Tooltip title="Add Other" arrow placement="left">
+                <Button
+                  size="small"
+                  sx={{ textTransform: "none" }}
+                  startIcon={<AltRouteOutlinedIcon />}
+                  onClick={addOtherOption}
+                  disabled={
+                    getValues(
+                      pollOrSurvey === "poll"
+                        ? `${fieldName}`
+                        : `${fieldName}.options`
+                    )?.length >= 5
+                  }
+                >
+                  Add Other
+                </Button>
+              </Tooltip>
+            )}
           </>
         )}
         {(selectedValue === "multiple_choice_grid" ||
