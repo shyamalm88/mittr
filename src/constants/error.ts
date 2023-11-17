@@ -1,5 +1,5 @@
 export const REQUIRED = {
-  QUESTION: "Please provide a Poll Question",
+  QUESTION: "Please provide a Question",
   DATE: "Please Provide date and time for scheduled end.",
   PATTERN:
     "Please enter a valid text. Only few special characters allowed. '>', '\\','`', '~', '{', '}', '[', ']' are not allowed",
@@ -13,6 +13,9 @@ export const REQUIRED = {
   POLL_OPTION: "Please provide  Poll Option",
   POLL_IMAGE: "Please provide  Poll Image",
   LINEAR_SCALE: "Please provide  Survey Linear Scale from Value",
+  RANGE_STEP_VALUE: "Please Provide Range Step Value",
+  RANGE_START_VALUE: "Please Provide Range Start Value",
+  RANGE_END_VALUE: "Please Provide Range End Value",
   STAR_COUNT: "Please provide  Survey Star Rating Count Value",
   STAR_COLOR: "Please provide  Survey Star Rating Color Value",
   STAR_ICON: "Please provide  Survey Star Rating Icon Value",

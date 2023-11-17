@@ -202,7 +202,7 @@ function SurveyQuestionnaire({
               pollOrSurvey === "poll" ? "question" : `${fieldName}.question`
             }` as const,
             {
-              required: REQUIRED.DATE,
+              required: REQUIRED.QUESTION,
               pattern: {
                 value: PATTERN,
                 message: REQUIRED.PATTERN,

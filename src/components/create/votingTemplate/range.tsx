@@ -104,7 +104,7 @@ function RangeSlider({
                         ?.message
                     }
                     {...register(`${fieldNameOptions}.startValue` as const, {
-                      required: REQUIRED.LINEAR_SCALE,
+                      required: REQUIRED.RANGE_START_VALUE,
                       onChange: (e: any) => {
                         handleStartNumChange(e);
                       },
@@ -141,7 +141,7 @@ function RangeSlider({
                         ?.message
                     }
                     {...register(`${fieldNameOptions}.endValue` as const, {
-                      required: REQUIRED.LINEAR_SCALE,
+                      required: REQUIRED.RANGE_END_VALUE,
                       onChange: (e: any) => {
                         handleEndNumChange(e);
                       },
@@ -184,7 +184,7 @@ function RangeSlider({
                         ?.message
                     }
                     {...register(`${fieldNameOptions}.stepValue` as const, {
-                      required: REQUIRED.LINEAR_SCALE,
+                      required: REQUIRED.RANGE_STEP_VALUE,
                       onChange: (e: any) => {
                         handleStepNumChange(e);
                       },

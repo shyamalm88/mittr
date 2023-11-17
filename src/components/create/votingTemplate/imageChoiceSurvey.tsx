@@ -208,7 +208,14 @@ function ImageChoiceSurvey({
                     />
                     <FormValidationError
                       errorText={
-                        (errors as any)?.options?.[index]?.option?.message
+                        pollOrSurvey === "poll"
+                          ? (errors as any)?.[fieldNameOptions.split(".")[0]]?.[
+                              index
+                            ]?.option?.message
+                          : (errors as any)?.[fieldNameOptions.split(".")[0]]?.[
+                              fieldNameOptions.split(".")[1]
+                            ]?.[fieldNameOptions.split(".")[2]]?.[index]?.option
+                              ?.message
                       }
                     />
                   </fieldset>
@@ -253,7 +260,6 @@ function ImageChoiceSurvey({
                         {...register(
                           `${fieldNameOptions}.description` as const,
                           {
-                            required: REQUIRED.POLL_OPTION,
                             pattern: {
                               value: PATTERN,
                               message: REQUIRED.PATTERN,
@@ -272,8 +278,15 @@ function ImageChoiceSurvey({
                       />
                       <FormValidationError
                         errorText={
-                          (errors as any)?.options?.[index]?.description
-                            ?.message
+                          pollOrSurvey === "poll"
+                            ? (errors as any)?.[
+                                fieldNameOptions.split(".")[0]
+                              ]?.[index]?.description?.message
+                            : (errors as any)?.[
+                                fieldNameOptions.split(".")[0]
+                              ]?.[fieldNameOptions.split(".")[1]]?.[
+                                fieldNameOptions.split(".")[2]
+                              ]?.[index]?.description?.message
                         }
                       />
                     </fieldset>
@@ -341,7 +354,15 @@ function ImageChoiceSurvey({
                           </label>
                           <FormValidationError
                             errorText={
-                              (errors as any)?.options?.[index]?.image?.message
+                              pollOrSurvey === "poll"
+                                ? (errors as any)?.[
+                                    fieldNameOptions.split(".")[0]
+                                  ]?.[index]?.image?.message
+                                : (errors as any)?.[
+                                    fieldNameOptions.split(".")[0]
+                                  ]?.[fieldNameOptions.split(".")[1]]?.[
+                                    fieldNameOptions.split(".")[2]
+                                  ]?.[index]?.image?.message
                             }
                           />
                         </>

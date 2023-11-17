@@ -32,7 +32,7 @@ function StarRating({
   setValue,
   index,
 }: ComponentInputProps) {
-  const [colorState, setColorState] = React.useState(colors[0]);
+  const [colorState, setColorState] = React.useState("");
   const [displayColorPicker, setDisplayColorPicker] = React.useState(false);
   const {
     fields,
@@ -139,6 +139,7 @@ function StarRating({
                   fullWidth
                   onClick={() => setDisplayColorPicker(!displayColorPicker)}
                   value={colorState}
+                  placeholder="Choose Color"
                   {...register(`${fieldNameOptions}.color` as const, {
                     required: REQUIRED.STAR_COLOR,
                   })}
