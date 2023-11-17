@@ -46,6 +46,7 @@ mongoose
       });
     } else {
       const nextApp = next({ dir: ".", dev });
+      // const nextApp = next({ dir: "." });
       const nextHandler = nextApp.getRequestHandler();
 
       nextApp.prepare().then(() => {
@@ -96,7 +97,7 @@ mongoose
 
         // Example server-side routing
         server.get("/", (req, res) => {
-          return nextApp.render(req, res, "/create", req.query);
+          return nextApp.render(req, res, "/dashboard", req.query);
         });
 
         // Default catch-all renders Next app
@@ -118,3 +119,7 @@ mongoose
   .catch((err) => {
     console.log("error reason", err);
   });
+
+process.on("uncaughtException", function (err) {
+  console.log(err);
+});

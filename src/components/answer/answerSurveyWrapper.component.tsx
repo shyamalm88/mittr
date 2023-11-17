@@ -92,7 +92,8 @@ const AnswerSurveyWrapper = () => {
               display: "flex",
               justifyContent: "space-between",
               flexDirection: { xs: "column", lg: "row" },
-              boxShadow: "0px 0px 2px 0px #333333ab",
+              boxShadow:
+                "rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem, rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0.0625rem",
               borderRadius: "4px",
             }}
           >

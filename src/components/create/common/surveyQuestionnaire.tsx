@@ -408,22 +408,65 @@ function SurveyQuestionnaire({
             >
               <Hidden smDown>
                 <MenuList>
-                  <MenuItem onClick={handleAddNewSurvey}>
-                    <ListItemIcon>
-                      <Tooltip title="Add Survey Question" placement="top">
-                        <AddCircleOutlineIcon />
-                      </Tooltip>
-                    </ListItemIcon>
+                  <MenuItem onClick={handleAddNewSurvey} sx={{ px: 0 }}>
+                    <Stack
+                      direction="column"
+                      alignItems="center"
+                      justifyContent="center"
+                      sx={{ width: "100%" }}
+                    >
+                      <ListItemIcon sx={{ display: "contents" }}>
+                        <Tooltip title="Add Survey Question" placement="top">
+                          <AddCircleOutlineIcon />
+                        </Tooltip>
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography
+                          variant="caption"
+                          component="small"
+                          sx={{
+                            fontSize: "11px !important",
+                            textWrap: "wrap",
+                            display: "block",
+                            textAlign: "center",
+                            padding: "2px",
+                            lineHeight: "13px",
+                          }}
+                        >
+                          Add Question
+                        </Typography>
+                      </ListItemText>
+                    </Stack>
                   </MenuItem>
-                  <MenuItem onClick={handleAddNewSection}>
-                    <ListItemIcon>
-                      <Tooltip
-                        title="Add Title Description Section"
-                        placement="top"
-                      >
-                        <CalendarViewDayOutlinedIcon />
-                      </Tooltip>
-                    </ListItemIcon>
+                  <MenuItem onClick={handleAddNewSection} sx={{ px: 0 }}>
+                    <Stack
+                      direction="column"
+                      alignItems="center"
+                      justifyContent="center"
+                      sx={{ width: "100%" }}
+                    >
+                      <ListItemIcon sx={{ display: "contents" }}>
+                        <Tooltip title="Add Survey Question" placement="top">
+                          <CalendarViewDayOutlinedIcon />
+                        </Tooltip>
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography
+                          variant="caption"
+                          component="small"
+                          sx={{
+                            fontSize: "11px !important",
+                            textWrap: "wrap",
+                            display: "block",
+                            textAlign: "center",
+                            padding: "2px",
+                            lineHeight: "13px",
+                          }}
+                        >
+                          Add Section
+                        </Typography>
+                      </ListItemText>
+                    </Stack>
                   </MenuItem>
                 </MenuList>
               </Hidden>

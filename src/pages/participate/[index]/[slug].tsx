@@ -65,8 +65,8 @@ const ParticipateInSurvey = ({ surveyQuestionData }: ComponentInputProps) => {
     <>
       <PollAnswerProvider>
         <NextSeo
-          title={`Mittr | Take part in a survey featuring the question: ${surveyQuestionData.question}`}
-          description={`This Poll Answer Page is designed to assist both logged-in and anonymous individuals in responding to polls, with the current poll featuring the following question ${surveyQuestionData.question}`}
+          title={`Mittr | Take part in a survey featuring the question: ${surveyQuestionData.title}`}
+          description={`This Survey Answer Page is designed to assist both logged-in and anonymous individuals in responding to surveys, with the current survey featuring the following title ${surveyQuestionData.title}`}
         />
         <PollQuestionProvider question={surveyQuestionData}>
           <AnswerSurveyLayout>
@@ -91,7 +91,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     params: { index: post.id, slug: post.slug },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {

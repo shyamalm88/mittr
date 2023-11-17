@@ -14,7 +14,7 @@ function SignInForm() {
     email: "",
     password: "",
   });
-  const handleChange = (evt) => {
+  const handleChange = (evt: any) => {
     const value = evt.target.value;
     setState({
       ...state,
@@ -22,7 +22,7 @@ function SignInForm() {
     });
   };
 
-  const handleOnSubmit = (evt) => {
+  const handleOnSubmit = (evt: any) => {
     evt.preventDefault();
 
     const { email, password } = state;
