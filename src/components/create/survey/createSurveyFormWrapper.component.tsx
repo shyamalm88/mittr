@@ -6,6 +6,7 @@ import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import LaunchIcon from "@mui/icons-material/Launch";
 import PollSettings from "../../additionalQuestions/pollSettings.component";
 import CloseIcon from "@mui/icons-material/Close";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import {
   Dialog,
   DialogActions,
@@ -16,6 +17,12 @@ import {
   OutlinedInput,
   useTheme,
 } from "@mui/material";
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem, { timelineItemClasses } from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineDot from "@mui/lab/TimelineDot";
 
 import HttpService from "../../../services/@http/HttpClient";
 
@@ -25,6 +32,7 @@ import SendIcon from "@mui/icons-material/Send";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
 import { toast } from "react-toastify";
 import * as _ from "underscore";
+import FastfoodIcon from "@mui/icons-material/Fastfood";
 
 import {
   useForm,
@@ -36,11 +44,13 @@ import { CreateSurveySubmittedValueType } from "../../../types";
 import SurveyQuestionnaire from "../common/surveyQuestionnaire";
 import NewSection from "../common/newSection";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
+import AddingSectionsControl from "../common/addingSectionsControl";
 
 const PollFormWrapper = () => {
   const http = new HttpService();
   const theme = useTheme();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+  const [copyDone, setCopyDone] = React.useState(false);
   const [shareUrlDialog, setShareUrlDialog] = React.useState(false);
   const [shareUrl, setShareUrl] = React.useState("");
 
@@ -142,6 +152,11 @@ const PollFormWrapper = () => {
     window.open(shareUrl, "_blank");
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shareUrl);
+    setCopyDone(true);
+  };
+
   return (
     <>
       <FormProvider {...methods}>
@@ -160,39 +175,67 @@ const PollFormWrapper = () => {
               width: "100%",
               position: "relative",
               mb: 2,
+              pl: 2,
             }}
+            className="surveyQuestionSection"
           >
-            {fields.map((item: any, index: number) => {
-              if (item.type === "section") {
+            <Timeline
+              sx={{
+                p: 0,
+                m: 0,
+                [`& .${timelineItemClasses.root}:before`]: {
+                  flex: 0,
+                  padding: 0,
+                },
+              }}
+            >
+              {fields.map((item: any, index: number) => {
+                if (item.type === "section") {
+                  return (
+                    <>
+                      <AddingSectionsControl
+                        key={item.id}
+                        append={append}
+                        index={index}
+                      />
+                      <NewSection
+                        key={item.id}
+                        register={register}
+                        titleFieldName={`survey.${index}.title`}
+                        descriptionFieldName={`survey.${index}.description`}
+                        index={index}
+                        errors={errors}
+                        fields={fields}
+                        remove={remove}
+                        swap={swap}
+                        getValues={getValues}
+                      />
+                    </>
+                  );
+                }
                 return (
-                  <NewSection
-                    key={item.id}
-                    register={register}
-                    titleFieldName={`survey.${index}.title`}
-                    descriptionFieldName={`survey.${index}.description`}
-                    index={index}
-                    errors={errors}
-                    fields={fields}
-                    remove={remove}
-                    swap={swap}
-                    getValues={getValues}
-                  />
+                  <TimelineItem key={item.id}>
+                    <TimelineSeparator>
+                      <TimelineDot color="primary" variant="outlined" />
+                      <TimelineConnector />
+                    </TimelineSeparator>
+                    <TimelineContent>
+                      <AddingSectionsControl append={append} index={index} />
+                      <SurveyQuestionnaire
+                        fieldName={`survey.${index}`}
+                        key={item.id}
+                        append={append}
+                        update={update}
+                        index={index}
+                        remove={remove}
+                        fields={fields}
+                        swap={swap}
+                      />
+                    </TimelineContent>
+                  </TimelineItem>
                 );
-              }
-              return (
-                <SurveyQuestionnaire
-                  key={item.id}
-                  fieldName={`survey.${index}`}
-                  append={append}
-                  update={update}
-                  index={index}
-                  remove={remove}
-                  fields={fields}
-                  swap={swap}
-                />
-              );
-            })}
-
+              })}
+            </Timeline>
             <PollSettings />
           </Box>
           <Button
@@ -263,14 +306,28 @@ const PollFormWrapper = () => {
             fullWidth
             endAdornment={
               <InputAdornment position="end">
-                <Button
-                  autoFocus
-                  variant="outlined"
-                  startIcon={<FileCopyOutlinedIcon />}
-                  onClick={() => navigator.clipboard.writeText(shareUrl)}
-                >
-                  Copy Link
-                </Button>
+                {copyDone ? (
+                  <Button
+                    autoFocus
+                    variant="contained"
+                    startIcon={<TaskAltIcon />}
+                    onClick={handleCopy}
+                    color="primary"
+                    size="small"
+                  >
+                    Copied
+                  </Button>
+                ) : (
+                  <Button
+                    autoFocus
+                    variant="outlined"
+                    startIcon={<FileCopyOutlinedIcon />}
+                    onClick={handleCopy}
+                    size="small"
+                  >
+                    Copy Link
+                  </Button>
+                )}
               </InputAdornment>
             }
           />

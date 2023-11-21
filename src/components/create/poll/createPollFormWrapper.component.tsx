@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { toast } from "react-toastify";
 import CloseIcon from "@mui/icons-material/Close";
 import LaunchIcon from "@mui/icons-material/Launch";
@@ -44,6 +45,7 @@ const PollFormWrapper = () => {
   const [shareUrl, setShareUrl] = React.useState("");
   const http = new HttpService();
   const theme = useTheme();
+  const [copyDone, setCopyDone] = React.useState(false);
   const [question, setQuestion] = React.useState();
   const [questionImageValue, setQuestionImageValue] = React.useState<{
     imageId: string;
@@ -120,6 +122,11 @@ const PollFormWrapper = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shareUrl);
+    setCopyDone(true);
   };
 
   const onSubmitPollForm: SubmitHandler<CreatePollSubmittedValueType> = async (
@@ -333,14 +340,28 @@ const PollFormWrapper = () => {
             fullWidth
             endAdornment={
               <InputAdornment position="end">
-                <Button
-                  autoFocus
-                  variant="outlined"
-                  startIcon={<FileCopyOutlinedIcon />}
-                  onClick={() => navigator.clipboard.writeText(shareUrl)}
-                >
-                  Copy Link
-                </Button>
+                {copyDone ? (
+                  <Button
+                    autoFocus
+                    variant="contained"
+                    startIcon={<TaskAltIcon />}
+                    onClick={handleCopy}
+                    color="primary"
+                    size="small"
+                  >
+                    Copied
+                  </Button>
+                ) : (
+                  <Button
+                    autoFocus
+                    variant="outlined"
+                    startIcon={<FileCopyOutlinedIcon />}
+                    onClick={handleCopy}
+                    size="small"
+                  >
+                    Copy Link
+                  </Button>
+                )}
               </InputAdornment>
             }
           />

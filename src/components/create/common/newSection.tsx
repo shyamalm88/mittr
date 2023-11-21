@@ -76,7 +76,7 @@ function NewSection({
         mb: 4,
         mt: index ? 4 : 0,
       }}
-      className="newSection"
+      className={index ? "newSection" : ""}
     >
       <Card
         variant="outlined"

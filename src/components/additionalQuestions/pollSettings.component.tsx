@@ -41,8 +41,8 @@ function PollSettings() {
       disableGutters
       sx={{
         borderRadius: "4px",
-        mt: "2px",
         color: theme.palette.text.secondary,
+        mt: pollOrSurvey === "poll" ? "2px" : "10px",
       }}
       TransitionProps={{ unmountOnExit: true }}
     >
