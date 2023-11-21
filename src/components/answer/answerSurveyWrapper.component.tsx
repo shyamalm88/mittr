@@ -37,17 +37,27 @@ const AnswerSurveyWrapper = () => {
   };
   let tempSegmentation: any[] = [surveyInitial];
   let counter = 0;
-  contextValue.survey.forEach((element: any) => {
+  contextValue.survey.forEach((element: any, index: number) => {
     if (element.type === "section") {
-      counter++;
-      tempSegmentation = [
-        ...tempSegmentation,
-        {
-          title: element.title,
-          description: element.description,
-          segments: [],
-        },
-      ];
+      if (index === 0) {
+        tempSegmentation = [
+          {
+            title: element.title,
+            description: element.description,
+            segments: [],
+          },
+        ];
+      } else {
+        counter++;
+        tempSegmentation = [
+          ...tempSegmentation,
+          {
+            title: element.title,
+            description: element.description,
+            segments: [],
+          },
+        ];
+      }
     } else {
       tempSegmentation[counter].segments.push(element);
     }
