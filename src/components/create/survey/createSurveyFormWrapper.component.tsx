@@ -45,6 +45,7 @@ import SurveyQuestionnaire from "../common/surveyQuestionnaire";
 import NewSection from "../common/newSection";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import AddingSectionsControl from "../common/addingSectionsControl";
+import { green } from "@mui/material/colors";
 
 const PollFormWrapper = () => {
   const http = new HttpService();
@@ -217,7 +218,15 @@ const PollFormWrapper = () => {
                   <TimelineItem key={item.id}>
                     <TimelineSeparator>
                       <TimelineDot color="primary" variant="outlined" />
-                      <TimelineConnector />
+                      <TimelineConnector
+                        sx={{
+                          width: "4px",
+                          background:
+                            theme.palette.mode === "light"
+                              ? theme.palette.primary.light
+                              : theme.palette.primary.dark,
+                        }}
+                      />
                     </TimelineSeparator>
                     <TimelineContent>
                       <AddingSectionsControl append={append} index={index} />
