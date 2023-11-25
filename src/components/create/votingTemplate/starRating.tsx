@@ -98,21 +98,19 @@ function StarRating({
               <Box sx={{ width: { xs: "100%", md: "50%" }, my: 2 }}>
                 <FormControl size="small" fullWidth>
                   <InputLabel id="demo-simple-select-label">
-                    Start Count
+                    Star Count
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    label="Start Count"
+                    label="Star Count"
                     error={
                       !!(errors as any)?.[fieldNameOptions.split(".")[0]]?.[
                         fieldNameOptions.split(".")[1]
                       ]?.[fieldNameOptions.split(".")[2]]?.[index]?.starCount
                         ?.message
                     }
-                    {...register(`${fieldNameOptions}.starCount` as const, {
-                      required: REQUIRED.STAR_COUNT,
-                    })}
+                    {...register(`${fieldNameOptions}.starCount` as const, {})}
                   >
                     <MenuItem value={""}>Please Select</MenuItem>
                     <MenuItem value={5}>5</MenuItem>
@@ -140,9 +138,7 @@ function StarRating({
                   onClick={() => setDisplayColorPicker(!displayColorPicker)}
                   value={colorState}
                   placeholder="Choose Color"
-                  {...register(`${fieldNameOptions}.color` as const, {
-                    required: REQUIRED.STAR_COLOR,
-                  })}
+                  {...register(`${fieldNameOptions}.color` as const, {})}
                 />
                 <FormValidationError
                   errorText={
@@ -190,9 +186,7 @@ function StarRating({
                           ]?.[fieldNameOptions.split(".")[2]]?.[index]?.icon
                             ?.message
                         }
-                        {...register(`${fieldNameOptions}.icon` as const, {
-                          required: REQUIRED.STAR_ICON,
-                        })}
+                        {...register(`${fieldNameOptions}.icon` as const, {})}
                       >
                         <MenuItem value={""}>Please Select</MenuItem>
                         <MenuItem value={"star"}>Star</MenuItem>
@@ -233,9 +227,10 @@ function StarRating({
                           ]?.[fieldNameOptions.split(".")[2]]?.[index]
                             ?.precision?.message
                         }
-                        {...register(`${fieldNameOptions}.precision` as const, {
-                          required: REQUIRED.STAR_PRECISION,
-                        })}
+                        {...register(
+                          `${fieldNameOptions}.precision` as const,
+                          {}
+                        )}
                       >
                         <MenuItem value={""}>Please Select</MenuItem>
                         <MenuItem value={0.2}>0.2</MenuItem>

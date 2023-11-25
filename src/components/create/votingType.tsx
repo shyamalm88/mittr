@@ -20,6 +20,14 @@ import { useConfirm } from "material-ui-confirm";
 import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
 import HdrStrongOutlinedIcon from "@mui/icons-material/HdrStrongOutlined";
 import StarHalfOutlinedIcon from "@mui/icons-material/StarHalfOutlined";
+import ArrowDropDownCircleOutlinedIcon from "@mui/icons-material/ArrowDropDownCircleOutlined";
+import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
+import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
+import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
+import ShortTextOutlinedIcon from "@mui/icons-material/ShortTextOutlined";
+import NotesOutlinedIcon from "@mui/icons-material/NotesOutlined";
+import PersonPinCircleOutlinedIcon from "@mui/icons-material/PersonPinCircleOutlined";
+import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
 
 const pollOrSurveyOptionsType = [
   {
@@ -56,6 +64,62 @@ const pollOrSurveyOptionsType = [
     value: "star_rating",
     displayFor: "survey",
     icon: <StarHalfOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Dropdown",
+    value: "dropdown",
+    displayFor: "survey",
+    icon: <ArrowDropDownCircleOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Short Text",
+    value: "short_text",
+    displayFor: "survey",
+    icon: <ShortTextOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Long Text",
+    value: "long_text",
+    displayFor: "survey",
+    icon: <NotesOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Phone Number",
+    value: "phone_number",
+    displayFor: "survey",
+    icon: <PhoneOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Address",
+    value: "address",
+    displayFor: "survey",
+    icon: <PersonPinCircleOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Email",
+    value: "email",
+    displayFor: "survey",
+    icon: <AlternateEmailOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Legal",
+    value: "legal",
+    displayFor: "survey",
+    icon: <AccountBalanceOutlinedIcon />,
+  },
+  {
+    id: uuidv4(),
+    label: "Contact Info",
+    value: "contact_info",
+    displayFor: "survey",
+    icon: <ContactMailOutlinedIcon />,
   },
   {
     id: uuidv4(),

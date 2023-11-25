@@ -22,7 +22,7 @@ function StarRatingSurveySection({ selectedValue }: ComponentInputProps) {
         {selectedValue.options.map((item: any) => {
           return (
             <Rating
-              sx={{ color: item.color }}
+              sx={{ color: item.color ? item.color : "#FCCB00" }}
               key={item.id}
               name="hover-feedback"
               icon={

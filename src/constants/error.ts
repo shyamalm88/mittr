@@ -8,6 +8,8 @@ export const REQUIRED = {
   SURVEY_TITLE: "Please provide a Survey Title",
   SECTION_TITLE: "Please provide a Section Title",
   SURVEY_CHOICE: "Please provide  Survey Checkbox Options",
+  SURVEY_DROPDOWN:
+    "Please provide  Survey Dropdown Options as comma separated values",
   SURVEY_ROW: "Please provide  Survey Row Choices for Grid",
   SURVEY_COLUMNS: "Please provide  Survey Column Choices for Grid",
   POLL_OPTION: "Please provide  Poll Option",

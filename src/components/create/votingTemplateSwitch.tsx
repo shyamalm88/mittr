@@ -10,6 +10,9 @@ import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
 import ImageChoiceSurvey from "./votingTemplate/imageChoiceSurvey";
 import RangeSlider from "./votingTemplate/range";
 import StarRating from "./votingTemplate/starRating";
+import DropDown from "./votingTemplate/dropdown";
+import Legal from "./votingTemplate/legal";
+import ContactInfo from "./votingTemplate/contactInfo";
 
 function VotingTemplateSwitch(props: ComponentInputProps) {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
@@ -28,6 +31,12 @@ function VotingTemplateSwitch(props: ComponentInputProps) {
       return <LinearScale {...props} />;
     case "star_rating":
       return <StarRating {...props} />;
+    case "dropdown":
+      return <DropDown {...props} />;
+    case "legal":
+      return <Legal {...props} />;
+    case "contact_info":
+      return <ContactInfo {...props} />;
     case "image_choice":
       return <ImageChoiceSurvey {...props} />;
     case "range":

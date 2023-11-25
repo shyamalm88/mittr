@@ -7,11 +7,13 @@ import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
 import {
   Button,
+  FormControlLabel,
   Hidden,
   IconButton,
   ListItemText,
   Menu,
   Stack,
+  Switch,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -334,9 +336,18 @@ function SurveyQuestionnaire({
                 sx={{ color: theme.palette.text.secondary }}
               />
             </IconButton>
+            <FormControlLabel
+              value="end"
+              control={<Switch color="success" size="small" />}
+              label="Required"
+              labelPlacement="end"
+              disableTypography
+              sx={{ pl: 2, fontSize: ".75em" }}
+            />
             <IconButton size="small" onClick={handleClick}>
               <MoreVertIcon sx={{ color: theme.palette.text.secondary }} />
             </IconButton>
+
             <Menu
               anchorEl={anchorEl}
               open={open}
