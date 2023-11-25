@@ -1,17 +1,10 @@
 import * as React from "react";
-import {
-  Box,
-  Card,
-  CardContent,
-  Divider,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
 import { usePollAnswerContext } from "../../hooks/usePollAnswerContext";
-import AnswerSwitchOnVotingType from "./answerSwitchOnVotingType";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 import SurveySwitchQuestionOptions from "./surveySwitchQuestionOptions";
 import { ComponentInputProps } from "../../types";
+import he from "he";
 import { useTheme } from "@mui/material/styles";
 
 const AnswerSurveySectionsWrapper = ({ item, index }: ComponentInputProps) => {
@@ -60,9 +53,13 @@ const AnswerSurveySectionsWrapper = ({ item, index }: ComponentInputProps) => {
                   <Typography component="div" variant="h5">
                     {selectedValue?.title}
                   </Typography>
-                  <Typography component="div" variant="body2">
-                    {selectedValue?.description}
-                  </Typography>
+                  <Typography
+                    component="div"
+                    variant="body2"
+                    dangerouslySetInnerHTML={{
+                      __html: he.decode(selectedValue?.description),
+                    }}
+                  ></Typography>
                 </Stack>
               </CardContent>
             </Box>

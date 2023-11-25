@@ -2,6 +2,7 @@ import {
   Box,
   Card,
   Divider,
+  Hidden,
   IconButton,
   Menu,
   MenuItem,
@@ -20,6 +21,42 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
+import dynamic from "next/dynamic";
+const QuillNoSSRWrapper = dynamic(import("react-quill"), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
+
+const modules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }],
+    ["bold", "italic", "underline", "strike"],
+    ["code-block"],
+    [{ script: "sub" }, { script: "super" }],
+    [{ color: [] }, { background: [] }],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link"],
+    ["clean"],
+  ],
+  clipboard: {
+    matchVisual: false,
+  },
+};
+
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "list",
+  "bullet",
+  "link",
+  "color",
+  "code-block",
+  "background",
+  "script",
+];
 
 function NewSection({
   register,
@@ -31,6 +68,7 @@ function NewSection({
   remove,
   swap,
   getValues,
+  setValue,
 }: ComponentInputProps) {
   const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
@@ -63,6 +101,22 @@ function NewSection({
       console.log(getValues());
       console.log(questionType);
     }, 0);
+  };
+
+  function htmlEncode(str: string) {
+    return str.replace(/[&<>"']/g, function ($0) {
+      return (
+        "&" +
+        { "&": "amp", "<": "lt", ">": "gt", '"': "quot", "'": "#39" }[$0] +
+        ";"
+      );
+    });
+  }
+
+  const handleEditorChange = (e: any) => {
+    const encodedHtml = htmlEncode(e);
+    // setQuestion(encodedHtml);
+    setValue(`${descriptionFieldName}`, encodedHtml);
   };
 
   return (
@@ -135,36 +189,49 @@ function NewSection({
           </Stack>
 
           <Stack direction={"column"} spacing={0} useFlexGap>
-            <TextField
-              multiline
-              rows={2}
+            <QuillNoSSRWrapper
               placeholder={
                 index
                   ? "Write Section Description Here"
                   : "Write Survey Description Here"
               }
-              variant="standard"
-              size="small"
-              fullWidth
-              error={
-                index
-                  ? !!(errors as any)?.[descriptionFieldName.split(".")[0]]?.[
-                      descriptionFieldName.split(".")[1]
-                    ]?.[descriptionFieldName.split(".")[2]]?.message
-                  : !!(errors as any)?.[descriptionFieldName]?.message
-              }
-              {...register(`${descriptionFieldName}` as const, {
-                pattern: {
-                  value: PATTERN,
-                  message: REQUIRED.PATTERN,
-                },
-              })}
-              InputProps={{
-                style: {
-                  color: "inherit",
-                },
-              }}
+              onChange={handleEditorChange}
+              modules={modules}
+              formats={formats}
+              theme="snow"
             />
+            <Hidden xsUp>
+              <TextField
+                multiline
+                rows={2}
+                placeholder={
+                  index
+                    ? "Write Section Description Here"
+                    : "Write Survey Description Here"
+                }
+                variant="standard"
+                size="small"
+                fullWidth
+                error={
+                  index
+                    ? !!(errors as any)?.[descriptionFieldName.split(".")[0]]?.[
+                        descriptionFieldName.split(".")[1]
+                      ]?.[descriptionFieldName.split(".")[2]]?.message
+                    : !!(errors as any)?.[descriptionFieldName]?.message
+                }
+                {...register(`${descriptionFieldName}` as const, {
+                  pattern: {
+                    value: PATTERN,
+                    message: REQUIRED.PATTERN,
+                  },
+                })}
+                InputProps={{
+                  style: {
+                    color: "inherit",
+                  },
+                }}
+              />
+            </Hidden>
             <FormValidationError
               errorText={
                 index

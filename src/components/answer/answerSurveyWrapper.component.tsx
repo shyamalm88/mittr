@@ -24,6 +24,7 @@ import {
   useTheme,
 } from "@mui/material";
 import moment from "moment";
+import he from "he";
 
 const AnswerSurveyWrapper = () => {
   const theme = useTheme();
@@ -122,9 +123,14 @@ const AnswerSurveyWrapper = () => {
                   useFlexGap
                 >
                   <Typography variant="h5">{contextValue?.title}</Typography>
-                  <Typography component="div" variant="body2">
-                    {contextValue?.description}
-                  </Typography>
+                  <Typography
+                    component="div"
+                    variant="body2"
+                    dangerouslySetInnerHTML={{
+                      __html: he.decode(contextValue?.description),
+                    }}
+                  ></Typography>
+
                   <Box
                     sx={{
                       width: "100%",

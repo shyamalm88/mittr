@@ -19,6 +19,8 @@ import { Card, CardContent, CardMedia } from "@mui/material";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import AnswerSurveySectionsWrapper from "./answerSurveySectionsWrapper.component";
 import { ComponentInputProps } from "../../types";
+import he from "he";
+
 TimeAgo.addDefaultLocale(en);
 
 const AnswerSurveyFormWrapper = ({
@@ -78,9 +80,14 @@ const AnswerSurveyFormWrapper = ({
                   <Typography component="div" variant="h5">
                     {segmentationStep?.title}
                   </Typography>
-                  <Typography component="div" variant="body2">
-                    {segmentationStep?.description}
-                  </Typography>
+                  <Typography
+                    component="div"
+                    variant="body2"
+                    dangerouslySetInnerHTML={{
+                      __html: he.decode(segmentationStep?.description),
+                    }}
+                  ></Typography>
+
                   {activeIndex === 0 && (
                     <Box
                       sx={{

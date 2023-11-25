@@ -32,7 +32,6 @@ import SendIcon from "@mui/icons-material/Send";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
 import { toast } from "react-toastify";
 import * as _ from "underscore";
-import FastfoodIcon from "@mui/icons-material/Fastfood";
 
 import {
   useForm,
@@ -45,7 +44,6 @@ import SurveyQuestionnaire from "../common/surveyQuestionnaire";
 import NewSection from "../common/newSection";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import AddingSectionsControl from "../common/addingSectionsControl";
-import { green } from "@mui/material/colors";
 
 const PollFormWrapper = () => {
   const http = new HttpService();
@@ -167,6 +165,7 @@ const PollFormWrapper = () => {
             titleFieldName="title"
             descriptionFieldName="description"
             errors={errors}
+            setValue={setValue}
           />
           <Box
             sx={{
@@ -210,6 +209,7 @@ const PollFormWrapper = () => {
                         remove={remove}
                         swap={swap}
                         getValues={getValues}
+                        setValue={setValue}
                       />
                     </>
                   );
