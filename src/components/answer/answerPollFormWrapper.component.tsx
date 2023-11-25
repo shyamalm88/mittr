@@ -17,6 +17,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { Card, CardContent, CardMedia } from "@mui/material";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import he from "he";
 TimeAgo.addDefaultLocale(en);
 
 const AnswerPollFormWrapper = () => {
@@ -72,9 +73,13 @@ const AnswerPollFormWrapper = () => {
                   spacing={2}
                   useFlexGap
                 >
-                  <Typography component="div" variant="h5">
-                    {contextValue}
-                  </Typography>
+                  <Typography
+                    component="div"
+                    variant="h5"
+                    dangerouslySetInnerHTML={{
+                      __html: he.decode(contextValue),
+                    }}
+                  ></Typography>
                   <Box
                     sx={{
                       width: "100%",

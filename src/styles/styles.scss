@@ -1,3 +1,5 @@
+@import "quill.snow";
+@import "quill.smoke";
 @import "react-date-range/dist/styles.css"; // main css file
 @import "react-date-range/dist/theme/default.css"; // theme css file
 @import "@fontsource/montserrat/400-italic.css";
@@ -226,4 +228,19 @@ body {
         color: #3c97bf;
         text-decoration: none;
     }
+}
+
+.ql-container {
+    min-height: 100px;
+    border: 0px solid transparent !important;
+}
+.ql-toolbar {
+    border: 0px solid transparent !important;
+    border-bottom: 1px solid #ccc !important;
+}
+
+.ql-syntax {
+    background-color: #23241f;
+    color: #f8f8f2;
+    overflow: auto;
 }

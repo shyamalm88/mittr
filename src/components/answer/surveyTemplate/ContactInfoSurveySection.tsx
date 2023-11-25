@@ -12,14 +12,19 @@ import {
 import { ComponentInputProps } from "../../../types";
 import ReactCountryFlag from "react-country-flag";
 import { countryWisePhoneNumbers } from "../../../data/countryWisePhoneNumber";
+import he from "he";
 
 function ContactInfoSurveySection({ selectedValue }: ComponentInputProps) {
   const theme = useTheme();
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
       {selectedValue.options.map((item: any, index: number) => {
         return (
           <Box sx={{ p: 3, pb: 1 }} key={index}>

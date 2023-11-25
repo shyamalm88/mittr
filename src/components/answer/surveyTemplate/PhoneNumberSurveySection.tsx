@@ -1,6 +1,7 @@
 import {
   Box,
   FormControl,
+  InputLabel,
   MenuItem,
   OutlinedInput,
   Select,
@@ -11,19 +12,24 @@ import {
 import { ComponentInputProps } from "../../../types";
 import ReactCountryFlag from "react-country-flag";
 import { countryWisePhoneNumbers } from "../../../data/countryWisePhoneNumber";
+import he from "he";
 
 function PhoneNumberSurveySection({ selectedValue }: ComponentInputProps) {
   const theme = useTheme();
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
       <Box sx={{ p: 3 }}>
+        <InputLabel>Phone Number</InputLabel>
         <Stack direction="row" useFlexGap spacing={1}>
           <FormControl size="small" sx={{ width: "100px" }}>
             <Select
-              labelId="demo-simple-select-label"
               defaultValue={"+91"}
               renderValue={(selected) => (
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>

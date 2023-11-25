@@ -6,15 +6,12 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
 import {
-  Button,
   FormControlLabel,
   Hidden,
   IconButton,
-  ListItemText,
   Menu,
   Stack,
   Switch,
-  Typography,
   useTheme,
 } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
@@ -24,26 +21,51 @@ import HttpService from "../../../services/@http/HttpClient";
 import WallpaperIcon from "@mui/icons-material/Wallpaper";
 import { ComponentInputProps } from "../../../types";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
-import Paper from "@mui/material/Paper";
-import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ContentCopy from "@mui/icons-material/ContentCopy";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import TextFieldsOutlinedIcon from "@mui/icons-material/TextFieldsOutlined";
-import Portal from "@mui/material/Portal";
-import Tooltip from "@mui/material/Tooltip";
-import { v4 as uuidv4 } from "uuid";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
-import CalendarViewDayOutlinedIcon from "@mui/icons-material/CalendarViewDayOutlined";
-import { REQUIRED, PATTERN } from "../../../constants/error";
-import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
+import { REQUIRED } from "../../../constants/error";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import dynamic from "next/dynamic";
+const QuillNoSSRWrapper = dynamic(import("react-quill"), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
+
+const modules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }],
+    ["bold", "italic", "underline", "strike"],
+    ["code-block"],
+    [{ script: "sub" }, { script: "super" }],
+    [{ color: [] }, { background: [] }],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link"],
+    ["clean"],
+  ],
+  clipboard: {
+    matchVisual: false,
+  },
+};
+
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "list",
+  "bullet",
+  "link",
+  "color",
+  "code-block",
+  "background",
+  "script",
+];
 
 function SurveyQuestionnaire({
   fieldName,
@@ -58,6 +80,7 @@ function SurveyQuestionnaire({
 
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+
   const theme = useTheme();
 
   const handleClose = () => {
@@ -72,7 +95,7 @@ function SurveyQuestionnaire({
   let fieldNameQuestion: any =
     pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}`.split(".");
 
-  const [question, setQuestion] = React.useState();
+  const [question, setQuestion] = React.useState("");
   const [questionImageValue, setQuestionImageValue] = React.useState<{
     imageId: string;
     dimensions: {
@@ -98,6 +121,25 @@ function SurveyQuestionnaire({
 
   const handleChange = (e: any) => {
     onSubmit(e.target.files[0]);
+  };
+
+  function htmlEncode(str: string) {
+    return str.replace(/[&<>"']/g, function ($0) {
+      return (
+        "&" +
+        { "&": "amp", "<": "lt", ">": "gt", '"': "quot", "'": "#39" }[$0] +
+        ";"
+      );
+    });
+  }
+
+  const handleEditorChange = (e: any) => {
+    const encodedHtml = htmlEncode(e);
+    setQuestion(encodedHtml);
+    setValue(
+      `${pollOrSurvey === "poll" ? "question" : `${fieldName}.question`}`,
+      encodedHtml
+    );
   };
 
   const handleRemove = (e: any) => {};
@@ -144,9 +186,10 @@ function SurveyQuestionnaire({
           backgroundColor: (theme: any) =>
             theme.palette.customColors.backgroundColor,
           borderRadius: "4px 4px 0px 0px",
-          px: 2,
-          py: 1,
-          pt: 2,
+          // px: 2,
+          // py: 1,
+          // pt: 2,
+          mb: 0,
           borderWidth: "1px",
           borderStyle: "solid",
           borderColor: (theme: any) => theme.palette.customColors.border,
@@ -157,53 +200,64 @@ function SurveyQuestionnaire({
           borderTopWidth: pollOrSurvey === "poll" ? "1px" : "2px",
         }}
       >
-        <TextField
-          multiline
-          rows={2}
-          sx={{ pt: 0.7 }}
+        <QuillNoSSRWrapper
           placeholder={
             pollOrSurvey === "poll"
               ? "Write Poll Question Here"
               : "Write Survey Question Here"
           }
-          variant="standard"
-          size="small"
-          fullWidth
-          autoFocus
-          error={
-            pollOrSurvey === "poll"
-              ? !!errors.question
-              : !!(errors as any)?.[fieldNameQuestion[0]]?.[
-                  fieldNameQuestion[1]
-                ]?.question
-          }
-          {...register(
-            `${
-              pollOrSurvey === "poll" ? "question" : `${fieldName}.question`
-            }` as const,
-            {
-              required: REQUIRED.QUESTION,
-              pattern: {
-                value: PATTERN,
-                message: REQUIRED.PATTERN,
-              },
-            }
-          )}
-          value={question}
-          InputProps={{
-            disableUnderline: !Boolean(
-              pollOrSurvey === "poll"
-                ? errors?.question?.message
-                : (errors as any)?.[fieldNameQuestion[0]]?.[
-                    fieldNameQuestion[1]
-                  ]?.question?.message
-            ),
-            style: {
-              color: "inherit",
-            },
-          }}
+          onChange={handleEditorChange}
+          modules={modules}
+          formats={formats}
+          theme="snow"
         />
-
+        <Hidden xsUp>
+          <TextField
+            rows={2}
+            sx={{ pt: 0.7 }}
+            placeholder={
+              pollOrSurvey === "poll"
+                ? "Write Poll Question Here"
+                : "Write Survey Question Here"
+            }
+            variant="standard"
+            size="small"
+            fullWidth
+            autoFocus
+            error={
+              pollOrSurvey === "poll"
+                ? !!errors.question
+                : !!(errors as any)?.[fieldNameQuestion[0]]?.[
+                    fieldNameQuestion[1]
+                  ]?.question
+            }
+            {...register(
+              `${
+                pollOrSurvey === "poll" ? "question" : `${fieldName}.question`
+              }` as const,
+              {
+                required: REQUIRED.QUESTION,
+                // pattern: {
+                //   // value: PATTERN,
+                //   message: REQUIRED.PATTERN,
+                // },
+              }
+            )}
+            value={question}
+            InputProps={{
+              disableUnderline: !Boolean(
+                pollOrSurvey === "poll"
+                  ? errors?.question?.message
+                  : (errors as any)?.[fieldNameQuestion[0]]?.[
+                      fieldNameQuestion[1]
+                    ]?.question?.message
+              ),
+              style: {
+                color: "inherit",
+              },
+            }}
+          />
+        </Hidden>
         {pollOrSurvey === "poll" && (
           <>
             <input

@@ -78,7 +78,7 @@ function LinearScale({
                         ?.message
                     }
                     {...register(`${fieldNameOptions}.from` as const, {
-                      required: REQUIRED.LINEAR_SCALE,
+                      required: REQUIRED.LINEAR_SCALE_FROM,
                     })}
                   >
                     <MenuItem value={""}>Please Select</MenuItem>
@@ -102,8 +102,6 @@ function LinearScale({
                 <FormControl size="small" fullWidth>
                   <InputLabel id="demo-simple-select-label">To</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
                     label="To"
                     error={
                       !!(errors as any)?.[fieldNameOptions.split(".")[0]]?.[
@@ -111,7 +109,7 @@ function LinearScale({
                       ]?.[fieldNameOptions.split(".")[2]]?.[index]?.to?.message
                     }
                     {...register(`${fieldNameOptions}.to` as const, {
-                      required: REQUIRED.LINEAR_SCALE,
+                      required: REQUIRED.LINEAR_SCALE_TO,
                     })}
                   >
                     <MenuItem value={""}>Please Select</MenuItem>

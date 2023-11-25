@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Typography,
   Box,
@@ -8,22 +7,20 @@ import {
   Radio,
 } from "@mui/material";
 import { ComponentInputProps } from "../../../types";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import he from "he";
 
 function MultipleChoiceGridSurveySection({
   selectedValue,
 }: ComponentInputProps) {
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
       <Box sx={{ width: "100%", p: 2 }}>
         {selectedValue?.options.map((item: any) => {
           return (

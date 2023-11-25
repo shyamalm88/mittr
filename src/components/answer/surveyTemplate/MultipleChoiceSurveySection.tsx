@@ -5,13 +5,20 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { ComponentInputProps } from "../../../types";
 import { Box, Typography } from "@mui/material";
+import he from "he";
 
 function MultipleChoiceSurveySection({ selectedValue }: ComponentInputProps) {
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he
+            .decode(selectedValue.question)
+            .replace(/(<p[^>]+?>|<p>|<\/p>)/gim, ""),
+        }}
+      ></Typography>
       <Box sx={{ p: 3 }}>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"

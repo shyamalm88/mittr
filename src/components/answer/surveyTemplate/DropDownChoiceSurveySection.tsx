@@ -1,20 +1,16 @@
 import {
   Box,
   FormControl,
-  InputAdornment,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   Typography,
   useTheme,
 } from "@mui/material";
 import React from "react";
 import { ComponentInputProps } from "../../../types";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined";
+import he from "he";
+
 
 function DropDownChoiceSurveySection({ selectedValue }: ComponentInputProps) {
   const theme = useTheme();
@@ -22,9 +18,13 @@ function DropDownChoiceSurveySection({ selectedValue }: ComponentInputProps) {
   const [dropDownOptions] = React.useState(options);
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
       <Box sx={{ p: 3 }}>
         <FormControl size="small" fullWidth>
           <InputLabel id="demo-simple-select-label">

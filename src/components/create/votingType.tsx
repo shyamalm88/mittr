@@ -182,7 +182,6 @@ function VotingType({
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
 
   const [votingTypeOptions, setVotingTypeOptions] = React.useState<any>([]);
-  console.log(questionType);
 
   const handleChangeVotingOptions = async (e: any) => {
     if (!oldSelectedValue.current[index]?.value) {

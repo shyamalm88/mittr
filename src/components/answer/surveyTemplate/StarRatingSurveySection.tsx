@@ -8,16 +8,20 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoodIcon from "@mui/icons-material/Mood";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import { styled } from "@mui/material/styles";
+import he from "he";
 
 function StarRatingSurveySection({ selectedValue }: ComponentInputProps) {
   const [value, setValue] = React.useState<number | null>(0);
   const [hover, setHover] = React.useState(-1);
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
       <Box sx={{ p: 3, display: "flex", alignItems: "center" }}>
         {selectedValue.options.map((item: any) => {
           return (

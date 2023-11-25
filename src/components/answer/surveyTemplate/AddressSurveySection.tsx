@@ -1,22 +1,17 @@
 import {
   Box,
-  FormControl,
   InputLabel,
-  MenuItem,
   OutlinedInput,
-  Select,
-  Stack,
   Typography,
   useTheme,
 } from "@mui/material";
 import { ComponentInputProps } from "../../../types";
-import ReactCountryFlag from "react-country-flag";
-import { countryWisePhoneNumbers } from "../../../data/countryWisePhoneNumber";
 import React from "react";
 import { Country, City, ICity } from "country-state-city";
 import Autocomplete from "@mui/material/Autocomplete";
 import Image from "next/image";
 import TextField from "@mui/material/TextField";
+import he from "he";
 
 function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
   const theme = useTheme();
@@ -38,32 +33,41 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
   };
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
 
       <Box sx={{ p: 3, pb: 1 }}>
+        <InputLabel>Address</InputLabel>
         <TextField
           size="small"
           margin="dense"
           fullWidth
           multiline
           rows={2}
+          sx={{ mt: 0 }}
           placeholder="Please provide Address"
         />
       </Box>
       <Box sx={{ p: 3, py: 1 }}>
+        <InputLabel>Address Line 2</InputLabel>
         <TextField
           size="small"
           margin="dense"
           fullWidth
           multiline
           rows={2}
+          sx={{ mt: 0 }}
           placeholder="Please provide Address Line 2"
         />
       </Box>
 
       <Box sx={{ p: 3, py: 1 }}>
+        <InputLabel>Country</InputLabel>
         <Autocomplete
           options={countries}
           value={country}
@@ -104,8 +108,8 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
         />
       </Box>
       <Box sx={{ p: 3, py: 1 }}>
+        <InputLabel>State/Region/Province</InputLabel>
         <OutlinedInput
-          label={"State/Region/Province"}
           placeholder={`Please enter your State/Region/Province`}
           fullWidth
           size="small"
@@ -117,6 +121,7 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
         />
       </Box>
       <Box sx={{ p: 3, py: 1 }}>
+        <InputLabel>City</InputLabel>
         <Autocomplete
           options={cities}
           value={city}
@@ -147,8 +152,8 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
         />
       </Box>
       <Box sx={{ p: 3, py: 1 }}>
+        <InputLabel>Zip/Post Code</InputLabel>
         <OutlinedInput
-          label={"Zip/Post Code"}
           placeholder={`Please enter your Zip/Post Code`}
           fullWidth
           size="small"

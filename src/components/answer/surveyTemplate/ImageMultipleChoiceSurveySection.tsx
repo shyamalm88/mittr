@@ -18,6 +18,7 @@ import {
 import TextTruncate from "react-text-truncate";
 import Image from "next/image";
 import NoImage from "./../../../images/svg/no-image.svg";
+import he from "he";
 
 function ImageMultipleChoiceSurveySection({
   selectedValue,
@@ -25,9 +26,13 @@ function ImageMultipleChoiceSurveySection({
   const theme = useTheme();
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
       <Box sx={{ p: 3 }}>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"

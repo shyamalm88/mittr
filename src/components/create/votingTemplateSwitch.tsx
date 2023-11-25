@@ -18,8 +18,6 @@ function VotingTemplateSwitch(props: ComponentInputProps) {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
 
-  console.log(questionType);
-
   switch (pollOrSurvey === "poll" ? questionType : questionType[props.index]) {
     case "multiple_choice":
       return <MultipleChoice {...props} />;

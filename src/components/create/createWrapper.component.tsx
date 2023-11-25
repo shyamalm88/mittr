@@ -14,14 +14,10 @@ const SurveyFormWrapper = dynamic(
 import React from "react";
 
 import PollOrSurveyOptionChoose from "./pollOrSurveyOptionChoose";
-import PollOrSurveyProvider from "../../providers/pollOrSurvey.provider";
-import { pollOrSurveyDefaultVal } from "../../store";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
-import { faker } from "@faker-js/faker";
 
 const CreatePollWrapper = () => {
   const { pollOrSurvey } = usePollOrSurveyContext();
-  // const fullName = React.useMemo(() => faker.person.fullName(), []);
   const [pollOrSurveySwitch, setPollOrSurveySwitch] =
     React.useState(pollOrSurvey);
 

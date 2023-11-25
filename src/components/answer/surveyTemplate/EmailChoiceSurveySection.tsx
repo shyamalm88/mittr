@@ -1,6 +1,7 @@
 import {
   Box,
   InputAdornment,
+  InputLabel,
   OutlinedInput,
   Typography,
   useTheme,
@@ -11,17 +12,23 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined";
+import he from "he";
 
 function EmailChoiceSurveySection({ selectedValue }: ComponentInputProps) {
   const theme = useTheme();
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
       <Box sx={{ p: 3 }}>
+        <InputLabel>Email Address</InputLabel>
         <OutlinedInput
-          placeholder="Please enter your Email. e.g. john.doe@example.com"
+          placeholder="e.g. john.doe@example.com"
           fullWidth
           size="small"
           margin="dense"

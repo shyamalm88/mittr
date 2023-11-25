@@ -5,13 +5,18 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { ComponentInputProps } from "../../../types";
 import { Box, Typography } from "@mui/material";
+import he from "he";
 
 function LegalSurveySection({ selectedValue }: ComponentInputProps) {
   return (
     <>
-      <Typography component="div" variant="body2">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="body2"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
       <Box sx={{ p: 3 }}>
         <RadioGroup name="selectedOption" className="answer">
           {selectedValue?.options?.map((item: any, index: number) => {

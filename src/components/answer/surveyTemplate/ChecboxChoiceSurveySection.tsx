@@ -3,13 +3,18 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { ComponentInputProps } from "../../../types";
 import { Box, Checkbox, Typography } from "@mui/material";
+import he from "he";
 
 function CheckBoxChoiceSurveySection({ selectedValue }: ComponentInputProps) {
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
       <Box sx={{ p: 3 }}>
         {selectedValue?.options?.map((item: any, index: number) => {
           const fieldName = `options[${index}]`;

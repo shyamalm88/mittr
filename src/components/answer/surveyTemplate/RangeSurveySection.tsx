@@ -1,13 +1,10 @@
 import React from "react";
 import { ComponentInputProps } from "../../../types";
 import { styled } from "@mui/material/styles";
-import Slider, {
-  SliderThumb,
-  SliderValueLabelProps,
-} from "@mui/material/Slider";
+import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
-import { Box, Stack } from "@mui/material";
-import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
+import { Box, InputLabel, Stack } from "@mui/material";
+import he from "he";
 
 const PrettoSlider = styled(Slider)(({ theme }) => ({
   color: "primary",
@@ -45,10 +42,15 @@ function RangeSurveySection({ selectedValue }: ComponentInputProps) {
   };
   return (
     <>
-      <Typography component="div" variant="h6">
-        {selectedValue.question}
-      </Typography>
+      <Typography
+        component="div"
+        variant="h6"
+        dangerouslySetInnerHTML={{
+          __html: he.decode(selectedValue.question),
+        }}
+      ></Typography>
       <Box sx={{ p: 3 }}>
+        <InputLabel>Range</InputLabel>
         {selectedValue?.options.map((item: any) => {
           return (
             <>
