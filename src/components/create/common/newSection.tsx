@@ -21,38 +21,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
-import dynamic from "next/dynamic";
-const QuillNoSSRWrapper = dynamic(import("react-quill"), {
-  ssr: false,
-  loading: () => <p>Loading ...</p>,
-});
-
-const modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }],
-    ["bold", "italic", "underline"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    ["link"],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
-
-const formats = [
-  "header",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "list",
-  "bullet",
-  "link",
-  "color",
-  "code-block",
-  "background",
-  "script",
-];
+import QuillWrapper from "./quillNoSSRWrapper";
+import TipTapEditor from "./TipTap";
 
 function NewSection({
   register,
@@ -69,6 +39,7 @@ function NewSection({
   const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+  const [editable, setEditable] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -109,10 +80,18 @@ function NewSection({
     });
   }
 
-  const handleEditorChange = (e: any) => {
-    const encodedHtml = htmlEncode(e);
+  const handleEditorChange = ({ editor }: any) => {
+    const encodedHtml = htmlEncode(editor.getHTML());
     // setQuestion(encodedHtml);
     setValue(`${descriptionFieldName}`, encodedHtml);
+  };
+
+  const handleEditorClick = () => {
+    setEditable(true);
+  };
+
+  const handleEditorBlur = () => {
+    setEditable(false);
   };
 
   return (
@@ -185,17 +164,19 @@ function NewSection({
           </Stack>
 
           <Stack direction={"column"} spacing={0} useFlexGap>
-            <QuillNoSSRWrapper
-              placeholder={
+            <TipTapEditor
+              placeHolder={
                 index
                   ? "Write Section Description Here"
                   : "Write Survey Description Here"
               }
-              onChange={handleEditorChange}
-              modules={modules}
-              formats={formats}
-              theme="snow"
+              handleChange={handleEditorChange}
+              handleEditorClick={handleEditorClick}
+              handleEditorBlur={handleEditorBlur}
+              editable={editable}
+              dataContext={""}
             />
+
             <Hidden xsUp>
               <TextField
                 multiline

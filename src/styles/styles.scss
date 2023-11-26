@@ -230,17 +230,49 @@ body {
     }
 }
 
+.quill {
+    display: flex;
+    flex-direction: column-reverse;
+}
 .ql-container {
     min-height: 100px;
     border: 0px solid transparent !important;
 }
 .ql-toolbar {
     border: 0px solid transparent !important;
-    border-bottom: 1px solid #ccc !important;
+    border-top: 1px solid #ccc !important;
+}
+.ql-editor {
+    min-height: 100px;
 }
 
 .ql-syntax {
     background-color: #23241f;
     color: #f8f8f2;
     overflow: auto;
+}
+.contentEditableWrap {
+    p {
+        margin: 0;
+    }
+}
+
+[contentEditable="true"]:empty:not(:focus):before {
+    content: attr(data-text);
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #adb5bd;
+    pointer-events: none;
+    height: 0;
+}
+
+.ProseMirror[contentEditable="true"] {
+    min-height: 100px;
+}
+
+.ProseMirror.ProseMirror-focused[contentEditable="true"] {
+    outline: 1px solid #ccc;
 }

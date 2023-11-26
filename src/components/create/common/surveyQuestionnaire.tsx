@@ -30,38 +30,7 @@ import { REQUIRED } from "../../../constants/error";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import dynamic from "next/dynamic";
-const QuillNoSSRWrapper = dynamic(import("react-quill"), {
-  ssr: false,
-  loading: () => <p>Loading ...</p>,
-});
-
-const modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }],
-    ["bold", "italic", "underline"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    ["link"],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
-
-const formats = [
-  "header",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "list",
-  "bullet",
-  "link",
-  "color",
-  "code-block",
-  "background",
-  "script",
-];
+import TipTapEditor from "./TipTap";
 
 function SurveyQuestionnaire({
   fieldName,
@@ -76,8 +45,17 @@ function SurveyQuestionnaire({
 
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+  const [editable, setEditable] = React.useState(false);
 
   const theme = useTheme();
+
+  const handleEditorClick = () => {
+    setEditable(true);
+  };
+
+  const handleEditorBlur = () => {
+    setEditable(false);
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -129,8 +107,8 @@ function SurveyQuestionnaire({
     });
   }
 
-  const handleEditorChange = (e: any) => {
-    const encodedHtml = htmlEncode(e);
+  const handleEditorChange = ({ editor }: any) => {
+    const encodedHtml = htmlEncode(editor.getHTML());
     setQuestion(encodedHtml);
     setValue(
       `${pollOrSurvey === "poll" ? "question" : `${fieldName}.question`}`,
@@ -196,17 +174,19 @@ function SurveyQuestionnaire({
           borderTopWidth: pollOrSurvey === "poll" ? "1px" : "2px",
         }}
       >
-        <QuillNoSSRWrapper
-          placeholder={
+        <TipTapEditor
+          placeHolder={
             pollOrSurvey === "poll"
               ? "Write Poll Question Here"
               : "Write Survey Question Here"
           }
-          onChange={handleEditorChange}
-          modules={modules}
-          formats={formats}
-          theme="snow"
+          handleChange={handleEditorChange}
+          handleEditorClick={handleEditorClick}
+          handleEditorBlur={handleEditorBlur}
+          editable={editable}
+          dataContext={question}
         />
+
         <Hidden xsUp>
           <TextField
             rows={2}
@@ -234,7 +214,7 @@ function SurveyQuestionnaire({
               {
                 required: REQUIRED.QUESTION,
                 // pattern: {
-                //   // value: PATTERN,
+                //   value: PATTERN,
                 //   message: REQUIRED.PATTERN,
                 // },
               }
