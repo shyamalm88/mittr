@@ -116,18 +116,18 @@ surveyRouter.get("/:index", async (req, res) => {
 });
 
 surveyRouter.post("", async (req, res) => {
-  const surveyRefId = await SurveySection.insertMany(req.body.survey);
-  const settingsRefId = await SurveySettings.collection.insertOne(
-    req.body.settings
-  );
+  // const surveyRefId = await SurveySection.insertMany(req.body.survey);
+  // const settingsRefId = await SurveySettings.collection.insertOne(
+  //   req.body.settings
+  // );
 
   const survey = new Survey({
     title: req.body.title,
     description: req.body.description,
-    survey: surveyRefId,
+    survey: req.body.survey,
     duration: req.body.duration,
     questionSlug: req.body.questionSlug,
-    settings: settingsRefId.insertedId,
+    settings: req.body.settings,
   });
 
   try {
@@ -138,7 +138,38 @@ surveyRouter.post("", async (req, res) => {
   }
 });
 
-surveyRouter.post("/image", upload.single("image"), async (req, res) => {
+surveyRouter.post("/:index", async (req, res) => {
+  // const surveyRefId = await SurveySection.insertMany(req.body.survey);
+  // const settingsRefId = await SurveySettings.collection.insertOne(
+  //   req.body.settings
+  // );
+  try {
+    const existingSurvey = await Survey.findById(req.params.index).orFail();
+    const survey = new Survey({
+      title: req.body.title,
+      description: req.body.description,
+      survey: req.body.survey,
+      duration: req.body.duration,
+      questionSlug: req.body.questionSlug,
+      settings: req.body.settings,
+    });
+
+    const surveyObj = survey.toObject();
+    delete surveyObj._id;
+    if (existingSurvey) {
+      const surveyRes = await Survey.findOneAndUpdate(
+        { _id: existingSurvey._id },
+        surveyObj
+      );
+      res.send(surveyRes);
+    }
+  } catch (err) {
+    res.status(500).json(error);
+  }
+});
+
+surveyRouter.post("/image/upload", upload.single("image"), async (req, res) => {
+  console.log(req.file);
   if (req.file) {
     const sharpObject = sharp(req.file.path);
     const dimensions = await sharpObject.metadata();

@@ -41,7 +41,7 @@ const pages = [
   {
     id: uuidv4(),
     icon: <BookmarkAddedOutlinedIcon fontSize="small" />,
-    label: "My Saved Items",
+    label: "My Items",
   },
   {
     id: uuidv4(),

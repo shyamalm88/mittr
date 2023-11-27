@@ -9,20 +9,12 @@ const schema = mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Images",
     },
-    options: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Options" }],
+    options: [],
     surveyType: String,
     votingType: String,
     duration: Date,
-    additionalQuestions: [
-      {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "AdditionalQuestions",
-      },
-    ],
-    settings: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "SurveySettings",
-    },
+    additionalQuestions: [],
+    settings: {},
   },
   { timestamps: true }
 );

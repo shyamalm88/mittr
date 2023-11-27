@@ -182,17 +182,24 @@ function VotingType({
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
 
   const [votingTypeOptions, setVotingTypeOptions] = React.useState<any>([]);
+  const [votingTypeValue, setVotingTypeValue] = React.useState(
+    pollOrSurvey === "poll"
+      ? getValues()?.votingType
+      : getValues("survey")?.[index]?.votingType
+  );
 
   const handleChangeVotingOptions = async (e: any) => {
     if (!oldSelectedValue.current[index]?.value) {
       if (pollOrSurvey === "poll") {
         setQuestionType(e.target.value);
         setValue(`votingType`, e.target.value);
+        setVotingTypeValue(e.target.value);
       } else {
         const temp = questionType;
         temp[index] = e.target.value;
         setQuestionType(temp);
         setValue(`${fieldName}.votingType`, e.target.value);
+        setVotingTypeValue(e.target.value);
       }
     } else {
       confirm({
@@ -206,16 +213,19 @@ function VotingType({
           if (pollOrSurvey === "poll") {
             setQuestionType(e.target.value);
             setValue(`votingType`, e.target.value);
+            setVotingTypeValue(e.target.value);
           } else {
             const temp = questionType;
             temp[index] = e.target.value;
             setQuestionType(temp);
             setValue(`${fieldName}.votingType`, e.target.value);
+            setVotingTypeValue(e.target.value);
           }
         })
         .catch((r) => {
           if (pollOrSurvey === "poll") {
             setQuestionType(oldSelectedValue.current[index].value as string);
+            setVotingTypeValue(oldSelectedValue.current[index].value as string);
             setValue(
               "votingType",
               oldSelectedValue.current[index].value as string
@@ -224,6 +234,7 @@ function VotingType({
             const temp = questionType;
             temp[index] = oldSelectedValue.current[index].value as string;
             setQuestionType(temp);
+            setVotingTypeValue(oldSelectedValue.current[index].value);
             setValue(
               `${fieldName}.votingType`,
               oldSelectedValue.current[index].value as string
@@ -275,11 +286,7 @@ function VotingType({
           displayEmpty
           inputRef={(el) => (oldSelectedValue.current[index] = el)}
           onChange={(e: any) => handleChangeVotingOptions(e)}
-          value={
-            pollOrSurvey === "poll"
-              ? getValues()?.votingType
-              : getValues("survey")?.[index]?.votingType
-          }
+          value={votingTypeValue}
           // {...register(
           //   `${
           //     pollOrSurvey === "poll" ? "votingType" : `${fieldName}.votingType`

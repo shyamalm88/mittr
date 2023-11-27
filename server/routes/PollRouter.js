@@ -1,11 +1,11 @@
 const express = require("express");
 const Poll = require("../models/Polls");
-const Options = require("../models/Options");
+// const Options = require("../models/Options");
 const Images = require("../models/Images");
-const SurveySettings = require("../models/SurveySettings");
+// const SurveySettings = require("../models/SurveySettings");
 const Answers = require("../models/Answers");
 const AdditionalQuestionsAnswers = require("../models/AdditionalQuestionsAnswers");
-const AdditionalQuestions = require("../models/AdditionalQuestions");
+// const AdditionalQuestions = require("../models/AdditionalQuestions");
 
 const multer = require("multer");
 const path = require("path");
@@ -112,12 +112,6 @@ pollRouter.get("/:index", async (req, res) => {
 });
 
 pollRouter.post("", async (req, res) => {
-  const optionRefId = await Options.insertMany(req.body.options);
-  const additionalQuestionRefId = await insertAdditionalQuestions(req);
-  const settingsRefId = await SurveySettings.collection.insertOne(
-    req.body.settings
-  );
-
   const poll = new Poll({
     question: req.body.question,
     votingType: req.body.votingType,
@@ -127,9 +121,9 @@ pollRouter.post("", async (req, res) => {
     surveyType: req.body.pollType,
     duration: req.body.duration,
     questionSlug: req.body.questionSlug,
-    options: optionRefId,
-    additionalQuestions: additionalQuestionRefId,
-    settings: settingsRefId.insertedId,
+    options: req.body.options,
+    additionalQuestions: req.body.additionalQuestions,
+    settings: req.body.settings,
   });
 
   try {
@@ -140,7 +134,38 @@ pollRouter.post("", async (req, res) => {
   }
 });
 
-pollRouter.post("/image", upload.single("image"), async (req, res) => {
+pollRouter.post("/:index", async (req, res) => {
+  try {
+    const existingPoll = await Poll.findById(req.params.index).orFail();
+
+    const poll = new Poll({
+      question: req.body.question,
+      votingType: req.body.votingType,
+      questionImageRef: req.body.questionImageRef
+        ? req.body.questionImageRef
+        : null,
+      surveyType: req.body.pollType,
+      duration: req.body.duration,
+      questionSlug: req.body.questionSlug,
+      options: req.body.options,
+      additionalQuestions: req.body.additionalQuestions,
+      settings: req.body.settings,
+    });
+
+    const pollObj = poll.toObject();
+    delete pollObj._id;
+
+    const pollRes = await Poll.findOneAndUpdate(
+      { _id: existingPoll._id },
+      pollObj
+    );
+    res.send(pollRes);
+  } catch (err) {
+    res.status(500).json(error);
+  }
+});
+
+pollRouter.post("/image/upload", upload.single("image"), async (req, res) => {
   if (req.file) {
     const sharpObject = sharp(req.file.path);
     const dimensions = await sharpObject.metadata();
@@ -178,22 +203,5 @@ pollRouter.post("/answer", async (req, res) => {
     res.status(500).json(error);
   }
 });
-
-async function insertAdditionalQuestions(req) {
-  return await AdditionalQuestions.insertMany(
-    req.body.additionalQuestions
-  ).then((res) => {
-    const temp = insertAdditionalIds(res);
-    return temp;
-  });
-}
-
-const insertAdditionalIds = (res) => {
-  const tempIds = [];
-  for (const content of res) {
-    tempIds.push(content._id);
-  }
-  return tempIds;
-};
 
 module.exports = pollRouter;

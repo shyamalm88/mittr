@@ -6,13 +6,10 @@ const schema = mongoose.Schema(
     title: String,
     description: String,
     questionSlug: String,
-    survey: [{ type: mongoose.SchemaTypes.ObjectId, ref: "SurveySection" }],
+    survey: [],
 
     duration: Date,
-    settings: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "SurveySettings",
-    },
+    settings: {},
   },
   { timestamps: true }
 );

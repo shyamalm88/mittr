@@ -176,6 +176,7 @@ function NewSection({
               editable={editable}
               dataContext={""}
             />
+            {!editable && <Divider color={"#939393"} />}
 
             <Hidden xsUp>
               <TextField

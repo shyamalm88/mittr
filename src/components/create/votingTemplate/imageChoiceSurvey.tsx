@@ -80,7 +80,7 @@ function ImageChoiceSurvey({
     try {
       const response: any = await http
         .service()
-        .postMultipart(`/survey/image`, formData);
+        .postMultipart(`/survey/image/upload`, formData);
       const items = [...imageValue];
       items[index] = response.body;
       setImageValue(items);

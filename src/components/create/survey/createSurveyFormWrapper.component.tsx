@@ -7,6 +7,7 @@ import LaunchIcon from "@mui/icons-material/Launch";
 import PollSettings from "../../additionalQuestions/pollSettings.component";
 import CloseIcon from "@mui/icons-material/Close";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import { Autosave } from "react-autosave";
 import {
   Dialog,
   DialogActions,
@@ -44,6 +45,8 @@ import SurveyQuestionnaire from "../common/surveyQuestionnaire";
 import NewSection from "../common/newSection";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import AddingSectionsControl from "../common/addingSectionsControl";
+import { DELAY } from "../../../constants/properties";
+import { surveyFormDataUpdate } from "../../../utility/formatSubmitData";
 
 const PollFormWrapper = () => {
   const http = new HttpService();
@@ -52,6 +55,8 @@ const PollFormWrapper = () => {
   const [copyDone, setCopyDone] = React.useState(false);
   const [shareUrlDialog, setShareUrlDialog] = React.useState(false);
   const [shareUrl, setShareUrl] = React.useState("");
+  const [alreadySavedDataId, setAlreadySavedDataId] = React.useState("");
+  const [updatedDataToBeSaved, setUpdatedDataToBeSaved] = React.useState();
 
   const methods = useForm<CreateSurveySubmittedValueType>({
     defaultValues: {
@@ -79,14 +84,17 @@ const PollFormWrapper = () => {
     handleSubmit,
     setError,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty, dirtyFields, touchedFields },
     control,
     getValues,
     setValue,
     clearErrors,
     register,
     setFocus,
+    watch,
   } = methods;
+
+  watch((data) => setUpdatedDataToBeSaved(data as any));
 
   const { fields, append, prepend, remove, swap, move, insert, update } =
     useFieldArray({
@@ -101,14 +109,12 @@ const PollFormWrapper = () => {
   const onSubmitSubmitForm: SubmitHandler<
     CreateSurveySubmittedValueType
   > = async (data) => {
-    setValue("questionSlug", urlSlug(data.title));
-
-    const dataToBeSubmitted = getValues();
-    (dataToBeSubmitted.survey as any) = _.map(
-      dataToBeSubmitted.survey,
-      function (o) {
-        return _.omit(o, ["id"]);
-      }
+    const dataToBeSubmitted = surveyFormDataUpdate(
+      data,
+      setValue,
+      getValues,
+      append,
+      remove
     );
     try {
       const resp = await postSurvey(dataToBeSubmitted);
@@ -132,10 +138,49 @@ const PollFormWrapper = () => {
     }
   };
 
-  const postSurvey = async (data: any) => {
-    const response = await http.service().post(`/survey`, data);
+  const handleAutoSave = async (data: any) => {
+    try {
+      toast.info("Saving changes...", {
+        position: "bottom-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
+      });
+      const res = await postSurvey(data);
+      if (res) {
+        toast.info("Saved Changes", {
+          position: "bottom-right",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    return response;
+  const postSurvey = async (data: any) => {
+    try {
+      const response = await http
+        .service()
+        .post(
+          alreadySavedDataId ? `/survey/${alreadySavedDataId}` : `/survey`,
+          data
+        );
+      setAlreadySavedDataId((response as any)?._id);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const resetHandler = () => {
@@ -155,6 +200,9 @@ const PollFormWrapper = () => {
     navigator.clipboard.writeText(shareUrl);
     setCopyDone(true);
   };
+  console.log("isDirty", isDirty);
+  console.log("touchedFields", touchedFields);
+  console.log("dirtyFields", dirtyFields);
 
   return (
     <>
@@ -199,7 +247,7 @@ const PollFormWrapper = () => {
                         index={index}
                       />
                       <NewSection
-                        key={item.id}
+                        key={`${item.id}${index}`}
                         register={register}
                         titleFieldName={`survey.${index}.title`}
                         descriptionFieldName={`survey.${index}.description`}
@@ -352,6 +400,14 @@ const PollFormWrapper = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      {isDirty && (
+        <Autosave
+          data={updatedDataToBeSaved as any}
+          onSave={handleAutoSave}
+          interval={DELAY}
+          saveOnUnmount={alreadySavedDataId ? true : false}
+        />
+      )}
     </>
   );
 };

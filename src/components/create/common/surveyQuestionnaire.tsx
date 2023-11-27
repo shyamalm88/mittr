@@ -124,7 +124,7 @@ function SurveyQuestionnaire({
     try {
       const response: any = await http
         .service()
-        .postMultipart(`/survey/image`, formData);
+        .postMultipart(`/survey/image/upload`, formData);
       setQuestionImageValue(response.body);
     } catch (error) {
       console.log(error);

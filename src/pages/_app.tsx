@@ -64,7 +64,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             <RootLayout>
               <ConfirmProvider>
                 <Component {...pageProps} />
-                <ToastContainer />
+                <ToastContainer pauseOnFocusLoss={false} limit={1} />
               </ConfirmProvider>
             </RootLayout>
           </ThemeProvider>

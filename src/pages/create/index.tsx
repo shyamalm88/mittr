@@ -25,54 +25,54 @@ const CreatePoll = () => {
         title="Mittr | Create Poll"
         description="This Create Poll page will help individual authenticated users to create polls for their targeted audiences"
       />
-      <Grid container xl spacing={1} justifyContent="center" direction="row">
-        <Grid item xs={2}>
-          <Box
-            sx={{
-              mb: 2,
-              display: { xs: "none", sm: "none", lg: "block" },
-            }}
-          >
-            <CreatePollLayout>
-              <LeftNavigationTemplate />
-            </CreatePollLayout>
-          </Box>
-          <Box
-            sx={{
-              mb: 2,
-              display: { xs: "none", sm: "none", lg: "block" },
-            }}
-          >
-            <CreatePollLayout>
-              <RecentTemplate />
-              <FollowingTemplate />
-            </CreatePollLayout>
-          </Box>
-        </Grid>
+      <PollOrSurveyProvider>
+        <Grid container xl spacing={1} justifyContent="center" direction="row">
+          <Grid item xs={2}>
+            <Box
+              sx={{
+                mb: 2,
+                display: { xs: "none", sm: "none", lg: "block" },
+              }}
+            >
+              <CreatePollLayout>
+                <LeftNavigationTemplate />
+              </CreatePollLayout>
+            </Box>
+            <Box
+              sx={{
+                mb: 2,
+                display: { xs: "none", sm: "none", lg: "block" },
+              }}
+            >
+              <CreatePollLayout>
+                <RecentTemplate />
+                <FollowingTemplate />
+              </CreatePollLayout>
+            </Box>
+          </Grid>
 
-        <Grid item xs={12} sm={12} lg={8}>
-          <CreatePollLayout>
-            <PollOrSurveyProvider>
+          <Grid item xs={12} sm={12} lg={8}>
+            <CreatePollLayout>
               <QuestionTypeProvider>
                 <CreatePollWrapper />
               </QuestionTypeProvider>
-            </PollOrSurveyProvider>
-          </CreatePollLayout>
-        </Grid>
+            </CreatePollLayout>
+          </Grid>
 
-        <Grid item>
-          <Box
-            sx={{
-              mb: 2,
-              display: { xs: "none", sm: "none", lg: "block" },
-            }}
-          >
-            <NormalizedLayout>
-              <AlternativeActions />
-            </NormalizedLayout>
-          </Box>
+          <Grid item>
+            <Box
+              sx={{
+                mb: 2,
+                display: { xs: "none", sm: "none", lg: "block" },
+              }}
+            >
+              <NormalizedLayout>
+                <AlternativeActions />
+              </NormalizedLayout>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      </PollOrSurveyProvider>
     </>
   );
 };

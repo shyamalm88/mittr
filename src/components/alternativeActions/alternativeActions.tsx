@@ -1,3 +1,4 @@
+import React from "react";
 import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -10,106 +11,74 @@ import ViewComfyOutlinedIcon from "@mui/icons-material/ViewComfyOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import BrushOutlinedIcon from "@mui/icons-material/BrushOutlined";
 import { Divider } from "@mui/material";
+import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
+import { v4 as uuidv4 } from "uuid";
+
+const alternateOptionsList = [
+  {
+    id: uuidv4(),
+    label: "Preview",
+    displayFor: "all",
+    icon: <RemoveRedEyeOutlinedIcon fontSize="small" />,
+  },
+  {
+    id: uuidv4(),
+    label: "Logic",
+    displayFor: "Survey",
+    icon: <RouteOutlinedIcon fontSize="small" />,
+  },
+  {
+    id: uuidv4(),
+    label: "Template",
+    displayFor: "Survey",
+    icon: <ViewComfyOutlinedIcon fontSize="small" />,
+  },
+  {
+    id: uuidv4(),
+    label: "Design",
+    displayFor: "Survey",
+    icon: <BrushOutlinedIcon fontSize="small" />,
+  },
+  {
+    id: uuidv4(),
+    label: "Query Vault",
+    displayFor: "Survey",
+    icon: <Inventory2OutlinedIcon fontSize="small" />,
+  },
+];
 
 function AlternativeActions() {
+  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
+  const [alternateActionsOptions, setAlternateActionsOptions] =
+    React.useState<any>([]);
+
+  React.useEffect(() => {
+    console.log(pollOrSurvey);
+    if (pollOrSurvey === "poll") {
+      setAlternateActionsOptions(
+        alternateOptionsList.filter((x) => x.displayFor == "all")
+      );
+    } else {
+      setAlternateActionsOptions(alternateOptionsList);
+    }
+  }, [pollOrSurvey]);
+
+  React.useEffect(() => {
+    console.log(alternateActionsOptions);
+  }, [alternateActionsOptions]);
+
   return (
     <MenuList>
-      <MenuItem sx={{ pl: 1 }}>
-        <ListItemIcon>
-          <RemoveRedEyeOutlinedIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>
-          <Typography sx={{ fontSize: ".85em" }}>Preview</Typography>
-        </ListItemText>
-      </MenuItem>
-      <Divider
-        sx={{
-          flexShrink: 0,
-          opacity: 0.25,
-          borderTop: "0px solid rgba(0, 0, 0, 0.12)",
-          borderLeft: "0px solid rgba(0, 0, 0, 0.12)",
-          borderRight: "0px solid rgba(0, 0, 0, 0.12)",
-          backgroundColor: "transparent",
-          height: "0.0625rem",
-          margin: "1rem 0px",
-          borderBottom: "none",
-          backgroundImage: `linear-gradient(to right, rgba(52, 71, 103, 0), rgba(52, 71, 103, 0.3), rgba(52, 71, 103, 0)) !important`,
-        }}
-      />
-      <MenuItem sx={{ pl: 1 }}>
-        <ListItemIcon>
-          <RouteOutlinedIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>
-          <Typography sx={{ fontSize: ".85em" }}>Logic</Typography>
-        </ListItemText>
-      </MenuItem>
-      <Divider
-        sx={{
-          flexShrink: 0,
-          opacity: 0.25,
-          borderTop: "0px solid rgba(0, 0, 0, 0.12)",
-          borderLeft: "0px solid rgba(0, 0, 0, 0.12)",
-          borderRight: "0px solid rgba(0, 0, 0, 0.12)",
-          backgroundColor: "transparent",
-          height: "0.0625rem",
-          margin: "1rem 0px",
-          borderBottom: "none",
-          backgroundImage: `linear-gradient(to right, rgba(52, 71, 103, 0), rgba(52, 71, 103, 0.3), rgba(52, 71, 103, 0)) !important`,
-        }}
-      />
-      <MenuItem sx={{ pl: 1 }}>
-        <ListItemIcon>
-          <ViewComfyOutlinedIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>
-          <Typography sx={{ fontSize: ".85em" }}>Template</Typography>
-        </ListItemText>
-      </MenuItem>
-      <Divider
-        sx={{
-          flexShrink: 0,
-          opacity: 0.25,
-          borderTop: "0px solid rgba(0, 0, 0, 0.12)",
-          borderLeft: "0px solid rgba(0, 0, 0, 0.12)",
-          borderRight: "0px solid rgba(0, 0, 0, 0.12)",
-          backgroundColor: "transparent",
-          height: "0.0625rem",
-          margin: "1rem 0px",
-          borderBottom: "none",
-          backgroundImage: `linear-gradient(to right, rgba(52, 71, 103, 0), rgba(52, 71, 103, 0.3), rgba(52, 71, 103, 0)) !important`,
-        }}
-      />
-      <MenuItem sx={{ pl: 1 }}>
-        <ListItemIcon>
-          <BrushOutlinedIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>
-          <Typography sx={{ fontSize: ".85em" }}>Design</Typography>
-        </ListItemText>
-      </MenuItem>
-      <Divider
-        sx={{
-          flexShrink: 0,
-          opacity: 0.25,
-          borderTop: "0px solid rgba(0, 0, 0, 0.12)",
-          borderLeft: "0px solid rgba(0, 0, 0, 0.12)",
-          borderRight: "0px solid rgba(0, 0, 0, 0.12)",
-          backgroundColor: "transparent",
-          height: "0.0625rem",
-          margin: "1rem 0px",
-          borderBottom: "none",
-          backgroundImage: `linear-gradient(to right, rgba(52, 71, 103, 0), rgba(52, 71, 103, 0.3), rgba(52, 71, 103, 0)) !important`,
-        }}
-      />
-      <MenuItem sx={{ pl: 1 }}>
-        <ListItemIcon>
-          <Inventory2OutlinedIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>
-          <Typography sx={{ fontSize: ".85em" }}>Query Vault</Typography>
-        </ListItemText>
-      </MenuItem>
+      {alternateActionsOptions.map((item: any) => {
+        return (
+          <MenuItem sx={{ pl: 1 }} key={item.id}>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText>
+              <Typography sx={{ fontSize: ".85em" }}>{item.label}</Typography>
+            </ListItemText>
+          </MenuItem>
+        );
+      })}
     </MenuList>
   );
 }

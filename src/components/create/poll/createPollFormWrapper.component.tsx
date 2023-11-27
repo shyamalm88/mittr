@@ -8,7 +8,6 @@ import { useTheme } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import HttpService from "../../../services/@http/HttpClient";
 import * as _ from "underscore";
-import urlSlug from "url-slug";
 import { v4 as uuidv4 } from "uuid";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
@@ -18,6 +17,8 @@ import { toast } from "react-toastify";
 import CloseIcon from "@mui/icons-material/Close";
 import LaunchIcon from "@mui/icons-material/Launch";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
+
+import { Autosave } from "react-autosave";
 
 import {
   useForm,
@@ -38,15 +39,17 @@ import {
   InputAdornment,
   OutlinedInput,
 } from "@mui/material";
+import { pollFormDataUpdate } from "../../../utility/formatSubmitData";
+import { DELAY } from "../../../constants/properties";
 
 const PollFormWrapper = () => {
-  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const [shareUrlDialog, setShareUrlDialog] = React.useState(false);
   const [shareUrl, setShareUrl] = React.useState("");
   const http = new HttpService();
   const theme = useTheme();
   const [copyDone, setCopyDone] = React.useState(false);
-  const [question, setQuestion] = React.useState();
+  const [alreadySavedDataId, setAlreadySavedDataId] = React.useState("");
+  const [updatedDataToBeSaved, setUpdatedDataToBeSaved] = React.useState();
   const [questionImageValue, setQuestionImageValue] = React.useState<{
     imageId: string;
     dimensions: {
@@ -86,14 +89,17 @@ const PollFormWrapper = () => {
     handleSubmit,
     setError,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty, dirtyFields, touchedFields },
     control,
     getValues,
     setValue,
     clearErrors,
     register,
     setFocus,
+    watch,
   } = methods;
+
+  watch((data) => setUpdatedDataToBeSaved(data as any));
 
   const { fields, append, prepend, remove, swap, move, insert, update } =
     useFieldArray({
@@ -117,7 +123,7 @@ const PollFormWrapper = () => {
     try {
       const response: any = await http
         .service()
-        .postMultipart(`/survey/image`, formData);
+        .postMultipart(`/poll/image/upload`, formData);
       setQuestionImageValue(response.body);
     } catch (error) {
       console.log(error);
@@ -132,73 +138,12 @@ const PollFormWrapper = () => {
   const onSubmitPollForm: SubmitHandler<CreatePollSubmittedValueType> = async (
     data
   ) => {
-    setValue("questionSlug", urlSlug(data.question));
-    const additionalQuestions = getValues("additionalQuestions").filter(
-      (item) => item.question
-    );
-    const genderFound = additionalQuestions.some(
-      (item) => item.answerType === "gender"
-    );
-    const countryFound = additionalQuestions.some(
-      (item) => item.answerType === "country"
-    );
-    if (data.settings && data.settings.captureGender && !genderFound) {
-      const temp = {
-        id: uuidv4(),
-        questionLabel: "Question",
-        answerType: "gender",
-        question: "Please select your Gender",
-      };
-      append(temp);
-    } else {
-      if (data.settings && !data.settings.captureGender && genderFound) {
-        const idx = additionalQuestions.findIndex(
-          (item) => item.answerType === "gender"
-        );
-        remove(idx);
-      }
-    }
-    if (data.settings && data.settings.captureCity && !countryFound) {
-      const temp = {
-        id: uuidv4(),
-        questionLabel: "Question",
-        answerType: "city",
-        question: "Your residing Country and City",
-      };
-      append(temp);
-    } else {
-      if (data.settings && !data.settings.captureGender && countryFound) {
-        const idx = additionalQuestions.findIndex(
-          (item) => item.answerType === "city"
-        );
-        remove(idx);
-      }
-    }
-    if (data.settings && data.settings.captureCountry && !countryFound) {
-      const temp = {
-        id: uuidv4(),
-        questionLabel: "Question",
-        answerType: "country",
-        question: "Your residing Country",
-      };
-      append(temp);
-    } else {
-      if (data.settings && !data.settings.captureGender && countryFound) {
-        const idx = additionalQuestions.findIndex(
-          (item) => item.answerType === "country"
-        );
-        remove(idx);
-      }
-    }
-    const dataToBeSubmitted = getValues();
-    dataToBeSubmitted.options = _.map(dataToBeSubmitted.options, function (o) {
-      return _.omit(o, ["id", "enabled", "label", "image"]);
-    });
-    dataToBeSubmitted.additionalQuestions = _.map(
-      dataToBeSubmitted.additionalQuestions,
-      function (o) {
-        return _.omit(o, ["id", "questionLabel"]);
-      }
+    const dataToBeSubmitted = pollFormDataUpdate(
+      data,
+      setValue,
+      getValues,
+      append,
+      remove
     );
 
     try {
@@ -223,10 +168,49 @@ const PollFormWrapper = () => {
     }
   };
 
-  const postSurvey = async (data: any) => {
-    const response = await http.service().post(`/poll`, data);
+  const handleAutoSave = async (data: any) => {
+    try {
+      toast.info("Saving changes...", {
+        position: "bottom-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
+      });
+      const res = await postSurvey(data);
+      if (res) {
+        toast.info("Saved Changes", {
+          position: "bottom-right",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    return response;
+  const postSurvey = async (data: any) => {
+    try {
+      const response = await http
+        .service()
+        .post(
+          alreadySavedDataId ? `/poll/${alreadySavedDataId}` : `/poll`,
+          data
+        );
+      setAlreadySavedDataId((response as any)?._id);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const resetHandler = () => {
@@ -377,6 +361,14 @@ const PollFormWrapper = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      {isDirty && (
+        <Autosave
+          data={updatedDataToBeSaved as any}
+          onSave={handleAutoSave}
+          interval={DELAY}
+          saveOnUnmount={alreadySavedDataId ? true : false}
+        />
+      )}
     </>
   );
 };
