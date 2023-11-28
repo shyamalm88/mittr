@@ -55,7 +55,7 @@ const AnswerSurveySectionsWrapper = ({ item, index }: ComponentInputProps) => {
                   </Typography>
                   <Typography
                     component="div"
-                    variant="body2"
+                    variant="body1"
                     dangerouslySetInnerHTML={{
                       __html: he.decode(selectedValue?.description),
                     }}

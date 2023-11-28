@@ -71,7 +71,7 @@ const AnswerSurveyWrapper = () => {
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
   React.useEffect(() => {
-    setProgress((activeStep + 1 / surveySegmentation.length) * 100);
+    setProgress((activeStep / surveySegmentation.length) * 100);
   }, [activeStep, surveySegmentation]);
 
   React.useEffect(() => {
@@ -122,7 +122,13 @@ const AnswerSurveyWrapper = () => {
                   spacing={2}
                   useFlexGap
                 >
-                  <Typography variant="h5">{contextValue?.title}</Typography>
+                  <Typography
+                    variant="h1"
+                    component="h1"
+                    sx={{ fontSize: "2em", fontWeight: "bold" }}
+                  >
+                    {contextValue?.title}
+                  </Typography>
                   <Typography
                     component="div"
                     variant="body2"

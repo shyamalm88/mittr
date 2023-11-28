@@ -75,7 +75,7 @@ const AnswerPollFormWrapper = () => {
                 >
                   <Typography
                     component="div"
-                    variant="h5"
+                    variant="body1"
                     dangerouslySetInnerHTML={{
                       __html: he.decode(contextValue),
                     }}

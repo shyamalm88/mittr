@@ -11,7 +11,6 @@ import React from "react";
 import { ComponentInputProps } from "../../../types";
 import he from "he";
 
-
 function DropDownChoiceSurveySection({ selectedValue }: ComponentInputProps) {
   const theme = useTheme();
   const options = selectedValue.options[0].dropdownOptions.trim().split(",");
@@ -20,7 +19,7 @@ function DropDownChoiceSurveySection({ selectedValue }: ComponentInputProps) {
     <>
       <Typography
         component="div"
-        variant="h6"
+        variant="body1"
         dangerouslySetInnerHTML={{
           __html: he.decode(selectedValue.question),
         }}

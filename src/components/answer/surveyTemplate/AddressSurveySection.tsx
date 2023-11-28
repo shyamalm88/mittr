@@ -35,7 +35,7 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
     <>
       <Typography
         component="div"
-        variant="h6"
+        variant="body1"
         dangerouslySetInnerHTML={{
           __html: he.decode(selectedValue.question),
         }}

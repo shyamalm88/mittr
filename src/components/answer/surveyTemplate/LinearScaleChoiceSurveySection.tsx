@@ -25,7 +25,7 @@ function LinearScaleChoiceSurveySection({
     <>
       <Typography
         component="div"
-        variant="h6"
+        variant="body1"
         dangerouslySetInnerHTML={{
           __html: he.decode(selectedValue.question),
         }}
@@ -43,7 +43,7 @@ function LinearScaleChoiceSurveySection({
             >
               {JSON.stringify(item?.from) && (
                 <Typography
-                  variant="h6"
+                  variant="body1"
                   sx={{
                     pr: { xs: 0, lg: 3 },
                     pt: 3,
@@ -94,7 +94,7 @@ function LinearScaleChoiceSurveySection({
 
               {JSON.stringify(item?.to) && (
                 <Typography
-                  variant="h6"
+                  variant="body1"
                   sx={{ pl: { xs: 0, lg: 3 }, pt: 3 }}
                   align="center"
                 >
