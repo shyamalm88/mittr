@@ -1,16 +1,11 @@
 const express = require("express");
 const Survey = require("../models/Surveys");
-const Options = require("../models/Options");
 const Images = require("../models/Images");
-const SurveySettings = require("../models/SurveySettings");
 const Answers = require("../models/Answers");
-// const AdditionalQuestionsAnswers = require("../models/AdditionalQuestionsAnswers");
-const AdditionalQuestions = require("../models/AdditionalQuestions");
 
 const multer = require("multer");
 const path = require("path");
 const sharp = require("sharp");
-const SurveySection = require("../models/SurveySection");
 
 const surveyRouter = express.Router();
 
@@ -90,7 +85,7 @@ surveyRouter.get("/answers", async (req, res) => {
 });
 
 surveyRouter.get("/:index", async (req, res) => {
-  console.log(req.params);
+  
   try {
     const survey = await Survey.findById(req.params.index)
       .orFail()
@@ -169,7 +164,7 @@ surveyRouter.post("/:index", async (req, res) => {
 });
 
 surveyRouter.post("/image/upload", upload.single("image"), async (req, res) => {
-  console.log(req.file);
+  
   if (req.file) {
     const sharpObject = sharp(req.file.path);
     const dimensions = await sharpObject.metadata();

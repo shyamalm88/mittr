@@ -1,11 +1,7 @@
 const express = require("express");
 const Poll = require("../models/Polls");
-// const Options = require("../models/Options");
 const Images = require("../models/Images");
-// const SurveySettings = require("../models/SurveySettings");
 const Answers = require("../models/Answers");
-const AdditionalQuestionsAnswers = require("../models/AdditionalQuestionsAnswers");
-// const AdditionalQuestions = require("../models/AdditionalQuestions");
 
 const multer = require("multer");
 const path = require("path");
