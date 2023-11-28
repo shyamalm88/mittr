@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsActiveOutlined";
 import Image from "next/image";
-import Bell from "./../../images/svg/Bell.svg";
+// import Bell from "./../../images/svg/Bell.svg";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
@@ -16,14 +16,14 @@ function Subscribe() {
   return (
     <Box sx={{ m: 2, textAlign: "center" }}>
       <Box className="bell">
-        <Image
+        {/* <Image
           src={Bell}
           width={60}
           height={60}
           sizes="100vw"
           style={{ marginRight: "10px" }}
           alt="Mittr Logo"
-        />
+        /> */}
       </Box>
 
       <Box sx={{ m: 2 }}>
