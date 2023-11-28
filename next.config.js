@@ -2,6 +2,7 @@ const path = require("path");
 module.exports = {
   staticPageGenerationTimeout: 20,
   productionBrowserSourceMaps: true,
+  basePath: "",
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
