@@ -1,17 +1,22 @@
-import AnswerPollLayout from "../../layout/answer.layout";
-import PollQuestionProvider from "../../providers/pollQuestion.provider";
+import AnswerPollLayout from "../../../layout/answer.layout";
 import { NextSeo } from "next-seo";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { ComponentInputProps } from "../../types";
-import PollAnswerProvider from "../../providers/pollAnswer.provider";
+import { ComponentInputProps } from "../../../types";
+import PollAnswerProvider from "../../../providers/pollAnswer.provider";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
-import AnswerPollWrapper from "../../components/answer/answerPollWrapper.component";
-import HttpService from "../../services/@http/HttpClient";
+import dynamic from "next/dynamic";
+const AnswerPollWrapper = dynamic(
+  () => import("../../../components/answer/answerPollWrapper.component")
+);
+import HttpService from "../../../services/@http/HttpClient";
+import PollQuestionProvider from "../../../providers/pollQuestion.provider";
+import AnswerSurveyLayout from "../../../layout/answerSurvey.layout";
+import AnswerSurveyWrapper from "../../../components/answer/answerSurveyWrapper.component";
 const http = new HttpService();
 
-const AnswerPoll = ({ questionData }: ComponentInputProps) => {
-  if (!questionData) {
+const ParticipateInSurvey = ({ surveyQuestionData }: ComponentInputProps) => {
+  if (!surveyQuestionData) {
     return (
       <AnswerPollLayout>
         <Stack spacing={1}>
@@ -60,26 +65,29 @@ const AnswerPoll = ({ questionData }: ComponentInputProps) => {
     <>
       <PollAnswerProvider>
         <NextSeo
-          title={`Mittr | Take part in a survey featuring the question: ${questionData.question}`}
-          description={`This Poll Answer Page is designed to assist both logged-in and anonymous individuals in responding to polls, with the current poll featuring the following question ${questionData.question}`}
+          title={`Mittr | Take part in a survey featuring the question: ${surveyQuestionData.title}`}
+          description={`This Survey Answer Page is designed to assist both logged-in and anonymous individuals in responding to surveys, with the current survey featuring the following title ${surveyQuestionData.title}`}
         />
-        <PollQuestionProvider question={questionData}>
-          <AnswerPollLayout>
-            <AnswerPollWrapper />
-          </AnswerPollLayout>
+        <PollQuestionProvider question={surveyQuestionData}>
+          <AnswerSurveyLayout>
+            <AnswerSurveyWrapper />
+          </AnswerSurveyLayout>
         </PollQuestionProvider>
       </PollAnswerProvider>
     </>
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async (context) => {
-  const resp: any = await http.get(`${process.env.NEXT_PUBLIC_BASE_URL}/poll`);
-  const listQuestionData: Array<any> = resp;
-  const pollQuestions = listQuestionData?.map((item) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const resp: Array<any> = await http.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/survey`
+  );
+  const surveyData: Array<any> = resp;
+
+  const surveyQuestions = surveyData.map((item) => {
     return { id: item._id, slug: item.questionSlug };
   });
-  const paths = pollQuestions.map((post) => ({
+  const paths = surveyQuestions.map((post) => ({
     params: { index: post.id, slug: post.slug },
   }));
 
@@ -87,19 +95,17 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const postIndex = context.params?.index as string;
-
+  const postIndex = (context.params as any).index as string;
   try {
     const resp = await http.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/poll/${postIndex}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/survey/${postIndex}`
     );
-
-    const questionData = resp;
-    return { props: { questionData } };
+    const surveyQuestionData = resp;
+    return { props: { surveyQuestionData } };
   } catch (err) {
     console.error("Internal Server Error");
     return { notFound: true };
   }
 };
 
-export default AnswerPoll;
+export default ParticipateInSurvey;
