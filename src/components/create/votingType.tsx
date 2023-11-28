@@ -198,7 +198,9 @@ function VotingType({
         const temp = questionType;
         temp[index] = e.target.value;
         setQuestionType(temp);
-        setValue(`${fieldName}.votingType`, e.target.value);
+        setValue(`${fieldName}.votingType`, e.target.value, {
+          shouldValidate: true,
+        });
         setVotingTypeValue(e.target.value);
       }
     } else {
@@ -218,7 +220,9 @@ function VotingType({
             const temp = questionType;
             temp[index] = e.target.value;
             setQuestionType(temp);
-            setValue(`${fieldName}.votingType`, e.target.value);
+            setValue(`${fieldName}.votingType`, e.target.value, {
+              shouldValidate: true,
+            });
             setVotingTypeValue(e.target.value);
           }
         })

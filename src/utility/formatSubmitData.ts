@@ -4,14 +4,16 @@ import urlSlug from "url-slug";
 import { v4 as uuidv4 } from "uuid";
 import * as _ from "underscore";
 
-export const pollFormDataUpdate = (
+export async function pollFormDataUpdate(
   data: any,
   setValue: Function,
   getValues: Function,
   append: Function,
   remove: Function
-) => {
-  setValue("questionSlug", urlSlug(striptags(he.decode(data.question))));
+) {
+  setValue("questionSlug", urlSlug(striptags(he.decode(data.question))), {
+    shouldValidate: true,
+  });
   const additionalQuestions = getValues("additionalQuestions").filter(
     (item: any) => item.question
   );
@@ -79,15 +81,16 @@ export const pollFormDataUpdate = (
       return _.omit(o, ["id", "questionLabel"]);
     }
   );
-};
+  return dataToBeSubmitted;
+}
 
-export const surveyFormDataUpdate = (
+export async function surveyFormDataUpdate(
   data: any,
   setValue: Function,
   getValues: Function,
   append: Function,
   remove: Function
-) => {
+) {
   setValue("questionSlug", urlSlug(data.title));
 
   const dataToBeSubmitted = getValues();
@@ -97,4 +100,5 @@ export const surveyFormDataUpdate = (
       return _.omit(o, ["id"]);
     }
   );
-};
+  return dataToBeSubmitted;
+}

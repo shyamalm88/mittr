@@ -276,3 +276,22 @@ body {
 .ProseMirror.ProseMirror-focused[contentEditable="true"] {
     outline: 1px solid #ccc;
 }
+
+code {
+    background: #1b9c852e;
+    word-wrap: break-word;
+    box-decoration-break: clone;
+    padding: 0.1rem 0.3rem 0.2rem;
+    border-radius: 0.2rem;
+}
+
+pre code {
+    display: block;
+    background: none;
+    white-space: pre;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: scroll;
+    max-width: 100%;
+    min-width: 100px;
+    padding: 0;
+}

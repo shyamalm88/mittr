@@ -65,7 +65,9 @@ export default function QuestionnaireTemplate({
           const { id, question } = getValues(`additionalQuestions.${index}`);
           defaultValues.id = id;
           defaultValues.question = question;
-          setValue(`additionalQuestions.${index}`, defaultValues);
+          setValue(`additionalQuestions.${index}`, defaultValues, {
+            shouldValidate: true,
+          });
           setSelectedValue(value);
           setValue(event.target.name, value);
         })

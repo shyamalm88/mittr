@@ -42,7 +42,7 @@ import {
 } from "react-hook-form";
 import { CreateSurveySubmittedValueType } from "../../../types";
 import SurveyQuestionnaire from "../common/surveyQuestionnaire";
-import NewSection from "../common/newSection";
+import TitleOrSeparatorSection from "../common/TitleOrSeparatorSection";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import AddingSectionsControl from "../common/addingSectionsControl";
 import { DELAY } from "../../../constants/properties";
@@ -109,7 +109,7 @@ const PollFormWrapper = () => {
   const onSubmitSubmitForm: SubmitHandler<
     CreateSurveySubmittedValueType
   > = async (data) => {
-    const dataToBeSubmitted = surveyFormDataUpdate(
+    const dataToBeSubmitted = await surveyFormDataUpdate(
       data,
       setValue,
       getValues,
@@ -119,13 +119,14 @@ const PollFormWrapper = () => {
     try {
       const resp = await postSurvey(dataToBeSubmitted);
       setShareUrlDialog(true);
+      console.log("resp", resp);
       setShareUrl(
         `${location.protocol}//${location.hostname}:${
           location.port
         }/participate/${(resp as any)?._id}/${(resp as any)?.questionSlug}`
       );
       clearErrors();
-      resetHandler();
+      // resetHandler();
       toast.success(`You have successfully created Poll`, {
         position: toast.POSITION.TOP_RIGHT,
         theme: "colored",
@@ -148,7 +149,7 @@ const PollFormWrapper = () => {
         pauseOnHover: false,
         draggable: false,
         progress: undefined,
-        theme: "dark",
+        theme: theme.palette.mode === "dark" ? "dark" : "light",
       });
       const res = await postSurvey(data);
       if (res) {
@@ -160,7 +161,7 @@ const PollFormWrapper = () => {
           pauseOnHover: false,
           draggable: false,
           progress: undefined,
-          theme: "dark",
+          theme: theme.palette.mode === "dark" ? "dark" : "light",
         });
       }
     } catch (err) {
@@ -208,7 +209,7 @@ const PollFormWrapper = () => {
     <>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmitSubmitForm)}>
-          <NewSection
+          <TitleOrSeparatorSection
             register={register}
             titleFieldName="title"
             descriptionFieldName="description"
@@ -246,7 +247,7 @@ const PollFormWrapper = () => {
                         append={append}
                         index={index}
                       />
-                      <NewSection
+                      <TitleOrSeparatorSection
                         key={`${item.id}${index}`}
                         register={register}
                         titleFieldName={`survey.${index}.title`}

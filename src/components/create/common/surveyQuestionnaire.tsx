@@ -112,7 +112,11 @@ function SurveyQuestionnaire({
     setQuestion(encodedHtml);
     setValue(
       `${pollOrSurvey === "poll" ? "question" : `${fieldName}.question`}`,
-      encodedHtml
+      encodedHtml,
+      {
+        shouldDirty: true,
+        shouldTouch: true,
+      }
     );
   };
 

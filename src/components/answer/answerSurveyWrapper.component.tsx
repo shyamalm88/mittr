@@ -71,7 +71,7 @@ const AnswerSurveyWrapper = () => {
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
   React.useEffect(() => {
-    setProgress((activeStep / surveySegmentation.length) * 100);
+    setProgress((activeStep + 1 / surveySegmentation.length) * 100);
   }, [activeStep, surveySegmentation]);
 
   React.useEffect(() => {
@@ -228,7 +228,7 @@ const AnswerSurveyWrapper = () => {
             color="inherit"
           >
             <small>
-              Survey Completed {activeStep} / {surveySegmentation.length}
+              Survey Completed {activeStep + 1} / {surveySegmentation.length}
             </small>
           </Typography>
           <LinearProgress

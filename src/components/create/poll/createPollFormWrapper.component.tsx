@@ -138,7 +138,7 @@ const PollFormWrapper = () => {
   const onSubmitPollForm: SubmitHandler<CreatePollSubmittedValueType> = async (
     data
   ) => {
-    const dataToBeSubmitted = pollFormDataUpdate(
+    const dataToBeSubmitted = await pollFormDataUpdate(
       data,
       setValue,
       getValues,
@@ -148,6 +148,7 @@ const PollFormWrapper = () => {
 
     try {
       const resp = await postSurvey(dataToBeSubmitted);
+      console.log("resp", resp);
       setShareUrlDialog(true);
       setShareUrl(
         `${location.protocol}//${location.hostname}:${location.port}/answer/${
@@ -155,7 +156,7 @@ const PollFormWrapper = () => {
         }/${(resp as any)?.questionSlug}`
       );
       clearErrors();
-      reset();
+      // reset();
       toast.success(`You have successfully created Poll`, {
         position: toast.POSITION.TOP_RIGHT,
         theme: "colored",
@@ -304,7 +305,7 @@ const PollFormWrapper = () => {
         fullWidth
       >
         <DialogTitle id="alert-dialog-title">
-          {"Share Survey URL within you network"}
+          {"Share Poll URL within you network"}
         </DialogTitle>
         <IconButton
           aria-label="close"

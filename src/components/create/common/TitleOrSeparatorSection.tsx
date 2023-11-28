@@ -21,10 +21,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
-import QuillWrapper from "./quillNoSSRWrapper";
 import TipTapEditor from "./TipTap";
 
-function NewSection({
+function TitleOrSeparatorSection({
   register,
   titleFieldName,
   descriptionFieldName,
@@ -83,7 +82,10 @@ function NewSection({
   const handleEditorChange = ({ editor }: any) => {
     const encodedHtml = htmlEncode(editor.getHTML());
     // setQuestion(encodedHtml);
-    setValue(`${descriptionFieldName}`, encodedHtml);
+    setValue(`${descriptionFieldName}`, encodedHtml, {
+      shouldDirty: true,
+      shouldTouch: true,
+    });
   };
 
   const handleEditorClick = () => {
@@ -105,7 +107,7 @@ function NewSection({
         mb: 4,
         mt: index ? 4 : 0,
       }}
-      className={index ? "newSection" : ""}
+      className={index ? "TitleOrSeparatorSection" : ""}
     >
       <Card
         variant="outlined"
@@ -298,4 +300,4 @@ function NewSection({
   );
 }
 
-export default NewSection;
+export default TitleOrSeparatorSection;
