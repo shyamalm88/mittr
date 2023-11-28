@@ -48,17 +48,19 @@ function StarRating({
     control,
     name: `${fieldName}.options`,
   });
-  const addOption = () => {
-    const temp = {
-      id: uuidv4(),
-      label: "starRating",
-      starCount: "",
-      precision: "",
-      iconType: "",
-      color: "",
+  const addOption = React.useCallback(() => {
+    () => {
+      const temp = {
+        id: uuidv4(),
+        label: "starRating",
+        starCount: "",
+        precision: "",
+        iconType: "",
+        color: "",
+      };
+      append(temp);
     };
-    append(temp);
-  };
+  }, [append]);
 
   const handleColorChange = (color: any) => {
     setColorState(color.hex);
@@ -75,13 +77,13 @@ function StarRating({
         colorState
       );
     }
-  }, [colorState]);
+  }, [colorState, fieldName, getValues, index, setValue]);
 
   React.useEffect(() => {
     if (getValues("survey")?.[index]?.options?.length === 0) {
       addOption();
     }
-  }, []);
+  }, [addOption, getValues, index]);
 
   return (
     <React.Fragment>

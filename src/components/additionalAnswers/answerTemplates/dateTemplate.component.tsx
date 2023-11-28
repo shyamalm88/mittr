@@ -14,7 +14,7 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
     answerContext.handleChange({
       target: {
         name: `${fieldName}.selectedValue`,
-        value: moment(e).format(),
+        value: e && moment(e).format(),
         id: item._id,
       },
     });

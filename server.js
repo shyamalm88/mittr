@@ -21,11 +21,10 @@ const urlencodedParser = bodyParser.urlencoded({
 
 // `mongodb+srv://shyamalm88:ozWTffravvFefugL@mittr.otzfxtv.mongodb.net/?retryWrites=true&w=majority`;
 mongoose
-  // .connect("mongodb://localhost:27017/mittr", {
+  // .connect("mongodb://127.0.0.1:27017/mittr", {
   .connect(
     `mongodb://shyamalm88:ozWTffravvFefugL@ac-5o9suje-shard-00-00.otzfxtv.mongodb.net:27017,ac-5o9suje-shard-00-01.otzfxtv.mongodb.net:27017,ac-5o9suje-shard-00-02.otzfxtv.mongodb.net:27017/?ssl=true&replicaSet=atlas-o9wug9-shard-0&authSource=admin&retryWrites=true&w=majority`,
     {
-      useNewUrlParser: true,
       serverSelectionTimeoutMS: 5000,
     }
   )

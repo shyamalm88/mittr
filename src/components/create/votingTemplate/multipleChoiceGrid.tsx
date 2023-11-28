@@ -32,19 +32,21 @@ function MultipleChoiceGrid({
     name: `${fieldName}.options`,
   });
 
-  const addOption = async () => {
-    const temp = {
-      id: uuidv4(),
-      label: "multipleChoiceGrid",
+  const addOption = React.useCallback(() => {
+    async () => {
+      const temp = {
+        id: uuidv4(),
+        label: "multipleChoiceGrid",
+      };
+      append(temp);
     };
-    append(temp);
-  };
+  }, [append]);
 
   React.useEffect(() => {
     if (getValues("survey")?.[idx]?.options?.length === 0) {
       addOption();
     }
-  }, []);
+  }, [addOption, getValues, idx]);
 
   return (
     <React.Fragment>

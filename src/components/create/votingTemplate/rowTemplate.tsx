@@ -39,14 +39,16 @@ function RowTemplate({
     name: `${fieldName}.rows`,
   });
 
-  const addRows = () => {
-    const temp = {
-      id: uuidv4(),
-      label: "Row",
-      option: "",
+  const addRows = React.useCallback(() => {
+    () => {
+      const temp = {
+        id: uuidv4(),
+        label: "Row",
+        option: "",
+      };
+      rowAppend(temp);
     };
-    rowAppend(temp);
-  };
+  }, [rowAppend]);
 
   const deleteOption = (index: number) => {
     rowRemove(index);
@@ -56,7 +58,7 @@ function RowTemplate({
     if (getValues(`${fieldName}.rows`)?.length === 0) {
       addRows();
     }
-  }, []);
+  }, [addRows, getValues, fieldName]);
 
   return (
     <>

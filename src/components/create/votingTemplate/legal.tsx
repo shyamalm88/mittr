@@ -44,34 +44,38 @@ function Legal({
     name: pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`,
   });
 
-  const addOption = () => {
-    const temp = [
-      {
-        id: uuidv4(),
-        label: "Option",
-        enabled: true,
-        option: "Accept",
-      },
-      {
-        id: uuidv4(),
-        label: "Option",
-        enabled: true,
-        option: "Reject",
-      },
-    ];
-    temp.forEach((item) => {
-      append(item, {
-        shouldFocus:
-          getValues(
-            `${
-              pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`
-            }`
-          )?.length === 0
-            ? false
-            : true,
+  const addOption = React.useCallback(() => {
+    () => {
+      const temp = [
+        {
+          id: uuidv4(),
+          label: "Option",
+          enabled: true,
+          option: "Accept",
+        },
+        {
+          id: uuidv4(),
+          label: "Option",
+          enabled: true,
+          option: "Reject",
+        },
+      ];
+      temp.forEach((item) => {
+        append(item, {
+          shouldFocus:
+            getValues(
+              `${
+                pollOrSurvey === "poll"
+                  ? `${fieldName}`
+                  : `${fieldName}.options`
+              }`
+            )?.length === 0
+              ? false
+              : true,
+        });
       });
-    });
-  };
+    };
+  }, [append, fieldName, getValues, pollOrSurvey]);
 
   React.useEffect(() => {
     if (!fields.length) {
@@ -80,7 +84,7 @@ function Legal({
     return () => {
       remove(0);
     };
-  }, []);
+  }, [remove, addOption, fields.length]);
 
   return (
     <React.Fragment>

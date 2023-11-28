@@ -90,15 +90,17 @@ function ImageChoice({
     }
   };
 
-  const addOption = () => {
-    const temp = {
-      id: uuidv4(),
-      label: "Option",
-      enabled: true,
-      option: "",
+  const addOption = React.useCallback(() => {
+    () => {
+      const temp = {
+        id: uuidv4(),
+        label: "Option",
+        enabled: true,
+        option: "",
+      };
+      append(temp);
     };
-    append(temp);
-  };
+  }, [append]);
 
   const addOtherOption = () => {
     const temp = { id: uuidv4(), label: "Other", enabled: false, option: "" };
@@ -113,7 +115,7 @@ function ImageChoice({
     return () => {
       // unregister()
     };
-  }, []);
+  }, [addOption, fields.length]);
 
   const deleteOption = (index: number) => {
     remove(index);

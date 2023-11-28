@@ -44,45 +44,47 @@ function ContactInfo({
     name: pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`,
   });
 
-  const addOption = () => {
-    const temp = [
-      {
-        id: uuidv4(),
-        label: "Option",
-        enabled: true,
-        option: "First Name",
-      },
-      {
-        id: uuidv4(),
-        label: "Option",
-        enabled: true,
-        option: "Last Name",
-      },
-      {
-        id: uuidv4(),
-        label: "Option",
-        enabled: true,
-        option: "Phone Number",
-      },
-      {
-        id: uuidv4(),
-        label: "Option",
-        enabled: true,
-        option: "Email",
-      },
-      {
-        id: uuidv4(),
-        label: "Option",
-        enabled: true,
-        option: "Company",
-      },
-    ];
-    temp.forEach((item) => {
-      append(item, {
-        shouldFocus: false,
+  const addOption = React.useCallback(() => {
+    () => {
+      const temp = [
+        {
+          id: uuidv4(),
+          label: "Option",
+          enabled: true,
+          option: "First Name",
+        },
+        {
+          id: uuidv4(),
+          label: "Option",
+          enabled: true,
+          option: "Last Name",
+        },
+        {
+          id: uuidv4(),
+          label: "Option",
+          enabled: true,
+          option: "Phone Number",
+        },
+        {
+          id: uuidv4(),
+          label: "Option",
+          enabled: true,
+          option: "Email",
+        },
+        {
+          id: uuidv4(),
+          label: "Option",
+          enabled: true,
+          option: "Company",
+        },
+      ];
+      temp.forEach((item) => {
+        append(item, {
+          shouldFocus: false,
+        });
       });
-    });
-  };
+    };
+  }, [append]);
 
   const deleteOption = (index: number) => {
     remove(index);
@@ -95,7 +97,7 @@ function ContactInfo({
     return () => {
       remove(0);
     };
-  }, []);
+  }, [addOption, remove, fields.length]);
 
   return (
     <React.Fragment>

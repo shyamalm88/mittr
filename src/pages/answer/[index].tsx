@@ -1,16 +1,13 @@
-import AnswerPollLayout from "../../../layout/answer.layout";
-import PollQuestionProvider from "../../../providers/pollQuestion.provider";
+import AnswerPollLayout from "../../layout/answer.layout";
+import PollQuestionProvider from "../../providers/pollQuestion.provider";
 import { NextSeo } from "next-seo";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { ComponentInputProps } from "../../../types";
-import PollAnswerProvider from "../../../providers/pollAnswer.provider";
+import { ComponentInputProps } from "../../types";
+import PollAnswerProvider from "../../providers/pollAnswer.provider";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
-import dynamic from "next/dynamic";
-const AnswerPollWrapper = dynamic(
-  () => import("../../../components/answer/answerPollWrapper.component")
-);
-import HttpService from "../../../services/@http/HttpClient";
+import AnswerPollWrapper from "../../components/answer/answerPollWrapper.component";
+import HttpService from "../../services/@http/HttpClient";
 const http = new HttpService();
 
 const AnswerPoll = ({ questionData }: ComponentInputProps) => {
@@ -76,13 +73,10 @@ const AnswerPoll = ({ questionData }: ComponentInputProps) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const resp: Array<any> = await http.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/poll`
-  );
+export const getStaticPaths: GetStaticPaths = async (context) => {
+  const resp: any = await http.get(`${process.env.NEXT_PUBLIC_BASE_URL}/poll`);
   const listQuestionData: Array<any> = resp;
-
-  const pollQuestions = listQuestionData.map((item) => {
+  const pollQuestions = listQuestionData?.map((item) => {
     return { id: item._id, slug: item.questionSlug };
   });
   const paths = pollQuestions.map((post) => ({
@@ -94,10 +88,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const postIndex = context.params?.index as string;
+
   try {
     const resp = await http.get(
       `${process.env.NEXT_PUBLIC_BASE_URL}/poll/${postIndex}`
     );
+
     const questionData = resp;
     return { props: { questionData } };
   } catch (err) {

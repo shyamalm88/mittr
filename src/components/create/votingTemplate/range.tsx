@@ -58,22 +58,24 @@ function RangeSlider({
     control,
     name: `${fieldName}.options`,
   });
-  const addOption = () => {
-    const temp = {
-      id: uuidv4(),
-      label: "slider",
-      startValue: "",
-      endValue: "",
-      stepValue: "",
+  const addOption = React.useCallback(() => {
+    () => {
+      const temp = {
+        id: uuidv4(),
+        label: "slider",
+        startValue: "",
+        endValue: "",
+        stepValue: "",
+      };
+      append(temp);
     };
-    append(temp);
-  };
+  }, [append]);
 
   React.useEffect(() => {
     if (getValues("survey")?.[index]?.options?.length === 0) {
       addOption();
     }
-  }, []);
+  }, [addOption, getValues, index]);
   return (
     <React.Fragment>
       {fields?.map((item: any, index: number) => {

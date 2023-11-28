@@ -42,14 +42,16 @@ function ColumnTemplate({
     name: `${fieldName}.columns`,
   });
 
-  const addColumns = () => {
-    const temp = {
-      id: uuidv4(),
-      label: "Column",
-      option: "",
+  const addColumns = React.useCallback(() => {
+    () => {
+      const temp = {
+        id: uuidv4(),
+        label: "Column",
+        option: "",
+      };
+      columnAppend(temp);
     };
-    columnAppend(temp);
-  };
+  }, [columnAppend]);
 
   const deleteOption = (index: number) => {
     columnRemove(index);
@@ -59,7 +61,7 @@ function ColumnTemplate({
     if (getValues(`${fieldName}.columns`)?.length === 0) {
       addColumns();
     }
-  }, []);
+  }, [addColumns, getValues, fieldName]);
 
   return (
     <>

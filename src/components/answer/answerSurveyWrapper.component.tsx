@@ -195,10 +195,12 @@ const AnswerSurveyWrapper = () => {
                                 gap={1}
                               >
                                 <AccessTimeIcon fontSize="small" />
-                                <ReactTimeAgo
-                                  date={Date.parse(contextDurationValue)}
-                                  tooltip={false}
-                                />
+                                {contextDurationValue && (
+                                  <ReactTimeAgo
+                                    date={Date.parse(contextDurationValue)}
+                                    tooltip={false}
+                                  />
+                                )}
                               </Stack>
                             </React.Fragment>
                           </Typography>

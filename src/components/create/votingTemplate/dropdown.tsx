@@ -1,7 +1,4 @@
 import React from "react";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import FormControl from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Typography from "@mui/material/Typography";
@@ -9,13 +6,10 @@ import { ComponentInputProps } from "../../../types";
 import { useTheme } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
-import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
-import OptionActions from "../common/optionActions";
 import { useFieldArray } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { PATTERN, REQUIRED } from "../../../constants/error";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function DropDown({
   control,
@@ -45,27 +39,31 @@ function DropDown({
     name: `${fieldName}.options`,
   });
 
-  const addOption = () => {
-    const temp = {
-      id: uuidv4(),
-      label: "Dropdown",
-      dropdownOptions: "",
+  const addOption = React.useCallback(() => {
+    () => {
+      const temp = {
+        id: uuidv4(),
+        label: "Dropdown",
+        dropdownOptions: "",
+      };
+      append(temp, {
+        shouldFocus:
+          getValues(
+            `${
+              pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`
+            }`
+          )?.length === 0
+            ? false
+            : true,
+      });
     };
-    append(temp, {
-      shouldFocus:
-        getValues(
-          `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}`
-        )?.length === 0
-          ? false
-          : true,
-    });
-  };
+  }, [append, fieldName, getValues, pollOrSurvey]);
 
   React.useEffect(() => {
     if (getValues("survey")?.[index]?.options?.length === 0) {
       addOption();
     }
-  }, []);
+  }, [addOption, getValues, index]);
 
   return (
     <React.Fragment>
