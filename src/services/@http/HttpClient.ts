@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import "dotenv/config";
 export enum EHttpMethod {
   GET = "GET",
   POST = "POST",
@@ -22,6 +23,7 @@ class HttpService {
       withCredentials: false,
       headers: this.setupHeaders(),
     });
+    console.log(process.env.NODE_ENV);
   }
 
   // Get authorization token for requests

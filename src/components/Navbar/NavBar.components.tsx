@@ -10,6 +10,7 @@ import ActionBar from "./ActionBar.component";
 import Search from "./Search.component";
 import { ComponentInputProps } from "../../types";
 import Box from "@mui/material/Box";
+import "dotenv/config";
 
 function NavBar(props: ComponentInputProps) {
   return (
@@ -25,6 +26,7 @@ function NavBar(props: ComponentInputProps) {
             <Toolbar disableGutters variant="dense">
               <NavigationElements />
               <Box sx={{ display: "flex", justifyContent: "end", flex: 1 }}>
+                {process.env.NEXT_PUBLIC_BASE_URL}
                 <Search />
                 <ActionBar />
               </Box>

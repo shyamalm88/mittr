@@ -47,6 +47,7 @@
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "country-state-city": "^3.1.4",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "filepond-plugin-image-exif-orientation": "^1.0.11",
@@ -88,11 +89,11 @@
     "webpack-dev-server": "^4.15.1"
   },
   "scripts": {
-    "dev": "nodemon NODE_ENV=production server.js",
-    "build": "next build",
+    "dev": "nodemon server.js",
+    "build": "next build --debug",
     "start": "next start",
     "lint": "next lint",
-    "serve-json": "json-server --watch db.json --port 3200 --delay 3000"
+    "prod": "nodenv -E ./.env.prod server.js"
   },
   "eslintConfig": {
     "extends": [
@@ -126,6 +127,7 @@
     "eslint-config-next": "^14.0.3",
     "eslint-plugin-react": "^7.33.0",
     "html-webpack-plugin": "^5.5.3",
+    "node-env-run": "^4.0.2",
     "nodemon": "^3.0.1",
     "sass": "^1.69.5"
   }

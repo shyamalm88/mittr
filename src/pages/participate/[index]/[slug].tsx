@@ -6,13 +6,15 @@ import PollAnswerProvider from "../../../providers/pollAnswer.provider";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
-const AnswerPollWrapper = dynamic(
-  () => import("../../../components/answer/answerPollWrapper.component")
+const AnswerSurveyWrapper = dynamic(
+  () => import("../../../components/answer/answerSurveyWrapper.component")
+);
+const PollQuestionProvider = dynamic(
+  () => import("../../../providers/pollQuestion.provider")
 );
 import HttpService from "../../../services/@http/HttpClient";
-import PollQuestionProvider from "../../../providers/pollQuestion.provider";
 import AnswerSurveyLayout from "../../../layout/answerSurvey.layout";
-import AnswerSurveyWrapper from "../../../components/answer/answerSurveyWrapper.component";
+
 const http = new HttpService();
 
 const ParticipateInSurvey = ({ surveyQuestionData }: ComponentInputProps) => {
@@ -79,9 +81,7 @@ const ParticipateInSurvey = ({ surveyQuestionData }: ComponentInputProps) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const resp: Array<any> = await http.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/survey`
-  );
+  const resp: Array<any> = await http.get(`/survey`);
   const surveyData: Array<any> = resp;
 
   const surveyQuestions = surveyData.map((item) => {
@@ -97,9 +97,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const postIndex = (context.params as any).index as string;
   try {
-    const resp = await http.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/survey/${postIndex}`
-    );
+    const resp = await http.get(`/survey/${postIndex}`);
     const surveyQuestionData = resp;
     return { props: { surveyQuestionData } };
   } catch (err) {

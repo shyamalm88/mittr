@@ -51,15 +51,14 @@ function RangeSurveySection({ selectedValue }: ComponentInputProps) {
       ></Typography>
       <Box sx={{ p: 3 }}>
         <InputLabel>Range</InputLabel>
-        {selectedValue?.options.map((item: any) => {
+        {selectedValue?.options.map((item: any, index: number) => {
           return (
-            <>
+            <Box key={item.id}>
               <Stack
                 spacing={2}
                 direction="row"
                 sx={{ mb: 1 }}
                 alignItems="center"
-                key={item.id}
               >
                 <Typography component="h2" variant="h5">
                   {parseInt(item.startValue)}
@@ -82,7 +81,7 @@ function RangeSurveySection({ selectedValue }: ComponentInputProps) {
                   Selected Value: {sliderValue}
                 </Typography>
               )}
-            </>
+            </Box>
           );
         })}
       </Box>

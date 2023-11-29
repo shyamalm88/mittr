@@ -35,9 +35,11 @@ const AnswerSurveyFormWrapper = ({
   const stepIndexValue = useStepWrapperContext();
 
   const handleDateDiff = useMemo(() => {
-    let d1 = moment(moment().format("YYYY-MM-DD"));
-    let d2 = moment(moment(contextDurationValue).format("YYYY-MM-DD"));
-    return d2.diff(d1, "days") < 0 ? "Poll ended on " : "Poll will end on ";
+    if (contextDurationValue) {
+      let d1 = moment(moment().format("YYYY-MM-DD"));
+      let d2 = moment(moment(contextDurationValue).format("YYYY-MM-DD"));
+      return d2.diff(d1, "days") < 0 ? "Poll ended on " : "Poll will end on ";
+    }
   }, [contextDurationValue]);
 
   return (
@@ -122,20 +124,25 @@ const AnswerSurveyFormWrapper = ({
                             arrow
                             title={
                               <React.Fragment>
-                                <Typography variant="body2" component="small">
-                                  Poll started at{" "}
-                                  {moment(
-                                    contextQuestionSetValue.createdAt
-                                  ).format("DD/MM/YYYY, hh:mm a")}
-                                  ,
-                                </Typography>
+                                {contextQuestionSetValue.createdAt && (
+                                  <Typography variant="body2" component="small">
+                                    Poll started at{" "}
+                                    {moment(
+                                      contextQuestionSetValue.createdAt
+                                    ).format("DD/MM/YYYY, hh:mm a")}
+                                    ,
+                                  </Typography>
+                                )}
+
                                 <br />
-                                <Typography variant="body2" component="small">
-                                  {handleDateDiff}
-                                  {moment(contextDurationValue).format(
-                                    "DD/MM/YYYY, hh:mm a"
-                                  )}
-                                </Typography>
+                                {contextDurationValue && (
+                                  <Typography variant="body2" component="small">
+                                    {handleDateDiff}
+                                    {moment(contextDurationValue).format(
+                                      "DD/MM/YYYY, hh:mm a"
+                                    )}
+                                  </Typography>
+                                )}
                               </React.Fragment>
                             }
                           >
@@ -177,7 +184,7 @@ const AnswerSurveyFormWrapper = ({
         {segmentationStep?.segments.map((item: any, index: number) => {
           return (
             <AnswerSurveySectionsWrapper
-              key={item._id}
+              key={index}
               index={index}
               item={item}
             />

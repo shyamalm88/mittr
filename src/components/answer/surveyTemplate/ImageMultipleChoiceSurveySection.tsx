@@ -49,7 +49,7 @@ function ImageMultipleChoiceSurveySection({
                   sm={6}
                   lg={4}
                   xl={3}
-                  key={item._id}
+                  key={index}
                   sx={{ alignItems: "stretch", display: "flex" }}
                 >
                   <Card

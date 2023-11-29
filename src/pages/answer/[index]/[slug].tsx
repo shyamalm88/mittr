@@ -6,7 +6,10 @@ import { ComponentInputProps } from "../../../types";
 import PollAnswerProvider from "../../../providers/pollAnswer.provider";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
-import AnswerPollWrapper from "../../../components/answer/answerPollWrapper.component";
+import dynamic from "next/dynamic";
+const AnswerPollWrapper = dynamic(
+  () => import("../../../components/answer/answerPollWrapper.component")
+);
 import HttpService from "../../../services/@http/HttpClient";
 const http = new HttpService();
 
@@ -74,7 +77,7 @@ const AnswerPoll = ({ questionData }: ComponentInputProps) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
-  const resp: any = await http.get(`${process.env.NEXT_PUBLIC_BASE_URL}/poll`);
+  const resp: any = await http.get(`/poll`);
   const listQuestionData: Array<any> = resp;
   const pollQuestions = listQuestionData?.map((item) => {
     return { id: item._id, slug: item.questionSlug };
@@ -83,16 +86,14 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
     params: { index: post.id, slug: post.slug },
   }));
 
-  return { paths, fallback: true };
+  return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const postIndex = context.params?.index as string;
 
   try {
-    const resp = await http.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/poll/${postIndex}`
-    );
+    const resp = await http.get(`/poll/${postIndex}`);
 
     const questionData = resp;
     return { props: { questionData } };

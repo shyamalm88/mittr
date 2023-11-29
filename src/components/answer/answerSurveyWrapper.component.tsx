@@ -79,9 +79,11 @@ const AnswerSurveyWrapper = () => {
   }, [progress]);
 
   const handleDateDiff = React.useMemo(() => {
-    let d1 = moment(moment().format("YYYY-MM-DD"));
-    let d2 = moment(moment(contextDurationValue).format("YYYY-MM-DD"));
-    return d2.diff(d1, "days") < 0 ? "Poll ended on " : "Poll will end on ";
+    if (contextDurationValue) {
+      let d1 = moment(moment().format("YYYY-MM-DD"));
+      let d2 = moment(moment(contextDurationValue).format("YYYY-MM-DD"));
+      return d2.diff(d1, "days") < 0 ? "Poll ended on " : "Poll will end on ";
+    }
   }, [contextDurationValue]);
 
   return (
@@ -170,20 +172,25 @@ const AnswerSurveyWrapper = () => {
                           arrow
                           title={
                             <React.Fragment>
-                              <Typography variant="body2" component="small">
-                                Poll started at{" "}
-                                {moment(contextValue.createdAt).format(
-                                  "DD/MM/YYYY, hh:mm a"
-                                )}
-                                ,
-                              </Typography>
+                              {contextValue.createdAt && (
+                                <Typography variant="body2" component="small">
+                                  Poll started at{" "}
+                                  {moment(contextValue.createdAt).format(
+                                    "DD/MM/YYYY, hh:mm a"
+                                  )}
+                                  ,
+                                </Typography>
+                              )}
+
                               <br />
-                              <Typography variant="body2" component="small">
-                                {handleDateDiff}
-                                {moment(contextDurationValue).format(
-                                  "DD/MM/YYYY, hh:mm a"
-                                )}
-                              </Typography>
+                              {contextDurationValue && (
+                                <Typography variant="body2" component="small">
+                                  {handleDateDiff}
+                                  {moment(contextDurationValue).format(
+                                    "DD/MM/YYYY, hh:mm a"
+                                  )}
+                                </Typography>
+                              )}
                             </React.Fragment>
                           }
                         >

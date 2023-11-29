@@ -1,17 +1,16 @@
 const path = require("path");
+const isProd = process.env.NODE_ENV === "production";
 module.exports = {
-  staticPageGenerationTimeout: 20,
+  // staticPageGenerationTimeout: 20,
   productionBrowserSourceMaps: true,
-  basePath: "",
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
     domains: ["flagcdn.com"],
   },
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
+  env: {
+    NEXT_PUBLIC_BASE_URL: isProd ? "/api/" : "http://localhost:3000/api/",
   },
   async redirects() {
     return [
