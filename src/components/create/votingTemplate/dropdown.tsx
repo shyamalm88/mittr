@@ -39,31 +39,27 @@ function DropDown({
     name: `${fieldName}.options`,
   });
 
-  const addOption = React.useCallback(() => {
-    () => {
-      const temp = {
-        id: uuidv4(),
-        label: "Dropdown",
-        dropdownOptions: "",
-      };
-      append(temp, {
-        shouldFocus:
-          getValues(
-            `${
-              pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`
-            }`
-          )?.length === 0
-            ? false
-            : true,
-      });
+  const addOption = () => {
+    const temp = {
+      id: uuidv4(),
+      label: "Dropdown",
+      dropdownOptions: "",
     };
-  }, [append, fieldName, getValues, pollOrSurvey]);
+    append(temp, {
+      shouldFocus:
+        getValues(
+          `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}`
+        )?.length === 0
+          ? false
+          : true,
+    });
+  };
 
   React.useEffect(() => {
     if (getValues("survey")?.[index]?.options?.length === 0) {
       addOption();
     }
-  }, [addOption, getValues, index]);
+  }, []);
 
   return (
     <React.Fragment>

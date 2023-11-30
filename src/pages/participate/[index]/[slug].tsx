@@ -90,7 +90,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = surveyQuestions.map((post) => ({
     params: { index: post.id, slug: post.slug },
   }));
-
   return { paths, fallback: true };
 };
 

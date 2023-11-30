@@ -34,21 +34,20 @@ function CheckboxGrid({
     name: `${fieldName}.options`,
   });
 
-  const addOption = React.useCallback(() => {
-    async () => {
-      const temp = {
-        id: uuidv4(),
-        label: "checkboxGrid",
-      };
-      append(temp);
+  const addOption = async () => {
+    const temp = {
+      id: uuidv4(),
+      label: "checkboxGrid",
     };
-  }, [append]);
+    append(temp);
+  };
 
   React.useEffect(() => {
     if (getValues("survey")?.[idx]?.options?.length === 0) {
       addOption();
     }
-  }, [getValues, addOption, idx]);
+  }, []);
+
   return (
     <React.Fragment>
       {fields?.map((item: any, index: number) => {

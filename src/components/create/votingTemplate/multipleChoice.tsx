@@ -44,26 +44,22 @@ function MultipleChoice({
     name: pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`,
   });
 
-  const addOption = React.useCallback(() => {
-    () => {
-      const temp = {
-        id: uuidv4(),
-        label: "Option",
-        enabled: true,
-        option: "",
-      };
-      append(temp, {
-        shouldFocus:
-          getValues(
-            `${
-              pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`
-            }`
-          )?.length === 0
-            ? false
-            : true,
-      });
+  const addOption = () => {
+    const temp = {
+      id: uuidv4(),
+      label: "Option",
+      enabled: true,
+      option: "",
     };
-  }, [getValues, append, fieldName, pollOrSurvey]);
+    append(temp, {
+      shouldFocus:
+        getValues(
+          `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}`
+        )?.length === 0
+          ? false
+          : true,
+    });
+  };
 
   const addOtherOption = () => {
     const temp = { id: uuidv4(), label: "Other", enabled: false, option: "" };
@@ -89,7 +85,7 @@ function MultipleChoice({
     return () => {
       remove(0);
     };
-  }, [addOption, remove, fields.length]);
+  }, []);
 
   return (
     <React.Fragment>

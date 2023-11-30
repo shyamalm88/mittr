@@ -45,32 +45,28 @@ function Checkbox({
     name: `${fieldName}.options`,
   });
 
-  const addOption = React.useCallback(() => {
-    () => {
-      const temp = {
-        id: uuidv4(),
-        label: "Choice",
-        enabled: true,
-        choice: "",
-      };
-      append(temp, {
-        shouldFocus:
-          getValues(
-            `${
-              pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`
-            }`
-          )?.length === 0
-            ? false
-            : true,
-      });
+  const addOption = () => {
+    const temp = {
+      id: uuidv4(),
+      label: "Choice",
+      enabled: true,
+      choice: "",
     };
-  }, [append, fieldName, getValues, pollOrSurvey]);
+    append(temp, {
+      shouldFocus:
+        getValues(
+          `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}`
+        )?.length === 0
+          ? false
+          : true,
+    });
+  };
 
   React.useEffect(() => {
     if (getValues("survey")?.[index]?.options?.length === 0) {
       addOption();
     }
-  }, [getValues, addOption, index]);
+  }, []);
 
   const addOtherOption = async () => {
     const temp = { id: uuidv4(), label: "Other", enabled: false, choice: "" };

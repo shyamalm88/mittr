@@ -26,7 +26,6 @@ function NavBar(props: ComponentInputProps) {
             <Toolbar disableGutters variant="dense">
               <NavigationElements />
               <Box sx={{ display: "flex", justifyContent: "end", flex: 1 }}>
-                {process.env.NEXT_PUBLIC_BASE_URL}
                 <Search />
                 <ActionBar />
               </Box>

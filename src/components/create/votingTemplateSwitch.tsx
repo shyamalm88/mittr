@@ -1,18 +1,23 @@
 import { ComponentInputProps } from "../../types";
-import MultipleChoice from "./votingTemplate/multipleChoice";
-import ImageChoice from "./votingTemplate/imageChoice";
-import Checkbox from "./votingTemplate/checkbox";
-import LinearScale from "./votingTemplate/linearScale";
-import MultipleChoiceGrid from "./votingTemplate/multipleChoiceGrid";
-import CheckboxGrid from "./votingTemplate/checkboxGrid";
+import dynamic from "next/dynamic";
+const MultipleChoice = dynamic(() => import("./votingTemplate/multipleChoice"));
+const ImageChoice = dynamic(() => import("./votingTemplate/imageChoice"));
+const Checkbox = dynamic(() => import("./votingTemplate/checkbox"));
+const LinearScale = dynamic(() => import("./votingTemplate/linearScale"));
+const MultipleChoiceGrid = dynamic(
+  () => import("./votingTemplate/multipleChoiceGrid")
+);
+const CheckboxGrid = dynamic(() => import("./votingTemplate/checkboxGrid"));
+const ImageChoiceSurvey = dynamic(
+  () => import("./votingTemplate/imageChoiceSurvey")
+);
+const RangeSlider = dynamic(() => import("./votingTemplate/range"));
+const StarRating = dynamic(() => import("./votingTemplate/starRating"));
+const DropDown = dynamic(() => import("./votingTemplate/dropdown"));
+const Legal = dynamic(() => import("./votingTemplate/legal"));
+const ContactInfo = dynamic(() => import("./votingTemplate/contactInfo"));
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
-import ImageChoiceSurvey from "./votingTemplate/imageChoiceSurvey";
-import RangeSlider from "./votingTemplate/range";
-import StarRating from "./votingTemplate/starRating";
-import DropDown from "./votingTemplate/dropdown";
-import Legal from "./votingTemplate/legal";
-import ContactInfo from "./votingTemplate/contactInfo";
 
 function VotingTemplateSwitch(props: ComponentInputProps) {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();

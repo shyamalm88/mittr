@@ -45,14 +45,14 @@ mongoose
       });
     } else {
       const nextApp = next({ dir: ".", dev });
-      // const nextApp = next({ dir: "." });
+
       const nextHandler = nextApp.getRequestHandler();
 
       nextApp.prepare().then(() => {
         const server = express();
         server.use(cors());
         server.use(urlencodedParser);
-        // server.use(morgan("combined"));
+
         server.use(jsonParser);
         server.use(favicon(path.join(__dirname, "public", "favicon.png")));
 
@@ -70,8 +70,6 @@ mongoose
           });
         }
 
-        // Static files
-        // https://github.com/zeit/next.js/tree/4.2.3#user-content-static-file-serving-eg-images
         server.use(
           "/uploads",
           express.static(path.join(__dirname, "uploads"), {
