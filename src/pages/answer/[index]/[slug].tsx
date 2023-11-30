@@ -11,9 +11,13 @@ const AnswerPollWrapper = dynamic(
   () => import("../../../components/answer/answerPollWrapper.component")
 );
 import HttpService from "../../../services/@http/HttpClient";
+import he from "he";
 const http = new HttpService();
 
 const AnswerPoll = ({ questionData }: ComponentInputProps) => {
+  const questionWithoutHtml = he
+    .decode(questionData.question)
+    .replace(/(<([^>]+)>)/gi, "");
   if (!questionData) {
     return (
       <AnswerPollLayout>
@@ -63,8 +67,8 @@ const AnswerPoll = ({ questionData }: ComponentInputProps) => {
     <>
       <PollAnswerProvider>
         <NextSeo
-          title={`Mittr | Take part in a survey featuring the question: ${questionData.question}`}
-          description={`This Poll Answer Page is designed to assist both logged-in and anonymous individuals in responding to polls, with the current poll featuring the following question ${questionData.question}`}
+          title={`Mittr | Take part in a survey featuring the question: ${questionWithoutHtml}`}
+          description={`This Poll Answer Page is designed to assist both logged-in and anonymous individuals in responding to polls, with the current poll featuring the following question ${questionWithoutHtml}`}
         />
         <PollQuestionProvider question={questionData}>
           <AnswerPollLayout>

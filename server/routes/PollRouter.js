@@ -116,7 +116,9 @@ pollRouter.post("", async (req, res) => {
       : null,
     surveyType: req.body.pollType,
     duration: req.body.duration,
-    questionSlug: req.body.questionSlug,
+    questionSlug: req.body.questionSlug
+      ? req.body.questionSlug
+      : (Math.random() + 1).toString(36).substring(7),
     options: req.body.options,
     additionalQuestions: req.body.additionalQuestions,
     settings: req.body.settings,
@@ -142,7 +144,9 @@ pollRouter.post("/:index", async (req, res) => {
         : null,
       surveyType: req.body.pollType,
       duration: req.body.duration,
-      questionSlug: req.body.questionSlug,
+      questionSlug: req.body.questionSlug
+        ? req.body.questionSlug
+        : (Math.random() + 1).toString(36).substring(7),
       options: req.body.options,
       additionalQuestions: req.body.additionalQuestions,
       settings: req.body.settings,

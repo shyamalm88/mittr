@@ -117,7 +117,10 @@ export const PollCreationReducer: Reducer<any, any> = (
 
     case SUBMIT:
       const tempObj = state;
-      tempObj.questionSlug = urlSlug(tempObj.question);
+
+      tempObj.questionSlug = urlSlug(
+        tempObj.question.split("-").slice(0, 3).join("-")
+      );
       tempObj.surveyType = "poll";
       const res = postSurvey(tempObj);
       res

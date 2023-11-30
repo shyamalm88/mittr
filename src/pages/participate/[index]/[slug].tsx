@@ -14,10 +14,13 @@ const PollQuestionProvider = dynamic(
 );
 import HttpService from "../../../services/@http/HttpClient";
 import AnswerSurveyLayout from "../../../layout/answerSurvey.layout";
-
+import he from "he";
 const http = new HttpService();
 
 const ParticipateInSurvey = ({ surveyQuestionData }: ComponentInputProps) => {
+  const questionWithoutHtml = he
+    .decode(surveyQuestionData.title)
+    .replace(/(<([^>]+)>)/gi, "");
   if (!surveyQuestionData) {
     return (
       <AnswerPollLayout>
@@ -67,8 +70,8 @@ const ParticipateInSurvey = ({ surveyQuestionData }: ComponentInputProps) => {
     <>
       <PollAnswerProvider>
         <NextSeo
-          title={`Mittr | Take part in a survey featuring the question: ${surveyQuestionData.title}`}
-          description={`This Survey Answer Page is designed to assist both logged-in and anonymous individuals in responding to surveys, with the current survey featuring the following title ${surveyQuestionData.title}`}
+          title={`Mittr | Take part in a survey featuring the question: ${questionWithoutHtml}`}
+          description={`This Survey Answer Page is designed to assist both logged-in and anonymous individuals in responding to surveys, with the current survey featuring the following title ${questionWithoutHtml}`}
         />
         <PollQuestionProvider question={surveyQuestionData}>
           <AnswerSurveyLayout>

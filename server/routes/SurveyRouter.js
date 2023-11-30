@@ -85,7 +85,6 @@ surveyRouter.get("/answers", async (req, res) => {
 });
 
 surveyRouter.get("/:index", async (req, res) => {
-  
   try {
     const survey = await Survey.findById(req.params.index)
       .orFail()
@@ -121,7 +120,9 @@ surveyRouter.post("", async (req, res) => {
     description: req.body.description,
     survey: req.body.survey,
     duration: req.body.duration,
-    questionSlug: req.body.questionSlug,
+    questionSlug: req.body.questionSlug
+      ? req.body.questionSlug
+      : (Math.random() + 1).toString(36).substring(7),
     settings: req.body.settings,
   });
 
@@ -145,7 +146,9 @@ surveyRouter.post("/:index", async (req, res) => {
       description: req.body.description,
       survey: req.body.survey,
       duration: req.body.duration,
-      questionSlug: req.body.questionSlug,
+      questionSlug: req.body.questionSlug
+        ? req.body.questionSlug
+        : (Math.random() + 1).toString(36).substring(7),
       settings: req.body.settings,
     });
 
@@ -164,7 +167,6 @@ surveyRouter.post("/:index", async (req, res) => {
 });
 
 surveyRouter.post("/image/upload", upload.single("image"), async (req, res) => {
-  
   if (req.file) {
     const sharpObject = sharp(req.file.path);
     const dimensions = await sharpObject.metadata();

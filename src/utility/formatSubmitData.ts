@@ -11,9 +11,15 @@ export async function pollFormDataUpdate(
   append: Function,
   remove: Function
 ) {
-  setValue("questionSlug", urlSlug(striptags(he.decode(data.question))), {
-    shouldValidate: true,
-  });
+  setValue(
+    "questionSlug",
+    urlSlug(
+      striptags(he.decode(data.question.split("-").slice(0, 3).join("-")))
+    ),
+    {
+      shouldValidate: true,
+    }
+  );
   const additionalQuestions = getValues("additionalQuestions").filter(
     (item: any) => item.question
   );
@@ -91,7 +97,10 @@ export async function surveyFormDataUpdate(
   append: Function,
   remove: Function
 ) {
-  setValue("questionSlug", urlSlug(data.title));
+  setValue(
+    "questionSlug",
+    urlSlug(data.title.split("-").slice(0, 3).join("-"))
+  );
 
   const dataToBeSubmitted = getValues();
   (dataToBeSubmitted.survey as any) = _.map(
