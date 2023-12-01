@@ -23,16 +23,12 @@ body {
     justify-content: center;
     align-items: center;
     button {
-        border-radius: 20px;
+        letter-spacing: 1px;
+        transition: transform 80ms ease-in;
+    }
+    button.signUp {
         border: 1px solid #ff4b2b;
         background-color: #ff4b2b;
-        color: #ffffff;
-        font-size: 12px;
-        font-weight: bold;
-        padding: 12px 45px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        transition: transform 80ms ease-in;
     }
 
     button:active {
@@ -59,10 +55,7 @@ body {
     }
 
     input {
-        background-color: #eee;
         border: none;
-        padding: 12px 15px;
-        margin: 8px 0;
         width: 100%;
     }
 
@@ -75,7 +68,7 @@ body {
         overflow: hidden;
         width: 768px;
         max-width: 100%;
-        min-height: 480px;
+        min-height: 580px;
     }
 
     .form-container {
@@ -225,33 +218,6 @@ body {
     footer a {
         color: #3c97bf;
         text-decoration: none;
-    }
-}
-
-.quill {
-    display: flex;
-    flex-direction: column-reverse;
-}
-.ql-container {
-    min-height: 100px;
-    border: 0px solid transparent !important;
-}
-.ql-toolbar {
-    border: 0px solid transparent !important;
-    border-top: 1px solid #ccc !important;
-}
-.ql-editor {
-    min-height: 100px;
-}
-
-.ql-syntax {
-    background-color: #23241f;
-    color: #f8f8f2;
-    overflow: auto;
-}
-.contentEditableWrap {
-    p {
-        margin: 0;
     }
 }
 

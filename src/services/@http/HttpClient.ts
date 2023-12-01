@@ -23,7 +23,7 @@ class HttpService {
       withCredentials: false,
       headers: this.setupHeaders(),
     });
-    console.log(process.env.NODE_ENV);
+    // console.log(process.env.NODE_ENV);
   }
 
   // Get authorization token for requests
@@ -155,13 +155,7 @@ class HttpService {
 
   // Normalize errors
   private normalizeError(error: any) {
-    toast.error(
-      `Something went Wrong! We Could not process your request. Please try again.`,
-      {
-        position: toast.POSITION.TOP_RIGHT,
-        theme: "colored",
-      }
-    );
+    console.error(error);
     return Promise.reject(error);
   }
 }

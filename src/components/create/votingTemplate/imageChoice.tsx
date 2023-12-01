@@ -86,7 +86,7 @@ function ImageChoice({
       items[index] = response.body;
       setImageValue(items);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

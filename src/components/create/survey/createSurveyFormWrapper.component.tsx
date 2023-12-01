@@ -165,7 +165,7 @@ const PollFormWrapper = () => {
         });
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -180,7 +180,7 @@ const PollFormWrapper = () => {
       setAlreadySavedDataId((response as any)?._id);
       return response;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

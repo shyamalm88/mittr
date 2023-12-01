@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const session = require("express-session");
 const favicon = require("serve-favicon");
 const next = require("next");
 const path = require("path");
@@ -10,24 +11,23 @@ const mongoose = require("mongoose");
 const routes = require("./server/routes/Routers");
 const morgan = require("morgan");
 const cors = require("cors");
+const passport = require("passport");
 
 const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;
+const {
+  isNotAuthenticated,
+  isAuthenticated,
+} = require("./server/routes/AuthRouter");
 
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({
   extended: false,
 });
-
-// `mongodb+srv://shyamalm88:ozWTffravvFefugL@mittr.otzfxtv.mongodb.net/?retryWrites=true&w=majority`;
 mongoose
-  // .connect("mongodb://127.0.0.1:27017/mittr", {
-  .connect(
-    `mongodb://shyamalm88:ozWTffravvFefugL@ac-5o9suje-shard-00-00.otzfxtv.mongodb.net:27017,ac-5o9suje-shard-00-01.otzfxtv.mongodb.net:27017,ac-5o9suje-shard-00-02.otzfxtv.mongodb.net:27017/?ssl=true&replicaSet=atlas-o9wug9-shard-0&authSource=admin&retryWrites=true&w=majority`,
-    {
-      serverSelectionTimeoutMS: 5000,
-    }
-  )
+  .connect(`${process.env.MONGO_URL}`, {
+    serverSelectionTimeoutMS: 5000,
+  })
   .then(() => {
     // Multi-process to utilize all CPU cores.
     if (!dev && cluster.isMaster) {
@@ -52,6 +52,15 @@ mongoose
         const server = express();
         server.use(cors());
         server.use(urlencodedParser);
+        server.use(
+          session({
+            secret: process.env.SECRET,
+            resave: false,
+            saveUninitialized: true,
+          })
+        );
+        server.use(passport.initialize());
+        server.use(passport.session());
 
         server.use(jsonParser);
         server.use(favicon(path.join(__dirname, "public", "favicon.png")));
@@ -87,17 +96,24 @@ mongoose
 
         server.use("/api", routes);
 
-        // Example server-side routing
-        server.get("/home", (req, res) => {
-          return nextApp.render(req, res, "/create", req.query);
-        });
-
-        // Example server-side routing
         server.get("/", (req, res) => {
           return nextApp.render(req, res, "/dashboard", req.query);
         });
+        server.get("/dashboard", isAuthenticated, (req, res) => {
+          return nextApp.render(req, res, "/dashboard", req.query);
+        });
+        server.get("/create", isAuthenticated, (req, res) => {
+          return nextApp.render(req, res, "/create", req.query);
+        });
 
-        // Default catch-all renders Next app
+        server.get("/profile", isAuthenticated, (req, res) => {
+          return nextApp.render(req, res, "/profile", req.query);
+        });
+
+        server.get("/auth", isNotAuthenticated, (req, res) => {
+          return nextApp.render(req, res, "/auth", req.query);
+        });
+
         server.get("*", (req, res) => {
           //   res.set({
           //     'Cache-Control': 'public, max-age=3600'
@@ -118,5 +134,5 @@ mongoose
   });
 
 process.on("uncaughtException", function (err) {
-  console.log(err);
+  console.error(err);
 });

@@ -111,12 +111,6 @@ const PollFormWrapper = () => {
     setFocus("question");
   }, [setFocus]);
 
-  const handleChange = (e: any) => {
-    onSubmit(e.target.files[0]);
-  };
-
-  const handleRemove = (e: any) => {};
-
   const onSubmit = async (fileData: any) => {
     const formData: any = new FormData();
     formData.append("image", fileData);
@@ -126,7 +120,7 @@ const PollFormWrapper = () => {
         .postMultipart(`/poll/image/upload`, formData);
       setQuestionImageValue(response.body);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -195,7 +189,7 @@ const PollFormWrapper = () => {
         });
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -210,7 +204,7 @@ const PollFormWrapper = () => {
       setAlreadySavedDataId((response as any)?._id);
       return response;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

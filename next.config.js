@@ -6,6 +6,7 @@ module.exports = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
+  poweredByHeader: false,
   images: {
     domains: ["flagcdn.com"],
   },

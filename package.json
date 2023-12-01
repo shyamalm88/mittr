@@ -44,6 +44,7 @@
     "@types/react-dom": "^18.2.7",
     "@types/underscore": "^1.11.9",
     "axios": "^1.5.0",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "country-state-city": "^3.1.4",
@@ -62,6 +63,11 @@
     "multer": "^1.4.5-lts.1",
     "next": "14.0.3",
     "next-seo": "^6.1.0",
+    "passport": "^0.7.0",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-linkedin-oauth2": "^2.0.0",
+    "passport-local": "^1.0.0",
     "react": "^18.2.0",
     "react-autosave": "^0.4.3",
     "react-color": "^2.19.3",
@@ -89,11 +95,11 @@
     "webpack-dev-server": "^4.15.1"
   },
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodenv -E ./.env.development -e nodemon server.js",
     "build": "next build --debug",
     "start": "next start",
     "lint": "next lint",
-    "prod": "nodenv -E ./.env.prod server.js"
+    "prod": "nodenv -E ./.env.prod -e nodemon server.js"
   },
   "eslintConfig": {
     "extends": [

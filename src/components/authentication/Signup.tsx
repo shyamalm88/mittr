@@ -6,104 +6,141 @@ import google_light from "./../../images/svg/google_light.svg";
 import linkedin_dark from "./../../images/svg/linkedin_dark.svg";
 import linkedin_light from "./../../images/svg/linkedin_light.svg";
 import Image from "next/image";
-import { useTheme } from "@mui/material";
+import { useTheme, TextField } from "@mui/material";
 
-function SignUpForm() {
+import { Button } from "@mui/material";
+import { FormProvider, useForm } from "react-hook-form";
+import {
+  PATTERN,
+  PATTERN_EMAIL,
+  PATTERN_PASSWORD,
+  REQUIRED,
+} from "../../constants/error";
+import FormValidationError from "../../utility/FormValidationError";
+import { useRouter } from "next/router";
+import { ComponentInputProps } from "../../types";
+
+function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
   const theme = useTheme();
-  const [state, setState] = React.useState({
-    name: "",
-    email: "",
-    password: "",
+
+  const methods = useForm<any>({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
   });
-  const handleChange = (evt: any) => {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value,
-    });
-  };
 
-  const handleOnSubmit = (evt: any) => {
-    evt.preventDefault();
+  const {
+    handleSubmit,
+    formState: { errors, isDirty, dirtyFields, touchedFields },
+    register,
+    reset,
+  } = methods;
 
-    const { name, email, password } = state;
-    alert(
-      `You are sign up with name: ${name} email: ${email} and password: ${password}`
-    );
-
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: "",
-      });
-    }
+  const handleSignUpSubmit = (data: any) => {
+    reset();
+    handleSubmitMethod(data);
   };
 
   return (
-    <div className="form-container sign-up-container">
-      <form
-        onSubmit={handleOnSubmit}
-        style={{ backgroundColor: theme.palette.background.default }}
-      >
-        <h1>Create Account</h1>
-        <div className="social-container">
-          <a href="#" className="social">
-            <Image
-              src={
-                theme.palette.mode === "dark" ? facebook_light : facebook_dark
-              }
-              width={20}
-              height={20}
-              sizes="100vw"
-              alt="Login With Facebook"
-            />
-          </a>
-          <a href="#" className="social">
-            <Image
-              src={theme.palette.mode === "dark" ? google_light : google_dark}
-              width={20}
-              height={20}
-              sizes="100vw"
-              alt="Login With Google"
-            />
-          </a>
-          <a href="#" className="social">
-            <Image
-              src={
-                theme.palette.mode === "dark" ? linkedin_light : linkedin_dark
-              }
-              width={20}
-              height={20}
-              sizes="100vw"
-              alt="Login With Linkedin"
-            />
-          </a>
-        </div>
-        <span>or use your email for registration</span>
-        <input
-          type="text"
-          name="name"
-          value={state.name}
-          onChange={handleChange}
-          placeholder="Name"
-        />
-        <input
-          type="email"
-          name="email"
-          value={state.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          name="password"
-          value={state.password}
-          onChange={handleChange}
-          placeholder="Password"
-        />
-        <button>Sign Up</button>
-      </form>
-    </div>
+    <FormProvider {...methods}>
+      <div className="form-container sign-up-container">
+        <form
+          onSubmit={handleSubmit(handleSignUpSubmit)}
+          style={{ backgroundColor: theme.palette.background.default }}
+        >
+          <h1>Create Account</h1>
+          <div className="social-container">
+            <a href="#" className="social">
+              <Image
+                src={
+                  theme.palette.mode === "dark" ? facebook_light : facebook_dark
+                }
+                width={20}
+                height={20}
+                sizes="100vw"
+                alt="Login With Facebook"
+              />
+            </a>
+            <a href="#" className="social">
+              <Image
+                src={theme.palette.mode === "dark" ? google_light : google_dark}
+                width={20}
+                height={20}
+                sizes="100vw"
+                alt="Login With Google"
+              />
+            </a>
+            <a href="#" className="social">
+              <Image
+                src={
+                  theme.palette.mode === "dark" ? linkedin_light : linkedin_dark
+                }
+                width={20}
+                height={20}
+                sizes="100vw"
+                alt="Login With Linkedin"
+              />
+            </a>
+          </div>
+          <span>or use your email for registration</span>
+          <TextField
+            placeholder="Full Name"
+            size="small"
+            sx={{ m: 1 }}
+            error={!!errors?.name}
+            {...register(`name` as const, {
+              required: REQUIRED.NAME_REQUIRED_ONLY,
+              pattern: {
+                value: PATTERN,
+                message: REQUIRED.PATTERN,
+              },
+            })}
+          />
+          <FormValidationError errorText={errors?.name?.message} />
+          <TextField
+            placeholder="john.doe@example.com"
+            size="small"
+            sx={{ m: 1 }}
+            error={!!errors?.email}
+            {...register(`email` as const, {
+              required: REQUIRED.EMAIL_REQUIRED_ONLY,
+              pattern: {
+                value: PATTERN_EMAIL,
+                message: REQUIRED.EMAIL,
+              },
+            })}
+          />
+          <FormValidationError errorText={errors?.email?.message} />
+
+          <TextField
+            placeholder="Password"
+            type="password"
+            size="small"
+            sx={{ m: 1 }}
+            error={!!errors?.password}
+            {...register(`password` as const, {
+              required: REQUIRED.PASSWORD_REQUIRED_ONLY,
+              pattern: {
+                value: PATTERN_PASSWORD,
+                message: REQUIRED.PASSWORD,
+              },
+            })}
+          />
+          <FormValidationError errorText={errors?.password?.message} />
+
+          <Button
+            variant="contained"
+            color="error"
+            className="signUp"
+            type="submit"
+          >
+            Sign Up
+          </Button>
+        </form>
+      </div>
+    </FormProvider>
   );
 }
 

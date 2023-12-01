@@ -1,3 +1,4 @@
+import React from "react";
 import AnswerPollLayout from "../../../layout/answer.layout";
 import PollQuestionProvider from "../../../providers/pollQuestion.provider";
 import { NextSeo } from "next-seo";
@@ -15,9 +16,15 @@ import he from "he";
 const http = new HttpService();
 
 const AnswerPoll = ({ questionData }: ComponentInputProps) => {
-  const questionWithoutHtml = he
-    .decode(questionData.question)
-    .replace(/(<([^>]+)>)/gi, "");
+  const [questionWithoutHtml, setQuestionWithoutHtml] = React.useState("");
+  React.useEffect(() => {
+    if (questionData) {
+      setQuestionWithoutHtml(
+        he.decode(questionData?.title).replace(/(<([^>]+)>)/gi, "")
+      );
+    }
+  }, [questionData]);
+
   if (!questionData) {
     return (
       <AnswerPollLayout>

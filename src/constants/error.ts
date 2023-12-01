@@ -23,5 +23,14 @@ export const REQUIRED = {
   STAR_COLOR: "Please provide  Survey Star Rating Color Value",
   STAR_ICON: "Please provide  Survey Star Rating Icon Value",
   STAR_PRECISION: "Please provide  Survey Star Rating Precision Value",
+  NAME: "Please provide your full Name",
+  NAME_REQUIRED_ONLY: "Please provide your Full Name",
+  EMAIL: "Please Provide a Valid Email address",
+  EMAIL_REQUIRED_ONLY: "Please provide Email address",
+  PASSWORD: "Please Provide a valid password which matches below criteria.",
+  PASSWORD_REQUIRED_ONLY: "Please provide password.",
 };
 export const PATTERN = /^[a-zA-Z0-9 .,?!@#$%^&*()_+-=;:\'\"|\\]*$/;
+export const PATTERN_EMAIL = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+export const PATTERN_PASSWORD =
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/g;

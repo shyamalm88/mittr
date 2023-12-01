@@ -131,7 +131,7 @@ function SurveyQuestionnaire({
         .postMultipart(`/survey/image/upload`, formData);
       setQuestionImageValue(response.body);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
