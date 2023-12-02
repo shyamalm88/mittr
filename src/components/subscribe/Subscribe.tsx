@@ -27,7 +27,7 @@ function Subscribe() {
       </Box>
 
       <Box sx={{ m: 2 }}>
-        <Typography variant="h3" sx={{ mb: 1 }}>
+        <Typography component="h3" sx={{ mb: 1 }} variant="h5">
           Subscribe to this Poll
         </Typography>
         <Typography variant="body1" component="p" sx={{ mb: 5 }}>

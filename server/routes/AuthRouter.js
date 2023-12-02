@@ -24,6 +24,8 @@ const getUserById = async (id) => {
 };
 
 const checkAuthenticated = (req, res, next) => {
+  console.log(req);
+  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     return next();
   }
@@ -33,9 +35,16 @@ const checkAuthenticated = (req, res, next) => {
 
 const checkNotAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
-    return res.redirect("/profile");
+    var redirectTo = "/dashboard";
+    if (res.locals.reqUrl) {
+      redirectTo = res.locals.reqUrl; // small change here
+      req.session.reqUrl = res.locals.reqUrl; // you can reassign the value to req.session.reqUrl to be accessible in other routes
+    }
+
+    res.redirect(redirectTo);
+  } else {
+    next();
   }
-  next();
 };
 
 const authenticateUser = async (email, password, done) => {
@@ -56,6 +65,19 @@ const authenticateUser = async (email, password, done) => {
 };
 
 passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser));
+
+authRouter.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile"] })
+);
+
+authRouter.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    successRedirect: "/login/success",
+    failureRedirect: "/login/failure",
+  })
+);
 
 authRouter.get("/users", async (req, res, next) => {
   try {
@@ -99,37 +121,46 @@ authRouter.post("/signup", async (req, res, next) => {
   }
 });
 
-authRouter.post("/signin", async (req, res, next) => {
-  passport.authenticate("local", (err, user, options) => {
-    if (err) {
-      res.status(500).send({ message: err });
-    } else if (options) {
-      if (options.message === "No User With That Email") {
-        res.status(401).send({ message: options.message });
-      }
-      if (options.message === "password did not match") {
-        res.status(401).send({ message: options.message });
-      }
-    } else if (user) {
-      res.status(200).send(user);
+authRouter.post(
+  "/signin",
+
+  (req, res, next) => {
+    res.locals.reqUrl = req.session.reqUrl; // all the magic
+    return next();
+  },
+
+  passport.authenticate("local", {
+    failureRedirect: "/auth",
+  }),
+  function (req, res) {
+    var redirectTo = "/dashboard";
+    if (res.locals.reqUrl) {
+      redirectTo = res.locals.reqUrl; // small change here
+      req.session.reqUrl = res.locals.reqUrl; // you can reassign the value to req.session.reqUrl to be accessible in other routes
     }
-  })(req, res);
-});
+
+    res.redirect(redirectTo);
+  }
+);
 
 authRouter.delete("/logout", (req, res) => {
   req.logOut();
   res.redirect("/login");
 });
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
+passport.serializeUser(function (user, cb) {
+  //   console.log(user);
+  process.nextTick(function () {
+    cb(null, { id: user.id, user });
+  });
 });
 
-passport.deserializeUser((id, done) => {
-  done(null, getUserById(id));
+passport.deserializeUser(function (user, cb) {
+  console.log(user);
+  process.nextTick(function () {
+    return cb(null, user);
+  });
 });
-
-module.exports = authRouter;
 
 module.exports = {
   authRouter,

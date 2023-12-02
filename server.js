@@ -12,6 +12,8 @@ const routes = require("./server/routes/Routers");
 const morgan = require("morgan");
 const cors = require("cors");
 const passport = require("passport");
+// const cookieSession = require("cookie-session");
+// const GoogleAuthRouter = require("./server/routes/GoogleAuthRouter");
 
 const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;
@@ -50,8 +52,16 @@ mongoose
 
       nextApp.prepare().then(() => {
         const server = express();
-        server.use(cors());
+        server.use(
+          cors({
+            origin: "*",
+            methods: "GET,POST,PUT,DELETE",
+            credentials: true,
+          })
+        );
         server.use(urlencodedParser);
+        server.use(jsonParser);
+        server.use(favicon(path.join(__dirname, "public", "favicon.png")));
         server.use(
           session({
             secret: process.env.SECRET,
@@ -59,11 +69,10 @@ mongoose
             saveUninitialized: true,
           })
         );
+
         server.use(passport.initialize());
         server.use(passport.session());
-
-        server.use(jsonParser);
-        server.use(favicon(path.join(__dirname, "public", "favicon.png")));
+        server.use(passport.authenticate("session"));
 
         if (!dev) {
           // Enforce SSL & HSTS in production
@@ -75,7 +84,7 @@ mongoose
               });
               return next();
             }
-            res.redirect("https://" + req.headers.host + req.url);
+            res.redirect("http://" + req.headers.host + req.url);
           });
         }
 

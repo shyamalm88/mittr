@@ -139,13 +139,7 @@ function AnalyticsDashboard() {
   return (
     <>
       <Card>
-        <CardHeader
-          title={
-            <Typography align="left" component="h3" variant="h5">
-              Poll Analytics
-            </Typography>
-          }
-        ></CardHeader>
+        <CardHeader title={"Poll Analytics"}></CardHeader>
         <CardContent>
           <TableContainer>
             <Table aria-label="collapsible table">
@@ -181,13 +175,7 @@ function AnalyticsDashboard() {
         </CardContent>
       </Card>
       <Card sx={{ my: 2 }}>
-        <CardHeader
-          title={
-            <Typography align="left" component="h3" variant="h5">
-              Survey Analytics
-            </Typography>
-          }
-        ></CardHeader>
+        <CardHeader title={"Survey Analytics"}></CardHeader>
         <CardContent>
           <TableContainer>
             <Table aria-label="collapsible table">
