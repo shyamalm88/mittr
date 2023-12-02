@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const routes = require("./server/routes/Routers");
 const cors = require("cors");
 const passport = require("passport");
+const cookieParser = require("cookie-parser");
 
 const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;
@@ -66,6 +67,7 @@ mongoose
             saveUninitialized: true,
           })
         );
+        server.use(cookieParser());
 
         server.use(passport.initialize());
         server.use(passport.session());
@@ -96,7 +98,6 @@ mongoose
           const status = {
             Status: "Running",
           };
-
           response.send(status);
         });
 

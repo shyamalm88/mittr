@@ -6,8 +6,11 @@ import { blue, green, purple } from "@mui/material/colors";
 import HttpService from "../../services/@http/HttpClient";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
 
 const Authentication = () => {
+  const { authenticatedUser, setAuthenticatedUser } =
+    useAuthenticatedUserData();
   const router = useRouter();
   const http = new HttpService();
   const theme = useTheme();
@@ -48,7 +51,8 @@ const Authentication = () => {
     try {
       const response = await http.service().post(`/auth/signin`, data);
       console.log(response);
-      if (response) {
+      setAuthenticatedUser(response);
+      if ((response as any).user) {
         toast.success(`You have successfully Signed In.`, {
           position: toast.POSITION.TOP_RIGHT,
           theme: "colored",
@@ -62,6 +66,11 @@ const Authentication = () => {
           ) {
             router.push("/dashboard");
           }
+        });
+      } else if ((response as any).info) {
+        toast.error((response as any).info.message, {
+          position: toast.POSITION.TOP_RIGHT,
+          theme: "colored",
         });
       }
     } catch (error: any) {

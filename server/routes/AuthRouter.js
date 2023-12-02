@@ -25,8 +25,6 @@ const getUserById = async (id) => {
 };
 
 const checkAuthenticated = (req, res, next) => {
-  console.log(req);
-  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     return next();
   }
@@ -52,17 +50,14 @@ const authenticateUser = async (email, password, done) => {
   const user = await getUserByEmail(email);
 
   if (user && user.password === undefined) {
-    console.log("=======", user);
     return done(null, false, {
       message: "User Might Have signed Up with Social Links",
     });
   } else if (user === null) {
-    console.log("***********", user);
     return done(null, false, { message: "No User With That Email" });
   }
   try {
     if (user.password && (await bcrypt.compare(password, user.password))) {
-      console.log("((((((((((((((((((((((()))))))))))))))))))))))", user);
       const updatedUserWithoutPassword = await getUserByEmail(email, true);
       return done(null, updatedUserWithoutPassword);
     } else {
@@ -82,7 +77,6 @@ passport.use(
       callbackURL: "http://localhost:3000/api/auth/google/callback",
     },
     async function (accessToken, refreshToken, profile, cb) {
-      // console.log(profile);
       const newUser = {
         googleId: profile.id,
         email: profile.emails[0].value,
@@ -100,6 +94,7 @@ passport.use(
         }
       } catch (err) {
         console.log(err);
+        cb(err);
       }
     }
   )
@@ -116,12 +111,9 @@ authRouter.get(
     res.locals.reqUrl = req.session.reqUrl;
     return next();
   },
-  passport.authenticate("google", {
-    failureRedirect: "/auth",
-  }),
+  passport.authenticate("google", {}),
   function (req, res) {
-    // Successful authentication, redirect to secret page.
-    res.redirect("http://localhost:3000/dashboard"); //redirect back to the frontend secret page
+    res.redirect("/dashboard");
   }
 );
 
@@ -171,27 +163,44 @@ authRouter.post("/signup", async (req, res, next) => {
   }
 });
 
-authRouter.post(
-  "/signin",
-  (req, res, next) => {
-    res.locals.reqUrl = req.session.reqUrl;
-    return next();
-  },
-  passport.authenticate("local"),
-  function (req, res) {
-    var redirectTo = "/dashboard";
-    if (res.locals.reqUrl) {
-      redirectTo = res.locals.reqUrl;
-      req.session.reqUrl = res.locals.reqUrl;
+authRouter.get("/request-user", function (req, res) {
+  res.send(req.user);
+});
+
+authRouter.post("/signin", async (req, res, next) => {
+  passport.authenticate("local", async (error, user, info) => {
+    try {
+      if (error) {
+        return res.status(500).json({
+          message: "Something is wrong",
+          error: error || "internal server errror",
+        });
+      }
+
+      //req.login is provided by passport to serilize user id
+      req.login(user, async (error) => {
+        if (error) {
+          res.status(500).json({
+            message: "Somthing is wrong",
+            error: error || "internal server errror",
+          });
+        }
+
+        return res.send({ user, info });
+      });
+    } catch (error) {
+      return next(error);
     }
+  })(req, res, next);
+});
 
-    res.redirect(redirectTo);
-  }
-);
-
-authRouter.delete("/logout", (req, res) => {
-  req.logOut();
-  res.redirect("/login");
+authRouter.get("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    return res.send("logout");
+  });
 });
 
 passport.serializeUser(function (user, cb) {

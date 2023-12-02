@@ -11,8 +11,19 @@ import Search from "./Search.component";
 import { ComponentInputProps } from "../../types";
 import Box from "@mui/material/Box";
 import "dotenv/config";
+import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
+import ProfileDisplay from "./ProfileDisplay.component";
+import Link from "next/link";
 
 function NavBar(props: ComponentInputProps) {
+  const [userData, setUserData] = React.useState(null);
+  const { authenticatedUser, setAuthenticatedUser } =
+    useAuthenticatedUserData();
+  React.useEffect(() => {
+    console.log(authenticatedUser);
+    setUserData(authenticatedUser?.user);
+  }, [authenticatedUser]);
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -28,6 +39,20 @@ function NavBar(props: ComponentInputProps) {
               <Box sx={{ display: "flex", justifyContent: "end", flex: 1 }}>
                 <Search />
                 <ActionBar />
+                {authenticatedUser ? (
+                  <ProfileDisplay userData={userData} />
+                ) : (
+                  <Link
+                    href="/auth"
+                    style={{
+                      fontSize: "1em",
+                      marginTop: "10px",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    Login
+                  </Link>
+                )}
               </Box>
             </Toolbar>
           </Container>

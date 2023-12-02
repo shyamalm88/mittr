@@ -12,6 +12,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthenticatedUserDataProvider from "../providers/authenticatedUserData.provider";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
@@ -40,7 +41,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, [themeMode]);
 
   return (
-    <>
+    <AuthenticatedUserDataProvider>
       <React.Fragment>
         <ColorModeContext.Provider value={colorMode}>
           <ThemeProvider theme={theme}>
@@ -61,6 +62,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
               )}
             </Fab>
             <CssBaseline />
+
             <RootLayout>
               <ConfirmProvider>
                 <Component {...pageProps} />
@@ -70,6 +72,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           </ThemeProvider>
         </ColorModeContext.Provider>
       </React.Fragment>
-    </>
+    </AuthenticatedUserDataProvider>
   );
 }

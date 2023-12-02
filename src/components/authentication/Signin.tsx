@@ -23,6 +23,7 @@ import Link from "next/link";
 
 function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
   const theme = useTheme();
+
   const [viewPwd, setViewPwd] = React.useState(false);
 
   const methods = useForm<any>({
@@ -109,7 +110,7 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
           <OutlinedInput
             placeholder="Password"
             fullWidth
-            type="password"
+            type={viewPwd ? "text" : "password"}
             size="small"
             sx={{ m: 1 }}
             error={!!errors?.password}

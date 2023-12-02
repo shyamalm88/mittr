@@ -20,13 +20,14 @@ class HttpService {
   constructor() {
     this.http = axios.create({
       baseURL: this.baseURL,
-      withCredentials: false,
+      withCredentials: true,
       headers: this.setupHeaders(),
     });
     // console.log(process.env.NODE_ENV);
   }
 
   // Get authorization token for requests
+
   private get getAuthorization() {
     const accessToken = Cookies.get("AccessToken") || "";
     return accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
