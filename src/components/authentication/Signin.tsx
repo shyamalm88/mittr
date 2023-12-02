@@ -6,18 +6,24 @@ import google_light from "./../../images/svg/google_light.svg";
 import linkedin_dark from "./../../images/svg/linkedin_dark.svg";
 import linkedin_light from "./../../images/svg/linkedin_light.svg";
 import Image from "next/image";
-import { Button, Link, TextField, useTheme } from "@mui/material";
-import { ComponentInputProps, CreatePollSubmittedValueType } from "../../types";
-import { FormProvider, useForm } from "react-hook-form";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
-  PATTERN_EMAIL,
-  PATTERN_PASSWORD,
-  REQUIRED,
-} from "../../constants/error";
+  Button,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  useTheme,
+} from "@mui/material";
+import { ComponentInputProps } from "../../types";
+import { FormProvider, useForm } from "react-hook-form";
+import { REQUIRED } from "../../constants/error";
 import FormValidationError from "../../utility/FormValidationError";
+import Link from "next/link";
 
 function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
   const theme = useTheme();
+  const [viewPwd, setViewPwd] = React.useState(false);
 
   const methods = useForm<any>({
     defaultValues: {
@@ -36,6 +42,11 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
   const handleSignInSubmit = (data: any) => {
     reset();
     handleSubmitMethod(data);
+  };
+
+  const handleGoogleLogin = () => {
+    // const res = http.get("/auth/google");
+    window.open("http://localhost:3000/api/auth/google", "_self");
   };
 
   return (
@@ -58,7 +69,11 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
                 alt="Login With Facebook"
               />
             </a>
-            <a href="#" className="social">
+            <Link
+              href="javascript:void(0)"
+              onClick={handleGoogleLogin}
+              className="social"
+            >
               <Image
                 src={theme.palette.mode === "dark" ? google_light : google_dark}
                 width={20}
@@ -66,7 +81,7 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
                 sizes="100vw"
                 alt="Login With Google"
               />
-            </a>
+            </Link>
             <a href="#" className="social">
               <Image
                 src={
@@ -80,8 +95,9 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
             </a>
           </div>
           <span>or use your account</span>
-          <TextField
+          <OutlinedInput
             placeholder="Email"
+            fullWidth
             size="small"
             sx={{ m: 1 }}
             error={!!errors?.email}
@@ -90,8 +106,9 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
             })}
           />
           <FormValidationError errorText={errors?.email?.message} />
-          <TextField
+          <OutlinedInput
             placeholder="Password"
+            fullWidth
             type="password"
             size="small"
             sx={{ m: 1 }}
@@ -99,9 +116,20 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
             {...register(`password` as const, {
               required: REQUIRED.PASSWORD_REQUIRED_ONLY,
             })}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setViewPwd(!viewPwd)}
+                  edge="end"
+                >
+                  {viewPwd ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
           <FormValidationError errorText={errors?.password?.message} />
-          <Link sx={{ m: 2 }} href="#">
+          <Link style={{ m: 2 }} href="#">
             Forgot your password?
           </Link>
           <Button

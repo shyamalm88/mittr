@@ -148,6 +148,15 @@ class HttpService {
 
       (error) => {
         // * Implement a global error alert
+        const errorMsg = error?.response?.data?.message
+          ? error.response.data.message
+          : error?.response?.data
+          ? error.response.data
+          : error.message;
+        toast.error(errorMsg, {
+          position: toast.POSITION.TOP_RIGHT,
+          theme: "colored",
+        });
         return Promise.reject(error);
       }
     );

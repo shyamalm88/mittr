@@ -4,7 +4,8 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const LocalStrategy = require("passport-local").Strategy;
-
+const GoogleStrategy = require("passport-google-oauth20");
+const { error } = require("console");
 const authRouter = express.Router();
 
 const getUserByEmail = async (email, omitPassword = false) => {
@@ -49,11 +50,19 @@ const checkNotAuthenticated = (req, res, next) => {
 
 const authenticateUser = async (email, password, done) => {
   const user = await getUserByEmail(email);
-  if (user === null) {
+
+  if (user && user.password === undefined) {
+    console.log("=======", user);
+    return done(null, false, {
+      message: "User Might Have signed Up with Social Links",
+    });
+  } else if (user === null) {
+    console.log("***********", user);
     return done(null, false, { message: "No User With That Email" });
   }
   try {
-    if (await bcrypt.compare(password, user.password)) {
+    if (user.password && (await bcrypt.compare(password, user.password))) {
+      console.log("((((((((((((((((((((((()))))))))))))))))))))))", user);
       const updatedUserWithoutPassword = await getUserByEmail(email, true);
       return done(null, updatedUserWithoutPassword);
     } else {
@@ -65,18 +74,55 @@ const authenticateUser = async (email, password, done) => {
 };
 
 passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser));
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:3000/api/auth/google/callback",
+    },
+    async function (accessToken, refreshToken, profile, cb) {
+      // console.log(profile);
+      const newUser = {
+        googleId: profile.id,
+        email: profile.emails[0].value,
+        fullName: profile._json.name,
+        profileImgUrl: profile.photos[0].value,
+      };
+      try {
+        let user = await User.findOne({ email: newUser.email });
+
+        if (user) {
+          cb(null, user);
+        } else {
+          user = await User.create(newUser);
+          cb(null, user);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  )
+);
 
 authRouter.get(
   "/google",
-  passport.authenticate("google", { scope: ["profile"] })
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 authRouter.get(
   "/google/callback",
+  (req, res, next) => {
+    res.locals.reqUrl = req.session.reqUrl;
+    return next();
+  },
   passport.authenticate("google", {
-    successRedirect: "/login/success",
-    failureRedirect: "/login/failure",
-  })
+    failureRedirect: "/auth",
+  }),
+  function (req, res) {
+    // Successful authentication, redirect to secret page.
+    res.redirect("http://localhost:3000/dashboard"); //redirect back to the frontend secret page
+  }
 );
 
 authRouter.get("/users", async (req, res, next) => {
@@ -111,6 +157,10 @@ authRouter.post("/signup", async (req, res, next) => {
     password: hashedPassword,
   });
   try {
+    let alreadySocialLoggedInUser = await User.findOne({ email: user.email });
+    if (alreadySocialLoggedInUser) {
+      return res.status(409).json({ message: "User Already Exist." });
+    }
     const signUpRes = await user.save();
     const signedUpUserRes = await User.find({ _id: signUpRes._id }).select(
       "-password"
@@ -123,20 +173,16 @@ authRouter.post("/signup", async (req, res, next) => {
 
 authRouter.post(
   "/signin",
-
   (req, res, next) => {
-    res.locals.reqUrl = req.session.reqUrl; // all the magic
+    res.locals.reqUrl = req.session.reqUrl;
     return next();
   },
-
-  passport.authenticate("local", {
-    failureRedirect: "/auth",
-  }),
+  passport.authenticate("local"),
   function (req, res) {
     var redirectTo = "/dashboard";
     if (res.locals.reqUrl) {
-      redirectTo = res.locals.reqUrl; // small change here
-      req.session.reqUrl = res.locals.reqUrl; // you can reassign the value to req.session.reqUrl to be accessible in other routes
+      redirectTo = res.locals.reqUrl;
+      req.session.reqUrl = res.locals.reqUrl;
     }
 
     res.redirect(redirectTo);
@@ -156,7 +202,6 @@ passport.serializeUser(function (user, cb) {
 });
 
 passport.deserializeUser(function (user, cb) {
-  console.log(user);
   process.nextTick(function () {
     return cb(null, user);
   });

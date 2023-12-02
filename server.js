@@ -9,11 +9,8 @@ const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
 const mongoose = require("mongoose");
 const routes = require("./server/routes/Routers");
-const morgan = require("morgan");
 const cors = require("cors");
 const passport = require("passport");
-// const cookieSession = require("cookie-session");
-// const GoogleAuthRouter = require("./server/routes/GoogleAuthRouter");
 
 const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;

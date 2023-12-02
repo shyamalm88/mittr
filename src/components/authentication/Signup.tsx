@@ -5,8 +5,18 @@ import google_dark from "./../../images/svg/google_dark.svg";
 import google_light from "./../../images/svg/google_light.svg";
 import linkedin_dark from "./../../images/svg/linkedin_dark.svg";
 import linkedin_light from "./../../images/svg/linkedin_light.svg";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import DoneIcon from "@mui/icons-material/Done";
+import ErrorIcon from "@mui/icons-material/Error";
 import Image from "next/image";
-import { useTheme, TextField } from "@mui/material";
+import {
+  useTheme,
+  OutlinedInput,
+  IconButton,
+  InputAdornment,
+  FormHelperText,
+} from "@mui/material";
 
 import { Button } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
@@ -17,11 +27,14 @@ import {
   REQUIRED,
 } from "../../constants/error";
 import FormValidationError from "../../utility/FormValidationError";
-import { useRouter } from "next/router";
 import { ComponentInputProps } from "../../types";
+import HttpService from "../../services/@http/HttpClient";
 
 function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
   const theme = useTheme();
+  const http = new HttpService();
+  const [viewPwd, setViewPwd] = React.useState(false);
+  const [emailExist, setEmailExist] = React.useState<null | boolean>(null);
 
   const methods = useForm<any>({
     defaultValues: {
@@ -36,11 +49,26 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
     formState: { errors, isDirty, dirtyFields, touchedFields },
     register,
     reset,
+    getValues,
   } = methods;
 
   const handleSignUpSubmit = (data: any) => {
     reset();
     handleSubmitMethod(data);
+  };
+
+  const checkEmailIsAlreadyPresent = async () => {
+    console.log(getValues("email"));
+    if (getValues("email").match(PATTERN_EMAIL)) {
+      const res = await http.post("/auth/check-email-exists", {
+        email: getValues("email"),
+      });
+      if ((res as any).userExist) {
+        setEmailExist(true);
+      } else {
+        setEmailExist(false);
+      }
+    }
   };
 
   return (
@@ -85,8 +113,9 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
             </a>
           </div>
           <span>or use your email for registration</span>
-          <TextField
+          <OutlinedInput
             placeholder="Full Name"
+            fullWidth
             size="small"
             sx={{ m: 1 }}
             error={!!errors?.name}
@@ -99,8 +128,9 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
             })}
           />
           <FormValidationError errorText={errors?.name?.message} />
-          <TextField
+          <OutlinedInput
             placeholder="john.doe@example.com"
+            fullWidth
             size="small"
             sx={{ m: 1 }}
             error={!!errors?.email}
@@ -111,12 +141,36 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
                 message: REQUIRED.EMAIL,
               },
             })}
+            onBlur={checkEmailIsAlreadyPresent}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setViewPwd(!viewPwd)}
+                  edge="end"
+                >
+                  {emailExist === null ? (
+                    <></>
+                  ) : emailExist === false ? (
+                    <DoneIcon color="success" />
+                  ) : (
+                    <ErrorIcon color="error" />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
           />
+          {emailExist && (
+            <FormHelperText error variant="outlined">
+              Email Already Exist
+            </FormHelperText>
+          )}
           <FormValidationError errorText={errors?.email?.message} />
 
-          <TextField
+          <OutlinedInput
             placeholder="Password"
-            type="password"
+            fullWidth
+            type={viewPwd ? "text" : "password"}
             size="small"
             sx={{ m: 1 }}
             error={!!errors?.password}
@@ -127,6 +181,17 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
                 message: REQUIRED.PASSWORD,
               },
             })}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setViewPwd(!viewPwd)}
+                  edge="end"
+                >
+                  {viewPwd ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
           <FormValidationError errorText={errors?.password?.message} />
 
