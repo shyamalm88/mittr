@@ -58,6 +58,7 @@ surveyRouter.get("/", async (req, res) => {
           },
         },
       })
+      .populate({ path: "createdByUserRef", select: "-password" })
       .populate("settings");
     res.send(surveys);
   } catch (err) {
@@ -98,6 +99,7 @@ surveyRouter.get("/:index", async (req, res) => {
           },
         },
       })
+      .populate({ path: "createdByUserRef", select: "-password" })
       .populate("settings");
     res.send(survey);
   } catch (err) {
@@ -124,6 +126,7 @@ surveyRouter.post("", async (req, res) => {
       ? req.body.questionSlug
       : (Math.random() + 1).toString(36).substring(7),
     settings: req.body.settings,
+    createdByUserRef: req.body.createdByUserRef,
   });
 
   try {
@@ -150,6 +153,7 @@ surveyRouter.post("/:index", async (req, res) => {
         ? req.body.questionSlug
         : (Math.random() + 1).toString(36).substring(7),
       settings: req.body.settings,
+      createdByUserRef: req.body.createdByUserRef,
     });
 
     const surveyObj = survey.toObject();

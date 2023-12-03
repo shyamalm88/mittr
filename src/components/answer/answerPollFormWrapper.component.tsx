@@ -15,9 +15,12 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { Card, CardContent, CardMedia } from "@mui/material";
+import { Avatar, Card, CardContent, CardMedia } from "@mui/material";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import he from "he";
+import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
+import Image from "next/image";
+import NoProfileImage from "./../../images/img/noProfileImage.png";
 TimeAgo.addDefaultLocale(en);
 
 const AnswerPollFormWrapper = () => {
@@ -27,7 +30,8 @@ const AnswerPollFormWrapper = () => {
   const contextValueImage = usePollQuestionContext("questionImageRef");
   const contextQuestionSetValue = usePollQuestionContext();
   const contextDurationValue = usePollQuestionContext("duration");
-
+  const { authenticatedUser, setAuthenticatedUser } =
+    useAuthenticatedUserData();
   const stepIndexValue = useStepWrapperContext();
 
   const handleDateDiff = useMemo(() => {
@@ -98,7 +102,31 @@ const AnswerPollFormWrapper = () => {
                       }}
                     >
                       <Stack direction="row" alignItems="center" gap={1}>
-                        <PermIdentityOutlinedIcon fontSize="small" />
+                        {contextQuestionSetValue?.createdByUserRef
+                          ?.profileImgUrl ? (
+                          <Avatar
+                            alt={
+                              contextQuestionSetValue?.createdByUserRef
+                                ?.fullName
+                            }
+                            src={
+                              contextQuestionSetValue?.createdByUserRef
+                                ?.profileImgUrl
+                            }
+                            sx={{ width: 24, height: 24 }}
+                          />
+                        ) : (
+                          <Image
+                            src={NoProfileImage}
+                            alt={
+                              contextQuestionSetValue?.createdByUserRef
+                                ?.fullName
+                            }
+                            width={24}
+                            height={24}
+                          />
+                        )}
+
                         <Typography
                           variant="body2"
                           component="small"
@@ -107,7 +135,7 @@ const AnswerPollFormWrapper = () => {
                             color: "inherit",
                           }}
                         >
-                          Arghya Majumder
+                          {contextQuestionSetValue?.createdByUserRef?.fullName}
                         </Typography>
                       </Stack>
                       {contextDurationValue && (

@@ -19,7 +19,8 @@ import Router from "next/router";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-
+import NoProfileImage from "./../../images/img/noProfileImage.png";
+import Image from "next/image";
 const settings = [
   { label: "Profile", icon: <AccountCircleIcon fontSize="small" /> },
   { label: "Manage Account", icon: <ManageAccountsIcon fontSize="small" /> },
@@ -40,7 +41,7 @@ function ProfileDisplay({ userData }: ComponentInputProps) {
     setAnchorElUser(null);
   };
   const handleEachMenu = (setting: any) => {
-    switch (setting) {
+    switch (setting.label) {
       case "Logout":
         http.get("/auth/logout").then((resp) => {
           if (resp === "logout") {
@@ -66,21 +67,21 @@ function ProfileDisplay({ userData }: ComponentInputProps) {
             mb: { xs: "12px", sm: "8px" },
           }}
         >
-          <Avatar
-            variant="rounded"
-            alt={userData?.fullName}
-            sx={{
-              width: { xs: 24, sm: 32 },
-              height: { xs: 24, sm: 32 },
-              ml: 2,
-              backgroundColor: green[500],
-            }}
-            src={
-              userData?.profileImgUrl
-                ? userData?.profileImgUrl
-                : "/static/images/avatar/1.jpg"
-            }
-          />
+          {userData?.profileImgUrl ? (
+            <Avatar
+              variant="circular"
+              alt={userData?.fullName}
+              sx={{
+                width: { xs: 24, sm: 32 },
+                height: { xs: 24, sm: 32 },
+                ml: 2,
+                backgroundColor: green[500],
+              }}
+              src={userData?.profileImgUrl}
+            />
+          ) : (
+            <Image src={NoProfileImage} alt="noImage" width={32} height={32} />
+          )}
         </IconButton>
       </Tooltip>
       <Menu

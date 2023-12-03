@@ -15,41 +15,21 @@ import React from "react";
 
 import PollOrSurveyOptionChoose from "./pollOrSurveyOptionChoose";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
+import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
+import { green } from "@mui/material/colors";
+import Image from "next/image";
+import NoProfileImage from "./../../images/img/noProfileImage.png";
 
 const CreatePollWrapper = () => {
   const { pollOrSurvey } = usePollOrSurveyContext();
+  const { authenticatedUser, setAuthenticatedUser } =
+    useAuthenticatedUserData();
   const [pollOrSurveySwitch, setPollOrSurveySwitch] =
     React.useState(pollOrSurvey);
 
   React.useEffect(() => {
     setPollOrSurveySwitch(pollOrSurvey);
   }, [pollOrSurvey]);
-
-  const stringToColor = (string: string) => {
-    let hash = 0;
-    let i;
-
-    for (i = 0; i < string.length; i += 1) {
-      hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
-
-    let color = "#";
-
-    for (i = 0; i < 3; i += 1) {
-      const value = (hash >> (i * 8)) & 0xff;
-      color += `00${value.toString(16)}`.slice(-2);
-    }
-
-    return color;
-  };
-  const stringAvatar = (name: string) => {
-    return {
-      sx: {
-        bgcolor: stringToColor(name),
-      },
-      children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
-    };
-  };
 
   return (
     <Card
@@ -79,7 +59,26 @@ const CreatePollWrapper = () => {
             useFlexGap
             alignItems={"center"}
           >
-            <Avatar {...stringAvatar("Arghya Majumder")} />
+            {authenticatedUser?.user?.profileImgUrl ? (
+              <Avatar
+                variant="circular"
+                alt={authenticatedUser?.user?.fullName}
+                sx={{
+                  width: 48,
+                  height: 48,
+                  backgroundColor: green[500],
+                }}
+                src={authenticatedUser?.user?.profileImgUrl}
+              />
+            ) : (
+              <Image
+                src={NoProfileImage}
+                alt="noImage"
+                width={48}
+                height={48}
+              />
+            )}
+
             <PollOrSurveyOptionChoose />
           </Stack>
         </Box>

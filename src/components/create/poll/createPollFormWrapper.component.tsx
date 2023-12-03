@@ -41,6 +41,7 @@ import {
 } from "@mui/material";
 import { pollFormDataUpdate } from "../../../utility/formatSubmitData";
 import { DELAY } from "../../../constants/properties";
+import { useAuthenticatedUserData } from "../../../hooks/useAuthenticatedUserDataContext";
 
 const PollFormWrapper = () => {
   const [shareUrlDialog, setShareUrlDialog] = React.useState(false);
@@ -48,6 +49,8 @@ const PollFormWrapper = () => {
   const http = new HttpService();
   const theme = useTheme();
   const [copyDone, setCopyDone] = React.useState(false);
+  const { authenticatedUser, setAuthenticatedUser } =
+    useAuthenticatedUserData();
   const [alreadySavedDataId, setAlreadySavedDataId] = React.useState("");
   const [updatedDataToBeSaved, setUpdatedDataToBeSaved] = React.useState();
   const [questionImageValue, setQuestionImageValue] = React.useState<{
@@ -82,6 +85,7 @@ const PollFormWrapper = () => {
         captureCountry: false,
       },
       duration: "",
+      createdByUserRef: "",
     },
   });
 
@@ -89,7 +93,14 @@ const PollFormWrapper = () => {
     handleSubmit,
     setError,
     reset,
-    formState: { errors, isDirty, dirtyFields, touchedFields },
+    formState: {
+      errors,
+      isDirty,
+      dirtyFields,
+      touchedFields,
+      isSubmitSuccessful,
+      isSubmitted,
+    },
     control,
     getValues,
     setValue,
@@ -110,6 +121,12 @@ const PollFormWrapper = () => {
   React.useEffect(() => {
     setFocus("question");
   }, [setFocus]);
+
+  React.useEffect(() => {
+    if (authenticatedUser) {
+      setValue("createdByUserRef", authenticatedUser.user._id);
+    }
+  }, [authenticatedUser]);
 
   const onSubmit = async (fileData: any) => {
     const formData: any = new FormData();
@@ -173,7 +190,7 @@ const PollFormWrapper = () => {
         pauseOnHover: false,
         draggable: false,
         progress: undefined,
-        theme: "dark",
+        theme: theme.palette.mode === "dark" ? "dark" : "light",
       });
       const res = await postSurvey(data);
       if (res) {
@@ -185,7 +202,7 @@ const PollFormWrapper = () => {
           pauseOnHover: false,
           draggable: false,
           progress: undefined,
-          theme: "dark",
+          theme: theme.palette.mode === "dark" ? "dark" : "light",
         });
       }
     } catch (err) {
@@ -361,7 +378,9 @@ const PollFormWrapper = () => {
           data={updatedDataToBeSaved as any}
           onSave={handleAutoSave}
           interval={DELAY}
-          saveOnUnmount={alreadySavedDataId ? true : false}
+          saveOnUnmount={
+            alreadySavedDataId ? (isSubmitSuccessful ? false : true) : false
+          }
         />
       )}
     </>

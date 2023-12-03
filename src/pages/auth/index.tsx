@@ -33,14 +33,7 @@ const Authentication = () => {
           autoClose: 700,
         });
 
-        toast.onChange((payload) => {
-          if (
-            payload.status === "removed" &&
-            payload.type === toast.TYPE.SUCCESS
-          ) {
-            setType("login");
-          }
-        });
+        setType("login");
       }
     } catch (error: any) {
       console.error(error);
@@ -56,17 +49,10 @@ const Authentication = () => {
         toast.success(`You have successfully Signed In.`, {
           position: toast.POSITION.TOP_RIGHT,
           theme: "colored",
-          autoClose: 700,
+          autoClose: 7000,
         });
 
-        toast.onChange((payload) => {
-          if (
-            payload.status === "removed" &&
-            payload.type === toast.TYPE.SUCCESS
-          ) {
-            router.push("/dashboard");
-          }
-        });
+        router.push("/dashboard");
       } else if ((response as any).info) {
         toast.error((response as any).info.message, {
           position: toast.POSITION.TOP_RIGHT,

@@ -6,11 +6,11 @@ import AnswerSurveyFormWrapper from "./answerSurveyFormWrapper.component";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 import LinearProgress from "@mui/material/LinearProgress";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ReactTimeAgo from "react-time-ago";
-import TimeAgo from "javascript-time-ago";
+import NoProfileImage from "./../../images/img/noProfileImage.png";
 import {
+  Avatar,
   Button,
   Card,
   CardContent,
@@ -25,11 +25,15 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import he from "he";
+import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
+import Image from "next/image";
 
 const AnswerSurveyWrapper = () => {
   const theme = useTheme();
   const contextValue = usePollQuestionContext();
   const [activeStep, setActiveStep] = React.useState(0);
+  const { authenticatedUser, setAuthenticatedUser } =
+    useAuthenticatedUserData();
 
   const surveyInitial = {
     title: "", //contextValue.title,
@@ -155,7 +159,20 @@ const AnswerSurveyWrapper = () => {
                       }}
                     >
                       <Stack direction="row" alignItems="center" gap={1}>
-                        <PermIdentityOutlinedIcon fontSize="small" />
+                        {contextValue?.createdByUserRef?.profileImgUrl ? (
+                          <Avatar
+                            alt={contextValue?.createdByUserRef?.fullName}
+                            src={contextValue?.createdByUserRef?.profileImgUrl}
+                            sx={{ width: 24, height: 24 }}
+                          />
+                        ) : (
+                          <Image
+                            src={NoProfileImage}
+                            alt={contextValue?.createdByUserRef?.fullName}
+                            width={24}
+                            height={24}
+                          />
+                        )}
                         <Typography
                           variant="body2"
                           component="small"
@@ -164,7 +181,7 @@ const AnswerSurveyWrapper = () => {
                             color: "inherit",
                           }}
                         >
-                          Arghya Majumder
+                          {authenticatedUser?.user?.fullName}
                         </Typography>
                       </Stack>
                       {contextDurationValue && (

@@ -59,6 +59,7 @@ export type CreatePollSubmittedValueType = {
   additionalQuestions: AdditionalQuestion[];
   settings: Settings;
   duration: string;
+  createdByUserRef: string;
 };
 
 export type CreateSurveySubmittedValueType = {
@@ -76,6 +77,7 @@ export type CreateSurveySubmittedValueType = {
   questionSlug: string;
   settings: Settings;
   duration: string;
+  createdByUserRef: string;
 };
 
 export type Option = {

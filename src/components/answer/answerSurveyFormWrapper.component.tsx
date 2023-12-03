@@ -15,11 +15,12 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { Card, CardContent, CardMedia } from "@mui/material";
+import { Avatar, Card, CardContent, CardMedia } from "@mui/material";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import AnswerSurveySectionsWrapper from "./answerSurveySectionsWrapper.component";
 import { ComponentInputProps } from "../../types";
 import he from "he";
+import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -30,6 +31,8 @@ const AnswerSurveyFormWrapper = ({
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const contextQuestionSetValue = usePollQuestionContext();
+  const { authenticatedUser, setAuthenticatedUser } =
+    useAuthenticatedUserData();
   const contextDurationValue = usePollQuestionContext("duration");
 
   const stepIndexValue = useStepWrapperContext();
@@ -107,7 +110,11 @@ const AnswerSurveyFormWrapper = ({
                         }}
                       >
                         <Stack direction="row" alignItems="center" gap={1}>
-                          <PermIdentityOutlinedIcon fontSize="small" />
+                          <Avatar
+                            alt={authenticatedUser?.user?.fullName}
+                            src={authenticatedUser?.user?.profileImgUrl}
+                            sx={{ width: 24, height: 24 }}
+                          />
                           <Typography
                             variant="body2"
                             component="small"
@@ -116,7 +123,7 @@ const AnswerSurveyFormWrapper = ({
                               color: "inherit",
                             }}
                           >
-                            Arghya Majumder
+                            {authenticatedUser?.user?.fullName}
                           </Typography>
                         </Stack>
                         {contextDurationValue && (

@@ -55,6 +55,7 @@ pollRouter.get("/", async (req, res) => {
           model: "Images",
         },
       })
+      .populate({ path: "createdByUserRef", select: "-password" })
       .populate("questionImageRef")
       .populate("additionalQuestions")
       .populate("settings");
@@ -94,6 +95,7 @@ pollRouter.get("/:index", async (req, res) => {
           model: "Images",
         },
       })
+      .populate({ path: "createdByUserRef", select: "-password" })
       .populate("questionImageRef")
       .populate("additionalQuestions")
       .populate("settings");
@@ -122,6 +124,7 @@ pollRouter.post("", async (req, res) => {
     options: req.body.options,
     additionalQuestions: req.body.additionalQuestions,
     settings: req.body.settings,
+    createdByUserRef: req.body.createdByUserRef,
   });
 
   try {
@@ -150,6 +153,7 @@ pollRouter.post("/:index", async (req, res) => {
       options: req.body.options,
       additionalQuestions: req.body.additionalQuestions,
       settings: req.body.settings,
+      createdByUserRef: req.body.createdByUserRef,
     });
 
     const pollObj = poll.toObject();

@@ -47,6 +47,7 @@ import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import AddingSectionsControl from "../common/addingSectionsControl";
 import { DELAY } from "../../../constants/properties";
 import { surveyFormDataUpdate } from "../../../utility/formatSubmitData";
+import { useAuthenticatedUserData } from "../../../hooks/useAuthenticatedUserDataContext";
 
 const PollFormWrapper = () => {
   const http = new HttpService();
@@ -54,6 +55,8 @@ const PollFormWrapper = () => {
   const { questionType, setQuestionType } = useQuestionTypeContext();
   const [copyDone, setCopyDone] = React.useState(false);
   const [shareUrlDialog, setShareUrlDialog] = React.useState(false);
+  const { authenticatedUser, setAuthenticatedUser } =
+    useAuthenticatedUserData();
   const [shareUrl, setShareUrl] = React.useState("");
   const [alreadySavedDataId, setAlreadySavedDataId] = React.useState("");
   const [updatedDataToBeSaved, setUpdatedDataToBeSaved] = React.useState();
@@ -77,6 +80,7 @@ const PollFormWrapper = () => {
         captureCountry: false,
       },
       duration: "",
+      createdByUserRef: "",
     },
   });
 
@@ -84,7 +88,14 @@ const PollFormWrapper = () => {
     handleSubmit,
     setError,
     reset,
-    formState: { errors, isDirty, dirtyFields, touchedFields },
+    formState: {
+      errors,
+      isDirty,
+      dirtyFields,
+      touchedFields,
+      isSubmitSuccessful,
+      isSubmitted,
+    },
     control,
     getValues,
     setValue,
@@ -105,6 +116,12 @@ const PollFormWrapper = () => {
   React.useEffect(() => {
     setFocus("title");
   }, [setFocus]);
+
+  React.useEffect(() => {
+    if (authenticatedUser) {
+      setValue("createdByUserRef", authenticatedUser.user._id);
+    }
+  }, [authenticatedUser]);
 
   const onSubmitSubmitForm: SubmitHandler<
     CreateSurveySubmittedValueType
@@ -406,7 +423,9 @@ const PollFormWrapper = () => {
           data={updatedDataToBeSaved as any}
           onSave={handleAutoSave}
           interval={DELAY}
-          saveOnUnmount={alreadySavedDataId ? true : false}
+          saveOnUnmount={
+            alreadySavedDataId ? (isSubmitSuccessful ? false : true) : false
+          }
         />
       )}
     </>
