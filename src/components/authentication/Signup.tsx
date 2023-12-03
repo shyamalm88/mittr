@@ -16,6 +16,7 @@ import {
   IconButton,
   InputAdornment,
   FormHelperText,
+  Link,
 } from "@mui/material";
 
 import { Button } from "@mui/material";
@@ -71,6 +72,11 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
     }
   };
 
+  const handleGoogleLogin = (e: any) => {
+    e.preventDefault();
+    window.open("http://localhost:3000/api/auth/google", "_self");
+  };
+
   return (
     <FormProvider {...methods}>
       <div className="form-container sign-up-container">
@@ -80,7 +86,7 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
         >
           <h1>Create Account</h1>
           <div className="social-container">
-            <a href="#" className="social">
+            {/* <a href="#" className="social">
               <Image
                 src={
                   theme.palette.mode === "dark" ? facebook_light : facebook_dark
@@ -90,8 +96,8 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
                 sizes="100vw"
                 alt="Login With Facebook"
               />
-            </a>
-            <a href="#" className="social">
+            </a> */}
+            <Link href="#" onClick={handleGoogleLogin} className="social">
               <Image
                 src={theme.palette.mode === "dark" ? google_light : google_dark}
                 width={20}
@@ -99,8 +105,8 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
                 sizes="100vw"
                 alt="Login With Google"
               />
-            </a>
-            <a href="#" className="social">
+            </Link>
+            {/* <a href="#" className="social">
               <Image
                 src={
                   theme.palette.mode === "dark" ? linkedin_light : linkedin_dark
@@ -110,7 +116,7 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
                 sizes="100vw"
                 alt="Login With Linkedin"
               />
-            </a>
+            </a> */}
           </div>
           <span>or use your email for registration</span>
           <OutlinedInput

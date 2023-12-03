@@ -14,6 +14,7 @@ import "dotenv/config";
 import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
 import ProfileDisplay from "./ProfileDisplay.component";
 import Link from "next/link";
+import { Button } from "@mui/material";
 
 function NavBar(props: ComponentInputProps) {
   const [userData, setUserData] = React.useState(null);
@@ -42,16 +43,9 @@ function NavBar(props: ComponentInputProps) {
                 {authenticatedUser ? (
                   <ProfileDisplay userData={userData} />
                 ) : (
-                  <Link
-                    href="/auth"
-                    style={{
-                      fontSize: "1em",
-                      marginTop: "10px",
-                      marginLeft: "10px",
-                    }}
-                  >
+                  <Button variant="text" size="small">
                     Login
-                  </Link>
+                  </Button>
                 )}
               </Box>
             </Toolbar>

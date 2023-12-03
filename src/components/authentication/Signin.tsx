@@ -14,12 +14,12 @@ import {
   InputAdornment,
   OutlinedInput,
   useTheme,
+  Link,
 } from "@mui/material";
 import { ComponentInputProps } from "../../types";
 import { FormProvider, useForm } from "react-hook-form";
 import { REQUIRED } from "../../constants/error";
 import FormValidationError from "../../utility/FormValidationError";
-import Link from "next/link";
 
 function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
   const theme = useTheme();
@@ -45,9 +45,14 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
     handleSubmitMethod(data);
   };
 
-  const handleGoogleLogin = () => {
-    // const res = http.get("/auth/google");
+  const handleGoogleLogin = (e: any) => {
+    e.preventDefault();
     window.open("http://localhost:3000/api/auth/google", "_self");
+  };
+
+  const handleFacebookLogin = (e: any) => {
+    e.preventDefault();
+    window.open("http://localhost:3000/api/auth/facebook", "_self");
   };
 
   return (
@@ -59,7 +64,7 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
         >
           <h1>Sign in</h1>
           <div className="social-container">
-            <a href="#" className="social">
+            {/* <Link href="#" onClick={handleFacebookLogin} className="social">
               <Image
                 src={
                   theme.palette.mode === "dark" ? facebook_light : facebook_dark
@@ -69,12 +74,8 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
                 sizes="100vw"
                 alt="Login With Facebook"
               />
-            </a>
-            <Link
-              href="javascript:void(0)"
-              onClick={handleGoogleLogin}
-              className="social"
-            >
+            </Link> */}
+            <Link href="#" onClick={handleGoogleLogin} className="social">
               <Image
                 src={theme.palette.mode === "dark" ? google_light : google_dark}
                 width={20}
@@ -83,7 +84,7 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
                 alt="Login With Google"
               />
             </Link>
-            <a href="#" className="social">
+            {/* <a href="#" className="social">
               <Image
                 src={
                   theme.palette.mode === "dark" ? linkedin_light : linkedin_dark
@@ -93,7 +94,7 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
                 sizes="100vw"
                 alt="Login With Linkedin"
               />
-            </a>
+            </a> */}
           </div>
           <span>or use your account</span>
           <OutlinedInput

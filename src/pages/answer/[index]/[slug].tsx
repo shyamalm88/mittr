@@ -20,7 +20,7 @@ const AnswerPoll = ({ questionData }: ComponentInputProps) => {
   React.useEffect(() => {
     if (questionData) {
       setQuestionWithoutHtml(
-        he.decode(questionData?.title).replace(/(<([^>]+)>)/gi, "")
+        he.decode(questionData?.question).replace(/(<([^>]+)>)/gi, "")
       );
     }
   }, [questionData]);

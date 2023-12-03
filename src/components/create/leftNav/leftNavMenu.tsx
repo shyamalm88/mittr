@@ -30,11 +30,6 @@ const pages = [
   },
   {
     id: uuidv4(),
-    icon: <AccountCircleOutlinedIcon fontSize="small" />,
-    label: "Profile",
-  },
-  {
-    id: uuidv4(),
     icon: <InsightsOutlinedIcon fontSize="small" />,
     label: "Analytics",
   },

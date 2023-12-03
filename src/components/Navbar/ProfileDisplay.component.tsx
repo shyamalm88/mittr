@@ -6,6 +6,9 @@ import {
   Tooltip,
   MenuItem,
   Typography,
+  Stack,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import React from "react";
 import { ComponentInputProps } from "../../types";
@@ -13,7 +16,15 @@ import { green } from "@mui/material/colors";
 import HttpService from "../../services/@http/HttpClient";
 import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
 import Router from "next/router";
-const settings = ["Profile", "Account", "Settings", "Logout"];
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+
+const settings = [
+  { label: "Profile", icon: <AccountCircleIcon fontSize="small" /> },
+  { label: "Manage Account", icon: <ManageAccountsIcon fontSize="small" /> },
+  { label: "Logout", icon: <ExitToAppIcon fontSize="small" /> },
+];
 
 function ProfileDisplay({ userData }: ComponentInputProps) {
   const http = new HttpService();
@@ -88,9 +99,12 @@ function ProfileDisplay({ userData }: ComponentInputProps) {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={() => handleEachMenu(setting)}>
-            <Typography textAlign="center">{setting}</Typography>
+        {settings.map((item) => (
+          <MenuItem key={item.label} onClick={() => handleEachMenu(item)}>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText>
+              <Typography sx={{ fontSize: ".85em" }}>{item.label}</Typography>
+            </ListItemText>
           </MenuItem>
         ))}
       </Menu>
