@@ -42,9 +42,12 @@ import {
 import { pollFormDataUpdate } from "../../../utility/formatSubmitData";
 import { DELAY } from "../../../constants/properties";
 import { useAuthenticatedUserData } from "../../../hooks/useAuthenticatedUserDataContext";
+import { usePollEditData } from "../../../hooks/usePollEditDataContext";
+import he from "he";
 
 const PollFormWrapper = () => {
   const [shareUrlDialog, setShareUrlDialog] = React.useState(false);
+  const { pollEditData } = usePollEditData();
   const [shareUrl, setShareUrl] = React.useState("");
   const http = new HttpService();
   const theme = useTheme();
@@ -112,6 +115,16 @@ const PollFormWrapper = () => {
 
   watch((data) => setUpdatedDataToBeSaved(data as any));
 
+  React.useEffect(() => {
+    if (pollEditData) {
+      setValue("createdByUserRef", pollEditData.createdByUserRef._id);
+      setValue("questionImageRef", pollEditData.questionImageRef);
+      setValue("settings", pollEditData.settings);
+      setAlreadySavedDataId(pollEditData._id);
+      // console.log(getValues());
+    }
+  }, [pollEditData, setValue]);
+
   const { fields, append, prepend, remove, swap, move, insert, update } =
     useFieldArray({
       control,
@@ -167,7 +180,6 @@ const PollFormWrapper = () => {
         }/${(resp as any)?.questionSlug}`
       );
       clearErrors();
-      // reset();
       toast.success(`You have successfully created Poll`, {
         position: toast.POSITION.TOP_RIGHT,
         theme: "colored",
@@ -237,6 +249,8 @@ const PollFormWrapper = () => {
     window.open(shareUrl, "_blank");
   };
 
+  console.log(errors);
+
   return (
     <>
       <FormProvider {...methods}>
@@ -278,7 +292,7 @@ const PollFormWrapper = () => {
             type="submit"
             startIcon={<SendIcon />}
           >
-            Create
+            {pollEditData ? "Submit" : "Create"}
           </Button>
           <Button
             variant="outlined"
@@ -373,7 +387,7 @@ const PollFormWrapper = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {isDirty && (
+      {/* {isDirty && (
         <Autosave
           data={updatedDataToBeSaved as any}
           onSave={handleAutoSave}
@@ -382,7 +396,7 @@ const PollFormWrapper = () => {
             alreadySavedDataId ? (isSubmitSuccessful ? false : true) : false
           }
         />
-      )}
+      )} */}
     </>
   );
 };

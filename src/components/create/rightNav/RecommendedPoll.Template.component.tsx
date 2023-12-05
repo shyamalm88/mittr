@@ -1,10 +1,11 @@
+import React from "react";
 import Box from "@mui/material/Box";
-import { Divider } from "@mui/material";
+import { Typography, Divider } from "@mui/material";
 
-import AllCreatedItemList from "./allCreatedItem";
+import RecentPollList from "./recentPollList";
 import { ComponentInputProps } from "../../../types";
 
-const MyRecentCreatedPollTemplate = ({ data }: ComponentInputProps) => {
+const RecommendedPollTemplate = () => {
   return (
     <Box
       sx={{
@@ -15,9 +16,9 @@ const MyRecentCreatedPollTemplate = ({ data }: ComponentInputProps) => {
       }}
     >
       <Divider sx={{ my: 1 }} />
-      <AllCreatedItemList data={data} />
+      <RecentPollList />
     </Box>
   );
 };
 
-export default MyRecentCreatedPollTemplate;
+export default RecommendedPollTemplate;

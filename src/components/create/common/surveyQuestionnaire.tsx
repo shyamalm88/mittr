@@ -5,6 +5,7 @@ import PollOptionWrapper from "../createOptionWrapper.component";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
+
 import {
   FormControlLabel,
   Hidden,
@@ -31,6 +32,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TipTapEditor from "./TipTap";
+import { usePollEditData } from "../../../hooks/usePollEditDataContext";
+import he from "he";
 
 function SurveyQuestionnaire({
   fieldName,
@@ -42,6 +45,7 @@ function SurveyQuestionnaire({
   fields,
 }: ComponentInputProps) {
   const http = new HttpService();
+  const { pollEditData } = usePollEditData();
 
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
@@ -53,7 +57,8 @@ function SurveyQuestionnaire({
     setEditable(true);
   };
 
-  const handleEditorBlur = () => {
+  const handleEditorBlur = (e: any) => {
+    // setQuestion(he.decode(editor.getHTML()));
     setEditable(false);
   };
 
@@ -69,7 +74,6 @@ function SurveyQuestionnaire({
   let fieldNameQuestion: any =
     pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}`.split(".");
 
-  const [question, setQuestion] = React.useState("");
   const [questionImageValue, setQuestionImageValue] = React.useState<{
     imageId: string;
     dimensions: {
@@ -93,6 +97,15 @@ function SurveyQuestionnaire({
     setFocus,
   } = useFormContext();
 
+  const [question, setQuestion] = React.useState("");
+
+  React.useEffect(() => {
+    if (pollEditData) {
+      setValue("question", he.decode(pollEditData.question));
+      setQuestion(he.decode(pollEditData.question));
+    }
+  }, [pollEditData, setValue]);
+
   const handleChange = (e: any) => {
     onSubmit(e.target.files[0]);
   };
@@ -108,7 +121,7 @@ function SurveyQuestionnaire({
   }
 
   const handleEditorChange = ({ editor }: any) => {
-    const encodedHtml = htmlEncode(editor.getHTML());
+    const encodedHtml = htmlEncode(editor.getHTML().replace(/\s/g, "&nbsp;"));
     setQuestion(encodedHtml);
     setValue(
       `${pollOrSurvey === "poll" ? "question" : `${fieldName}.question`}`,

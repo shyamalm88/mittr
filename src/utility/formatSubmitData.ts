@@ -79,14 +79,9 @@ export async function pollFormDataUpdate(
   }
   const dataToBeSubmitted = getValues();
   dataToBeSubmitted.options = _.map(dataToBeSubmitted.options, function (o) {
-    return _.omit(o, ["id", "enabled", "label", "image"]);
+    return _.omit(o, ["image"]);
   });
-  dataToBeSubmitted.additionalQuestions = _.map(
-    dataToBeSubmitted.additionalQuestions,
-    function (o) {
-      return _.omit(o, ["id", "questionLabel"]);
-    }
-  );
+
   return dataToBeSubmitted;
 }
 

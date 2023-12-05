@@ -41,8 +41,8 @@ import CodeOutlinedIcon from "@mui/icons-material/CodeOutlined";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import FormatListNumberedOutlinedIcon from "@mui/icons-material/FormatListNumberedOutlined";
 import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
-import LinkOffOutlinedIcon from "@mui/icons-material/LinkOffOutlined";
 import { ComponentInputProps } from "../../../types";
+import he from "he";
 
 const MenuBar = ({ editor, editable }: any) => {
   const setLink = React.useCallback(() => {
@@ -315,6 +315,10 @@ export default function Editor({
     content: dataContext,
     onUpdate: handleChange,
   });
+
+  React.useEffect(() => {
+    editor?.commands.setContent(he.decode(dataContext));
+  }, [dataContext]);
 
   return (
     <ClickAwayListener onClickAway={handleEditorBlur} mouseEvent="onMouseDown">

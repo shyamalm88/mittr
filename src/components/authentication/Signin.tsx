@@ -15,6 +15,7 @@ import {
   OutlinedInput,
   useTheme,
   Link,
+  Divider,
 } from "@mui/material";
 import { ComponentInputProps } from "../../types";
 import { FormProvider, useForm } from "react-hook-form";
@@ -76,13 +77,7 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
               />
             </Link> */}
             <Link href="#" onClick={handleGoogleLogin} className="social">
-              <Image
-                src={theme.palette.mode === "dark" ? google_light : google_dark}
-                width={20}
-                height={20}
-                sizes="100vw"
-                alt="Login With Google"
-              />
+              Sign in with Google
             </Link>
             {/* <a href="#" className="social">
               <Image
@@ -96,7 +91,8 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
               />
             </a> */}
           </div>
-          <span>or use your account</span>
+          <Divider sx={{ width: "100%" }}>or</Divider>
+          <span>use your account</span>
           <OutlinedInput
             placeholder="Email"
             fullWidth

@@ -16,6 +16,7 @@ import OptionActions from "../common/optionActions";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { usePollEditData } from "../../../hooks/usePollEditDataContext";
 
 function MultipleChoice({
   control,
@@ -28,6 +29,7 @@ function MultipleChoice({
 }: ComponentInputProps) {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+  const { pollEditData } = usePollEditData();
   const theme = useTheme();
   const {
     fields,
@@ -44,13 +46,20 @@ function MultipleChoice({
     name: pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`,
   });
 
-  const addOption = () => {
+  const addOption = (e?: any, data?: any) => {
     const temp = {
       id: uuidv4(),
       label: "Option",
       enabled: true,
       option: "",
     };
+    if (data) {
+      temp.id = data.id;
+      temp.label = data.label;
+      temp.enabled = data.option === "Other" ? false : true;
+      temp.option = data.option;
+    }
+
     append(temp, {
       shouldFocus:
         getValues(
@@ -79,13 +88,19 @@ function MultipleChoice({
   };
 
   React.useEffect(() => {
-    if (!fields.length) {
-      addOption();
+    if (pollEditData) {
+      pollEditData.options.forEach((element: any) => {
+        addOption(null, element);
+      });
+    } else {
+      if (!fields.length) {
+        addOption();
+      }
+      return () => {
+        remove(0);
+      };
     }
-    return () => {
-      remove(0);
-    };
-  }, []);
+  }, [pollEditData]);
 
   return (
     <React.Fragment>

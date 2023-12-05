@@ -1,14 +1,57 @@
+import React from "react";
 import { Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
 import DetailsView from "./DetailsView";
 import QuickView from "./QuickView";
 import MyRecentCreatedPollTemplate from "../create/rightNav/myRecentCreatedPoll.Template.component";
+import RecommendedPollTemplate from "../create/rightNav/RecommendedPoll.Template.component";
+import HttpService from "../../services/@http/HttpClient";
 
 function DashboardComponent() {
+  const http = new HttpService();
+  const [pollSurveyAllDatCreatedByMe, setPollSurveyAllDatCreatedByMe] =
+    React.useState([]);
+
+  async function getAllSurveysCreatedByMe() {
+    try {
+      let resp = await http.get("/survey");
+      resp = (resp as any).map((x: any) => ({ ...x, type: "survey" }));
+      return Promise.resolve(resp);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  }
+
+  async function getAllPollsCreatedByMe() {
+    try {
+      let resp = await http.get("/poll");
+      resp = (resp as any).map((x: any) => ({ ...x, type: "poll" }));
+      return Promise.resolve(resp);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  }
+
+  React.useEffect(() => {
+    let respArrayMargeData: any = [];
+    Promise.allSettled([
+      getAllSurveysCreatedByMe(),
+      getAllPollsCreatedByMe(),
+    ]).then((res) => {
+      res.forEach((item: any) => {
+        if (item.status === "fulfilled") {
+          respArrayMargeData = [...respArrayMargeData, ...item.value];
+        }
+      });
+      // console.log(respArrayMargeData);
+      setPollSurveyAllDatCreatedByMe(respArrayMargeData);
+    });
+  }, []);
+
   return (
     <>
       <DetailsView />
       <Grid container spacing={2} sx={{ my: 2, px: { xs: 2 } }}>
-        <Grid item xs={12} sm={6} lg={4}>
+        <Grid item xs={12}>
           <Card
             sx={{
               overflow: "visible",
@@ -30,11 +73,11 @@ function DashboardComponent() {
               }
             ></CardHeader>
             <CardContent>
-              <MyRecentCreatedPollTemplate />
+              <MyRecentCreatedPollTemplate data={pollSurveyAllDatCreatedByMe} />
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} lg={4}>
+        {/* <Grid item xs={12} sm={6} lg={4}>
           <Card
             sx={{
               overflow: "visible",
@@ -56,7 +99,7 @@ function DashboardComponent() {
               }
             ></CardHeader>
             <CardContent>
-              <MyRecentCreatedPollTemplate />
+              <RecommendedPollTemplate />
             </CardContent>
           </Card>
         </Grid>
@@ -82,10 +125,10 @@ function DashboardComponent() {
               }
             ></CardHeader>
             <CardContent>
-              <MyRecentCreatedPollTemplate />
+              <RecommendedPollTemplate />
             </CardContent>
           </Card>
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );

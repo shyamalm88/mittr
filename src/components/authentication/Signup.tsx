@@ -17,6 +17,7 @@ import {
   InputAdornment,
   FormHelperText,
   Link,
+  Divider,
 } from "@mui/material";
 
 import { Button } from "@mui/material";
@@ -98,13 +99,7 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
               />
             </a> */}
             <Link href="#" onClick={handleGoogleLogin} className="social">
-              <Image
-                src={theme.palette.mode === "dark" ? google_light : google_dark}
-                width={20}
-                height={20}
-                sizes="100vw"
-                alt="Login With Google"
-              />
+              Sign up with Google
             </Link>
             {/* <a href="#" className="social">
               <Image
@@ -118,7 +113,8 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
               />
             </a> */}
           </div>
-          <span>or use your email for registration</span>
+          <Divider sx={{ width: "100%" }}>or</Divider>
+          <span>use your email for registration</span>
           <OutlinedInput
             placeholder="Full Name"
             fullWidth

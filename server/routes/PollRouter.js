@@ -55,6 +55,7 @@ pollRouter.get("/", async (req, res) => {
           model: "Images",
         },
       })
+
       .populate({ path: "createdByUserRef", select: "-password" })
       .populate("questionImageRef")
       .populate("additionalQuestions")

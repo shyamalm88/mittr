@@ -24,6 +24,7 @@ import OptionActions from "../common/optionActions";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
+import { usePollEditData } from "../../../hooks/usePollEditDataContext";
 
 function ImageChoice({
   control,
@@ -40,6 +41,7 @@ function ImageChoice({
   const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+  const { pollEditData } = usePollEditData();
 
   const http = new HttpService();
 
@@ -59,11 +61,11 @@ function ImageChoice({
     name: `${fieldName}`,
   });
 
-  React.useEffect(() => {
-    if (isSubmitSuccessful) {
-      setImageValue([]);
-    }
-  }, [isSubmitSuccessful]);
+  // React.useEffect(() => {
+  //   if (isSubmitSuccessful) {
+  //     setImageValue([]);
+  //   }
+  // }, [isSubmitSuccessful]);
 
   const handleChange = async (e: any, index: number) => {
     onSubmit(e.target.files[0], index);
@@ -83,36 +85,59 @@ function ImageChoice({
         .service()
         .postMultipart(`/poll/image/upload`, formData);
       const items = [...imageValue];
+      response.body.destination = response.body.destination.split(".")[1];
+      setValue(`${fieldName}[${index}].imageId`, response.body._id);
       items[index] = response.body;
+      console.log(items);
       setImageValue(items);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const addOption = () => {
+  const addOption = (e?: any, data?: any) => {
     const temp = {
       id: uuidv4(),
       label: "Option",
       enabled: true,
       option: "",
+      description: "",
+      imageId: "",
     };
+    if (data) {
+      temp.id = data.id;
+      temp.label = data.label;
+      temp.enabled = data.option === "Other" ? false : true;
+      temp.option = data.option;
+      temp.description = data.description;
+      temp.imageId = data._id;
+    }
     append(temp);
-  };
-
-  const addOtherOption = () => {
-    const temp = { id: uuidv4(), label: "Other", enabled: false, option: "" };
-    append(temp);
-    setValue(fieldName, "Other");
   };
 
   React.useEffect(() => {
-    if (!fields.length) {
-      addOption();
+    if (pollEditData) {
+      fields.forEach((item) => {
+        remove(0);
+      });
+      let imageIds: any[] = [];
+      pollEditData.options.forEach((element: any) => {
+        console.log(element);
+        addOption(null, element);
+        element.imageId.destination = element.imageId.destination.split(".")[1];
+        element.imageId.imageId = element.imageId._id;
+        imageIds.push(element.imageId);
+      });
+      console.log(imageIds);
+      setImageValue(imageIds);
+    } else {
+      if (!fields.length) {
+        addOption();
+      }
+      return () => {
+        remove(0);
+      };
     }
-    return () => {
-      // unregister()
-    };
   }, []);
 
   const deleteOption = (index: number) => {
@@ -284,6 +309,13 @@ function ImageChoice({
                       alignItems="stretch"
                       sx={{ display: "flex" }}
                     >
+                      <input
+                        type="hidden"
+                        value={imageValue[index]?.imageId}
+                        {...register(`${fieldName}.imageId` as const, {
+                          required: REQUIRED.POLL_IMAGE,
+                        })}
+                      />
                       {!imageValue[index] ? (
                         <>
                           <input
@@ -327,13 +359,6 @@ function ImageChoice({
                         </>
                       ) : (
                         <>
-                          <input
-                            type="hidden"
-                            value={imageValue[index].imageId}
-                            {...register(`${fieldName}.imageId` as const, {
-                              required: REQUIRED.POLL_IMAGE,
-                            })}
-                          />
                           <Card sx={{ position: "relative", height: "100%" }}>
                             <CardMedia
                               component="img"
@@ -349,7 +374,7 @@ function ImageChoice({
                                 "/" +
                                 imageValue[index].filename
                               }
-                              title="green iguana"
+                              title={item.option}
                             />
                             <CardActions>
                               <IconButton

@@ -28,6 +28,7 @@ import ShortTextOutlinedIcon from "@mui/icons-material/ShortTextOutlined";
 import NotesOutlinedIcon from "@mui/icons-material/NotesOutlined";
 import PersonPinCircleOutlinedIcon from "@mui/icons-material/PersonPinCircleOutlined";
 import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
+import { usePollEditData } from "../../hooks/usePollEditDataContext";
 
 const pollOrSurveyOptionsType = [
   {
@@ -176,6 +177,7 @@ function VotingType({
 }: ComponentInputProps) {
   const confirm = useConfirm();
   const theme = useTheme();
+  const { pollEditData } = usePollEditData();
   const { questionType, setQuestionType } = useQuestionTypeContext();
 
   const oldSelectedValue = React.useRef<HTMLInputElement[]>([]);
@@ -187,6 +189,14 @@ function VotingType({
       ? getValues()?.votingType
       : getValues("survey")?.[index]?.votingType
   );
+
+  React.useEffect(() => {
+    if (pollEditData) {
+      setValue("votingType", pollEditData.votingType);
+      setVotingTypeValue(pollEditData.votingType);
+      setQuestionType(pollEditData.votingType);
+    }
+  }, [pollEditData, setValue, setQuestionType]);
 
   const handleChangeVotingOptions = async (e: any) => {
     if (!oldSelectedValue.current[index]?.value) {

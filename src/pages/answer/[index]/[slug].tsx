@@ -97,7 +97,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
     params: { index: post.id, slug: post.slug },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {

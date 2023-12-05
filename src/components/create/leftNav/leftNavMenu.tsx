@@ -55,11 +55,11 @@ function LeftNavigationMenu() {
         return (
           <ListItem disablePadding key={item.id} dense disableGutters>
             <ListItemButton
-              selected={pathname.includes(
+              selected={pathname?.includes(
                 item.label.toLowerCase().replace(/ /g, "_")
               )}
               component={Link}
-              href={item.label.toLowerCase().replace(/ /g, "_")}
+              href={`../${item.label.toLowerCase().replace(/ /g, "_")}`}
               sx={{
                 pl: 0,
                 borderRadius: "4px",

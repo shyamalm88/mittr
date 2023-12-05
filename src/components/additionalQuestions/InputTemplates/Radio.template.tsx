@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import FormValidationError from "../../../utility/FormValidationError";
 import { PATTERN, REQUIRED } from "../../../constants/error";
+import { usePollEditData } from "../../../hooks/usePollEditDataContext";
 
 const choices = [{ id: uuidv4(), label: "Choice" }];
 
@@ -35,19 +36,40 @@ export default function RadioTemplate({
     }
   );
   const [radioOption, setRadioOption] = React.useState([]);
+  const { pollEditData } = usePollEditData();
 
-  const addOption = () => {
-    const temp = { id: uuidv4(), label: "Choice" };
+  const addOption = (e: any, data?: any) => {
+    const temp = { id: uuidv4(), label: "Choice", choice: "" };
+    if (data) {
+      temp.choice = data.choice;
+    }
     append(temp);
   };
+
+  // React.useEffect(() => {
+  //   if (pollEditData) {
+  //     deleteOption(0);
+  //   }
+  // }, [pollEditData]);
 
   const deleteOption = (index: number) => {
     remove(index);
   };
 
   React.useEffect(() => {
-    if (fields.length === 0) append(choices);
-  }, [fields.length, append]);
+    if (pollEditData) {
+      pollEditData.additionalQuestions[idx].choices.forEach((element: any) => {
+        addOption(null, element);
+      });
+    } else {
+      if (!fields.length) {
+        append(choices);
+      }
+      return () => {
+        remove(0);
+      };
+    }
+  }, [append, pollEditData]);
 
   return (
     <>
