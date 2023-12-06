@@ -127,7 +127,7 @@ function SignInForm({ handleSubmitMethod }: ComponentInputProps) {
             }
           />
           <FormValidationError errorText={errors?.password?.message} />
-          <Link style={{ m: 2 }} href="#">
+          <Link sx={{ m: 2 }} href="#">
             Forgot your password?
           </Link>
           <Button

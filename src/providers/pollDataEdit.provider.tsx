@@ -2,18 +2,18 @@ import React from "react";
 import { ComponentInputProps } from "../types";
 import HttpService from "../services/@http/HttpClient";
 
-export const PollDataEditContext = React.createContext<{
-  pollEditData: any;
-  setPollEditData: Function;
-}>({ pollEditData: null, setPollEditData: () => {} });
+export const DataEditContext = React.createContext<{
+  editableData: any;
+  setEditableData: Function;
+}>({ editableData: null, setEditableData: () => {} });
 
 function PollDataEditProvider({ children }: ComponentInputProps) {
-  const [pollEditData, setPollEditData] = React.useState<any | null>(null);
+  const [editableData, setEditableData] = React.useState<any | null>(null);
 
   return (
-    <PollDataEditContext.Provider value={{ pollEditData, setPollEditData }}>
+    <DataEditContext.Provider value={{ editableData, setEditableData }}>
       {children}
-    </PollDataEditContext.Provider>
+    </DataEditContext.Provider>
   );
 }
 

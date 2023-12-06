@@ -15,7 +15,7 @@ import Box from "@mui/material/Box";
 import { useFormContext, useFormState } from "react-hook-form";
 import FormValidationError from "../../utility/FormValidationError";
 import { PATTERN, REQUIRED } from "../../constants/error";
-import { usePollEditData } from "../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../hooks/useEditDataContext";
 
 export default function QuestionnaireTemplate({
   typeOptions,
@@ -44,14 +44,14 @@ export default function QuestionnaireTemplate({
   const oldSelectedQuestionValue = React.useRef<HTMLInputElement[]>([]);
 
   const [selectedValue, setSelectedValue] = React.useState("");
-  const { pollEditData } = usePollEditData();
+  const { editableData } = useEditDataContext();
   const item = questionItem;
 
   React.useEffect(() => {
-    if (pollEditData) {
+    if (editableData) {
       setSelectedValue(item.answerType);
     }
-  }, [pollEditData]);
+  }, [editableData]);
 
   const handleChange = (event: SelectChangeEvent, index: number) => {
     const value = event.target.value;

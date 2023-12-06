@@ -252,7 +252,7 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
   const router = useRouter();
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
-  const [selected, setSelected] = React.useState([]);
+  const [selected, setSelected] = React.useState<any>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState([]);
@@ -379,7 +379,9 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
                       padding="none"
                       align="center"
                       dangerouslySetInnerHTML={{
-                        __html: he.decode((row as any).question),
+                        __html: (row as any).question
+                          ? he.decode((row as any).question)
+                          : (row as any).title,
                       }}
                     ></StyledTableCell>
                     <StyledTableCell align="center">

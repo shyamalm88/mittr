@@ -1,7 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
 
-import urlSlug from "url-slug";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import LaunchIcon from "@mui/icons-material/Launch";
 import PollSettings from "../../additionalQuestions/pollSettings.component";
@@ -32,7 +31,6 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
 import { toast } from "react-toastify";
-import * as _ from "underscore";
 
 import {
   useForm,
@@ -48,6 +46,7 @@ import AddingSectionsControl from "../common/addingSectionsControl";
 import { DELAY } from "../../../constants/properties";
 import { surveyFormDataUpdate } from "../../../utility/formatSubmitData";
 import { useAuthenticatedUserData } from "../../../hooks/useAuthenticatedUserDataContext";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 
 const PollFormWrapper = () => {
   const http = new HttpService();
@@ -60,6 +59,7 @@ const PollFormWrapper = () => {
   const [shareUrl, setShareUrl] = React.useState("");
   const [alreadySavedDataId, setAlreadySavedDataId] = React.useState("");
   const [updatedDataToBeSaved, setUpdatedDataToBeSaved] = React.useState();
+  const { editableData } = useEditDataContext();
 
   const methods = useForm<CreateSurveySubmittedValueType>({
     defaultValues: {
@@ -136,7 +136,7 @@ const PollFormWrapper = () => {
     try {
       const resp = await postSurvey(dataToBeSubmitted);
       setShareUrlDialog(true);
-      console.log("resp", resp);
+      //
       setShareUrl(
         `${location.protocol}//${location.hostname}:${
           location.port
@@ -218,9 +218,27 @@ const PollFormWrapper = () => {
     navigator.clipboard.writeText(shareUrl);
     setCopyDone(true);
   };
-  console.log("isDirty", isDirty);
-  console.log("touchedFields", touchedFields);
-  console.log("dirtyFields", dirtyFields);
+
+  React.useEffect(() => {
+    if (editableData) {
+      remove(0);
+      editableData.survey.forEach((element: any) => {
+        handleDataDrivenAddNewSurvey(element);
+      });
+    }
+  }, [editableData]);
+
+  const handleDataDrivenAddNewSurvey = async (data: any) => {
+    if (data) {
+      const tempQuestion = {
+        question: "",
+        id: uuidv4(),
+        votingType: data.votingType,
+        options: data.options,
+      };
+      await append(tempQuestion);
+    }
+  };
 
   return (
     <>

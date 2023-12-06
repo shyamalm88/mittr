@@ -1,9 +1,9 @@
 import Grid from "@mui/material/Grid";
-import ProfileLayout from "../../../layout/profile.layout";
+import ProfileLayout from "../../layout/profile.layout";
 import { NextSeo } from "next-seo";
 import { Box } from "@mui/material";
-import CreatePollLayout from "../../../layout/create.layout";
-import LeftNavigationTemplate from "../../../components/create/leftNav/leftNavigation.Template.component";
+import CreatePollLayout from "../../layout/create.layout";
+import LeftNavigationTemplate from "../../components/create/leftNav/leftNavigation.Template.component";
 
 function Analytics() {
   return (

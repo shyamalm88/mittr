@@ -24,7 +24,7 @@ import OptionActions from "../common/optionActions";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
-import { usePollEditData } from "../../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 
 function ImageChoice({
   control,
@@ -41,7 +41,7 @@ function ImageChoice({
   const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
-  const { pollEditData } = usePollEditData();
+  const { editableData } = useEditDataContext();
 
   const http = new HttpService();
 
@@ -88,7 +88,7 @@ function ImageChoice({
       response.body.destination = response.body.destination.split(".")[1];
       setValue(`${fieldName}[${index}].imageId`, response.body._id);
       items[index] = response.body;
-      console.log(items);
+      // console.log(items);
       setImageValue(items);
     } catch (error) {
       console.error(error);
@@ -116,19 +116,19 @@ function ImageChoice({
   };
 
   React.useEffect(() => {
-    if (pollEditData) {
+    if (editableData) {
       fields.forEach((item) => {
         remove(0);
       });
       let imageIds: any[] = [];
-      pollEditData.options.forEach((element: any) => {
-        console.log(element);
+      editableData.options.forEach((element: any) => {
+        // console.log(element);
         addOption(null, element);
         element.imageId.destination = element.imageId.destination.split(".")[1];
         element.imageId.imageId = element.imageId._id;
         imageIds.push(element.imageId);
       });
-      console.log(imageIds);
+      // console.log(imageIds);
       setImageValue(imageIds);
     } else {
       if (!fields.length) {

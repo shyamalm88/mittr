@@ -5,7 +5,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import { ComponentInputProps } from "../../../types";
 import { useFormContext } from "react-hook-form";
 import FormValidationError from "../../../utility/FormValidationError";
-import { usePollEditData } from "../../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 
 export default function RangeTemplate({
   fieldName,
@@ -24,15 +24,15 @@ export default function RangeTemplate({
   const [startNum, setStartNum] = React.useState();
   const [endNum, setEndNum] = React.useState();
   const [stepNum, setStepNum] = React.useState();
-  const { pollEditData } = usePollEditData();
+  const { editableData } = useEditDataContext();
 
   React.useEffect(() => {
-    if (pollEditData) {
-      setStartNum(pollEditData.additionalQuestions[index].rangeStartValue);
-      setEndNum(pollEditData.additionalQuestions[index].rangeEndValue);
-      setStepNum(pollEditData.additionalQuestions[index].rangeStepValue);
+    if (editableData) {
+      setStartNum(editableData.additionalQuestions[index].rangeStartValue);
+      setEndNum(editableData.additionalQuestions[index].rangeEndValue);
+      setStepNum(editableData.additionalQuestions[index].rangeStepValue);
     }
-  }, [pollEditData]);
+  }, [editableData]);
 
   const handleStartNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = (e.target as HTMLInputElement).value;

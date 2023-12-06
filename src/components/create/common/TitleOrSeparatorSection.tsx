@@ -22,6 +22,8 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import TipTapEditor from "./TipTap";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
+import he from "he";
 
 function TitleOrSeparatorSection({
   register,
@@ -39,6 +41,8 @@ function TitleOrSeparatorSection({
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
   const [editable, setEditable] = React.useState(false);
+  const { editableData } = useEditDataContext();
+  const [question, setQuestion] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -53,7 +57,7 @@ function TitleOrSeparatorSection({
     tempQType.splice(index, 1);
     setQuestionType(tempQType);
   };
-  // console.log(errors);
+  // // console.log(errors);
 
   const swapPositions = (fromIndex: number, toIndex: number) => {
     swap(fromIndex, toIndex);
@@ -63,11 +67,21 @@ function TitleOrSeparatorSection({
     tempQType[fromIndex] = tempQType[toIndex];
     tempQType[toIndex] = temp;
     setQuestionType(tempQType);
-    setTimeout(() => {
-      console.log(getValues());
-      console.log(questionType);
-    }, 0);
   };
+
+  React.useEffect(() => {
+    if (editableData) {
+      if (editableData?.survey) {
+        setValue("title", editableData.title);
+        console.log("========", index);
+        setValue(`${descriptionFieldName}`, editableData.description);
+        setQuestion(he.decode(editableData.description));
+      } else {
+        setValue("question", he.decode(editableData.question));
+        setQuestion(he.decode(editableData.question));
+      }
+    }
+  }, [editableData, setValue]);
 
   function htmlEncode(str: string) {
     return str.replace(/[&<>"']/g, function ($0) {
@@ -81,7 +95,7 @@ function TitleOrSeparatorSection({
 
   const handleEditorChange = ({ editor }: any) => {
     const encodedHtml = htmlEncode(editor.getHTML());
-    // setQuestion(encodedHtml);
+    setQuestion(encodedHtml);
     setValue(`${descriptionFieldName}`, encodedHtml, {
       shouldDirty: true,
       shouldTouch: true,
@@ -176,7 +190,7 @@ function TitleOrSeparatorSection({
               handleEditorClick={handleEditorClick}
               handleEditorBlur={handleEditorBlur}
               editable={editable}
-              dataContext={""}
+              dataContext={question}
             />
             {!editable && <Divider color={"#939393"} />}
 

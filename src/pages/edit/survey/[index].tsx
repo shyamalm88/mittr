@@ -1,3 +1,4 @@
+import React from "react";
 import CreatePollLayout from "../../../layout/create.layout";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,68 +14,110 @@ import QuestionTypeProvider from "../../../providers/questionType.provider";
 import AlternativeActions from "../../../components/alternativeActions/alternativeActions";
 import NormalizedLayout from "../../../layout/normalized.layout";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
-const CreatePollWrapper = dynamic(
-  () => import("../../../components/create/createWrapper.component")
+import { GetStaticPaths, GetStaticProps } from "next";
+import HttpService from "../../../services/@http/HttpClient";
+import { ComponentInputProps } from "../../../types";
+import PollDataEditProvider from "../../../providers/pollDataEdit.provider";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
+const EditWrapper = dynamic(
+  () => import("../../../components/create/editWrapper.component")
 );
+const http = new HttpService();
 
-const CreatePoll = () => {
-  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
+const EditSurvey = ({ surveyEditDataForIndividualId }: ComponentInputProps) => {
   return (
     <>
       <NextSeo
-        title="Mittr | Create Poll"
-        description="This Create Poll page will help individual authenticated users to create polls for their targeted audiences"
+        title="Mittr | Edit Poll"
+        description="This Edit Poll page will help individual authenticated users to edit polls for their targeted audiences"
       />
-      <PollOrSurveyProvider>
-        <Grid container xl spacing={1} justifyContent="center" direction="row">
-          <Grid item xs={2}>
-            <Box
-              sx={{
-                mb: 2,
-                display: { xs: "none", sm: "none", lg: "block" },
-              }}
-            >
-              <CreatePollLayout>
-                <LeftNavigationTemplate />
-              </CreatePollLayout>
-            </Box>
-            <Box
-              sx={{
-                mb: 2,
-                display: { xs: "none", sm: "none", lg: "block" },
-              }}
-            >
-              <CreatePollLayout>
-                <RecentTemplate />
-                <FollowingTemplate />
-              </CreatePollLayout>
-            </Box>
-          </Grid>
+      <PollDataEditProvider>
+        <PollOrSurveyProvider>
+          <Grid
+            container
+            xl
+            spacing={1}
+            justifyContent="center"
+            direction="row"
+          >
+            <Grid item xs={2}>
+              <Box
+                sx={{
+                  mb: 2,
+                  display: { xs: "none", sm: "none", lg: "block" },
+                }}
+              >
+                <CreatePollLayout>
+                  <LeftNavigationTemplate />
+                </CreatePollLayout>
+              </Box>
+              <Box
+                sx={{
+                  mb: 2,
+                  display: { xs: "none", sm: "none", lg: "block" },
+                }}
+              >
+                <CreatePollLayout>
+                  <RecentTemplate />
+                  <FollowingTemplate />
+                </CreatePollLayout>
+              </Box>
+            </Grid>
 
-          <Grid item xs={12} sm={12} lg={8}>
-            <CreatePollLayout>
-              <QuestionTypeProvider>
-                <CreatePollWrapper />
-              </QuestionTypeProvider>
-            </CreatePollLayout>
-          </Grid>
+            <Grid item xs={12} sm={12} lg={8}>
+              <CreatePollLayout>
+                <QuestionTypeProvider>
+                  <EditWrapper
+                    editContextData={surveyEditDataForIndividualId}
+                  />
+                </QuestionTypeProvider>
+              </CreatePollLayout>
+            </Grid>
 
-          <Grid item>
-            <Box
-              sx={{
-                mb: 2,
-                display: { xs: "none", sm: "none", lg: "block" },
-              }}
-            >
-              <NormalizedLayout>
-                <AlternativeActions />
-              </NormalizedLayout>
-            </Box>
+            <Grid item>
+              <Box
+                sx={{
+                  mb: 2,
+                  display: { xs: "none", sm: "none", lg: "block" },
+                }}
+              >
+                <NormalizedLayout>
+                  <AlternativeActions />
+                </NormalizedLayout>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      </PollOrSurveyProvider>
+        </PollOrSurveyProvider>
+      </PollDataEditProvider>
     </>
   );
 };
 
-export default CreatePoll;
+export const getStaticPaths: GetStaticPaths = async (context) => {
+  const resp: any = await http.get(`/survey`);
+  const listQuestionData: Array<any> = resp;
+  const surveyQuestions = listQuestionData?.map((item) => {
+    return { id: item._id };
+  });
+  const paths = surveyQuestions.map((post) => ({
+    params: { index: post.id },
+  }));
+
+  return { paths, fallback: true };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const postIndex = context.params?.index as string;
+
+  try {
+    const resp = await http.get(`/survey/${postIndex}`);
+
+    const surveyEditDataForIndividualId = resp;
+    return { props: { surveyEditDataForIndividualId } };
+  } catch (err) {
+    console.error("Internal Server Error");
+    return { notFound: true };
+  }
+};
+
+export default EditSurvey;

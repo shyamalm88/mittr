@@ -21,7 +21,7 @@ function NavBar(props: ComponentInputProps) {
   const { authenticatedUser, setAuthenticatedUser } =
     useAuthenticatedUserData();
   React.useEffect(() => {
-    console.log(authenticatedUser);
+    // console.log(authenticatedUser);
     setUserData(authenticatedUser?.user);
   }, [authenticatedUser]);
 

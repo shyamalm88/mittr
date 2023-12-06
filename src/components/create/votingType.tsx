@@ -14,7 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import { ComponentInputProps, OptionProp } from "../../types";
 import Stack from "@mui/material/Stack";
-import { IconButton, Menu, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 import { useConfirm } from "material-ui-confirm";
 import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
@@ -28,7 +28,7 @@ import ShortTextOutlinedIcon from "@mui/icons-material/ShortTextOutlined";
 import NotesOutlinedIcon from "@mui/icons-material/NotesOutlined";
 import PersonPinCircleOutlinedIcon from "@mui/icons-material/PersonPinCircleOutlined";
 import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
-import { usePollEditData } from "../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../hooks/useEditDataContext";
 
 const pollOrSurveyOptionsType = [
   {
@@ -177,7 +177,7 @@ function VotingType({
 }: ComponentInputProps) {
   const confirm = useConfirm();
   const theme = useTheme();
-  const { pollEditData } = usePollEditData();
+  const { editableData } = useEditDataContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
 
   const oldSelectedValue = React.useRef<HTMLInputElement[]>([]);
@@ -191,12 +191,21 @@ function VotingType({
   );
 
   React.useEffect(() => {
-    if (pollEditData) {
-      setValue("votingType", pollEditData.votingType);
-      setVotingTypeValue(pollEditData.votingType);
-      setQuestionType(pollEditData.votingType);
+    if (editableData) {
+      if (editableData?.survey) {
+        setPollOrSurvey("survey");
+        const temp: any[] = [];
+        editableData?.survey.map((item: any) => {
+          temp.push(item.votingType);
+        });
+        setQuestionType(temp);
+      } else {
+        setValue("votingType", editableData.votingType);
+        setVotingTypeValue(editableData.votingType);
+        setQuestionType(editableData.votingType);
+      }
     }
-  }, [pollEditData, setValue, setQuestionType]);
+  }, [editableData, setValue, setQuestionType, fieldName, setPollOrSurvey]);
 
   const handleChangeVotingOptions = async (e: any) => {
     if (!oldSelectedValue.current[index]?.value) {
@@ -205,7 +214,7 @@ function VotingType({
         setValue(`votingType`, e.target.value);
         setVotingTypeValue(e.target.value);
       } else {
-        const temp = questionType;
+        let temp = questionType;
         temp[index] = e.target.value;
         setQuestionType(temp);
         setValue(`${fieldName}.votingType`, e.target.value, {
@@ -301,14 +310,6 @@ function VotingType({
           inputRef={(el) => (oldSelectedValue.current[index] = el)}
           onChange={(e: any) => handleChangeVotingOptions(e)}
           value={votingTypeValue}
-          // {...register(
-          //   `${
-          //     pollOrSurvey === "poll" ? "votingType" : `${fieldName}.votingType`
-          //   }` as const,
-          //   {
-          //     onChange: (e: any) => handleChangeVotingOptions(e),
-          //   }
-          // )}
         >
           <MenuItem value={``}>
             <em style={{ color: "#b3b3b3" }}>Please Select Type</em>

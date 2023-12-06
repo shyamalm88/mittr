@@ -32,7 +32,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TipTapEditor from "./TipTap";
-import { usePollEditData } from "../../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 import he from "he";
 
 function SurveyQuestionnaire({
@@ -45,11 +45,12 @@ function SurveyQuestionnaire({
   fields,
 }: ComponentInputProps) {
   const http = new HttpService();
-  const { pollEditData } = usePollEditData();
+  const { editableData } = useEditDataContext();
 
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
   const [editable, setEditable] = React.useState(false);
+  const [question, setQuestion] = React.useState("");
 
   const theme = useTheme();
 
@@ -58,7 +59,6 @@ function SurveyQuestionnaire({
   };
 
   const handleEditorBlur = (e: any) => {
-    // setQuestion(he.decode(editor.getHTML()));
     setEditable(false);
   };
 
@@ -97,14 +97,21 @@ function SurveyQuestionnaire({
     setFocus,
   } = useFormContext();
 
-  const [question, setQuestion] = React.useState("");
-
   React.useEffect(() => {
-    if (pollEditData) {
-      setValue("question", he.decode(pollEditData.question));
-      setQuestion(he.decode(pollEditData.question));
+    if (editableData) {
+      if (editableData?.survey) {
+        editableData?.survey.forEach((item: any, idx: number) => {
+          if (index === idx) {
+            setValue(`${fieldName}.question`, item.question);
+            setQuestion(he.decode(item.question));
+          }
+        });
+      } else {
+        setValue("question", he.decode(editableData.question));
+        setQuestion(he.decode(editableData.question));
+      }
     }
-  }, [pollEditData, setValue]);
+  }, [editableData, setValue, setQuestion, fieldName]);
 
   const handleChange = (e: any) => {
     onSubmit(e.target.files[0]);
@@ -164,8 +171,8 @@ function SurveyQuestionnaire({
     tempQType[toIndex] = temp;
     setQuestionType(tempQType);
     setTimeout(() => {
-      console.log(getValues());
-      console.log(questionType);
+      // console.log(getValues());
+      // console.log(questionType);
     }, 0);
   };
 

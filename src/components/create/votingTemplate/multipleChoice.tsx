@@ -16,7 +16,7 @@ import OptionActions from "../common/optionActions";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { usePollEditData } from "../../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 
 function MultipleChoice({
   control,
@@ -29,7 +29,7 @@ function MultipleChoice({
 }: ComponentInputProps) {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
-  const { pollEditData } = usePollEditData();
+  const { editableData } = useEditDataContext();
   const theme = useTheme();
   const {
     fields,
@@ -88,10 +88,14 @@ function MultipleChoice({
   };
 
   React.useEffect(() => {
-    if (pollEditData) {
-      pollEditData.options.forEach((element: any) => {
-        addOption(null, element);
-      });
+    if (editableData) {
+      // console.log(editableData);
+      if (editableData?.survey) {
+      } else {
+        editableData.options.forEach((element: any) => {
+          addOption(null, element);
+        });
+      }
     } else {
       if (!fields.length) {
         addOption();
@@ -100,7 +104,7 @@ function MultipleChoice({
         remove(0);
       };
     }
-  }, [pollEditData]);
+  }, [editableData]);
 
   return (
     <React.Fragment>

@@ -60,7 +60,7 @@ function SignUpForm({ handleSubmitMethod }: ComponentInputProps) {
   };
 
   const checkEmailIsAlreadyPresent = async () => {
-    console.log(getValues("email"));
+    // console.log(getValues("email"));
     if (getValues("email").match(PATTERN_EMAIL)) {
       const res = await http.post("/auth/check-email-exists", {
         email: getValues("email"),

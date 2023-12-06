@@ -59,7 +59,7 @@ function LeftNavigationMenu() {
                 item.label.toLowerCase().replace(/ /g, "_")
               )}
               component={Link}
-              href={`../${item.label.toLowerCase().replace(/ /g, "_")}`}
+              href={`/${item.label.toLowerCase().replace(/ /g, "_")}`}
               sx={{
                 pl: 0,
                 borderRadius: "4px",

@@ -5,16 +5,23 @@ import dynamic from "next/dynamic";
 const PollFormWrapper = dynamic(
   () => import("./poll/createPollFormWrapper.component")
 );
+const SurveyFormWrapper = dynamic(
+  () => import("./survey/createSurveyFormWrapper.component")
+);
+import { useRouter } from "next/router";
 
 import React from "react";
 
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
-import { usePollEditData } from "../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../hooks/useEditDataContext";
 import { ComponentInputProps } from "../../types";
 
-const EditPollWrapper = ({ pollEditContextData }: ComponentInputProps) => {
+const EditWrapper = ({ editContextData }: ComponentInputProps) => {
   const { pollOrSurvey } = usePollOrSurveyContext();
-  const { setPollEditData } = usePollEditData();
+  const { setEditableData } = useEditDataContext();
+  const { pathname } = useRouter();
+
+  const isPoll = pathname.includes("poll");
 
   const [_, setPollOrSurveySwitch] = React.useState(pollOrSurvey);
 
@@ -23,9 +30,9 @@ const EditPollWrapper = ({ pollEditContextData }: ComponentInputProps) => {
   }, [pollOrSurvey]);
 
   React.useEffect(() => {
-    console.log(pollEditContextData);
-    setPollEditData(pollEditContextData);
-  }, [pollEditContextData, setPollEditData]);
+    // console.log(editContextData);
+    setEditableData(editContextData);
+  }, [editContextData, setEditableData]);
 
   return (
     <Card
@@ -50,11 +57,11 @@ const EditPollWrapper = ({ pollEditContextData }: ComponentInputProps) => {
             borderRadius: "4px",
           }}
         >
-          <PollFormWrapper />
+          {isPoll ? <PollFormWrapper /> : <SurveyFormWrapper />}
         </Box>
       </Stack>
     </Card>
   );
 };
 
-export default EditPollWrapper;
+export default EditWrapper;

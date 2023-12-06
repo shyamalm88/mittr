@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import FormValidationError from "../../../utility/FormValidationError";
 import { PATTERN, REQUIRED } from "../../../constants/error";
-import { usePollEditData } from "../../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 
 const choices = [{ id: uuidv4(), label: "Choice" }];
 
@@ -36,7 +36,7 @@ export default function RadioTemplate({
     }
   );
   const [radioOption, setRadioOption] = React.useState([]);
-  const { pollEditData } = usePollEditData();
+  const { editableData } = useEditDataContext();
 
   const addOption = (e: any, data?: any) => {
     const temp = { id: uuidv4(), label: "Choice", choice: "" };
@@ -47,18 +47,18 @@ export default function RadioTemplate({
   };
 
   // React.useEffect(() => {
-  //   if (pollEditData) {
+  //   if (editableData) {
   //     deleteOption(0);
   //   }
-  // }, [pollEditData]);
+  // }, [editableData]);
 
   const deleteOption = (index: number) => {
     remove(index);
   };
 
   React.useEffect(() => {
-    if (pollEditData) {
-      pollEditData.additionalQuestions[idx].choices.forEach((element: any) => {
+    if (editableData) {
+      editableData.additionalQuestions[idx].choices.forEach((element: any) => {
         addOption(null, element);
       });
     } else {
@@ -69,7 +69,7 @@ export default function RadioTemplate({
         remove(0);
       };
     }
-  }, [append, pollEditData]);
+  }, [append, editableData]);
 
   return (
     <>

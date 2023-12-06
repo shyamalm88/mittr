@@ -7,10 +7,10 @@ import Questionnaire from "./questionnaire.component";
 import { v4 as uuidv4 } from "uuid";
 import Tooltip from "@mui/material/Tooltip";
 import { useFormContext, useFieldArray } from "react-hook-form";
-import { usePollEditData } from "../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../hooks/useEditDataContext";
 
 export default function AdditionalQuestions() {
-  const { pollEditData } = usePollEditData();
+  const { editableData } = useEditDataContext();
   const { register, setValue, unregister, control, getValues, reset } =
     useFormContext();
   const { fields, append, prepend, remove, swap, move, insert, update } =
@@ -36,13 +36,13 @@ export default function AdditionalQuestions() {
   };
 
   React.useEffect(() => {
-    if (pollEditData) {
+    if (editableData) {
       remove(0);
-      pollEditData.additionalQuestions.forEach((element: any) => {
+      editableData.additionalQuestions.forEach((element: any) => {
         addQuestionnaire(element);
       });
     }
-  }, [pollEditData]);
+  }, [editableData]);
 
   return (
     <Box

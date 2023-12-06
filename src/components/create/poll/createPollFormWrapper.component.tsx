@@ -42,12 +42,12 @@ import {
 import { pollFormDataUpdate } from "../../../utility/formatSubmitData";
 import { DELAY } from "../../../constants/properties";
 import { useAuthenticatedUserData } from "../../../hooks/useAuthenticatedUserDataContext";
-import { usePollEditData } from "../../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 import he from "he";
 
 const PollFormWrapper = () => {
   const [shareUrlDialog, setShareUrlDialog] = React.useState(false);
-  const { pollEditData } = usePollEditData();
+  const { editableData } = useEditDataContext();
   const [shareUrl, setShareUrl] = React.useState("");
   const http = new HttpService();
   const theme = useTheme();
@@ -116,14 +116,14 @@ const PollFormWrapper = () => {
   watch((data) => setUpdatedDataToBeSaved(data as any));
 
   React.useEffect(() => {
-    if (pollEditData) {
-      setValue("createdByUserRef", pollEditData.createdByUserRef._id);
-      setValue("questionImageRef", pollEditData.questionImageRef);
-      setValue("settings", pollEditData.settings);
-      setAlreadySavedDataId(pollEditData._id);
-      // console.log(getValues());
+    if (editableData) {
+      setValue("createdByUserRef", editableData.createdByUserRef._id);
+      setValue("questionImageRef", editableData.questionImageRef);
+      setValue("settings", editableData.settings);
+      setAlreadySavedDataId(editableData._id);
+      // // console.log(getValues());
     }
-  }, [pollEditData, setValue]);
+  }, [editableData, setValue]);
 
   const { fields, append, prepend, remove, swap, move, insert, update } =
     useFieldArray({
@@ -172,7 +172,7 @@ const PollFormWrapper = () => {
 
     try {
       const resp = await postSurvey(dataToBeSubmitted);
-      console.log("resp", resp);
+      // console.log("resp", resp);
       setShareUrlDialog(true);
       setShareUrl(
         `${location.protocol}//${location.hostname}:${location.port}/answer/${
@@ -249,7 +249,7 @@ const PollFormWrapper = () => {
     window.open(shareUrl, "_blank");
   };
 
-  console.log(errors);
+  // console.log(errors);
 
   return (
     <>
@@ -292,7 +292,7 @@ const PollFormWrapper = () => {
             type="submit"
             startIcon={<SendIcon />}
           >
-            {pollEditData ? "Submit" : "Create"}
+            {editableData ? "Submit" : "Create"}
           </Button>
           <Button
             variant="outlined"

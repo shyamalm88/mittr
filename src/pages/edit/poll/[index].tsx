@@ -18,9 +18,9 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import HttpService from "../../../services/@http/HttpClient";
 import { ComponentInputProps } from "../../../types";
 import PollDataEditProvider from "../../../providers/pollDataEdit.provider";
-import { usePollEditData } from "../../../hooks/usePollEditDataContext";
-const EditPollWrapper = dynamic(
-  () => import("../../../components/create/editPollWrapper.component")
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
+const EditWrapper = dynamic(
+  () => import("../../../components/create/editWrapper.component")
 );
 const http = new HttpService();
 
@@ -67,9 +67,7 @@ const EditPoll = ({ pollEditDataForIndividualId }: ComponentInputProps) => {
             <Grid item xs={12} sm={12} lg={8}>
               <CreatePollLayout>
                 <QuestionTypeProvider>
-                  <EditPollWrapper
-                    pollEditContextData={pollEditDataForIndividualId}
-                  />
+                  <EditWrapper editContextData={pollEditDataForIndividualId} />
                 </QuestionTypeProvider>
               </CreatePollLayout>
             </Grid>

@@ -7,7 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import { ComponentInputProps } from "../../../types";
 import { useTheme } from "@mui/material/styles";
 import { useFormContext } from "react-hook-form";
-import { usePollEditData } from "../../../hooks/usePollEditDataContext";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 
 export default function DateTemplate({
   fieldName,
@@ -16,17 +16,17 @@ export default function DateTemplate({
   const { register, setValue, unregister, control, getValues } =
     useFormContext();
   const theme = useTheme();
-  const { pollEditData } = usePollEditData();
+  const { editableData } = useEditDataContext();
   const [dateValidationOption, setDateValidationOption] =
     React.useState<string>("");
 
   React.useEffect(() => {
-    if (pollEditData) {
+    if (editableData) {
       setDateValidationOption(
-        pollEditData.additionalQuestions[index].dateValidationOption
+        editableData.additionalQuestions[index].dateValidationOption
       );
     }
-  }, [pollEditData]);
+  }, [editableData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = (e.target as HTMLInputElement).value;

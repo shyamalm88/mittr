@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import { ComponentInputProps } from "../../../types";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 
 function AddingSectionsControl({
   fieldName,
