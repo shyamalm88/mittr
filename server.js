@@ -104,6 +104,12 @@ mongoose
         server.get("/", (req, res) => {
           return nextApp.render(req, res, "/dashboard", req.query);
         });
+        server.get("/edit/poll/:index", isAuthenticated, (req, res) => {
+          return nextApp.render(req, res, "/edit/poll/:index", req.query);
+        });
+        server.get("/edit/survey/:index", isAuthenticated, (req, res) => {
+          return nextApp.render(req, res, "/edit/survey/:index", req.query);
+        });
         server.get("/dashboard", isAuthenticated, (req, res) => {
           return nextApp.render(req, res, "/dashboard", req.query);
         });

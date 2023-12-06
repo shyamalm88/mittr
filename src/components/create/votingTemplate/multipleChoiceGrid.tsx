@@ -6,6 +6,9 @@ import { useFieldArray } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import RowTemplate from "./rowTemplate";
 import ColumnTemplate from "./columnTemplate";
+import OptionActions from "../common/optionActions";
+import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
+import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 
 function MultipleChoiceGrid({
   control,
@@ -16,7 +19,6 @@ function MultipleChoiceGrid({
   fieldName,
   index: idx,
 }: ComponentInputProps) {
-  const theme = useTheme();
   const {
     fields,
     append,

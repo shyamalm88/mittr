@@ -12,6 +12,7 @@ import { useFieldArray } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 import { GithubPicker } from "react-color";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 const colors = [
   "#B80000",
   "#DB3E00",
@@ -33,7 +34,12 @@ function StarRating({
   index,
 }: ComponentInputProps) {
   const [colorState, setColorState] = React.useState("");
+  const [starCount, setStarCount] = React.useState("");
+  const [icon, setIcon] = React.useState("");
+  const [precision, setPrecision] = React.useState("");
+
   const [displayColorPicker, setDisplayColorPicker] = React.useState(false);
+  const { editableData } = useEditDataContext();
   const {
     fields,
     append,
@@ -54,7 +60,7 @@ function StarRating({
       label: "starRating",
       starCount: "",
       precision: "",
-      iconType: "",
+      icon: "",
       color: "",
     };
     append(temp);
@@ -83,6 +89,22 @@ function StarRating({
     }
   }, []);
 
+  React.useEffect(() => {
+    if (editableData) {
+      const { starCount, precision, icon, color } =
+        editableData.survey[index].options[0];
+      setValue(`${fieldName}.options[0].color`, color);
+      setValue(`${fieldName}.options[0].icon`, icon);
+      setValue(`${fieldName}.options[0].precision`, precision);
+      setValue(`${fieldName}.options[0].starCount`, starCount);
+
+      setStarCount(starCount);
+      setColorState(color);
+      setIcon(icon);
+      setPrecision(precision);
+    }
+  }, [editableData]);
+
   return (
     <React.Fragment>
       {fields?.map((item: any, index: number) => {
@@ -104,13 +126,18 @@ function StarRating({
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Star Count"
+                    value={starCount}
                     error={
                       !!(errors as any)?.[fieldNameOptions.split(".")[0]]?.[
                         fieldNameOptions.split(".")[1]
                       ]?.[fieldNameOptions.split(".")[2]]?.[index]?.starCount
                         ?.message
                     }
-                    {...register(`${fieldNameOptions}.starCount` as const, {})}
+                    {...register(`${fieldNameOptions}.starCount` as const, {
+                      onChange: (e: any) => {
+                        setStarCount(e.target.value);
+                      },
+                    })}
                   >
                     <MenuItem value={""}>Please Select</MenuItem>
                     <MenuItem value={5}>5</MenuItem>
@@ -138,7 +165,11 @@ function StarRating({
                   onClick={() => setDisplayColorPicker(!displayColorPicker)}
                   value={colorState}
                   placeholder="Choose Color"
-                  {...register(`${fieldNameOptions}.color` as const, {})}
+                  {...register(`${fieldNameOptions}.color` as const, {
+                    onChange: (e: any) => {
+                      setColorState(e.target.value);
+                    },
+                  })}
                 />
                 <FormValidationError
                   errorText={
@@ -180,13 +211,18 @@ function StarRating({
                         id="demo-simple-select"
                         label="Icon"
                         size="small"
+                        value={icon}
                         error={
                           !!(errors as any)?.[fieldNameOptions.split(".")[0]]?.[
                             fieldNameOptions.split(".")[1]
                           ]?.[fieldNameOptions.split(".")[2]]?.[index]?.icon
                             ?.message
                         }
-                        {...register(`${fieldNameOptions}.icon` as const, {})}
+                        {...register(`${fieldNameOptions}.icon` as const, {
+                          onChange: (e: any) => {
+                            setIcon(e.target.value);
+                          },
+                        })}
                       >
                         <MenuItem value={""}>Please Select</MenuItem>
                         <MenuItem value={"star"}>Star</MenuItem>
@@ -221,16 +257,18 @@ function StarRating({
                         id="demo-simple-select"
                         label="Precision"
                         size="small"
+                        value={precision}
                         error={
                           !!(errors as any)?.[fieldNameOptions.split(".")[0]]?.[
                             fieldNameOptions.split(".")[1]
                           ]?.[fieldNameOptions.split(".")[2]]?.[index]
                             ?.precision?.message
                         }
-                        {...register(
-                          `${fieldNameOptions}.precision` as const,
-                          {}
-                        )}
+                        {...register(`${fieldNameOptions}.precision` as const, {
+                          onChange: (e: any) => {
+                            setPrecision(e.target.value);
+                          },
+                        })}
                       >
                         <MenuItem value={""}>Please Select</MenuItem>
                         <MenuItem value={0.2}>0.2</MenuItem>

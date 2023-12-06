@@ -24,6 +24,7 @@ import OptionActions from "../common/optionActions";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
+import { useEditDataContext } from "../../../hooks/useEditDataContext";
 
 function ImageChoiceSurvey({
   control,
@@ -41,6 +42,7 @@ function ImageChoiceSurvey({
   const http = new HttpService();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+  const { editableData } = useEditDataContext();
 
   const [imageValue, setImageValue] = React.useState<any[]>([]);
   const {
@@ -58,11 +60,11 @@ function ImageChoiceSurvey({
     name: pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`,
   });
 
-  React.useEffect(() => {
-    if (isSubmitSuccessful) {
-      setImageValue([]);
-    }
-  }, [isSubmitSuccessful]);
+  // React.useEffect(() => {
+  //   if (isSubmitSuccessful) {
+  //     setImageValue([]);
+  //   }
+  // }, [isSubmitSuccessful]);
 
   const handleChange = async (e: any, index: number) => {
     onSubmit(e.target.files[0], index);
@@ -82,6 +84,8 @@ function ImageChoiceSurvey({
         .service()
         .postMultipart(`/survey/image/upload`, formData);
       const items = [...imageValue];
+      response.body.destination = response.body.destination.split(".")[1];
+      setValue(`${fieldName}[${index}].imageId`, response.body._id);
       items[index] = response.body;
       setImageValue(items);
     } catch (error) {
@@ -89,13 +93,24 @@ function ImageChoiceSurvey({
     }
   };
 
-  const addOption = () => {
+  const addOption = (e?: any, data?: any) => {
     const temp = {
       id: uuidv4(),
       label: "Option",
       enabled: true,
       option: "",
+      description: "",
+      imageId: "",
     };
+    if (data) {
+      temp.id = data.id;
+      temp.label = data.label;
+      temp.enabled = data.option === "Other" ? false : true;
+      temp.option = data.option;
+      temp.description = data.description;
+      temp.imageId = data._id;
+    }
+
     append(temp);
   };
 
@@ -106,12 +121,28 @@ function ImageChoiceSurvey({
   };
 
   React.useEffect(() => {
-    if (!fields.length) {
-      addOption();
+    if (editableData) {
+      fields.forEach((item) => {
+        remove(0);
+      });
+      let imageIds: any[] = [];
+      editableData.survey[index].options.forEach((element: any) => {
+        // console.log(element);
+        addOption(null, element);
+        element.imageId.destination = element.imageId.destination.split(".")[1];
+        element.imageId.imageId = element.imageId._id;
+        imageIds.push(element.imageId);
+      });
+      // console.log(imageIds);
+      setImageValue(imageIds);
+    } else {
+      if (!fields.length) {
+        addOption();
+      }
+      return () => {
+        remove(0);
+      };
     }
-    return () => {
-      // unregister()
-    };
   }, []);
 
   const deleteOption = (index: number) => {

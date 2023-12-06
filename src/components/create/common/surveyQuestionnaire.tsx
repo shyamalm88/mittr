@@ -100,10 +100,11 @@ function SurveyQuestionnaire({
   React.useEffect(() => {
     if (editableData) {
       if (editableData?.survey) {
+        // console.log(editableData?.survey);
         editableData?.survey.forEach((item: any, idx: number) => {
           if (index === idx) {
             setValue(`${fieldName}.question`, item.question);
-            setQuestion(he.decode(item.question));
+            setQuestion(item.question ? he.decode(item.question) : "");
           }
         });
       } else {

@@ -106,7 +106,7 @@ const PollFormWrapper = () => {
   } = methods;
 
   watch((data) => setUpdatedDataToBeSaved(data as any));
-
+  console.log(errors);
   const { fields, append, prepend, remove, swap, move, insert, update } =
     useFieldArray({
       control,
@@ -230,13 +230,23 @@ const PollFormWrapper = () => {
 
   const handleDataDrivenAddNewSurvey = async (data: any) => {
     if (data) {
-      const tempQuestion = {
-        question: "",
-        id: uuidv4(),
-        votingType: data.votingType,
-        options: data.options,
-      };
-      await append(tempQuestion);
+      if (data.type === "section") {
+        const tempQuestion = {
+          title: data.title,
+          id: uuidv4(),
+          description: "",
+          type: data.type,
+        };
+        await append(tempQuestion);
+      } else {
+        const tempQuestion = {
+          question: "",
+          id: uuidv4(),
+          votingType: data.votingType,
+          options: data.options,
+        };
+        await append(tempQuestion);
+      }
     }
   };
 
