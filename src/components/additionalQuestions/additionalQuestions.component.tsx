@@ -38,7 +38,7 @@ export default function AdditionalQuestions() {
   React.useEffect(() => {
     if (editableData) {
       remove(0);
-      editableData.additionalQuestions.forEach((element: any) => {
+      editableData?.additionalQuestions?.forEach((element: any) => {
         addQuestionnaire(element);
       });
     }

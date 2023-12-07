@@ -19,6 +19,8 @@ import HttpService from "../../../services/@http/HttpClient";
 import { ComponentInputProps } from "../../../types";
 import PollDataEditProvider from "../../../providers/pollDataEdit.provider";
 import { useEditDataContext } from "../../../hooks/useEditDataContext";
+import Sticky from "react-sticky-el";
+import { Drawer } from "@mui/material";
 const EditWrapper = dynamic(
   () => import("../../../components/create/editWrapper.component")
 );
@@ -39,6 +41,7 @@ const EditSurvey = ({ surveyEditDataForIndividualId }: ComponentInputProps) => {
             spacing={1}
             justifyContent="center"
             direction="row"
+            sx={{ mb: { xs: 2, lg: 0 } }}
           >
             <Grid item xs={2}>
               <Box
@@ -85,8 +88,33 @@ const EditSurvey = ({ surveyEditDataForIndividualId }: ComponentInputProps) => {
                   <AlternativeActions />
                 </NormalizedLayout>
               </Box>
+              <Sticky
+                boundaryElement=".MuiBox-root"
+                hideOnBoundaryHit={false}
+                stickyStyle={{
+                  marginLeft: "0px",
+                  marginTop: "60px",
+                }}
+              >
+                <div
+                  id="surveyActionMenuPortalDesktop"
+                  style={{ width: "60px" }}
+                />
+              </Sticky>
             </Grid>
           </Grid>
+          <Drawer
+            open={true}
+            anchor="bottom"
+            variant="permanent"
+            sx={{
+              background: "#fff",
+              height: { xs: "auto", lg: 0 },
+              visibility: { xs: "visible", lg: "hidden" },
+            }}
+          >
+            <div id="surveyActionMenuPortalMobile"></div>
+          </Drawer>
         </PollOrSurveyProvider>
       </PollDataEditProvider>
     </>

@@ -85,16 +85,6 @@ function PollOrSurveyOptionChoose() {
           </MenuList>
         </RadioGroup>
       </Paper>
-      <Sticky
-        boundaryElement=".MuiBox-root"
-        hideOnBoundaryHit={false}
-        stickyStyle={{
-          marginLeft: "-30px",
-          marginTop: "60px",
-        }}
-      >
-        <div id="surveyActionMenuPortalDesktop" style={{ width: "60px" }} />
-      </Sticky>
 
       <Portal>
         <Drawer
@@ -102,9 +92,9 @@ function PollOrSurveyOptionChoose() {
           anchor="bottom"
           variant="permanent"
           sx={{
-            background: "red",
-            height: { xs: "auto", sm: 0 },
-            visibility: { xs: "visible", sm: "hidden" },
+            background: "#fff",
+            height: { xs: "auto", lg: 0 },
+            visibility: { xs: "visible", lg: "hidden" },
           }}
         >
           <Paper>

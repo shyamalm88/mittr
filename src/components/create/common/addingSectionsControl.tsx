@@ -16,6 +16,7 @@ import {
   Stack,
   Tooltip,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { ComponentInputProps } from "../../../types";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
@@ -32,6 +33,7 @@ function AddingSectionsControl({
 }: ComponentInputProps) {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
+  const theme = useTheme();
 
   const handleAddNewSurvey = async () => {
     const tempQuestion = {
@@ -65,11 +67,16 @@ function AddingSectionsControl({
             <Paper
               sx={{
                 width: { xs: "auto", lg: 60 },
+                // background: "#645cbb",
+                // color: "#fff",
+                boxShadow:
+                  "0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)",
+                // border: "1px solid #2540d9",
               }}
             >
-              <Hidden smDown>
+              <Hidden lgDown>
                 <MenuList>
-                  <MenuItem onClick={handleAddNewSurvey} sx={{ px: 0 }}>
+                  <MenuItem onClick={handleAddNewSurvey} sx={{ px: 0 }} divider>
                     <Stack
                       direction="column"
                       alignItems="center"
@@ -141,12 +148,12 @@ function AddingSectionsControl({
                 width: { xs: "auto", lg: 60 },
               }}
             >
-              <Hidden smUp>
+              <Hidden lgUp>
                 <Stack
                   direction="row"
                   useFlexGap
                   alignItems="stretch"
-                  justifyContent="center"
+                  justifyContent={{ xs: "left", lg: "center" }}
                   divider={<Divider orientation="vertical" flexItem />}
                 >
                   <Button

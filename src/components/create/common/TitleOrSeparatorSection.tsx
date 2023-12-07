@@ -76,12 +76,15 @@ function TitleOrSeparatorSection({
         if (index) {
           setValue(
             `${descriptionFieldName}`,
-            editableData.survey[index].description
+            editableData.survey[index]?.description
           );
-          setQuestion(he.decode(editableData.survey[index].description));
+          setQuestion(
+            editableData.survey[index]?.description &&
+              he.decode(editableData.survey[index]?.description)
+          );
         } else {
-          setValue(`${descriptionFieldName}`, editableData.description);
-          setQuestion(he.decode(editableData.description));
+          setValue(`${descriptionFieldName}`, editableData?.description);
+          setQuestion(he.decode(editableData?.description));
         }
       } else {
         setValue("question", he.decode(editableData.question));

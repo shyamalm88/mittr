@@ -10,18 +10,26 @@ const SurveyFormWrapper = dynamic(
 );
 import { useRouter } from "next/router";
 
-import React from "react";
+import React, { Suspense } from "react";
 
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 import { useEditDataContext } from "../../hooks/useEditDataContext";
 import { ComponentInputProps } from "../../types";
 
 const EditWrapper = ({ editContextData }: ComponentInputProps) => {
-  const { pollOrSurvey } = usePollOrSurveyContext();
+  const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { setEditableData } = useEditDataContext();
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
 
-  const isPoll = pathname.includes("poll");
+  React.useEffect(() => {
+    if (asPath.includes("edit/survey")) {
+      setPollOrSurvey("survey");
+    }
+  }, [asPath, setPollOrSurvey]);
+
+  const handleRouteChange = (url: string) => {
+    console.log(url);
+  };
 
   const [_, setPollOrSurveySwitch] = React.useState(pollOrSurvey);
 
@@ -57,7 +65,15 @@ const EditWrapper = ({ editContextData }: ComponentInputProps) => {
             borderRadius: "4px",
           }}
         >
-          {isPoll ? <PollFormWrapper /> : <SurveyFormWrapper />}
+          {pollOrSurvey === "poll" ? (
+            <Suspense fallback={<p>Loading feed...</p>}>
+              <PollFormWrapper />
+            </Suspense>
+          ) : (
+            <Suspense fallback={<p>Loading feed...</p>}>
+              <SurveyFormWrapper />
+            </Suspense>
+          )}
         </Box>
       </Stack>
     </Card>

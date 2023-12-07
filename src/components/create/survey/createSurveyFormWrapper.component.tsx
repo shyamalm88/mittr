@@ -47,6 +47,7 @@ import { DELAY } from "../../../constants/properties";
 import { surveyFormDataUpdate } from "../../../utility/formatSubmitData";
 import { useAuthenticatedUserData } from "../../../hooks/useAuthenticatedUserDataContext";
 import { useEditDataContext } from "../../../hooks/useEditDataContext";
+import { useRouter } from "next/router";
 
 const PollFormWrapper = () => {
   const http = new HttpService();
@@ -60,6 +61,7 @@ const PollFormWrapper = () => {
   const [alreadySavedDataId, setAlreadySavedDataId] = React.useState("");
   const [updatedDataToBeSaved, setUpdatedDataToBeSaved] = React.useState();
   const { editableData } = useEditDataContext();
+  const router = useRouter();
 
   const methods = useForm<CreateSurveySubmittedValueType>({
     defaultValues: {
@@ -106,7 +108,8 @@ const PollFormWrapper = () => {
   } = methods;
 
   watch((data) => setUpdatedDataToBeSaved(data as any));
-  console.log(errors);
+  // console.log(errors);
+  // console.log(getValues());
   const { fields, append, prepend, remove, swap, move, insert, update } =
     useFieldArray({
       control,
@@ -116,6 +119,14 @@ const PollFormWrapper = () => {
   React.useEffect(() => {
     setFocus("title");
   }, [setFocus]);
+
+  React.useEffect(() => {
+    if (router.asPath.includes("edit/survey")) {
+      if (router.query.index) {
+        setAlreadySavedDataId(router.query.index as string);
+      }
+    }
+  }, [router.asPath, setAlreadySavedDataId]);
 
   React.useEffect(() => {
     if (authenticatedUser) {
@@ -351,7 +362,7 @@ const PollFormWrapper = () => {
             type="submit"
             startIcon={<SendIcon />}
           >
-            Create
+            {editableData ? "Update" : "Create"}
           </Button>
           <Button
             variant="outlined"

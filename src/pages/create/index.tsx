@@ -13,6 +13,7 @@ import QuestionTypeProvider from "../../providers/questionType.provider";
 import AlternativeActions from "../../components/alternativeActions/alternativeActions";
 import NormalizedLayout from "../../layout/normalized.layout";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
+import Sticky from "react-sticky-el";
 const CreatePollWrapper = dynamic(
   () => import("../../components/create/createWrapper.component")
 );
@@ -70,6 +71,19 @@ const CreatePoll = () => {
                 <AlternativeActions />
               </NormalizedLayout>
             </Box>
+            <Sticky
+              boundaryElement=".MuiBox-root"
+              hideOnBoundaryHit={false}
+              stickyStyle={{
+                marginLeft: "0px",
+                marginTop: "60px",
+              }}
+            >
+              <div
+                id="surveyActionMenuPortalDesktop"
+                style={{ width: "60px" }}
+              />
+            </Sticky>
           </Grid>
         </Grid>
       </PollOrSurveyProvider>

@@ -50,7 +50,7 @@ const CreatePollWrapper = () => {
       >
         <Box
           sx={{
-            display: { xs: "none", sm: "flex", justifyContent: "center" },
+            display: { xs: "none", lg: "flex", justifyContent: "center" },
           }}
         >
           <Stack

@@ -317,7 +317,7 @@ export default function Editor({
   });
 
   React.useEffect(() => {
-    editor?.commands.setContent(he.decode(dataContext));
+    editor?.commands.setContent(dataContext ? he.decode(dataContext) : "");
   }, [dataContext]);
 
   return (

@@ -193,7 +193,6 @@ function VotingType({
   React.useEffect(() => {
     if (editableData) {
       if (editableData?.survey) {
-        setPollOrSurvey("survey");
         const temp: any[] = [];
         editableData?.survey.map((item: any) => {
           temp.push(item.votingType);

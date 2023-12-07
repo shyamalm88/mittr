@@ -10,12 +10,14 @@ import { useTheme } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import OptionActions from "../common/optionActions";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { Button } from "@mui/material";
+import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
 
 function ContactInfo({
   control,
@@ -29,6 +31,7 @@ function ContactInfo({
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
   const theme = useTheme();
+  const { resetField } = useForm();
   const {
     fields,
     append,
@@ -96,6 +99,14 @@ function ContactInfo({
       remove(0);
     };
   }, []);
+
+  const resetFields = () => {
+    fields.forEach(() => {
+      remove(0);
+    });
+    addOption();
+    console.log(getValues());
+  };
 
   return (
     <React.Fragment>
@@ -195,6 +206,15 @@ function ContactInfo({
           </FormControl>
         );
       })}
+      <Button
+        color="inherit"
+        variant="outlined"
+        size="small"
+        startIcon={<RestartAltOutlinedIcon />}
+        onClick={resetFields}
+      >
+        Reset
+      </Button>
       <OptionActions
         addOption={addOption}
         getValues={getValues}

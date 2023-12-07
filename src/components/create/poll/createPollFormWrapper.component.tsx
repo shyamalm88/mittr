@@ -44,6 +44,7 @@ import { DELAY } from "../../../constants/properties";
 import { useAuthenticatedUserData } from "../../../hooks/useAuthenticatedUserDataContext";
 import { useEditDataContext } from "../../../hooks/useEditDataContext";
 import he from "he";
+import { useRouter } from "next/router";
 
 const PollFormWrapper = () => {
   const [shareUrlDialog, setShareUrlDialog] = React.useState(false);
@@ -65,6 +66,7 @@ const PollFormWrapper = () => {
     destination: string;
     filename: string;
   }>();
+  const router = useRouter();
 
   const methods = useForm<CreatePollSubmittedValueType>({
     defaultValues: {
@@ -134,6 +136,14 @@ const PollFormWrapper = () => {
   React.useEffect(() => {
     setFocus("question");
   }, [setFocus]);
+
+  React.useEffect(() => {
+    if (router.asPath.includes("edit/poll")) {
+      if (router.query.index) {
+        setAlreadySavedDataId(router.query.index as string);
+      }
+    }
+  }, [router.asPath, setAlreadySavedDataId]);
 
   React.useEffect(() => {
     if (authenticatedUser) {
@@ -292,7 +302,7 @@ const PollFormWrapper = () => {
             type="submit"
             startIcon={<SendIcon />}
           >
-            {editableData ? "Submit" : "Create"}
+            {editableData ? "Update" : "Create"}
           </Button>
           <Button
             variant="outlined"
