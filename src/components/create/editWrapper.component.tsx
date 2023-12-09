@@ -19,17 +19,14 @@ import { ComponentInputProps } from "../../types";
 const EditWrapper = ({ editContextData }: ComponentInputProps) => {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { setEditableData } = useEditDataContext();
-  const { asPath } = useRouter();
+  const { asPath, isReady } = useRouter();
 
   React.useEffect(() => {
+    if (!isReady) return;
     if (asPath.includes("edit/survey")) {
       setPollOrSurvey("survey");
     }
-  }, [asPath, setPollOrSurvey]);
-
-  const handleRouteChange = (url: string) => {
-    console.log(url);
-  };
+  }, [asPath, setPollOrSurvey, isReady]);
 
   const [_, setPollOrSurveySwitch] = React.useState(pollOrSurvey);
 
@@ -66,13 +63,9 @@ const EditWrapper = ({ editContextData }: ComponentInputProps) => {
           }}
         >
           {pollOrSurvey === "poll" ? (
-            <Suspense fallback={<p>Loading feed...</p>}>
-              <PollFormWrapper />
-            </Suspense>
+            <PollFormWrapper />
           ) : (
-            <Suspense fallback={<p>Loading feed...</p>}>
-              <SurveyFormWrapper />
-            </Suspense>
+            <SurveyFormWrapper />
           )}
         </Box>
       </Stack>

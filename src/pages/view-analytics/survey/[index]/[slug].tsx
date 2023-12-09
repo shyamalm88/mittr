@@ -1,18 +1,19 @@
 import React from "react";
-import ViewAnalyticsLayout from "../../../layout/viewAnalytics.layout";
-import AnalyticsOfPollProvider from "../../../providers/analyticsOfPoll.provider";
+import ViewAnalyticsLayout from "../../../../layout/viewAnalytics.layout";
+import AnalyticsOfPollProvider from "../../../../providers/analyticsOfPoll.provider";
 import { v4 as uuidv4 } from "uuid";
 import { NextSeo } from "next-seo";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { ComponentInputProps } from "../../../types";
+import { ComponentInputProps } from "../../../../types";
 import dynamic from "next/dynamic";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 const AnalyticsPollWrapper = dynamic(
-  () => import("../../../components/analytics/analyticsPollWrapper.component")
+  () =>
+    import("../../../../components/analytics/analyticsPollWrapper.component")
 );
 
-import HttpService from "../../../services/@http/HttpClient";
+import HttpService from "../../../../services/@http/HttpClient";
 const http = new HttpService();
 
 const data = {
@@ -98,12 +99,12 @@ const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const resp: Array<any> = await http.get(`/poll`);
+  const resp: Array<any> = await http.get(`/survey`);
   const listQuestionData: Array<any> = resp;
-  const pollQuestions = listQuestionData.map((item) => {
+  const surveyQuestions = listQuestionData.map((item) => {
     return { id: item._id, slug: item.questionSlug };
   });
-  const paths = pollQuestions.map((post) => ({
+  const paths = surveyQuestions.map((post) => ({
     params: { index: post.id, slug: post.slug },
   }));
 
@@ -113,7 +114,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const postIndex = (context.params as any).index as string;
   try {
-    const resp = await http.get(`/poll/${postIndex}`);
+    const resp = await http.get(`/survey/${postIndex}`);
     const analyticsData = resp;
     return { props: { analyticsData } };
   } catch (err) {

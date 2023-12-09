@@ -27,6 +27,7 @@ import moment from "moment";
 import { Chip, Stack } from "@mui/material";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import SignalCellularAltOutlinedIcon from "@mui/icons-material/SignalCellularAltOutlined";
 import { useRouter } from "next/router";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -324,8 +325,15 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
     [order, orderBy, page, rowsPerPage, rows]
   );
 
-  const handleEdit = (rowData: any) => {
+  const handleEdit = (e: any, rowData: any) => {
+    e.stopPropagation();
     const url = `/edit/${rowData.type}/${rowData._id}`;
+    window.open(url, "_blank", "noreferrer");
+  };
+
+  const handleViewAnalytics = (e: any, rowData: any) => {
+    e.stopPropagation();
+    const url = `/view-analytics/${rowData.type}/${rowData._id}/${rowData.questionSlug}`;
     window.open(url, "_blank", "noreferrer");
   };
 
@@ -399,11 +407,16 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <Stack direction="row" alignItems="center">
-                        <IconButton onClick={() => handleEdit(row)}>
+                        <IconButton onClick={(e) => handleEdit(e, row)}>
                           <DriveFileRenameOutlineOutlinedIcon />
                         </IconButton>
                         <IconButton>
                           <RemoveRedEyeOutlinedIcon />
+                        </IconButton>
+                        <IconButton>
+                          <SignalCellularAltOutlinedIcon
+                            onClick={(e) => handleViewAnalytics(e, row)}
+                          />
                         </IconButton>
                       </Stack>
                     </StyledTableCell>

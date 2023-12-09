@@ -213,7 +213,7 @@ function ContactInfo({
         startIcon={<RestartAltOutlinedIcon />}
         onClick={resetFields}
       >
-        Reset
+        Reset Contact Info
       </Button>
       <OptionActions
         addOption={addOption}

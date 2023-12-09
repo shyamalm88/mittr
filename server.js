@@ -126,9 +126,9 @@ mongoose
         });
 
         server.get("*", (req, res) => {
-          //   res.set({
-          //     'Cache-Control': 'public, max-age=3600'
-          //   });
+          res.set({
+            "Cache-Control": "public, s-maxage=10, stale-while-revalidate=59",
+          });
           const parsedUrl = url.parse(req.url, true);
           nextHandler(req, res, parsedUrl);
         });

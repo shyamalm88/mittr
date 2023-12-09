@@ -13,12 +13,7 @@ function Dashboard() {
         title="Mittr | Dashboard"
         description="This Dashboard page will help individual authenticated users to view their dashboard"
       />
-      <Grid
-        container
-        spacing={2}
-        justifyContent="center"
-        direction="row-reverse"
-      >
+      <Grid container justifyContent="center" direction="row-reverse">
         <Grid item xs={12} sm={12} lg={10}>
           <DashboardLayout>
             <DashboardComponent />

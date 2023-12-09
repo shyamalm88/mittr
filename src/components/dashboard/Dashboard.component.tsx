@@ -77,7 +77,7 @@ function DashboardComponent() {
             </CardContent>
           </Card>
         </Grid>
-        {/* <Grid item xs={12} sm={6} lg={4}>
+        <Grid item xs={12} sm={6} lg={6}>
           <Card
             sx={{
               overflow: "visible",
@@ -103,7 +103,7 @@ function DashboardComponent() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} lg={4}>
+        <Grid item xs={12} sm={6} lg={6}>
           <Card
             sx={{
               overflow: "visible",
@@ -128,7 +128,7 @@ function DashboardComponent() {
               <RecommendedPollTemplate />
             </CardContent>
           </Card>
-        </Grid> */}
+        </Grid>
       </Grid>
     </>
   );

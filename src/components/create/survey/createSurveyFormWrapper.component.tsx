@@ -108,7 +108,7 @@ const PollFormWrapper = () => {
   } = methods;
 
   watch((data) => setUpdatedDataToBeSaved(data as any));
-  // console.log(errors);
+  console.log(errors);
   // console.log(getValues());
   const { fields, append, prepend, remove, swap, move, insert, update } =
     useFieldArray({
