@@ -3,21 +3,25 @@ import { ComponentInputProps } from "../../../types";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import FormControl from "@mui/material/FormControl";
-import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { Controller, useFormContext } from "react-hook-form";
 import moment from "moment";
+import { TextField } from "@mui/material";
 
 export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
-  const [date, setDate] = React.useState();
-  const answerContext = usePollAnswerContext();
-  const handleChange = (e: React.ChangeEvent<HTMLElement> | any) => {
-    answerContext.handleChange({
-      target: {
-        name: `${fieldName}.selectedValue`,
-        value: e && moment(e).format(),
-        id: item._id,
-      },
-    });
+  const [date, setDate] = React.useState<string | undefined>();
+
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+    control,
+  } = useFormContext();
+  const handleChange = (e: any) => {
+    setValue(`${fieldName}.selectedValue.date`, moment(e).format());
+    console.log(getValues());
+    setDate(e && moment(e).format());
   };
 
   return (
@@ -26,15 +30,20 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <MobileDatePicker
             formatDensity="dense"
-            value={date}
             disableFuture={item.dateValidationOption === "disable_future_dates"}
             disablePast={item.dateValidationOption === "disable_past_dates"}
             format="DD/MM/YYYY"
-            onChange={(newValue) => handleChange(newValue)}
             yearsPerRow={4}
+            onChange={(newValue) => handleChange(newValue)}
             slotProps={{ textField: { size: "small" } }}
           />
         </LocalizationProvider>
+
+        <input
+          type="hidden"
+          value={item.id}
+          {...register(`${fieldName}.questionId` as const)}
+        />
       </FormControl>
     </>
   );

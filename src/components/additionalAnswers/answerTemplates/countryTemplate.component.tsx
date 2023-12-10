@@ -8,29 +8,28 @@ import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import { Country, City, ICity } from "country-state-city";
 import Image from "next/image";
-import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
+import { useFormContext } from "react-hook-form";
 
 export default function CountryTemplate({
   fieldName,
   item,
 }: ComponentInputProps) {
-  const answerContext = usePollAnswerContext();
   const [countries] = React.useState<any[]>(Country.getAllCountries());
   const [country, setCountry] = React.useState<any | string>();
 
-  const handleCountryChange = (e: any, value: any, reason: any) => {
-    setCountry(value?.isoCode);
-  };
+  React.useEffect(() => {}, [country, fieldName, item._id]);
 
-  React.useEffect(() => {
-    answerContext.handleChange({
-      target: {
-        name: `${fieldName}.selectedValue`,
-        value: country,
-        id: item._id,
-      },
-    });
-  }, [country, answerContext, fieldName, item._id]);
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+  const handleCountryChange = (e: any, value: any, reason: any) => {
+    setValue(`${fieldName}.selectedValue.country`, value);
+    setCountry(value?.isoCode);
+    console.log(getValues());
+  };
 
   return (
     <>
@@ -71,6 +70,12 @@ export default function CountryTemplate({
               placeholder="Select Country"
             />
           )}
+        />
+
+        <input
+          type="hidden"
+          value={item.id}
+          {...register(`${fieldName}.questionId` as const)}
         />
       </FormControl>
     </>

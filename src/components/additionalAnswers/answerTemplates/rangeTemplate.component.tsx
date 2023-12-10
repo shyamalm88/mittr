@@ -8,8 +8,9 @@ import Slider, {
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
+import { useFormContext } from "react-hook-form";
 
-const PrettoSlider = styled(Slider)(({ theme }) => ({
+const RangeSlider = styled(Slider)(({ theme }) => ({
   color: "primary",
   height: 8,
   "& .MuiSlider-track": {
@@ -42,28 +43,42 @@ const PrettoSlider = styled(Slider)(({ theme }) => ({
 export default function RangeTemplate({
   fieldName,
   item,
+  index,
 }: ComponentInputProps) {
-  const answerContext = usePollAnswerContext();
-  const [sliderValue, setSliderValue] = React.useState(null);
+  const [sliderValue, setSliderValue] = React.useState<number>(
+    parseInt(item.rangeStartValue)
+  );
   const handleSliderChange = (e: any) => {
     setSliderValue(e.target.value);
-    answerContext.handleChange({
-      target: { name: e.target.name, value: e.target.value, id: item._id },
-    });
+    setValue(`${fieldName}.selectedValue.range`, e.target.value);
+    console.log(getValues());
   };
+
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   return (
     <Box sx={{ px: 2 }}>
       <Typography align="center" alignSelf={"end"} variant="caption">
         <b>Selected Value: {sliderValue}</b>
       </Typography>
-      <PrettoSlider
+      <RangeSlider
         valueLabelDisplay="auto"
-        aria-label="pretto slider"
+        aria-label="Range slider"
         min={parseInt(item.rangeStartValue)}
         step={parseInt(item.rangeStepValue)}
         max={parseInt(item.rangeEndValue)}
         onChange={handleSliderChange}
-        name={`${fieldName}.selectedValue`}
+      />
+
+      <input
+        type="hidden"
+        value={item.id}
+        {...register(`${fieldName}.questionId` as const)}
       />
     </Box>
   );

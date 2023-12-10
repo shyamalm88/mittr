@@ -19,19 +19,25 @@ import StepWrapperProvider from "../../providers/stepWrapper.provider";
 import { Divider, Typography, useTheme } from "@mui/material";
 import Confetti from "react-confetti";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
-import { usePollAnswerContext } from "../../hooks/usePollAnswerContext";
+// import { usePollAnswerContext } from "../../hooks/usePollAnswerContext";
 import CheckmarkUtility from "../../utility/checkMark";
 import { useMotionValue, motion } from "framer-motion";
 import Subscribe from "../subscribe/Subscribe";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
+import {
+  AnswerPollSubmittedValueType,
+  CreatePollSubmittedValueType,
+} from "../../types";
+import { FormProvider, useForm } from "react-hook-form";
+import { checkValueAndValidity } from "../../utility/util";
+import * as _ from "underscore";
 
 const AnswerPollWrapper = () => {
   let progress = useMotionValue(90);
 
   const targetRef = React.useRef();
-  const answerContext = usePollAnswerContext();
   const router = useRouter();
   const { index, slug } = router.query;
   const theme = useTheme();
@@ -62,81 +68,30 @@ const AnswerPollWrapper = () => {
     handleClose();
     router.push("/viewAnalytics/" + index + "/" + slug);
   };
-  const submitHandler = async (e: any) => {
-    e.preventDefault();
-    const updatedContextValue = await answerContext.getState();
-    if (additionalQuestionsLength === activeIndex + 1) {
-      if (
-        !updatedContextValue.additionalQuestionsAnswers[activeIndex] ||
-        !updatedContextValue.additionalQuestionsAnswers[activeIndex]
-          .selectedValue
-      ) {
-        toast.error(`Please select One Option`, {
-          position: toast.POSITION.TOP_RIGHT,
-          theme: "colored",
-        });
-      } else if (
-        typeof updatedContextValue.additionalQuestionsAnswers[activeIndex]
-          .selectedValue === "object" &&
-        (!updatedContextValue.additionalQuestionsAnswers[activeIndex]
-          .selectedValue.country ||
-          !updatedContextValue.additionalQuestionsAnswers[activeIndex]
-            .selectedValue.city)
-      ) {
-        toast.error(`Please select Country & City`, {
-          position: toast.POSITION.TOP_RIGHT,
-          theme: "colored",
-        });
-      } else {
-        setActiveIndex((prev) => prev + 1);
-        answerContext.handleChange({
-          target: {
-            name: `questionID`,
-            value: router.query.index,
-          },
-        });
-        answerContext.submit();
-        setOpen(true);
-        setSubmitted(true);
-      }
+  const submitHandler = async (data: any) => {
+    if (
+      checkValueAndValidity(
+        activeIndex,
+        getValues,
+        _,
+        toast,
+        setActiveIndex,
+        true
+      )
+    ) {
+      console.log(data);
     }
   };
 
   const nextHandler = async () => {
-    const updatedContextValue = await answerContext.getState();
-    if (activeIndex === -1 && !updatedContextValue.selectedOption) {
-      toast.error(`Please select One Option`, {
-        position: toast.POSITION.TOP_RIGHT,
-        theme: "colored",
-      });
-    } else if (activeIndex >= 0) {
-      if (
-        !updatedContextValue.additionalQuestionsAnswers[activeIndex] ||
-        !updatedContextValue.additionalQuestionsAnswers[activeIndex]
-          .selectedValue
-      ) {
-        toast.error(`Please select One Option`, {
-          position: toast.POSITION.TOP_RIGHT,
-          theme: "colored",
-        });
-      } else if (
-        typeof updatedContextValue.additionalQuestionsAnswers[activeIndex]
-          .selectedValue === "object" &&
-        (!updatedContextValue.additionalQuestionsAnswers[activeIndex]
-          .selectedValue.country ||
-          !updatedContextValue.additionalQuestionsAnswers[activeIndex]
-            .selectedValue.city)
-      ) {
-        toast.error(`Please select Country & City`, {
-          position: toast.POSITION.TOP_RIGHT,
-          theme: "colored",
-        });
-      } else {
-        setActiveIndex((prev) => prev + 1);
-      }
-    } else {
-      setActiveIndex((prev) => prev + 1);
-    }
+    checkValueAndValidity(
+      activeIndex,
+      getValues,
+      _,
+      toast,
+      setActiveIndex,
+      false
+    );
   };
   const prevHandler = () => {
     setActiveIndex((prev) => prev - 1);
@@ -146,146 +101,144 @@ const AnswerPollWrapper = () => {
     setActiveIndex(-1);
   };
 
+  const methods = useForm<AnswerPollSubmittedValueType>({
+    defaultValues: {
+      selectedPrimaryQuestionOption: "",
+      selectedPrimaryQuestionId: "",
+      additionalQuestionsAnswers: [],
+    },
+  });
+
+  const {
+    handleSubmit,
+    setError,
+    reset,
+    formState: {
+      errors,
+      isDirty,
+      dirtyFields,
+      touchedFields,
+      isSubmitSuccessful,
+      isSubmitted,
+    },
+    control,
+    getValues,
+    setValue,
+    clearErrors,
+    register,
+    setFocus,
+    watch,
+  } = methods;
+
   return (
     <>
-      <Box component="form">
-        <Card
-          variant="outlined"
-          sx={{
-            p: 2,
-            borderRadius: "4px",
-            borderTopColor: theme.palette.primary.main,
-            borderTopStyle: "solid",
-            borderTopWidth: "2px",
-          }}
-          className="card"
-        >
-          <Stack
-            direction="row"
-            spacing={{ xs: 0, sm: 2, md: 4 }}
-            sx={{ display: "flex" }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                borderRadius: "4px",
-              }}
-            >
-              <StepWrapperProvider activeIndex={activeIndex}>
-                <AnswerPollFormWrapper />
-              </StepWrapperProvider>
-            </Box>
-          </Stack>
-          <Divider
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(submitHandler)}>
+          <Card
+            variant="outlined"
             sx={{
-              mb: 2,
-              borderBottomWidth: 0,
+              p: 2,
+              borderRadius: "4px",
+              borderTopColor: theme.palette.primary.main,
+              borderTopStyle: "solid",
+              borderTopWidth: "2px",
             }}
-          />
-          {additionalQuestionsLength === activeIndex + 1 && !submitted ? (
-            <>
-              <Button
-                variant="contained"
+            className="card"
+          >
+            <Stack
+              direction="row"
+              spacing={{ xs: 0, sm: 2, md: 4 }}
+              sx={{ display: "flex" }}
+            >
+              <Box
                 sx={{
-                  float: { xs: "none", sm: "right" },
-                  marginRight: "10px",
-                  width: { xs: "100%", sm: "auto" },
-                  mt: { xs: 2, sm: 0 },
+                  display: "flex",
+                  width: "100%",
+                  borderRadius: "4px",
                 }}
-                startIcon={<DoneOutlinedIcon />}
-                onClick={submitHandler}
               >
-                Submit
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{
-                  float: { xs: "none", sm: "right" },
-                  marginRight: "10px",
-                  width: { xs: "100%", sm: "auto" },
-                  mt: { xs: 2, sm: 0 },
-                }}
-                startIcon={<ArrowBackIosIcon />}
-                onClick={prevHandler}
-              >
-                Prev
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{
-                  float: { xs: "none", sm: "left" },
-                  width: { xs: "100%", sm: "auto" },
-                  ml: { xs: "0px", sm: "15px" },
-                  mt: { xs: 2, sm: 0 },
-                  color: (theme) => theme.palette.grey[500],
-                  borderColor: (theme) => theme.palette.grey[500],
-                  "&:hover": {
-                    color: (theme) => theme.palette.grey[400],
-                    borderColor: (theme) => theme.palette.grey[400],
-                  },
-                }}
-                onClick={resetHandler}
-                startIcon={<RestartAltIcon />}
-              >
-                Reset
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button
-                variant="contained"
-                sx={{
-                  float: { xs: "none", sm: "right" },
-                  marginRight: "10px",
-                  width: { xs: "100%", sm: "auto" },
-                  mt: { xs: 2, sm: 0 },
-                }}
-                endIcon={<ArrowForwardIosIcon />}
-                onClick={nextHandler}
-                disabled={
-                  additionalQuestionsLength < activeIndex + 1 && submitted
-                }
-              >
-                Next
-              </Button>
-              <Button
-                variant="outlined"
-                startIcon={<ArrowBackIosIcon />}
-                sx={{
-                  float: { xs: "none", sm: "right" },
-                  marginRight: "10px",
-                  width: { xs: "100%", sm: "auto" },
-                  mt: { xs: 2, sm: 0 },
-                }}
-                onClick={prevHandler}
-                disabled={activeIndex === -1}
-              >
-                Prev
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{
-                  float: { xs: "none", sm: "left" },
-                  width: { xs: "100%", sm: "auto" },
-                  ml: { xs: "0px", sm: "15px" },
-                  mt: { xs: 2, sm: 0 },
-                  color: (theme) => theme.palette.grey[500],
-                  borderColor: (theme) => theme.palette.grey[500],
-                  "&:hover": {
-                    color: (theme) => theme.palette.grey[400],
-                    borderColor: (theme) => theme.palette.grey[400],
-                  },
-                }}
-                onClick={resetHandler}
-                startIcon={<RestartAltIcon />}
-              >
-                Reset
-              </Button>
-            </>
-          )}
-        </Card>
-      </Box>
+                <StepWrapperProvider activeIndex={activeIndex}>
+                  <AnswerPollFormWrapper />
+                </StepWrapperProvider>
+              </Box>
+            </Stack>
+            <Divider
+              sx={{
+                mb: 2,
+                borderBottomWidth: 0,
+              }}
+            />
+
+            <Button
+              variant="contained"
+              sx={{
+                float: { xs: "none", sm: "right" },
+                marginRight: "10px",
+                width: { xs: "100%", sm: "auto" },
+                mt: { xs: 2, sm: 0 },
+              }}
+              startIcon={<DoneOutlinedIcon />}
+              disabled={
+                additionalQuestionsLength > activeIndex + 1 && !submitted
+              }
+              type="submit"
+            >
+              Submit
+            </Button>
+
+            <Button
+              variant="contained"
+              sx={{
+                float: { xs: "none", sm: "right" },
+                marginRight: "10px",
+                width: { xs: "100%", sm: "auto" },
+                mt: { xs: 2, sm: 0 },
+              }}
+              endIcon={<ArrowForwardIosIcon />}
+              onClick={nextHandler}
+              disabled={
+                additionalQuestionsLength <= activeIndex + 1 || submitted
+              }
+            >
+              Next
+            </Button>
+
+            <Button
+              variant="outlined"
+              startIcon={<ArrowBackIosIcon />}
+              sx={{
+                float: { xs: "none", sm: "right" },
+                marginRight: "10px",
+                width: { xs: "100%", sm: "auto" },
+                mt: { xs: 2, sm: 0 },
+              }}
+              onClick={prevHandler}
+              disabled={activeIndex === -1}
+            >
+              Prev
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{
+                float: { xs: "none", sm: "left" },
+                width: { xs: "100%", sm: "auto" },
+                ml: { xs: "0px", sm: "15px" },
+                mt: { xs: 2, sm: 0 },
+                color: (theme) => theme.palette.grey[500],
+                borderColor: (theme) => theme.palette.grey[500],
+                "&:hover": {
+                  color: (theme) => theme.palette.grey[400],
+                  borderColor: (theme) => theme.palette.grey[400],
+                },
+              }}
+              onClick={resetHandler}
+              startIcon={<RestartAltIcon />}
+            >
+              Reset
+            </Button>
+          </Card>
+        </form>
+      </FormProvider>
       <Dialog
         open={open}
         onClose={handleClose}

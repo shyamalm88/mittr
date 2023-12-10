@@ -23,7 +23,7 @@ export default function DateTemplate({
   React.useEffect(() => {
     if (editableData) {
       setDateValidationOption(
-        editableData.additionalQuestions[index].dateValidationOption
+        editableData.additionalQuestions[index]?.dateValidationOption
       );
     }
   }, [editableData]);

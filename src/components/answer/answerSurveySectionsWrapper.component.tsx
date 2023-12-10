@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
-import { usePollAnswerContext } from "../../hooks/usePollAnswerContext";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
 import SurveySwitchQuestionOptions from "./surveySwitchQuestionOptions";
 import { ComponentInputProps } from "../../types";
@@ -10,13 +9,11 @@ import { useTheme } from "@mui/material/styles";
 const AnswerSurveySectionsWrapper = ({ item, index }: ComponentInputProps) => {
   const questionContext = usePollQuestionContext();
   const theme = useTheme();
-  const answerContext = usePollAnswerContext();
   const [radioValue, setRadioValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(item);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRadioValue(e.target.value);
-    answerContext.handleChange(e);
   };
 
   return (

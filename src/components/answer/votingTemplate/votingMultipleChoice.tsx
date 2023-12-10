@@ -5,19 +5,23 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { ComponentInputProps, QuestionOptionProp } from "../../../types";
 import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
+import { useFormContext } from "react-hook-form";
 
-function VotingMultipleChoice({
-  handleChange,
-  radioValue,
-}: ComponentInputProps) {
+function VotingMultipleChoice() {
   const contextValue = usePollQuestionContext("options");
+  const {
+    formState: { errors },
+    register,
+    getValues,
+  } = useFormContext();
+  const handleChange = (e: any) => {
+    console.log(getValues());
+  };
   return (
     <RadioGroup
       aria-labelledby="demo-radio-buttons-group-label"
-      name="selectedOption"
       className="answer"
       onChange={handleChange}
-      value={radioValue}
     >
       {contextValue?.map((item: QuestionOptionProp, index: number) => {
         const fieldName = `options[${index}]`;
@@ -28,7 +32,6 @@ function VotingMultipleChoice({
             key={index}
           >
             <fieldset
-              name={fieldName}
               style={{
                 border: "none",
                 margin: 0,
@@ -41,6 +44,7 @@ function VotingMultipleChoice({
                 value={item.option}
                 control={<Radio id={item._id} />}
                 label={item.option}
+                {...register(`selectedPrimaryQuestionOption` as const)}
               />
             </fieldset>
           </FormControl>

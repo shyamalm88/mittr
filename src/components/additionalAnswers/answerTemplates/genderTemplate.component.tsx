@@ -3,11 +3,10 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import { ComponentInputProps, QuestionOptionProp } from "../../../types";
-import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
+import { ComponentInputProps } from "../../../types";
+import { useFormContext } from "react-hook-form";
 
 const GenderTemplate = ({ fieldName, item }: ComponentInputProps) => {
-  const answerContext = usePollAnswerContext();
   const [radioValue, setRadioValue] = React.useState("");
   const [genderValue, setGenderValue] = React.useState([
     { choice: "Male", value: "male" },
@@ -15,24 +14,29 @@ const GenderTemplate = ({ fieldName, item }: ComponentInputProps) => {
     { choice: "Genderqueer/Non-Binary", value: "non-binary" },
     { choice: "Prefer not to disclose", value: "na" },
   ]);
+
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(`${fieldName}.selectedValue.gender`, e.target.value);
+    console.log(getValues());
     setRadioValue(e.target.value);
-    answerContext.handleChange({
-      target: { name: e.target.name, value: e.target.value, id: item._id },
-    });
   };
+
   return (
     <>
       <React.Fragment>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          name={`${fieldName}.selectedValue`}
           className="answer"
           onChange={handleChange}
           value={radioValue}
         >
           {genderValue.map((itemIndividual: any, index: number) => {
-            const fieldName = `options[${index}]`;
             return (
               <FormControl
                 sx={{ mb: 1, width: "100%" }}
@@ -40,7 +44,6 @@ const GenderTemplate = ({ fieldName, item }: ComponentInputProps) => {
                 key={index}
               >
                 <fieldset
-                  name={fieldName}
                   style={{
                     border: "none",
                     margin: 0,
@@ -53,12 +56,18 @@ const GenderTemplate = ({ fieldName, item }: ComponentInputProps) => {
                     value={itemIndividual.value}
                     control={<Radio />}
                     label={itemIndividual.choice}
+                    {...register(`${fieldName}.selectedValue.gender` as const)}
                   />
                 </fieldset>
               </FormControl>
             );
           })}
         </RadioGroup>
+        <input
+          type="hidden"
+          value={item.id}
+          {...register(`${fieldName}.questionId` as const)}
+        />
       </React.Fragment>
     </>
   );

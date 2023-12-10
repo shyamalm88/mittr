@@ -45,6 +45,7 @@ export default function QuestionnairePollAnswerTemplate({
                 selectedValue={item.answerType}
                 fieldName={fieldName}
                 item={item}
+                index={index}
               />
             </FormControl>
           </fieldset>

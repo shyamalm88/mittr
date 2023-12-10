@@ -8,40 +8,41 @@ import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import { Country, City, ICity } from "country-state-city";
 import Image from "next/image";
-import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
+import { useFormContext } from "react-hook-form";
 
 export default function CountryStateCityTemplate({
   fieldName,
   item,
 }: ComponentInputProps) {
-  const answerContext = usePollAnswerContext();
   const [countries] = React.useState<any[]>(Country.getAllCountries());
   const [country, setCountry] = React.useState<any | string>();
   const [cities, setCities] = React.useState<ICity[]>([]);
   const [city, setCity] = React.useState<ICity | any>();
 
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   const handleCountryChange = (e: any, value: any, reason: any) => {
     setCountry(value?.isoCode);
+    setValue(`${fieldName}.selectedValue.countryAndCity.country`, value);
+    setValue(`${fieldName}.selectedValue.countryAndCity.city`, null);
+    setCity(null);
     const cities = City.getCitiesOfCountry(value?.isoCode);
     if (reason === "clear") {
     }
     setCities(cities ? cities : []);
+    console.log(getValues());
   };
 
   const handleCityChange = (e: any, value: any) => {
     setCity(value?.name);
+    setValue(`${fieldName}.selectedValue.countryAndCity.city`, value);
+    console.log(getValues());
   };
-
-  React.useEffect(() => {
-    const obj = { country, city };
-    answerContext.handleChange({
-      target: {
-        name: `${fieldName}.selectedValue`,
-        value: obj,
-        id: item._id,
-      },
-    });
-  }, [country, city, fieldName, item._id, answerContext]);
 
   return (
     <>
@@ -114,6 +115,11 @@ export default function CountryStateCityTemplate({
           )}
         />
       </FormControl>
+      <input
+        type="hidden"
+        value={item.id}
+        {...register(`${fieldName}.questionId` as const)}
+      />
     </>
   );
 }

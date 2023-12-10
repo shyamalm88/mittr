@@ -19,20 +19,25 @@ import TextTruncate from "react-text-truncate";
 import { useTheme } from "@mui/material";
 import Image from "next/image";
 import NoImage from "./../../../images/svg/no-image.svg";
+import { useFormContext } from "react-hook-form";
 
-function VotingImageMultipleChoice({
-  handleChange,
-  radioValue,
-}: ComponentInputProps) {
+function VotingImageMultipleChoice() {
   const theme = useTheme();
   const contextValue = usePollQuestionContext("options");
+  const {
+    formState: { errors },
+    register,
+    getValues,
+  } = useFormContext();
+  const handleChange = (e: any) => {
+    console.log(getValues());
+  };
   return (
     <RadioGroup
       aria-labelledby="demo-radio-buttons-group-label"
       name="selectedOption"
       className="answer"
       onChange={handleChange}
-      value={radioValue}
     >
       <Grid container spacing={2} sx={{ mb: 2 }}>
         {contextValue?.map((item: QuestionOptionProp, index: number) => {
@@ -137,6 +142,7 @@ function VotingImageMultipleChoice({
                           height: "42px",
                           border: "none",
                         }}
+                        {...register(`selectedPrimaryQuestionOption` as const)}
                       />
                     </fieldset>
                   </FormControl>

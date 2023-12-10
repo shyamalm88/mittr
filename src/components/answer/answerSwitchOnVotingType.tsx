@@ -6,9 +6,9 @@ import VotingImageMultipleChoice from "./votingTemplate/votingImageMultipleChoic
 function AnswerSwitchOnVotingType(props: ComponentInputProps) {
   switch (props.selectedValue) {
     case "multiple_choice":
-      return <VotingMultipleChoice {...props} />;
+      return <VotingMultipleChoice />;
     case "image":
-      return <VotingImageMultipleChoice {...props} />;
+      return <VotingImageMultipleChoice />;
     default:
       return <></>;
   }

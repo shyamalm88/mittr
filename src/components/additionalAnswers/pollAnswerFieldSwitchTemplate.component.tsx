@@ -12,20 +12,29 @@ export default function PollAnswerFieldSwitchTemplate({
   selectedValue,
   fieldName,
   item,
+  index,
 }: ComponentInputProps) {
   switch (selectedValue) {
     case "range":
-      return <RangeTemplate fieldName={fieldName} item={item} />;
+      return <RangeTemplate fieldName={fieldName} item={item} index={index} />;
     case "choice":
-      return <RadioTemplate fieldName={fieldName} item={item} />;
+      return <RadioTemplate fieldName={fieldName} item={item} index={index} />;
     case "country":
-      return <CountryTemplate fieldName={fieldName} item={item} />;
+      return (
+        <CountryTemplate fieldName={fieldName} item={item} index={index} />
+      );
     case "city":
-      return <CountryStateCityTemplate fieldName={fieldName} item={item} />;
+      return (
+        <CountryStateCityTemplate
+          fieldName={fieldName}
+          item={item}
+          index={index}
+        />
+      );
     case "gender":
-      return <GenderTemplate fieldName={fieldName} item={item} />;
+      return <GenderTemplate fieldName={fieldName} item={item} index={index} />;
     case "date":
-      return <DateTemplate fieldName={fieldName} item={item} />;
+      return <DateTemplate fieldName={fieldName} item={item} index={index} />;
     default:
       return <></>;
   }

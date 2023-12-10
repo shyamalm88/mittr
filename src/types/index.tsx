@@ -62,6 +62,17 @@ export type CreatePollSubmittedValueType = {
   createdByUserRef: string;
 };
 
+export type AnswerPollSubmittedValueType = {
+  selectedPrimaryQuestionOption: string;
+  selectedPrimaryQuestionId: string;
+  additionalQuestionsAnswers: [
+    {
+      questionId: string;
+      selectedValue: string | any;
+    }
+  ];
+};
+
 export type CreateSurveySubmittedValueType = {
   type: "";
   title: "Untitled Survey";
@@ -114,7 +125,7 @@ export type Settings = {
 };
 
 export type CreatePollQuestionType = {
-  id: string;
+  _id: string;
   question: string;
   questionImageRef: any;
   contextValueImage?: any;

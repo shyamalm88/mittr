@@ -21,12 +21,14 @@ import he from "he";
 import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
 import Image from "next/image";
 import NoProfileImage from "./../../images/img/noProfileImage.png";
+import { useFormContext } from "react-hook-form";
 TimeAgo.addDefaultLocale(en);
 
 const AnswerPollFormWrapper = () => {
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const contextValue = usePollQuestionContext("question");
+  const contextValueQuestionId = usePollQuestionContext("_id");
   const contextValueImage = usePollQuestionContext("questionImageRef");
   const contextQuestionSetValue = usePollQuestionContext();
   const contextDurationValue = usePollQuestionContext("duration");
@@ -41,6 +43,14 @@ const AnswerPollFormWrapper = () => {
       return d2.diff(d1, "days") < 0 ? "Poll ended on " : "Poll will end on ";
     }
   }, [contextDurationValue]);
+
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+    control,
+  } = useFormContext();
 
   return (
     <Box
@@ -86,6 +96,11 @@ const AnswerPollFormWrapper = () => {
                       __html: he.decode(contextValue),
                     }}
                   ></Typography>
+                  <input
+                    type="hidden"
+                    value={contextValueQuestionId}
+                    {...register(`selectedPrimaryQuestionId` as const)}
+                  />
                   <Box
                     sx={{
                       width: "100%",
