@@ -52,6 +52,14 @@ const AnswerPollFormWrapper = () => {
     control,
   } = useFormContext();
 
+  React.useEffect(() => {
+    setValue(`selectedPrimaryQuestionId`, contextValueQuestionId);
+  }, [contextValueQuestionId, setValue]);
+
+  React.useEffect(() => {
+    setValue(`answeredByUserRef`, authenticatedUser);
+  }, [authenticatedUser, setValue]);
+
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", flex: 1, width: "100%" }}
@@ -96,11 +104,7 @@ const AnswerPollFormWrapper = () => {
                       __html: he.decode(contextValue),
                     }}
                   ></Typography>
-                  <input
-                    type="hidden"
-                    value={contextValueQuestionId}
-                    {...register(`selectedPrimaryQuestionId` as const)}
-                  />
+
                   <Box
                     sx={{
                       width: "100%",

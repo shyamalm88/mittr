@@ -65,6 +65,7 @@ export type CreatePollSubmittedValueType = {
 export type AnswerPollSubmittedValueType = {
   selectedPrimaryQuestionOption: string;
   selectedPrimaryQuestionId: string;
+  answeredByUserRef: string;
   additionalQuestionsAnswers: [
     {
       questionId: string;

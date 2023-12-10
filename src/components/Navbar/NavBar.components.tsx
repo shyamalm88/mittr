@@ -15,9 +15,11 @@ import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataCo
 import ProfileDisplay from "./ProfileDisplay.component";
 import Link from "next/link";
 import { Button } from "@mui/material";
+import { useRouter } from "next/router";
 
 function NavBar(props: ComponentInputProps) {
   const [userData, setUserData] = React.useState(null);
+  const router = useRouter();
   const { authenticatedUser, setAuthenticatedUser } =
     useAuthenticatedUserData();
   React.useEffect(() => {
@@ -43,7 +45,11 @@ function NavBar(props: ComponentInputProps) {
                 {authenticatedUser ? (
                   <ProfileDisplay userData={userData} />
                 ) : (
-                  <Button variant="text" size="small">
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => router.push("/auth")}
+                  >
                     Login
                   </Button>
                 )}

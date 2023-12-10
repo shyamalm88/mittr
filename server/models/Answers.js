@@ -5,14 +5,12 @@ const schema = mongoose.Schema(
     id: String,
     questionID: String,
     selectedOption: String,
-    loggedInUserDetails: {},
+    answeredByUserRef: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "User",
+    },
     contributorIP: String,
-    additionalQuestionsAnswers: [
-      {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "AdditionalQuestionsAnswers",
-      },
-    ],
+    additionalQuestionsAnswers: [],
   },
   { timestamps: true }
 );

@@ -33,10 +33,11 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 import { checkValueAndValidity } from "../../utility/util";
 import * as _ from "underscore";
+import HttpService from "../../services/@http/HttpClient";
 
 const AnswerPollWrapper = () => {
   let progress = useMotionValue(90);
-
+  const http = new HttpService();
   const targetRef = React.useRef();
   const router = useRouter();
   const { index, slug } = router.query;
@@ -80,6 +81,13 @@ const AnswerPollWrapper = () => {
       )
     ) {
       console.log(data);
+      try {
+        const resp = http.post("/answer", data);
+        console.log(resp);
+        setDisplaySubscribeOrSave(true);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -106,6 +114,7 @@ const AnswerPollWrapper = () => {
       selectedPrimaryQuestionOption: "",
       selectedPrimaryQuestionId: "",
       additionalQuestionsAnswers: [],
+      answeredByUserRef: "",
     },
   });
 

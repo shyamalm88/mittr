@@ -32,7 +32,7 @@ export const checkValueAndValidity = (
   } else if (
     activeIndex > -1 &&
     !!checkObjectPropertiesHaveEmptyValue(
-      getValues().additionalQuestionsAnswers[activeIndex].selectedValue
+      getValues().additionalQuestionsAnswers[activeIndex]?.selectedValue
     )
   ) {
     toast.error(`Please Select One Option`, {

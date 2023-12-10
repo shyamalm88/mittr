@@ -170,6 +170,22 @@ pollRouter.post("/:index", async (req, res) => {
   }
 });
 
+pollRouter.post("/answer", async (req, res) => {
+  const answer = new Answers({
+    questionID: req.body.selectedPrimaryQuestionId,
+    selectedOption: req.body.selectedPrimaryQuestionOption,
+    contributorIP: req.header("x-forwarded-for") || req.socket.remoteAddress,
+    additionalQuestionsAnswers: additionalQuestionsAnswers,
+    answeredByUserRef: req.body.answeredByUserRef.id,
+  });
+  try {
+    const pollRes = await answer.save();
+    res.send(pollRes);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 pollRouter.post("/image/upload", upload.single("image"), async (req, res) => {
   if (req.file) {
     const sharpObject = sharp(req.file.path);
@@ -187,25 +203,6 @@ pollRouter.post("/image/upload", upload.single("image"), async (req, res) => {
           "Only These types of files are supported 'jpeg|jpg|png|gif|svg'",
       });
     }
-  }
-});
-
-pollRouter.post("/answer", async (req, res) => {
-  const additionalQuestionsAnswersRefId =
-    await AdditionalQuestionsAnswers.insertMany(
-      req.body.additionalQuestionsAnswers
-    );
-  const answer = new Answers({
-    questionID: req.body.questionID,
-    selectedOption: req.body.selectedOption,
-    contributorIP: req.header("x-forwarded-for") || req.socket.remoteAddress,
-    additionalQuestionsAnswers: additionalQuestionsAnswersRefId,
-  });
-  try {
-    const pollRes = await answer.save();
-    res.send(pollRes);
-  } catch (error) {
-    res.status(500).json(error);
   }
 });
 
