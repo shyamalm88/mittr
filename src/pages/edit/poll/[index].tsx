@@ -29,7 +29,7 @@ const EditPoll = ({ pollEditDataForIndividualId }: ComponentInputProps) => {
     <>
       <NextSeo
         title="Mittr | Edit Poll"
-        description="This Edit Poll page will help individual authenticated users to edit polls for their targeted audiences"
+        description="This Edit Poll page will help individual authenticated users to edit polls which they have created for their targeted audiences"
       />
       <PollDataEditProvider>
         <PollOrSurveyProvider>

@@ -15,6 +15,9 @@ function StarRatingSurveySection({ selectedValue }: ComponentInputProps) {
   const [hover, setHover] = React.useState(-1);
   return (
     <>
+      <Typography className="required">
+        {selectedValue?.required && "*"}
+      </Typography>
       <Typography
         component="div"
         variant="body1"

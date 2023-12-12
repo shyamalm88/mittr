@@ -10,6 +10,9 @@ import he from "he";
 function MultipleChoiceSurveySection({ selectedValue }: ComponentInputProps) {
   return (
     <>
+      <Typography className="required">
+        {selectedValue?.required && "*"}
+      </Typography>
       <Typography
         component="div"
         variant="body1"
@@ -19,6 +22,7 @@ function MultipleChoiceSurveySection({ selectedValue }: ComponentInputProps) {
             .replace(/(<p[^>]+?>|<p>|<\/p>)/gim, ""),
         }}
       ></Typography>
+
       <Box sx={{ p: 3 }}>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"

@@ -30,6 +30,7 @@ const AnswerSurveySectionsWrapper = ({ item, index }: ComponentInputProps) => {
             borderTopStyle: "solid",
             borderTopWidth: "2px",
             overflow: "auto",
+            position: "relative",
           }}
         >
           {selectedValue?.type === "section" ? (

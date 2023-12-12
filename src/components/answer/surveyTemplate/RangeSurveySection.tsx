@@ -42,6 +42,9 @@ function RangeSurveySection({ selectedValue }: ComponentInputProps) {
   };
   return (
     <>
+    <Typography className="required">
+        {selectedValue?.required && "*"}
+      </Typography>
       <Typography
         component="div"
         variant="body1"

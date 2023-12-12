@@ -155,11 +155,16 @@ function SurveyQuestionnaire({
     }
   };
 
-  const handleSurveyQuestionRemove = (index: Number) => {
+  const handleSurveyQuestionRemove = (index: number) => {
     remove(index);
     const tempQType = questionType;
     tempQType.splice(index, 1);
     setQuestionType(tempQType);
+  };
+
+  const handleRequired = (e: any, index: number) => {
+    setValue(`${fieldName}.required`, e.target.checked);
+    console.log(getValues().survey[index]);
   };
 
   const swapPositions = (fromIndex: number, toIndex: number) => {
@@ -392,7 +397,13 @@ function SurveyQuestionnaire({
             </IconButton>
             <FormControlLabel
               value="end"
-              control={<Switch color="success" size="small" />}
+              control={
+                <Switch
+                  color="success"
+                  size="small"
+                  onChange={(e) => handleRequired(e, index)}
+                />
+              }
               label="Required"
               labelPlacement="end"
               disableTypography

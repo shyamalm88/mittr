@@ -8,6 +8,9 @@ import he from "he";
 function CheckBoxChoiceSurveySection({ selectedValue }: ComponentInputProps) {
   return (
     <>
+      <Typography className="required">
+        {selectedValue?.required && "*"}
+      </Typography>
       <Typography
         component="div"
         variant="body1"

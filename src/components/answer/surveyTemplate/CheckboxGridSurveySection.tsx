@@ -11,6 +11,9 @@ import he from "he";
 function CheckboxGridSurveySection({ selectedValue }: ComponentInputProps) {
   return (
     <>
+      <Typography className="required">
+        {selectedValue?.required && "*"}
+      </Typography>
       <Typography
         component="div"
         variant="body1"

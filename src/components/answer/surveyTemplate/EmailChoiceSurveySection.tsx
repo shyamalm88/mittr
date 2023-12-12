@@ -18,6 +18,9 @@ function EmailChoiceSurveySection({ selectedValue }: ComponentInputProps) {
   const theme = useTheme();
   return (
     <>
+      <Typography className="required">
+        {selectedValue?.required && "*"}
+      </Typography>
       <Typography
         component="div"
         variant="body1"

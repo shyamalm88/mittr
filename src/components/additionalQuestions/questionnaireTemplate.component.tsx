@@ -109,161 +109,175 @@ export default function QuestionnaireTemplate({
     isSubmitted,
   ]);
 
-  return (
-    <Stack direction="column" sx={{ mb: 2, px: 1, borderRadius: "4px" }}>
-      <Stack
-        direction="row"
-        spacing={2}
-        sx={{ my: 1, color: "rgb(156, 163, 175)" }}
-      >
-        <Stack
-          direction="column"
-          spacing={2}
-          sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
-        >
-          <fieldset
-            name={fieldName}
-            style={{
-              border: "none",
-              margin: 0,
-              padding: 0,
-              display: "flex",
-              flexDirection: "column",
-            }}
+  switch (item?.answerType) {
+    case "gender":
+      return <></>;
+    case "country":
+      return <></>;
+    case "city":
+      return <></>;
+    default:
+      return (
+        <Stack direction="column" sx={{ mb: 2, px: 1, borderRadius: "4px" }}>
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ my: 1, color: "rgb(156, 163, 175)" }}
           >
-            <FormControl variant="outlined">
-              <OutlinedInput
-                size="small"
-                margin="dense"
-                error={
-                  !!(errors as any)?.additionalQuestions?.[index]?.question
-                    ?.message
-                }
-                {...register(`${fieldName}.question` as const, {
-                  required: REQUIRED.ADDITIONAL_QUESTION,
-                  pattern: {
-                    value: PATTERN,
-                    message: REQUIRED.PATTERN,
-                  },
-                })}
-                sx={{
-                  borderRadius: "4px",
-                }}
-                fullWidth
-                multiline
-                autoFocus
-                className="input"
-                inputRef={(el) =>
-                  (oldSelectedQuestionValue.current[index] = el)
-                }
-                placeholder={`Please enter ${item?.questionLabel} ${index + 1}`}
-              />
-              <FormValidationError
-                errorText={
-                  (errors as any)?.additionalQuestions?.[index]?.question
-                    ?.message
-                }
-              />
-            </FormControl>
-            <FormControl
-              variant="outlined"
-              style={{ marginTop: "5px" }}
-              size="small"
+            <Stack
+              direction="column"
+              spacing={2}
+              sx={{ color: "rgb(156, 163, 175)", width: "100%" }}
             >
-              <Select
-                fullWidth
-                onChange={(e: any) => handleChange(e, index)}
-                error={
-                  !!(errors as any)?.additionalQuestions?.[index]?.answerType
-                    ?.message
-                }
-                name={`${fieldName}.answerType`}
+              <fieldset
+                name={fieldName}
                 style={{
-                  color: "inherit",
+                  border: "none",
+                  margin: 0,
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
-                value={selectedValue}
-                className="select"
-                inputRef={(el) => (oldSelectedValue.current[index] = el)}
-                displayEmpty
               >
-                <MenuItem value="">
-                  <em style={{ color: "#b3b3b3" }}>Please Select Type</em>
-                </MenuItem>
-                {typeOptions?.map((item: OptionProp) => {
-                  return (
-                    <MenuItem value={item.value} key={item?.id}>
-                      <Stack
-                        spacing={2}
-                        direction="row"
-                        alignItems="flex-start"
-                        alignSelf="end"
-                        useFlexGap
-                      >
-                        <Box sx={{ color: "inherit", display: "flex" }}>
-                          {item.icon}
-                        </Box>
-                        <Box>{item.label}</Box>
-                      </Stack>
+                <FormControl variant="outlined">
+                  <OutlinedInput
+                    size="small"
+                    margin="dense"
+                    error={
+                      !!(errors as any)?.additionalQuestions?.[index]?.question
+                        ?.message
+                    }
+                    {...register(`${fieldName}.question` as const, {
+                      required: REQUIRED.ADDITIONAL_QUESTION,
+                      pattern: {
+                        value: PATTERN,
+                        message: REQUIRED.PATTERN,
+                      },
+                    })}
+                    sx={{
+                      borderRadius: "4px",
+                    }}
+                    fullWidth
+                    multiline
+                    autoFocus
+                    className="input"
+                    inputRef={(el) =>
+                      (oldSelectedQuestionValue.current[index] = el)
+                    }
+                    placeholder={`Please enter ${item?.questionLabel} ${
+                      index + 1
+                    }`}
+                  />
+                  <FormValidationError
+                    errorText={
+                      (errors as any)?.additionalQuestions?.[index]?.question
+                        ?.message
+                    }
+                  />
+                </FormControl>
+
+                <FormControl
+                  variant="outlined"
+                  style={{ marginTop: "5px" }}
+                  size="small"
+                >
+                  <Select
+                    fullWidth
+                    onChange={(e: any) => handleChange(e, index)}
+                    error={
+                      !!(errors as any)?.additionalQuestions?.[index]
+                        ?.answerType?.message
+                    }
+                    name={`${fieldName}.answerType`}
+                    style={{
+                      color: "inherit",
+                    }}
+                    value={selectedValue}
+                    className="select"
+                    inputRef={(el) => (oldSelectedValue.current[index] = el)}
+                    displayEmpty
+                  >
+                    <MenuItem value="">
+                      <em style={{ color: "#b3b3b3" }}>Please Select Type</em>
                     </MenuItem>
-                  );
-                })}
-              </Select>
-              <FormValidationError
-                errorText={
-                  (errors as any)?.additionalQuestions?.[index]?.answerType
-                    ?.message
-                }
-              />
-            </FormControl>
-          </fieldset>
-        </Stack>
-        <Button
-          size="small"
-          sx={{
-            textTransform: "none",
-            width: "auto",
-            minWidth: { xs: "20px", lg: "120px" },
-            justifyContent: "flex-start",
-            alignSelf: "center",
-          }}
-          startIcon={<DeleteOutlineIcon />}
-          color="inherit"
-          onClick={() => remove(index)}
-          disabled={questionnaire?.length === 1}
-        >
-          <Box
+                    {typeOptions?.map((item: OptionProp) => {
+                      return (
+                        <MenuItem value={item.value} key={item?.id}>
+                          <Stack
+                            spacing={2}
+                            direction="row"
+                            alignItems="flex-start"
+                            alignSelf="end"
+                            useFlexGap
+                          >
+                            <Box sx={{ color: "inherit", display: "flex" }}>
+                              {item.icon}
+                            </Box>
+                            <Box>{item.label}</Box>
+                          </Stack>
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                  <FormValidationError
+                    errorText={
+                      (errors as any)?.additionalQuestions?.[index]?.answerType
+                        ?.message
+                    }
+                  />
+                </FormControl>
+              </fieldset>
+            </Stack>
+
+            <Button
+              size="small"
+              sx={{
+                textTransform: "none",
+                width: "auto",
+                minWidth: { xs: "20px", lg: "120px" },
+                justifyContent: "flex-start",
+                alignSelf: "center",
+              }}
+              startIcon={<DeleteOutlineIcon />}
+              color="inherit"
+              onClick={() => remove(index)}
+              disabled={questionnaire?.length === 1}
+            >
+              <Box
+                sx={{
+                  display: {
+                    xs: "none",
+                    lg: "flex",
+                  },
+                }}
+              >
+                Remove
+              </Box>
+            </Button>
+          </Stack>
+
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ mb: 1, mt: 0, color: "rgb(156, 163, 175)" }}
+            key={item?.id}
+          >
+            <AnswerFieldSwitchTemplate
+              selectedValue={selectedValue}
+              fieldName={fieldName}
+              index={index}
+            />
+          </Stack>
+          <Divider
+            textAlign="center"
             sx={{
-              display: {
-                xs: "none",
-                lg: "flex",
-              },
+              color: "#9E9E9E",
+              mr: { xs: "50px", lg: "135px" },
             }}
           >
-            Remove
-          </Box>
-        </Button>
-      </Stack>
-      <Stack
-        direction="row"
-        spacing={1}
-        sx={{ mb: 1, mt: 0, color: "rgb(156, 163, 175)" }}
-        key={item?.id}
-      >
-        <AnswerFieldSwitchTemplate
-          selectedValue={selectedValue}
-          fieldName={fieldName}
-          index={index}
-        />
-      </Stack>
-      <Divider
-        textAlign="center"
-        sx={{
-          color: "#9E9E9E",
-          mr: { xs: "50px", lg: "135px" },
-        }}
-      >
-        <small>{`# End of ${item?.questionLabel} ${index + 1}`}</small>
-      </Divider>
-    </Stack>
-  );
+            <small>{`# End of ${item?.questionLabel} ${index + 1}`}</small>
+          </Divider>
+        </Stack>
+      );
+  }
 }

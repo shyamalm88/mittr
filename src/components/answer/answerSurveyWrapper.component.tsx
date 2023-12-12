@@ -90,6 +90,13 @@ const AnswerSurveyWrapper = () => {
     }
   }, [contextDurationValue]);
 
+  const nextHandler = async () => {
+    setActiveStep((prev) => prev + 1);
+  };
+  const prevHandler = () => {
+    setActiveStep((prev) => prev - 1);
+  };
+
   return (
     <>
       <Box component="form" className="surveyStep">
@@ -288,7 +295,7 @@ const AnswerSurveyWrapper = () => {
         </Stepper>
         <Box sx={{ m: 2, mb: 4, ml: 1, mr: 0, overflow: "hidden" }}>
           <Button
-            onClick={() => setActiveStep(activeStep - 1)}
+            onClick={prevHandler}
             color="inherit"
             startIcon={<NavigateBeforeOutlinedIcon />}
             variant="outlined"
@@ -297,7 +304,7 @@ const AnswerSurveyWrapper = () => {
             Prev
           </Button>
           <Button
-            onClick={() => setActiveStep(activeStep + 1)}
+            onClick={nextHandler}
             color="primary"
             endIcon={<NavigateNextOutlinedIcon />}
             variant="contained"

@@ -1,3 +1,4 @@
+import React from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -18,10 +19,13 @@ import { useFormContext, Controller } from "react-hook-form";
 import FormValidationError from "../../utility/FormValidationError";
 import { REQUIRED, PATTERN } from "../../constants/error";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
+import { useEditDataContext } from "../../hooks/useEditDataContext";
 
 function PollSettings() {
   const theme = useTheme();
+  const { editableData } = useEditDataContext();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
+  const [scheduleValue, setScheduleValue] = React.useState<any>();
   const d = new Date().toISOString();
   const {
     register,
@@ -33,6 +37,14 @@ function PollSettings() {
     setError,
     clearErrors,
   } = useFormContext();
+
+  React.useEffect(() => {
+    if (editableData && editableData.duration) {
+      console.log(moment(editableData.duration).format("DD/MM/YYYY, h:mm a"));
+      setValue("duration", editableData.duration);
+      setScheduleValue(moment(editableData.duration));
+    }
+  }, [editableData, setValue]);
 
   const settingsValues = getValues("settings");
 
@@ -109,6 +121,7 @@ function PollSettings() {
                               viewRenderers={{
                                 seconds: null,
                               }}
+                              value={scheduleValue}
                               onChange={(event: any) => {
                                 onChange(moment(event).format());
                               }}
@@ -126,6 +139,7 @@ function PollSettings() {
                   </FormControl>
                 )}
               </Grid>
+
               <Grid item xs={6}>
                 <FormControlLabel
                   control={
