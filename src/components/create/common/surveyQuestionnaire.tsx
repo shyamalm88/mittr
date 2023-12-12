@@ -399,7 +399,7 @@ function SurveyQuestionnaire({
               value="end"
               control={
                 <Switch
-                  color="success"
+                  color="primary"
                   size="small"
                   onChange={(e) => handleRequired(e, index)}
                 />
