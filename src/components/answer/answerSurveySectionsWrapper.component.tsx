@@ -76,6 +76,7 @@ const AnswerSurveySectionsWrapper = ({
                 index={index}
                 item={item}
                 actualIndex={actualIndex}
+                key={index}
               />
             </>
           )}
