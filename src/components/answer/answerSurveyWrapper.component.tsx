@@ -78,6 +78,7 @@ const AnswerSurveyWrapper = () => {
   });
 
   const [surveySegmentation]: any[] = React.useState([...tempSegmentation]);
+
   const [progress, setProgress] = React.useState(0);
   const [buffer, setBuffer] = React.useState(progress + 10);
   const contextDurationValue = usePollQuestionContext("duration");
@@ -106,7 +107,8 @@ const AnswerSurveyWrapper = () => {
   const nextHandler = async () => {
     const surveySegmentsForActiveStep =
       getValues().survey[0]?.segments[activeStep];
-    console.log(surveySegmentsForActiveStep);
+    console.log(getValues());
+
     setActiveStep((prev) => prev + 1);
   };
   const prevHandler = () => {
@@ -115,7 +117,7 @@ const AnswerSurveyWrapper = () => {
 
   const methods = useForm<AnswerSurveySubmittedValueType>({
     defaultValues: {
-      selectedSurveyId: "",
+      selectedSurveyId: contextValue._id,
       survey: [
         {
           segments: [],
@@ -145,6 +147,12 @@ const AnswerSurveyWrapper = () => {
     setFocus,
     watch,
   } = methods;
+
+  React.useEffect(() => {
+    if (authenticatedUser) {
+      setValue("answeredByUserRef", authenticatedUser.id);
+    }
+  }, [authenticatedUser, setValue]);
 
   return (
     <FormProvider {...methods}>
@@ -360,7 +368,6 @@ const AnswerSurveyWrapper = () => {
               Prev
             </Button>
             <Button
-              onClick={nextHandler}
               color="primary"
               startIcon={<DoneOutlinedIcon />}
               variant="contained"
@@ -371,6 +378,7 @@ const AnswerSurveyWrapper = () => {
               Submit
             </Button>
             <Button
+              onClick={nextHandler}
               color="primary"
               endIcon={<NavigateNextOutlinedIcon />}
               variant="contained"

@@ -110,7 +110,7 @@ function StarRating({
       {fields?.map((item: any, index: number) => {
         const fieldNameOptions = `${fieldName}.options.${index}`;
         return (
-          <React.Fragment key={item.id}>
+          <React.Fragment key={index}>
             <Stack
               direction={{ xs: "column", md: "row" }}
               spacing={{ xs: 1, md: 2 }}

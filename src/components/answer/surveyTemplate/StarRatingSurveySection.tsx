@@ -50,10 +50,9 @@ function StarRatingSurveySection({
       <Box sx={{ p: 3, display: "flex", alignItems: "center" }}>
         {selectedValue.options.map((item: any) => {
           return (
-            <>
+            <React.Fragment key={item.id}>
               <Rating
                 sx={{ color: item.color ? item.color : "#FCCB00" }}
-                key={item.id}
                 name="hover-feedback"
                 icon={
                   item.icon === "star" || !item.icon ? (
@@ -91,7 +90,7 @@ function StarRatingSurveySection({
                   `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
                 )}
               />
-            </>
+            </React.Fragment>
           );
         })}
 
