@@ -8,10 +8,22 @@ import {
 } from "@mui/material";
 import { ComponentInputProps } from "../../../types";
 import he from "he";
+import { useFormContext } from "react-hook-form";
 
 function MultipleChoiceGridSurveySection({
   selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
 }: ComponentInputProps) {
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   return (
     <>
       <Typography className="required">
@@ -52,7 +64,7 @@ function MultipleChoiceGridSurveySection({
                 );
               })}
 
-              {item.rows.map((itm: any) => {
+              {item.rows.map((itm: any, ix: number) => {
                 return (
                   <RadioGroup name="selectedOption" key={itm.option}>
                     <div className="tableHeader">
@@ -81,6 +93,9 @@ function MultipleChoiceGridSurveySection({
                                 control={<Radio id={item._id} />}
                                 label={""}
                                 labelPlacement="top"
+                                {...register(
+                                  `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].multipleChoiceGrid[${ix}].multipleChoice` as const
+                                )}
                               />
                             </fieldset>
                           </FormControl>
@@ -90,6 +105,14 @@ function MultipleChoiceGridSurveySection({
                   </RadioGroup>
                 );
               })}
+
+              <input
+                type="hidden"
+                value={selectedValue?.required}
+                {...register(
+                  `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+                )}
+              />
             </div>
           );
         })}

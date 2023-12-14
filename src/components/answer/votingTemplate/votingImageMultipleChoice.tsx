@@ -1,20 +1,16 @@
-import React from "react";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import RadioGroup from "@mui/material/RadioGroup";
-import { ComponentInputProps, QuestionOptionProp } from "../../../types";
+import { QuestionOptionProp } from "../../../types";
 import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import TextTruncate from "react-text-truncate";
 import { useTheme } from "@mui/material";
 import Image from "next/image";
@@ -30,7 +26,7 @@ function VotingImageMultipleChoice() {
     getValues,
   } = useFormContext();
   const handleChange = (e: any) => {
-    console.log(getValues());
+    // console.log(getValues());
   };
   return (
     <RadioGroup

@@ -80,13 +80,13 @@ const AnswerPollWrapper = () => {
         true
       )
     ) {
-      console.log(data);
+      // console.log(data);
       try {
         const resp = http.post("/answer", data);
-        console.log(resp);
+        // console.log(resp);
         setDisplaySubscribeOrSave(true);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
   };

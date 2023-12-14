@@ -109,7 +109,6 @@ const PollFormWrapper = () => {
 
   watch((data) => setUpdatedDataToBeSaved(data as any));
   console.log(errors);
-  // console.log(getValues());
   const { fields, append, prepend, remove, swap, move, insert, update } =
     useFieldArray({
       control,
@@ -233,11 +232,13 @@ const PollFormWrapper = () => {
   React.useEffect(() => {
     if (editableData) {
       remove(0);
+      setValue("settings", editableData.settings);
+      setAlreadySavedDataId(editableData._id);
       editableData.survey.forEach((element: any) => {
         handleDataDrivenAddNewSurvey(element);
       });
     }
-  }, [editableData]);
+  }, [editableData, setValue, setAlreadySavedDataId, remove]);
 
   const handleDataDrivenAddNewSurvey = async (data: any) => {
     if (data) {
@@ -457,7 +458,7 @@ const PollFormWrapper = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {isDirty && (
+      {/* {isDirty && (
         <Autosave
           data={updatedDataToBeSaved as any}
           onSave={handleAutoSave}
@@ -466,7 +467,7 @@ const PollFormWrapper = () => {
             alreadySavedDataId ? (isSubmitSuccessful ? false : true) : false
           }
         />
-      )}
+      )} */}
     </>
   );
 };

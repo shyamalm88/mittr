@@ -7,8 +7,22 @@ import {
 } from "@mui/material";
 import { ComponentInputProps } from "../../../types";
 import he from "he";
+import { useFormContext } from "react-hook-form";
 
-function CheckboxGridSurveySection({ selectedValue }: ComponentInputProps) {
+function CheckboxGridSurveySection({
+  selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
+}: ComponentInputProps) {
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   return (
     <>
       <Typography className="required">
@@ -49,7 +63,7 @@ function CheckboxGridSurveySection({ selectedValue }: ComponentInputProps) {
                 );
               })}
 
-              {item.rows.map((itm: any) => {
+              {item.rows.map((itm: any, ix: number) => {
                 return (
                   <div key={itm.option}>
                     <div className="tableHeader">
@@ -78,6 +92,9 @@ function CheckboxGridSurveySection({ selectedValue }: ComponentInputProps) {
                                 control={<Checkbox id={item._id} />}
                                 label={""}
                                 labelPlacement="top"
+                                {...register(
+                                  `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].checkBoxGrid[${ix}].checkbox` as const
+                                )}
                               />
                             </fieldset>
                           </FormControl>
@@ -87,6 +104,14 @@ function CheckboxGridSurveySection({ selectedValue }: ComponentInputProps) {
                   </div>
                 );
               })}
+
+              <input
+                type="hidden"
+                value={selectedValue?.required}
+                {...register(
+                  `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+                )}
+              />
             </div>
           );
         })}

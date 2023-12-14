@@ -51,7 +51,7 @@ export default function RangeTemplate({
   const handleSliderChange = (e: any) => {
     setSliderValue(e.target.value);
     setValue(`${fieldName}.selectedValue.range`, e.target.value);
-    console.log(getValues());
+    // console.log(getValues());
   };
 
   const {

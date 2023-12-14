@@ -1,26 +1,21 @@
-import React from "react";
 import CreatePollLayout from "../../../layout/create.layout";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LeftNavigationTemplate from "../../../components/create/leftNav/leftNavigation.Template.component";
 import RecentTemplate from "../../../components/create/leftNav/recent.Template.component";
 import FollowingTemplate from "../../../components/create/leftNav/following.Template.component";
-import AdSpaceTemplate from "../../../components/create/rightNav/adSpace.Template.component";
-import MyRecentCreatedPollTemplate from "../../../components/create/rightNav/myRecentCreatedPoll.Template.component";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import PollOrSurveyProvider from "../../../providers/pollOrSurvey.provider";
 import QuestionTypeProvider from "../../../providers/questionType.provider";
 import AlternativeActions from "../../../components/alternativeActions/alternativeActions";
 import NormalizedLayout from "../../../layout/normalized.layout";
-import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import { GetStaticPaths, GetStaticProps } from "next";
 import HttpService from "../../../services/@http/HttpClient";
 import { ComponentInputProps } from "../../../types";
 import PollDataEditProvider from "../../../providers/pollDataEdit.provider";
-import { useEditDataContext } from "../../../hooks/useEditDataContext";
-const EditWrapper = dynamic(
-  () => import("../../../components/create/editWrapper.component")
+const EditWrapperPoll = dynamic(
+  () => import("../../../components/create/editWrapperPoll.component")
 );
 const http = new HttpService();
 
@@ -67,7 +62,9 @@ const EditPoll = ({ pollEditDataForIndividualId }: ComponentInputProps) => {
             <Grid item xs={12} sm={12} lg={8}>
               <CreatePollLayout>
                 <QuestionTypeProvider>
-                  <EditWrapper editContextData={pollEditDataForIndividualId} />
+                  <EditWrapperPoll
+                    editContextData={pollEditDataForIndividualId}
+                  />
                 </QuestionTypeProvider>
               </CreatePollLayout>
             </Grid>

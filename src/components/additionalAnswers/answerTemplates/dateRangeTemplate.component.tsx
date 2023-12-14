@@ -58,8 +58,8 @@ export default function DateRangeTemplate({
   };
 
   React.useEffect(() => {
-    setStartDate(moment(state[0].startDate).format("DD/MM/YYYY"));
-    setEndDate(moment(state[0].endDate).format("DD/MM/YYYY"));
+    setStartDate(moment(state${actualIndex}.startDate).format("DD/MM/YYYY"));
+    setEndDate(moment(state${actualIndex}.endDate).format("DD/MM/YYYY"));
   }, [state]);
 
   return (

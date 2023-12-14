@@ -18,7 +18,7 @@ const RadioTemplate = ({ fieldName, item }: ComponentInputProps) => {
   const handleChange = (e: any) => {
     setValue(`${fieldName}.selectedValue.multipleChoice`, e.target.value);
     setRadioValue(e.target.value);
-    console.log(getValues());
+    // console.log(getValues());
   };
 
   return (

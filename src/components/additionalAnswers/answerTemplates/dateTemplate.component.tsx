@@ -20,7 +20,7 @@ export default function DateTemplate({ fieldName, item }: ComponentInputProps) {
   } = useFormContext();
   const handleChange = (e: any) => {
     setValue(`${fieldName}.selectedValue.date`, moment(e).format());
-    console.log(getValues());
+    // console.log(getValues());
     setDate(e && moment(e).format());
   };
 

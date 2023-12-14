@@ -35,13 +35,13 @@ export default function CountryStateCityTemplate({
     if (reason === "clear") {
     }
     setCities(cities ? cities : []);
-    console.log(getValues());
+    // console.log(getValues());
   };
 
   const handleCityChange = (e: any, value: any) => {
     setCity(value?.name);
     setValue(`${fieldName}.selectedValue.countryAndCity.city`, value);
-    console.log(getValues());
+    // console.log(getValues());
   };
 
   return (

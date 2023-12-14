@@ -74,6 +74,16 @@ export type AnswerPollSubmittedValueType = {
   ];
 };
 
+export type AnswerSurveySubmittedValueType = {
+  selectedSurveyId: string;
+  answeredByUserRef: string;
+  survey: [
+    {
+      segments: [];
+    }
+  ];
+};
+
 export type CreateSurveySubmittedValueType = {
   type: "";
   title: "Untitled Survey";

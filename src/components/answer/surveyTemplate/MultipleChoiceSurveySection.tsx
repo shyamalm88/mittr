@@ -6,8 +6,22 @@ import RadioGroup from "@mui/material/RadioGroup";
 import { ComponentInputProps } from "../../../types";
 import { Box, Typography } from "@mui/material";
 import he from "he";
+import { useFormContext } from "react-hook-form";
 
-function MultipleChoiceSurveySection({ selectedValue }: ComponentInputProps) {
+function MultipleChoiceSurveySection({
+  selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
+}: ComponentInputProps) {
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   return (
     <>
       <Typography className="required">
@@ -30,7 +44,6 @@ function MultipleChoiceSurveySection({ selectedValue }: ComponentInputProps) {
           className="answer"
         >
           {selectedValue?.options?.map((item: any, index: number) => {
-            const fieldName = `options[${index}]`;
             return (
               <FormControl
                 sx={{ mb: 1, width: "100%" }}
@@ -38,7 +51,6 @@ function MultipleChoiceSurveySection({ selectedValue }: ComponentInputProps) {
                 key={index}
               >
                 <fieldset
-                  name={fieldName}
                   style={{
                     border: "none",
                     margin: 0,
@@ -51,6 +63,17 @@ function MultipleChoiceSurveySection({ selectedValue }: ComponentInputProps) {
                     value={item.option}
                     control={<Radio id={item._id} />}
                     label={item.option}
+                    {...register(
+                      `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].multipleChoice` as const
+                    )}
+                  />
+
+                  <input
+                    type="hidden"
+                    value={selectedValue?.required}
+                    {...register(
+                      `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+                    )}
                   />
                 </fieldset>
               </FormControl>

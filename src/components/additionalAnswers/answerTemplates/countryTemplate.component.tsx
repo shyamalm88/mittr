@@ -28,7 +28,7 @@ export default function CountryTemplate({
   const handleCountryChange = (e: any, value: any, reason: any) => {
     setValue(`${fieldName}.selectedValue.country`, value);
     setCountry(value?.isoCode);
-    console.log(getValues());
+    // console.log(getValues());
   };
 
   return (

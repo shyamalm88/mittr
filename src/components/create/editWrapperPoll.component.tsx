@@ -16,7 +16,7 @@ import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
 import { useEditDataContext } from "../../hooks/useEditDataContext";
 import { ComponentInputProps } from "../../types";
 
-const EditWrapper = ({ editContextData }: ComponentInputProps) => {
+const EditWrapperPoll = ({ editContextData }: ComponentInputProps) => {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { setEditableData } = useEditDataContext();
   const { asPath, isReady } = useRouter();
@@ -35,7 +35,7 @@ const EditWrapper = ({ editContextData }: ComponentInputProps) => {
   }, [pollOrSurvey]);
 
   React.useEffect(() => {
-    // console.log(editContextData);
+    // // console.log(editContextData);
     setEditableData(editContextData);
   }, [editContextData, setEditableData]);
 
@@ -62,15 +62,11 @@ const EditWrapper = ({ editContextData }: ComponentInputProps) => {
             borderRadius: "4px",
           }}
         >
-          {pollOrSurvey === "poll" ? (
-            <PollFormWrapper />
-          ) : (
-            <SurveyFormWrapper />
-          )}
+          <PollFormWrapper />
         </Box>
       </Stack>
     </Card>
   );
 };
 
-export default EditWrapper;
+export default EditWrapperPoll;

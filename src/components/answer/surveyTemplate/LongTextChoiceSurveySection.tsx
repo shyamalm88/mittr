@@ -1,9 +1,23 @@
 import { Box, TextField, Typography, useTheme } from "@mui/material";
 import { ComponentInputProps } from "../../../types";
 import he from "he";
+import { useFormContext } from "react-hook-form";
 
-function LongTextChoiceSurveySection({ selectedValue }: ComponentInputProps) {
+function LongTextChoiceSurveySection({
+  selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
+}: ComponentInputProps) {
   const theme = useTheme();
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   return (
     <>
       <Typography className="required">
@@ -24,6 +38,16 @@ function LongTextChoiceSurveySection({ selectedValue }: ComponentInputProps) {
           multiline
           rows={4}
           placeholder="Please provide some value"
+          {...register(
+            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].longText` as const
+          )}
+        />
+        <input
+          type="hidden"
+          value={selectedValue?.required}
+          {...register(
+            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+          )}
         />
       </Box>
     </>

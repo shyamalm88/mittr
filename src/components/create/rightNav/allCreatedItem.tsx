@@ -331,6 +331,14 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
     window.open(url, "_blank", "noreferrer");
   };
 
+  const handleAnswer = (e: any, rowData: any) => {
+    e.stopPropagation();
+    const url = `/${rowData.type === "poll" ? "answer" : "participate"}/${
+      rowData._id
+    }/${rowData.questionSlug}`;
+    window.open(url, "_blank", "noreferrer");
+  };
+
   const handleViewAnalytics = (e: any, rowData: any) => {
     e.stopPropagation();
     const url = `/view-analytics/${rowData.type}/${rowData._id}/${rowData.questionSlug}`;
@@ -410,13 +418,13 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
                         <IconButton onClick={(e) => handleEdit(e, row)}>
                           <DriveFileRenameOutlineOutlinedIcon />
                         </IconButton>
-                        <IconButton>
+                        <IconButton onClick={(e) => handleAnswer(e, row)}>
                           <RemoveRedEyeOutlinedIcon />
                         </IconButton>
-                        <IconButton>
-                          <SignalCellularAltOutlinedIcon
-                            onClick={(e) => handleViewAnalytics(e, row)}
-                          />
+                        <IconButton
+                          onClick={(e) => handleViewAnalytics(e, row)}
+                        >
+                          <SignalCellularAltOutlinedIcon />
                         </IconButton>
                       </Stack>
                     </StyledTableCell>

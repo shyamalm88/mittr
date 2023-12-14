@@ -5,6 +5,7 @@ import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import { Box, InputLabel, Stack } from "@mui/material";
 import he from "he";
+import { Controller, useFormContext } from "react-hook-form";
 
 const PrettoSlider = styled(Slider)(({ theme }) => ({
   color: "primary",
@@ -35,14 +36,31 @@ const PrettoSlider = styled(Slider)(({ theme }) => ({
     "& > *": {},
   },
 }));
-function RangeSurveySection({ selectedValue }: ComponentInputProps) {
+function RangeSurveySection({
+  selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
+}: ComponentInputProps) {
   const [sliderValue, setSliderValue] = React.useState(null);
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+    control,
+  } = useFormContext();
   const handleSliderChange = (e: any) => {
     setSliderValue(e.target.value);
+    setValue(
+      `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].range`,
+      e.target.value
+    );
   };
   return (
     <>
-    <Typography className="required">
+      <Typography className="required">
         {selectedValue?.required && "*"}
       </Typography>
       <Typography
@@ -66,14 +84,35 @@ function RangeSurveySection({ selectedValue }: ComponentInputProps) {
                 <Typography component="h2" variant="h5">
                   {parseInt(item.startValue)}
                 </Typography>
-                <PrettoSlider
-                  valueLabelDisplay="auto"
-                  aria-label="pretto slider"
-                  min={parseInt(item.startValue)}
-                  step={parseInt(item.stepValue)}
-                  max={parseInt(item.endValue)}
-                  onChange={handleSliderChange}
-                  //   name={`${fieldName}.selectedValue`}
+                <Controller
+                  name={`${fieldName}.segments[${actualIndex}].selectedValue[${idx}].range`}
+                  control={control}
+                  render={({
+                    field: { onChange, value, ...restField },
+                    fieldState: { error },
+                  }) => (
+                    <>
+                      <input
+                        value={value}
+                        hidden
+                        {...register(
+                          `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].range` as const,
+                          {
+                            required: false,
+                          }
+                        )}
+                      />
+                      <PrettoSlider
+                        valueLabelDisplay="auto"
+                        aria-label="pretto slider"
+                        min={parseInt(item.startValue)}
+                        step={parseInt(item.stepValue)}
+                        max={parseInt(item.endValue)}
+                        onChange={handleSliderChange}
+                        //   name={`${fieldName}.selectedValue`}
+                      />
+                    </>
+                  )}
                 />
                 <Typography component="h2" variant="h5">
                   {parseInt(item.endValue)}
@@ -84,6 +123,13 @@ function RangeSurveySection({ selectedValue }: ComponentInputProps) {
                   Selected Value: {sliderValue}
                 </Typography>
               )}
+              <input
+                type="hidden"
+                value={selectedValue?.required}
+                {...register(
+                  `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+                )}
+              />
             </Box>
           );
         })}

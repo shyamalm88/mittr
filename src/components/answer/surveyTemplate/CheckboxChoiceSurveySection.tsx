@@ -4,8 +4,21 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { ComponentInputProps } from "../../../types";
 import { Box, Checkbox, Typography } from "@mui/material";
 import he from "he";
+import { useFormContext } from "react-hook-form";
 
-function CheckBoxChoiceSurveySection({ selectedValue }: ComponentInputProps) {
+function CheckBoxChoiceSurveySection({
+  selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
+}: ComponentInputProps) {
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
   return (
     <>
       <Typography className="required">
@@ -20,7 +33,6 @@ function CheckBoxChoiceSurveySection({ selectedValue }: ComponentInputProps) {
       ></Typography>
       <Box sx={{ p: 3 }}>
         {selectedValue?.options?.map((item: any, index: number) => {
-          const fieldName = `options[${index}]`;
           return (
             <FormControl
               sx={{ mb: 1, width: "100%" }}
@@ -28,7 +40,6 @@ function CheckBoxChoiceSurveySection({ selectedValue }: ComponentInputProps) {
               key={index}
             >
               <fieldset
-                name={fieldName}
                 style={{
                   border: "none",
                   margin: 0,
@@ -39,8 +50,23 @@ function CheckBoxChoiceSurveySection({ selectedValue }: ComponentInputProps) {
               >
                 <FormControlLabel
                   value={item.option}
-                  control={<Checkbox id={item._id} />}
+                  control={
+                    <Checkbox
+                      id={item._id}
+                      {...register(
+                        `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].checkbox[${index}].choice` as const
+                      )}
+                    />
+                  }
                   label={item.choice}
+                />
+
+                <input
+                  type="hidden"
+                  value={selectedValue?.required}
+                  {...register(
+                    `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+                  )}
                 />
               </fieldset>
             </FormControl>

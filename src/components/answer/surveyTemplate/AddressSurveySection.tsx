@@ -12,8 +12,15 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Image from "next/image";
 import TextField from "@mui/material/TextField";
 import he from "he";
+import { useFormContext } from "react-hook-form";
 
-function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
+function AddressInfoSurveySection({
+  selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
+}: ComponentInputProps) {
   const theme = useTheme();
   const [countries] = React.useState<any[]>(Country.getAllCountries());
   const [country, setCountry] = React.useState<any | string>();
@@ -22,6 +29,11 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
 
   const handleCountryChange = (e: any, value: any, reason: any) => {
     setCountry(value?.isoCode);
+    setValue(
+      `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].country`,
+      value?.isoCode
+    );
+
     const cities = City.getCitiesOfCountry(value?.isoCode);
     if (reason === "clear") {
     }
@@ -30,7 +42,19 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
 
   const handleCityChange = (e: any, value: any) => {
     setCity(value?.name);
+    setValue(
+      `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].city`,
+      value?.name
+    );
   };
+
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   return (
     <>
       <Typography className="required">
@@ -40,7 +64,9 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
         component="div"
         variant="body1"
         dangerouslySetInnerHTML={{
-          __html: he.decode(selectedValue.question),
+          __html: selectedValue.question
+            ? he.decode(selectedValue.question)
+            : "",
         }}
       ></Typography>
 
@@ -54,6 +80,9 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
           rows={2}
           sx={{ mt: 0 }}
           placeholder="Please provide Address"
+          {...register(
+            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].address` as const
+          )}
         />
       </Box>
       <Box sx={{ p: 3, py: 1 }}>
@@ -66,6 +95,9 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
           rows={2}
           sx={{ mt: 0 }}
           placeholder="Please provide Address Line 2"
+          {...register(
+            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].addressLine2` as const
+          )}
         />
       </Box>
 
@@ -121,6 +153,9 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
             borderRadius: "4px",
           }}
           className="input"
+          {...register(
+            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].StateRegionProvince` as const
+          )}
         />
       </Box>
       <Box sx={{ p: 3, py: 1 }}>
@@ -165,6 +200,16 @@ function AddressInfoSurveySection({ selectedValue }: ComponentInputProps) {
             borderRadius: "4px",
           }}
           className="input"
+          {...register(
+            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].zip` as const
+          )}
+        />
+        <input
+          type="hidden"
+          value={selectedValue?.required}
+          {...register(
+            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+          )}
         />
       </Box>
     </>

@@ -27,6 +27,7 @@ TimeAgo.addDefaultLocale(en);
 const AnswerSurveyFormWrapper = ({
   segmentationStep,
   activeIndex,
+  actualIndex,
 }: ComponentInputProps) => {
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
@@ -89,7 +90,9 @@ const AnswerSurveyFormWrapper = ({
                     component="div"
                     variant="body2"
                     dangerouslySetInnerHTML={{
-                      __html: he.decode(segmentationStep?.description),
+                      __html: segmentationStep?.description
+                        ? he.decode(segmentationStep?.description)
+                        : "",
                     }}
                   ></Typography>
 
@@ -194,6 +197,7 @@ const AnswerSurveyFormWrapper = ({
               key={index}
               index={index}
               item={item}
+              actualIndex={actualIndex}
             />
           );
         })}

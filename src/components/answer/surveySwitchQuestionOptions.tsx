@@ -1,23 +1,59 @@
 import { ComponentInputProps } from "../../types";
-import AddressInfoSurveySection from "./surveyTemplate/AddressSurveySection";
-import CheckBoxChoiceSurveySection from "./surveyTemplate/ChecboxChoiceSurveySection";
-import CheckboxGridSurveySection from "./surveyTemplate/CheckboxGridSurveySection";
-import ContactInfoSurveySection from "./surveyTemplate/ContactInfoSurveySection";
-import DateChoiceSurveySection from "./surveyTemplate/DateChoiceSurveySection";
-import DropDownChoiceSurveySection from "./surveyTemplate/DropDownChoiceSurveySection";
-import EmailChoiceSurveySection from "./surveyTemplate/EmailChoiceSurveySection";
-import ImageMultipleChoiceSurveySection from "./surveyTemplate/ImageMultipleChoiceSurveySection";
-import LegalSurveySection from "./surveyTemplate/LegalSurveySection";
-import LinearScaleChoiceSurveySection from "./surveyTemplate/LinearScaleChoiceSurveySection";
-import LongTextChoiceSurveySection from "./surveyTemplate/LongTextChoiceSurveySection";
-import MultipleChoiceGridSurveySection from "./surveyTemplate/MultipleChoiceGridSurveySection";
-import MultipleChoiceSurveySection from "./surveyTemplate/MultipleChoiceSurveySection";
-import PhoneNumberSurveySection from "./surveyTemplate/PhoneNumberSurveySection";
-import RangeSurveySection from "./surveyTemplate/RangeSurveySection";
-import ShortTextChoiceSurveySection from "./surveyTemplate/ShortTextChoiceSurveySection";
-import StarRatingSurveySection from "./surveyTemplate/StarRatingSurveySection";
-import TimeChoiceSurveySection from "./surveyTemplate/TimeChoiceSurveySection";
-import VotingImageMultipleChoice from "./votingTemplate/votingImageMultipleChoice";
+import dynamic from "next/dynamic";
+const AddressInfoSurveySection = dynamic(
+  () => import("./surveyTemplate/AddressSurveySection")
+);
+const CheckBoxChoiceSurveySection = dynamic(
+  () => import("./surveyTemplate/CheckboxChoiceSurveySection")
+);
+const CheckboxGridSurveySection = dynamic(
+  () => import("./surveyTemplate/CheckboxGridSurveySection")
+);
+const ContactInfoSurveySection = dynamic(
+  () => import("./surveyTemplate/ContactInfoSurveySection")
+);
+const DateChoiceSurveySection = dynamic(
+  () => import("./surveyTemplate/DateChoiceSurveySection")
+);
+const DropDownChoiceSurveySection = dynamic(
+  () => import("./surveyTemplate/DropDownChoiceSurveySection")
+);
+const EmailChoiceSurveySection = dynamic(
+  () => import("./surveyTemplate/EmailChoiceSurveySection")
+);
+const ImageMultipleChoiceSurveySection = dynamic(
+  () => import("./surveyTemplate/ImageMultipleChoiceSurveySection")
+);
+const LegalSurveySection = dynamic(
+  () => import("./surveyTemplate/LegalSurveySection")
+);
+const LinearScaleChoiceSurveySection = dynamic(
+  () => import("./surveyTemplate/LinearScaleChoiceSurveySection")
+);
+const LongTextChoiceSurveySection = dynamic(
+  () => import("./surveyTemplate/LongTextChoiceSurveySection")
+);
+const MultipleChoiceGridSurveySection = dynamic(
+  () => import("./surveyTemplate/MultipleChoiceGridSurveySection")
+);
+const MultipleChoiceSurveySection = dynamic(
+  () => import("./surveyTemplate/MultipleChoiceSurveySection")
+);
+const PhoneNumberSurveySection = dynamic(
+  () => import("./surveyTemplate/PhoneNumberSurveySection")
+);
+const RangeSurveySection = dynamic(
+  () => import("./surveyTemplate/RangeSurveySection")
+);
+const ShortTextChoiceSurveySection = dynamic(
+  () => import("./surveyTemplate/ShortTextChoiceSurveySection")
+);
+const StarRatingSurveySection = dynamic(
+  () => import("./surveyTemplate/StarRatingSurveySection")
+);
+const TimeChoiceSurveySection = dynamic(
+  () => import("./surveyTemplate/TimeChoiceSurveySection")
+);
 
 function SurveySwitchQuestionOptions(props: ComponentInputProps) {
   switch (props.selectedValue.votingType) {

@@ -13,9 +13,25 @@ import { ComponentInputProps } from "../../../types";
 import ReactCountryFlag from "react-country-flag";
 import { countryWisePhoneNumbers } from "../../../data/countryWisePhoneNumber";
 import he from "he";
+import { useFormContext } from "react-hook-form";
+import urlSlug from "url-slug";
 
-function ContactInfoSurveySection({ selectedValue }: ComponentInputProps) {
+function ContactInfoSurveySection({
+  selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
+}: ComponentInputProps) {
   const theme = useTheme();
+
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   return (
     <>
       <Typography className="required">
@@ -42,6 +58,9 @@ function ContactInfoSurveySection({ selectedValue }: ComponentInputProps) {
                       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                         {selected}
                       </Box>
+                    )}
+                    {...register(
+                      `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].countryPhoneCode` as const
                     )}
                   >
                     <MenuItem value="">
@@ -79,6 +98,11 @@ function ContactInfoSurveySection({ selectedValue }: ComponentInputProps) {
                     borderRadius: "4px",
                   }}
                   className="input"
+                  {...register(
+                    `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].${urlSlug(
+                      item.option
+                    )}` as const
+                  )}
                 />
               </Stack>
             ) : (
@@ -92,8 +116,21 @@ function ContactInfoSurveySection({ selectedValue }: ComponentInputProps) {
                   borderRadius: "4px",
                 }}
                 className="input"
+                {...register(
+                  `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].${urlSlug(
+                    item.option
+                  )}` as const
+                )}
               />
             )}
+
+            <input
+              type="hidden"
+              value={selectedValue?.required}
+              {...register(
+                `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+              )}
+            />
           </Box>
         );
       })}

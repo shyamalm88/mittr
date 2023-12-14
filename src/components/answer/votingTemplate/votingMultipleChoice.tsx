@@ -1,9 +1,8 @@
-import React from "react";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import { ComponentInputProps, QuestionOptionProp } from "../../../types";
+import { QuestionOptionProp } from "../../../types";
 import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
 import { useFormContext } from "react-hook-form";
 
@@ -15,7 +14,7 @@ function VotingMultipleChoice() {
     getValues,
   } = useFormContext();
   const handleChange = (e: any) => {
-    console.log(getValues());
+    // console.log(getValues());
   };
   return (
     <RadioGroup

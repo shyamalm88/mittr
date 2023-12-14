@@ -88,7 +88,7 @@ function ImageChoice({
       response.body.destination = response.body.destination.split(".")[1];
       setValue(`${fieldName}[${index}].imageId`, response.body._id);
       items[index] = response.body;
-      // console.log(items);
+      // // console.log(items);
       setImageValue(items);
     } catch (error) {
       console.error(error);
@@ -122,13 +122,13 @@ function ImageChoice({
       });
       let imageIds: any[] = [];
       editableData.options.forEach((element: any) => {
-        // console.log(element);
+        // // console.log(element);
         addOption(null, element);
         element.imageId.destination = element.imageId.destination.split(".")[1];
         element.imageId.imageId = element.imageId._id;
         imageIds.push(element.imageId);
       });
-      // console.log(imageIds);
+      // // console.log(imageIds);
       setImageValue(imageIds);
     } else {
       if (!fields.length) {

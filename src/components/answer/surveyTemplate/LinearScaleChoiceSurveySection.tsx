@@ -9,9 +9,14 @@ import { useTheme } from "@mui/material/styles";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import he from "he";
+import { useFormContext } from "react-hook-form";
 
 function LinearScaleChoiceSurveySection({
   selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
 }: ComponentInputProps) {
   const theme = useTheme();
   const largeScreen = useMediaQuery(theme.breakpoints.up("lg"));
@@ -21,6 +26,14 @@ function LinearScaleChoiceSurveySection({
   const [linearScaleFrom, setLinearScaleFrom] = React.useState(
     selectedValue?.options?.[0]?.from
   );
+
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   return (
     <>
       <Typography className="required">
@@ -86,12 +99,23 @@ function LinearScaleChoiceSurveySection({
                               control={<Radio id={item._id} />}
                               label={i}
                               labelPlacement="top"
+                              {...register(
+                                `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].linearScale` as const
+                              )}
                             />
                           </ToggleButton>
                         );
                       }
                     )}
                   </ToggleButtonGroup>
+
+                  <input
+                    type="hidden"
+                    value={selectedValue?.required}
+                    {...register(
+                      `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+                    )}
+                  />
                 </RadioGroup>
               </Box>
 

@@ -13,9 +13,22 @@ import { ComponentInputProps } from "../../../types";
 import ReactCountryFlag from "react-country-flag";
 import { countryWisePhoneNumbers } from "../../../data/countryWisePhoneNumber";
 import he from "he";
+import { useFormContext } from "react-hook-form";
 
-function PhoneNumberSurveySection({ selectedValue }: ComponentInputProps) {
+function PhoneNumberSurveySection({
+  selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
+}: ComponentInputProps) {
   const theme = useTheme();
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
   return (
     <>
       <Typography className="required">
@@ -38,6 +51,9 @@ function PhoneNumberSurveySection({ selectedValue }: ComponentInputProps) {
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                   {selected}
                 </Box>
+              )}
+              {...register(
+                `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].countryPhoneCode` as const
               )}
             >
               <MenuItem value="">
@@ -72,6 +88,16 @@ function PhoneNumberSurveySection({ selectedValue }: ComponentInputProps) {
               borderRadius: "4px",
             }}
             className="input"
+            {...register(
+              `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].phoneNumber` as const
+            )}
+          />
+          <input
+            type="hidden"
+            value={selectedValue?.required}
+            {...register(
+              `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+            )}
           />
         </Stack>
       </Box>

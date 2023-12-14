@@ -21,8 +21,8 @@ import PollDataEditProvider from "../../../providers/pollDataEdit.provider";
 import { useEditDataContext } from "../../../hooks/useEditDataContext";
 import Sticky from "react-sticky-el";
 import { Drawer } from "@mui/material";
-const EditWrapper = dynamic(
-  () => import("../../../components/create/editWrapper.component")
+const EditWrapperSurvey = dynamic(
+  () => import("../../../components/create/editWrapperSurvey.component")
 );
 const http = new HttpService();
 
@@ -70,7 +70,7 @@ const EditSurvey = ({ surveyEditDataForIndividualId }: ComponentInputProps) => {
             <Grid item xs={12} sm={12} lg={8}>
               <CreatePollLayout>
                 <QuestionTypeProvider>
-                  <EditWrapper
+                  <EditWrapperSurvey
                     editContextData={surveyEditDataForIndividualId}
                   />
                 </QuestionTypeProvider>

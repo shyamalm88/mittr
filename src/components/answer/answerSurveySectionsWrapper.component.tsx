@@ -6,8 +6,13 @@ import { ComponentInputProps } from "../../types";
 import he from "he";
 import { useTheme } from "@mui/material/styles";
 
-const AnswerSurveySectionsWrapper = ({ item, index }: ComponentInputProps) => {
+const AnswerSurveySectionsWrapper = ({
+  item,
+  index,
+  actualIndex,
+}: ComponentInputProps) => {
   const questionContext = usePollQuestionContext();
+  const fieldName = `survey[0]`;
   const theme = useTheme();
   const [radioValue, setRadioValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(item);
@@ -62,11 +67,17 @@ const AnswerSurveySectionsWrapper = ({ item, index }: ComponentInputProps) => {
               </CardContent>
             </Box>
           ) : (
-            <SurveySwitchQuestionOptions
-              handleChange={handleChange}
-              radioValue={radioValue}
-              selectedValue={selectedValue}
-            />
+            <>
+              <SurveySwitchQuestionOptions
+                handleChange={handleChange}
+                radioValue={radioValue}
+                selectedValue={selectedValue}
+                fieldName={fieldName}
+                index={index}
+                item={item}
+                actualIndex={actualIndex}
+              />
+            </>
           )}
         </Card>
       </React.Fragment>

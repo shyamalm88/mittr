@@ -57,7 +57,7 @@ function TitleOrSeparatorSection({
     tempQType.splice(index, 1);
     setQuestionType(tempQType);
   };
-  // // console.log(errors);
+  // // // console.log(errors);
 
   const swapPositions = (fromIndex: number, toIndex: number) => {
     swap(fromIndex, toIndex);

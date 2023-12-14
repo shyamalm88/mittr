@@ -6,8 +6,22 @@ import RadioGroup from "@mui/material/RadioGroup";
 import { ComponentInputProps } from "../../../types";
 import { Box, Typography } from "@mui/material";
 import he from "he";
+import { useFormContext } from "react-hook-form";
 
-function LegalSurveySection({ selectedValue }: ComponentInputProps) {
+function LegalSurveySection({
+  selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
+}: ComponentInputProps) {
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   return (
     <>
       <Typography className="required">
@@ -23,7 +37,6 @@ function LegalSurveySection({ selectedValue }: ComponentInputProps) {
       <Box sx={{ p: 3 }}>
         <RadioGroup name="selectedOption" className="answer">
           {selectedValue?.options?.map((item: any, index: number) => {
-            const fieldName = `options[${index}]`;
             return (
               <FormControl
                 sx={{ mb: 1, width: "100%" }}
@@ -31,7 +44,6 @@ function LegalSurveySection({ selectedValue }: ComponentInputProps) {
                 key={index}
               >
                 <fieldset
-                  name={fieldName}
                   style={{
                     border: "none",
                     margin: 0,
@@ -44,6 +56,17 @@ function LegalSurveySection({ selectedValue }: ComponentInputProps) {
                     value={item.option}
                     control={<Radio id={item._id} />}
                     label={item.option}
+                    {...register(
+                      `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].legal` as const
+                    )}
+                  />
+
+                  <input
+                    type="hidden"
+                    value={selectedValue?.required}
+                    {...register(
+                      `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+                    )}
                   />
                 </fieldset>
               </FormControl>

@@ -51,6 +51,7 @@ function SurveyQuestionnaire({
   const { questionType, setQuestionType } = useQuestionTypeContext();
   const [editable, setEditable] = React.useState(false);
   const [question, setQuestion] = React.useState("");
+  const [checked, setChecked] = React.useState(false);
 
   const theme = useTheme();
 
@@ -103,6 +104,8 @@ function SurveyQuestionnaire({
         editableData?.survey.forEach((item: any, idx: number) => {
           if (index === idx) {
             setValue(`${fieldName}.question`, item.question);
+            setValue(`${fieldName}.required`, item.required);
+            setChecked(item.required);
             setQuestion(item.question ? he.decode(item.question) : "");
           }
         });
@@ -164,7 +167,8 @@ function SurveyQuestionnaire({
 
   const handleRequired = (e: any, index: number) => {
     setValue(`${fieldName}.required`, e.target.checked);
-    console.log(getValues().survey[index]);
+    setChecked(e.target.checked);
+    // console.log(getValues().survey[index]);
   };
 
   const swapPositions = (fromIndex: number, toIndex: number) => {
@@ -176,8 +180,8 @@ function SurveyQuestionnaire({
     tempQType[toIndex] = temp;
     setQuestionType(tempQType);
     setTimeout(() => {
-      // console.log(getValues());
-      // console.log(questionType);
+      // // console.log(getValues());
+      // // console.log(questionType);
     }, 0);
   };
 
@@ -396,10 +400,10 @@ function SurveyQuestionnaire({
               />
             </IconButton>
             <FormControlLabel
-              value="end"
               control={
                 <Switch
                   color="primary"
+                  checked={checked}
                   size="small"
                   onChange={(e) => handleRequired(e, index)}
                 />

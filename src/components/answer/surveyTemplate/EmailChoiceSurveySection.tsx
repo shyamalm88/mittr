@@ -13,9 +13,24 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined";
 import he from "he";
+import { useFormContext } from "react-hook-form";
 
-function EmailChoiceSurveySection({ selectedValue }: ComponentInputProps) {
+function EmailChoiceSurveySection({
+  selectedValue,
+  fieldName,
+  item,
+  index: idx,
+  actualIndex,
+}: ComponentInputProps) {
   const theme = useTheme();
+
+  const {
+    formState: { errors },
+    register,
+    getValues,
+    setValue,
+  } = useFormContext();
+
   return (
     <>
       <Typography className="required">
@@ -47,6 +62,18 @@ function EmailChoiceSurveySection({ selectedValue }: ComponentInputProps) {
               <MarkEmailReadOutlinedIcon />
             </InputAdornment>
           }
+          {...register(
+            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].email` as const
+          )}
+        />
+        
+
+        <input
+          type="hidden"
+          value={selectedValue?.required}
+          {...register(
+            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].required` as const
+          )}
         />
       </Box>
     </>
