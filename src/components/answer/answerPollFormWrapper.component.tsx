@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-// import PollOptionWrapper from "./pollOptionWrapper.component";
 import Stack from "@mui/material/Stack";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";

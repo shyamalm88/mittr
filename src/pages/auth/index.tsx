@@ -25,7 +25,6 @@ const Authentication = () => {
   const handleSignUpSubmit = async (data: any) => {
     try {
       const response = await http.service().post(`/auth/signup`, data);
-      // // console.log(response);
       if (response) {
         toast.success(`You have successfully registered.`, {
           position: toast.POSITION.TOP_RIGHT,
@@ -43,7 +42,6 @@ const Authentication = () => {
   const handleSignInSubmit = async (data: any) => {
     try {
       const response = await http.service().post(`/auth/signin`, data);
-      // // console.log(response);
       setAuthenticatedUser(response);
       if ((response as any).user) {
         toast.success(`You have successfully Signed In.`, {

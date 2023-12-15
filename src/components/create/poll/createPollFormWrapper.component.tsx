@@ -123,7 +123,6 @@ const PollFormWrapper = () => {
       setValue("questionImageRef", editableData.questionImageRef);
       setValue("settings", editableData.settings);
       setAlreadySavedDataId(editableData._id);
-      // // // console.log(getValues());
     }
   }, [editableData, setValue]);
 
@@ -182,7 +181,6 @@ const PollFormWrapper = () => {
 
     try {
       const resp = await postSurvey(dataToBeSubmitted);
-      // // console.log("resp", resp);
       setShareUrlDialog(true);
       setShareUrl(
         `${location.protocol}//${location.hostname}:${location.port}/answer/${
@@ -258,8 +256,6 @@ const PollFormWrapper = () => {
   const viewSurveyParticipatePage = () => {
     window.open(shareUrl, "_blank");
   };
-
-  // // console.log(errors);
 
   return (
     <>

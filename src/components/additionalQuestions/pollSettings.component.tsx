@@ -40,7 +40,6 @@ function PollSettings() {
 
   React.useEffect(() => {
     if (editableData && editableData.duration) {
-      // console.log(moment(editableData.duration).format("DD/MM/YYYY, h:mm a"));
       setValue("duration", editableData.duration);
       setScheduleValue(moment(editableData.duration));
     }

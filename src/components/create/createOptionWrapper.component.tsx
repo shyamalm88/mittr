@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import VotingType from "./votingType";
 import VotingTemplateSwitch from "./votingTemplateSwitch";
 
-const PollOptionWrapper = ({ fieldName, index }: ComponentInputProps) => {
+const SurveyOptionWrapper = ({ fieldName, index }: ComponentInputProps) => {
   const {
     register,
     setValue,
@@ -63,4 +63,4 @@ const PollOptionWrapper = ({ fieldName, index }: ComponentInputProps) => {
     </>
   );
 };
-export default PollOptionWrapper;
+export default SurveyOptionWrapper;

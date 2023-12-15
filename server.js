@@ -28,11 +28,7 @@ mongoose
     serverSelectionTimeoutMS: 5000,
   })
   .then(() => {
-    // Multi-process to utilize all CPU cores.
     if (!dev && cluster.isMaster) {
-      // console.log(`Node cluster master ${process.pid} is running`);
-
-      // Fork workers.
       for (let i = 0; i < numCPUs; i++) {
         cluster.fork();
       }
@@ -135,13 +131,13 @@ mongoose
 
         server.listen(port, (err) => {
           if (err) throw err;
-          // console.log(`Listening on http://localhost:${port}`);
+          console.log(`Listening on http://localhost:${port}`);
         });
       });
     }
   })
   .catch((err) => {
-    // console.log("error reason", err);
+    console.log("error reason", err);
   });
 
 process.on("uncaughtException", function (err) {

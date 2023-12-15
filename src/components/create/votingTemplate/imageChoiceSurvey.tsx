@@ -127,13 +127,11 @@ function ImageChoiceSurvey({
       });
       let imageIds: any[] = [];
       editableData.survey[index].options.forEach((element: any) => {
-        // // console.log(element);
         addOption(null, element);
         element.imageId.destination = element.imageId.destination.split(".")[1];
         element.imageId.imageId = element.imageId._id;
         imageIds.push(element.imageId);
       });
-      // // console.log(imageIds);
       setImageValue(imageIds);
     } else {
       if (!fields.length) {

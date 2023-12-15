@@ -35,7 +35,6 @@ const EditWrapperSurvey = ({ editContextData }: ComponentInputProps) => {
   }, [pollOrSurvey]);
 
   React.useEffect(() => {
-    // // console.log(editContextData);
     setEditableData(editContextData);
   }, [editContextData, setEditableData]);
 

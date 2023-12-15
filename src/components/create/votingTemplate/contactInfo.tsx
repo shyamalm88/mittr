@@ -105,7 +105,6 @@ function ContactInfo({
       remove(0);
     });
     addOption();
-    // console.log(getValues());
   };
 
   return (

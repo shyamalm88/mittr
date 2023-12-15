@@ -16,7 +16,6 @@ function AuthenticatedUserDataProvider({ children }: ComponentInputProps) {
     http
       .get("/auth/request-user")
       .then((res) => {
-        // // console.log(res);
         setAuthenticatedUser(res);
       })
       .catch((err) => setAuthenticatedUser(null));

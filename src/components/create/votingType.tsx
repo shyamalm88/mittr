@@ -195,9 +195,10 @@ function VotingType({
       if (editableData?.survey) {
         const temp: any[] = [];
         editableData?.survey.map((item: any) => {
-          temp.push(item.votingType);
+          temp.push(item.votingType ? item.votingType : "section");
         });
         setQuestionType(temp);
+        setVotingTypeValue(getValues("survey")?.[index]?.votingType);
       } else {
         setValue("votingType", editableData.votingType);
         setVotingTypeValue(editableData.votingType);
@@ -205,6 +206,11 @@ function VotingType({
       }
     }
   }, [editableData, setValue, setQuestionType, fieldName, setPollOrSurvey]);
+
+  React.useEffect(() => {
+    setQuestionType(questionType);
+    setVotingTypeValue(getValues("survey")?.[index]?.votingType);
+  }, [questionType]);
 
   const handleChangeVotingOptions = async (e: any) => {
     if (!oldSelectedValue.current[index]?.value) {

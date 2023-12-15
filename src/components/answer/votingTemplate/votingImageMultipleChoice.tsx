@@ -25,9 +25,7 @@ function VotingImageMultipleChoice() {
     register,
     getValues,
   } = useFormContext();
-  const handleChange = (e: any) => {
-    // console.log(getValues());
-  };
+  const handleChange = (e: any) => {};
   return (
     <RadioGroup
       aria-labelledby="demo-radio-buttons-group-label"

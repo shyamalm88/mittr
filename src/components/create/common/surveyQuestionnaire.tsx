@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import PollOptionWrapper from "../createOptionWrapper.component";
+import SurveyOptionWrapper from "../createOptionWrapper.component";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
@@ -43,9 +43,10 @@ function SurveyQuestionnaire({
   remove,
   swap,
   fields,
+  insert,
 }: ComponentInputProps) {
   const http = new HttpService();
-  const { editableData } = useEditDataContext();
+  const { editableData, setEditableData } = useEditDataContext();
 
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
@@ -110,8 +111,13 @@ function SurveyQuestionnaire({
           }
         });
       } else {
-        setValue("question", he.decode(editableData.question));
-        setQuestion(he.decode(editableData.question));
+        setValue(
+          "question",
+          he.decode(editableData.question ? editableData.question : "")
+        );
+        setQuestion(
+          he.decode(editableData.question ? editableData.question : "")
+        );
       }
     }
   }, [editableData, setValue, setQuestion, fieldName]);
@@ -168,22 +174,41 @@ function SurveyQuestionnaire({
   const handleRequired = (e: any, index: number) => {
     setValue(`${fieldName}.required`, e.target.checked);
     setChecked(e.target.checked);
-    // console.log(getValues().survey[index]);
+    // getValues().survey[index]);
   };
 
-  const swapPositions = (fromIndex: number, toIndex: number) => {
-    swap(fromIndex, toIndex);
-    handleClose();
+  const swapPositions = async (fromIndex: number, toIndex: number) => {
     const tempQType = questionType;
     let temp = tempQType[fromIndex];
     tempQType[fromIndex] = tempQType[toIndex];
     tempQType[toIndex] = temp;
-    setQuestionType(tempQType);
-    setTimeout(() => {
-      // // console.log(getValues());
-      // // console.log(questionType);
-    }, 0);
+    if (editableData) {
+      handleClose();
+      await swap(fromIndex, toIndex);
+      const tempFromData = getValues();
+      const tempFromDataSurvey = tempFromData.survey;
+      const temp = tempFromDataSurvey[fromIndex];
+      tempFromDataSurvey[fromIndex] = tempFromDataSurvey[toIndex];
+      tempFromDataSurvey[toIndex] = temp;
+
+      const to = await getValues().survey[toIndex];
+      const from = await getValues().survey[fromIndex];
+
+      await update(fromIndex, to);
+      await update(toIndex, from);
+
+      console.log(getValues());
+      setQuestionType(tempQType);
+    } else {
+      swap(fromIndex, toIndex);
+      handleClose();
+      setQuestionType(tempQType);
+    }
   };
+
+  React.useEffect(() => {
+    // editableData);
+  }, [editableData]);
 
   return (
     <>
@@ -245,7 +270,7 @@ function SurveyQuestionnaire({
                 pollOrSurvey === "poll" ? "question" : `${fieldName}.question`
               }` as const,
               {
-                required: REQUIRED.QUESTION,
+                // required: REQUIRED.QUESTION,
                 // pattern: {
                 //   value: PATTERN,
                 //   message: REQUIRED.PATTERN,
@@ -357,7 +382,7 @@ function SurveyQuestionnaire({
           py: 1,
         }}
       >
-        <PollOptionWrapper fieldName={`${fieldName}`} index={index} />
+        <SurveyOptionWrapper fieldName={`${fieldName}`} index={index} />
       </Box>
       {pollOrSurvey === "survey" && (
         <Box

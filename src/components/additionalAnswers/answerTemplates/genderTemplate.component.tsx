@@ -23,7 +23,7 @@ const GenderTemplate = ({ fieldName, item }: ComponentInputProps) => {
   } = useFormContext();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(`${fieldName}.selectedValue.gender`, e.target.value);
-    // console.log(getValues());
+
     setRadioValue(e.target.value);
   };
 

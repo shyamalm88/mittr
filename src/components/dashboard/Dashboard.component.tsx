@@ -42,7 +42,6 @@ function DashboardComponent() {
           respArrayMargeData = [...respArrayMargeData, ...item.value];
         }
       });
-      // // // console.log(respArrayMargeData);
       setPollSurveyAllDatCreatedByMe(respArrayMargeData);
     });
   }, []);

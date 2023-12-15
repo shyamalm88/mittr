@@ -120,7 +120,7 @@ passport.use(
           cb(null, user);
         }
       } catch (err) {
-        // console.log(err);
+        console.log(err);
         cb(err);
       }
     }
@@ -150,7 +150,7 @@ passport.use(
           cb(null, user);
         }
       } catch (err) {
-        // console.log(err);
+        console.log(err);
         cb(err);
       }
     }
@@ -275,7 +275,6 @@ authRouter.get("/logout", function (req, res, next) {
 });
 
 passport.serializeUser(function (user, cb) {
-  //   // console.log(user);
   process.nextTick(function () {
     cb(null, { id: user.id, user });
   });

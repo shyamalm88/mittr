@@ -139,7 +139,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   try {
     const resp = await http.get(`/survey/${postIndex}`);
-
     const surveyEditDataForIndividualId = resp;
     return { props: { surveyEditDataForIndividualId } };
   } catch (err) {

@@ -89,10 +89,9 @@ function MultipleChoice({
 
   React.useEffect(() => {
     if (editableData) {
-      // // console.log(editableData);
       if (editableData?.survey) {
       } else {
-        editableData.options.forEach((element: any) => {
+        editableData?.options?.forEach((element: any) => {
           addOption(null, element);
         });
       }

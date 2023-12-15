@@ -53,7 +53,6 @@ function AlternativeActions() {
     React.useState<any>([]);
 
   React.useEffect(() => {
-    // // console.log(pollOrSurvey);
     if (pollOrSurvey === "poll") {
       setAlternateActionsOptions(
         alternateOptionsList.filter((x) => x.displayFor == "all")
@@ -62,10 +61,6 @@ function AlternativeActions() {
       setAlternateActionsOptions(alternateOptionsList);
     }
   }, [pollOrSurvey]);
-
-  React.useEffect(() => {
-    // // console.log(alternateActionsOptions);
-  }, [alternateActionsOptions]);
 
   return (
     <MenuList>

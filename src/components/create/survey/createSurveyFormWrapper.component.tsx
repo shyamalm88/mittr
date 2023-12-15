@@ -230,7 +230,7 @@ const PollFormWrapper = () => {
   };
 
   React.useEffect(() => {
-    if (editableData) {
+    if (editableData && editableData.survey) {
       remove(0);
       setValue("settings", editableData.settings);
       setAlreadySavedDataId(editableData._id);
@@ -345,6 +345,7 @@ const PollFormWrapper = () => {
                         remove={remove}
                         fields={fields}
                         swap={swap}
+                        insert={insert}
                       />
                     </TimelineContent>
                   </TimelineItem>

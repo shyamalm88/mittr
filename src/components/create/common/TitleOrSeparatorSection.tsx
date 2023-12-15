@@ -57,7 +57,6 @@ function TitleOrSeparatorSection({
     tempQType.splice(index, 1);
     setQuestionType(tempQType);
   };
-  // // // console.log(errors);
 
   const swapPositions = (fromIndex: number, toIndex: number) => {
     swap(fromIndex, toIndex);
@@ -87,8 +86,13 @@ function TitleOrSeparatorSection({
           setQuestion(he.decode(editableData?.description));
         }
       } else {
-        setValue("question", he.decode(editableData.question));
-        setQuestion(he.decode(editableData.question));
+        setValue(
+          "question",
+          he.decode(editableData.question ? editableData.question : "")
+        );
+        setQuestion(
+          he.decode(editableData.question ? editableData.question : "")
+        );
       }
     }
   }, [editableData, setValue]);

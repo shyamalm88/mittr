@@ -22,34 +22,37 @@ import { useQuestionTypeContext } from "../../hooks/useQuestionTypeContext";
 function VotingTemplateSwitch(props: ComponentInputProps) {
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
-
-  switch (pollOrSurvey === "poll" ? questionType : questionType[props.index]) {
-    case "multiple_choice":
-      return <MultipleChoice {...props} />;
-    case "check_box":
-      return <Checkbox {...props} />;
-    case "image":
-      return <ImageChoice {...props} />;
-    case "linear_scale":
-      return <LinearScale {...props} />;
-    case "star_rating":
-      return <StarRating {...props} />;
-    case "dropdown":
-      return <DropDown {...props} />;
-    case "legal":
-      return <Legal {...props} />;
-    case "contact_info":
-      return <ContactInfo {...props} />;
-    case "image_choice":
-      return <ImageChoiceSurvey {...props} />;
-    case "range":
-      return <RangeSlider {...props} />;
-    case "multiple_choice_grid":
-      return <MultipleChoiceGrid {...props} />;
-    case "checkbox_grid":
-      return <CheckboxGrid {...props} />;
-    default:
-      return <></>;
+  if (questionType) {
+    switch (
+      pollOrSurvey === "poll" ? questionType : questionType[props.index]
+    ) {
+      case "multiple_choice":
+        return <MultipleChoice {...props} />;
+      case "check_box":
+        return <Checkbox {...props} />;
+      case "image":
+        return <ImageChoice {...props} />;
+      case "linear_scale":
+        return <LinearScale {...props} />;
+      case "star_rating":
+        return <StarRating {...props} />;
+      case "dropdown":
+        return <DropDown {...props} />;
+      case "legal":
+        return <Legal {...props} />;
+      case "contact_info":
+        return <ContactInfo {...props} />;
+      case "image_choice":
+        return <ImageChoiceSurvey {...props} />;
+      case "range":
+        return <RangeSlider {...props} />;
+      case "multiple_choice_grid":
+        return <MultipleChoiceGrid {...props} />;
+      case "checkbox_grid":
+        return <CheckboxGrid {...props} />;
+      default:
+        return <></>;
+    }
   }
 }
 
