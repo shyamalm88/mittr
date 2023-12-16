@@ -346,6 +346,7 @@ const PollFormWrapper = () => {
                         fields={fields}
                         swap={swap}
                         insert={insert}
+                        move={move}
                       />
                     </TimelineContent>
                   </TimelineItem>

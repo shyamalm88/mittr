@@ -44,6 +44,7 @@ function SurveyQuestionnaire({
   swap,
   fields,
   insert,
+  move,
 }: ComponentInputProps) {
   const http = new HttpService();
   const { editableData, setEditableData } = useEditDataContext();
@@ -51,8 +52,7 @@ function SurveyQuestionnaire({
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
   const [editable, setEditable] = React.useState(false);
-  const [question, setQuestion] = React.useState("");
-  const [checked, setChecked] = React.useState(false);
+  const [shouldUpdate, setShouldUpdate] = React.useState(false);
 
   const theme = useTheme();
 
@@ -106,21 +106,17 @@ function SurveyQuestionnaire({
           if (index === idx) {
             setValue(`${fieldName}.question`, item.question);
             setValue(`${fieldName}.required`, item.required);
-            setChecked(item.required);
-            setQuestion(item.question ? he.decode(item.question) : "");
           }
         });
+        setShouldUpdate(true);
       } else {
         setValue(
           "question",
           he.decode(editableData.question ? editableData.question : "")
         );
-        setQuestion(
-          he.decode(editableData.question ? editableData.question : "")
-        );
       }
     }
-  }, [editableData, setValue, setQuestion, fieldName]);
+  }, [editableData, setValue, fieldName]);
 
   const handleChange = (e: any) => {
     onSubmit(e.target.files[0]);
@@ -138,7 +134,7 @@ function SurveyQuestionnaire({
 
   const handleEditorChange = ({ editor }: any) => {
     const encodedHtml = htmlEncode(editor.getHTML().replace(/\s/g, "&nbsp;"));
-    setQuestion(encodedHtml);
+    // setQuestion(encodedHtml);
     setValue(
       `${pollOrSurvey === "poll" ? "question" : `${fieldName}.question`}`,
       encodedHtml,
@@ -173,8 +169,6 @@ function SurveyQuestionnaire({
 
   const handleRequired = (e: any, index: number) => {
     setValue(`${fieldName}.required`, e.target.checked);
-    setChecked(e.target.checked);
-    // getValues().survey[index]);
   };
 
   const swapPositions = async (fromIndex: number, toIndex: number) => {
@@ -184,31 +178,15 @@ function SurveyQuestionnaire({
     tempQType[toIndex] = temp;
     if (editableData) {
       handleClose();
-      await swap(fromIndex, toIndex);
-      const tempFromData = getValues();
-      const tempFromDataSurvey = tempFromData.survey;
-      const temp = tempFromDataSurvey[fromIndex];
-      tempFromDataSurvey[fromIndex] = tempFromDataSurvey[toIndex];
-      tempFromDataSurvey[toIndex] = temp;
-
-      const to = await getValues().survey[toIndex];
-      const from = await getValues().survey[fromIndex];
-
-      await update(fromIndex, to);
-      await update(toIndex, from);
-
-      console.log(getValues());
+      await move(fromIndex, toIndex);
+      console.log(getValues().survey);
       setQuestionType(tempQType);
     } else {
-      swap(fromIndex, toIndex);
+      move(fromIndex, toIndex);
       handleClose();
       setQuestionType(tempQType);
     }
   };
-
-  React.useEffect(() => {
-    // editableData);
-  }, [editableData]);
 
   return (
     <>
@@ -218,9 +196,6 @@ function SurveyQuestionnaire({
           backgroundColor: (theme: any) =>
             theme.palette.customColors.backgroundColor,
           borderRadius: "4px 4px 0px 0px",
-          // px: 2,
-          // py: 1,
-          // pt: 2,
           mb: 0,
           borderWidth: "1px",
           borderStyle: "solid",
@@ -242,7 +217,14 @@ function SurveyQuestionnaire({
           handleEditorClick={handleEditorClick}
           handleEditorBlur={handleEditorBlur}
           editable={editable}
-          dataContext={question}
+          dataContext={
+            getValues().survey &&
+            getValues().survey[index] &&
+            getValues().survey[index].question
+              ? he.decode(getValues().survey[index].question)
+              : ""
+          }
+          shouldUpdate={shouldUpdate}
         />
 
         <Hidden xsUp>
@@ -277,7 +259,11 @@ function SurveyQuestionnaire({
                 // },
               }
             )}
-            value={question}
+            value={
+              getValues().survey && getValues().survey[index].question
+                ? he.decode(getValues().survey[index].question)
+                : ""
+            }
             InputProps={{
               disableUnderline: !Boolean(
                 pollOrSurvey === "poll"
@@ -428,7 +414,11 @@ function SurveyQuestionnaire({
               control={
                 <Switch
                   color="primary"
-                  checked={checked}
+                  checked={
+                    getValues().survey && getValues().survey[index]
+                      ? getValues().survey[index].required
+                      : false
+                  }
                   size="small"
                   onChange={(e) => handleRequired(e, index)}
                 />

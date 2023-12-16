@@ -289,35 +289,43 @@ export default function Editor({
   handleEditorBlur,
   editable,
   dataContext,
+  shouldUpdate,
 }: ComponentInputProps) {
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      TextAlign.configure({
-        types: ["heading", "paragraph"],
-      }),
-      Highlight.configure({ multicolor: true }),
-      Focus.configure({
-        className: "has-focus",
-        mode: "all",
-      }),
-      Superscript,
-      Subscript,
-      Underline,
-      Link.configure({
-        openOnClick: false,
-      }),
-      Placeholder.configure({
-        placeholder: placeHolder,
-      }),
-    ],
-    autofocus: false,
-    content: dataContext,
-    onUpdate: handleChange,
-  });
+  const editor = useEditor(
+    {
+      extensions: [
+        StarterKit,
+        TextAlign.configure({
+          types: ["heading", "paragraph"],
+        }),
+        Highlight.configure({ multicolor: true }),
+        Focus.configure({
+          className: "has-focus",
+          mode: "all",
+        }),
+        Superscript,
+        Subscript,
+        Underline,
+        Link.configure({
+          openOnClick: false,
+        }),
+        Placeholder.configure({
+          placeholder: placeHolder,
+        }),
+      ],
+      autofocus: false,
+      content: dataContext,
+      onUpdate: handleChange,
+      editable: editable,
+    },
+    [shouldUpdate, editable]
+  );
 
   React.useEffect(() => {
-    editor?.commands.setContent(dataContext ? he.decode(dataContext) : "");
+    if (dataContext) {
+      editor?.commands.setContent(he.decode(dataContext));
+    }
+    // editor?.commands.setContent(dataContext ? he.decode(dataContext) : "");
   }, [dataContext]);
 
   return (
