@@ -25,6 +25,10 @@ export default function DateTemplate({
       setDateValidationOption(
         editableData.additionalQuestions[index]?.dateValidationOption
       );
+      setValue(
+        `${fieldName}.dateValidationOption`,
+        editableData.additionalQuestions[index].dateValidationOption
+      );
     }
   }, [editableData]);
 

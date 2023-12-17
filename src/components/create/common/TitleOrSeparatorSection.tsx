@@ -24,6 +24,7 @@ import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import TipTapEditor from "./TipTap";
 import { useEditDataContext } from "../../../hooks/useEditDataContext";
 import he from "he";
+import { Controller } from "react-hook-form";
 
 function TitleOrSeparatorSection({
   register,
@@ -36,15 +37,18 @@ function TitleOrSeparatorSection({
   swap,
   getValues,
   setValue,
+  control,
 }: ComponentInputProps) {
   const theme = useTheme();
   const { pollOrSurvey, setPollOrSurvey } = usePollOrSurveyContext();
   const { questionType, setQuestionType } = useQuestionTypeContext();
   const [editable, setEditable] = React.useState(false);
   const { editableData } = useEditDataContext();
-  const [question, setQuestion] = React.useState("");
+  const [shouldUpdate, setShouldUpdate] = React.useState(false);
+  // const [question, setQuestion] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -58,13 +62,16 @@ function TitleOrSeparatorSection({
     setQuestionType(tempQType);
   };
 
-  const swapPositions = (fromIndex: number, toIndex: number) => {
-    swap(fromIndex, toIndex);
+  const swapPositions = async (fromIndex: number, toIndex: number) => {
     handleClose();
     const tempQType = questionType;
     let temp = tempQType[fromIndex];
     tempQType[fromIndex] = tempQType[toIndex];
     tempQType[toIndex] = temp;
+    handleClose();
+    await swap(fromIndex, toIndex);
+    index = toIndex;
+    console.log("title", getValues().survey);
     setQuestionType(tempQType);
   };
 
@@ -75,27 +82,20 @@ function TitleOrSeparatorSection({
         if (index) {
           setValue(
             `${descriptionFieldName}`,
-            editableData.survey[index]?.description
+            getValues().survey[index].description
           );
-          setQuestion(
-            editableData.survey[index]?.description &&
-              he.decode(editableData.survey[index]?.description)
-          );
+          setShouldUpdate(true);
         } else {
           setValue(`${descriptionFieldName}`, editableData?.description);
-          setQuestion(he.decode(editableData?.description));
         }
       } else {
         setValue(
           "question",
           he.decode(editableData.question ? editableData.question : "")
         );
-        setQuestion(
-          he.decode(editableData.question ? editableData.question : "")
-        );
       }
     }
-  }, [editableData, setValue]);
+  }, [editableData]);
 
   function htmlEncode(str: string) {
     return str.replace(/[&<>"']/g, function ($0) {
@@ -108,8 +108,8 @@ function TitleOrSeparatorSection({
   }
 
   const handleEditorChange = ({ editor }: any) => {
-    const encodedHtml = htmlEncode(editor.getHTML());
-    setQuestion(encodedHtml);
+    const encodedHtml = htmlEncode(editor.getHTML().replace(/\s/g, "&nbsp;"));
+    // setQuestion(encodedHtml);
     setValue(`${descriptionFieldName}`, encodedHtml, {
       shouldDirty: true,
       shouldTouch: true,
@@ -194,52 +194,34 @@ function TitleOrSeparatorSection({
           </Stack>
 
           <Stack direction={"column"} spacing={0} useFlexGap>
-            <TipTapEditor
-              placeHolder={
-                index
-                  ? "Write Section Description Here"
-                  : "Write Survey Description Here"
-              }
-              handleChange={handleEditorChange}
-              handleEditorClick={handleEditorClick}
-              handleEditorBlur={handleEditorBlur}
-              editable={editable}
-              dataContext={question}
+            <Controller
+              control={control}
+              name={`${descriptionFieldName}`}
+              render={({ field: { onChange, onBlur, value, ref } }) => (
+                <>
+                  <input
+                    value={value}
+                    hidden
+                    {...register(`${descriptionFieldName}`)}
+                  />
+                  <TipTapEditor
+                    placeHolder={
+                      index
+                        ? "Write Section Description Here"
+                        : "Write Survey Description Here"
+                    }
+                    handleChange={handleEditorChange}
+                    handleEditorClick={handleEditorClick}
+                    handleEditorBlur={handleEditorBlur}
+                    editable={editable}
+                    dataContext={value ? he.decode(value) : ""}
+                    shouldUpdate={shouldUpdate}
+                  />
+                </>
+              )}
             />
             {!editable && <Divider color={"#939393"} />}
 
-            <Hidden xsUp>
-              <TextField
-                multiline
-                rows={2}
-                placeholder={
-                  index
-                    ? "Write Section Description Here"
-                    : "Write Survey Description Here"
-                }
-                variant="standard"
-                size="small"
-                fullWidth
-                error={
-                  index
-                    ? !!(errors as any)?.[descriptionFieldName.split(".")[0]]?.[
-                        descriptionFieldName.split(".")[1]
-                      ]?.[descriptionFieldName.split(".")[2]]?.message
-                    : !!(errors as any)?.[descriptionFieldName]?.message
-                }
-                {...register(`${descriptionFieldName}` as const, {
-                  pattern: {
-                    value: PATTERN,
-                    message: REQUIRED.PATTERN,
-                  },
-                })}
-                InputProps={{
-                  style: {
-                    color: "inherit",
-                  },
-                }}
-              />
-            </Hidden>
             <FormValidationError
               errorText={
                 index

@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import HttpService from "../../../services/@http/HttpClient";
 import WallpaperIcon from "@mui/icons-material/Wallpaper";
 import { ComponentInputProps } from "../../../types";
@@ -45,6 +45,7 @@ function SurveyQuestionnaire({
   fields,
   insert,
   move,
+  watch,
 }: ComponentInputProps) {
   const http = new HttpService();
   const { editableData, setEditableData } = useEditDataContext();
@@ -116,7 +117,7 @@ function SurveyQuestionnaire({
         );
       }
     }
-  }, [editableData, setValue, fieldName]);
+  }, [editableData]);
 
   const handleChange = (e: any) => {
     onSubmit(e.target.files[0]);
@@ -167,10 +168,6 @@ function SurveyQuestionnaire({
     setQuestionType(tempQType);
   };
 
-  const handleRequired = (e: any, index: number) => {
-    setValue(`${fieldName}.required`, e.target.checked);
-  };
-
   const swapPositions = async (fromIndex: number, toIndex: number) => {
     const tempQType = questionType;
     let temp = tempQType[fromIndex];
@@ -178,11 +175,11 @@ function SurveyQuestionnaire({
     tempQType[toIndex] = temp;
     if (editableData) {
       handleClose();
-      await move(fromIndex, toIndex);
+      await swap(fromIndex, toIndex);
       console.log(getValues().survey);
       setQuestionType(tempQType);
     } else {
-      move(fromIndex, toIndex);
+      swap(fromIndex, toIndex);
       handleClose();
       setQuestionType(tempQType);
     }
@@ -207,77 +204,44 @@ function SurveyQuestionnaire({
           borderTopWidth: pollOrSurvey === "poll" ? "1px" : "2px",
         }}
       >
-        <TipTapEditor
-          placeHolder={
-            pollOrSurvey === "poll"
-              ? "Write Poll Question Here"
-              : "Write Survey Question Here"
-          }
-          handleChange={handleEditorChange}
-          handleEditorClick={handleEditorClick}
-          handleEditorBlur={handleEditorBlur}
-          editable={editable}
-          dataContext={
-            getValues().survey &&
-            getValues().survey[index] &&
-            getValues().survey[index].question
-              ? he.decode(getValues().survey[index].question)
-              : ""
-          }
-          shouldUpdate={shouldUpdate}
+        <Controller
+          control={control}
+          name={`${
+            pollOrSurvey === "poll" ? "question" : `${fieldName}.question`
+          }`}
+          render={({ field: { onChange, onBlur, value, ref } }) => (
+            <>
+              <input
+                value={value}
+                hidden
+                {...register(
+                  `${
+                    pollOrSurvey === "poll"
+                      ? "question"
+                      : `${fieldName}.question`
+                  }` as const,
+                  {
+                    required: REQUIRED.QUESTION,
+                  }
+                )}
+              />
+              <TipTapEditor
+                placeHolder={
+                  pollOrSurvey === "poll"
+                    ? "Write Poll Question Here"
+                    : "Write Survey Question Here"
+                }
+                handleChange={handleEditorChange}
+                handleEditorClick={handleEditorClick}
+                handleEditorBlur={handleEditorBlur}
+                editable={editable}
+                dataContext={value ? he.decode(value) : ""}
+                shouldUpdate={shouldUpdate}
+              />
+            </>
+          )}
         />
 
-        <Hidden xsUp>
-          <TextField
-            rows={2}
-            sx={{ pt: 0.7 }}
-            placeholder={
-              pollOrSurvey === "poll"
-                ? "Write Poll Question Here"
-                : "Write Survey Question Here"
-            }
-            variant="standard"
-            size="small"
-            fullWidth
-            autoFocus
-            error={
-              pollOrSurvey === "poll"
-                ? !!errors.question
-                : !!(errors as any)?.[fieldNameQuestion[0]]?.[
-                    fieldNameQuestion[1]
-                  ]?.question
-            }
-            {...register(
-              `${
-                pollOrSurvey === "poll" ? "question" : `${fieldName}.question`
-              }` as const,
-              {
-                // required: REQUIRED.QUESTION,
-                // pattern: {
-                //   value: PATTERN,
-                //   message: REQUIRED.PATTERN,
-                // },
-              }
-            )}
-            value={
-              getValues().survey && getValues().survey[index].question
-                ? he.decode(getValues().survey[index].question)
-                : ""
-            }
-            InputProps={{
-              disableUnderline: !Boolean(
-                pollOrSurvey === "poll"
-                  ? errors?.question?.message
-                  : (errors as any)?.[fieldNameQuestion[0]]?.[
-                      fieldNameQuestion[1]
-                    ]?.question?.message
-              ),
-              style: {
-                color: "inherit",
-              },
-            }}
-          />
-        </Hidden>
         {pollOrSurvey === "poll" && (
           <>
             <input
@@ -410,24 +374,31 @@ function SurveyQuestionnaire({
                 sx={{ color: theme.palette.text.secondary }}
               />
             </IconButton>
-            <FormControlLabel
-              control={
-                <Switch
-                  color="primary"
-                  checked={
-                    getValues().survey && getValues().survey[index]
-                      ? getValues().survey[index].required
-                      : false
+            <Controller
+              control={control}
+              name={`${fieldName}.required`}
+              render={({ field: { onChange, onBlur, value, ref } }) => (
+                <FormControlLabel
+                  control={
+                    <Switch
+                      color="primary"
+                      checked={
+                        getValues().survey && getValues().survey[index]
+                          ? getValues().survey[index].required
+                          : false
+                      }
+                      size="small"
+                      onChange={onChange}
+                    />
                   }
-                  size="small"
-                  onChange={(e) => handleRequired(e, index)}
+                  label="Required"
+                  labelPlacement="end"
+                  disableTypography
+                  sx={{ pl: 2, fontSize: ".75em" }}
                 />
-              }
-              label="Required"
-              labelPlacement="end"
-              disableTypography
-              sx={{ pl: 2, fontSize: ".75em" }}
+              )}
             />
+
             <IconButton size="small" onClick={handleClick}>
               <MoreVertIcon sx={{ color: theme.palette.text.secondary }} />
             </IconButton>

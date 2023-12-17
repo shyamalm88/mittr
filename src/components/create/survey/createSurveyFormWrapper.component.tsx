@@ -72,6 +72,8 @@ const PollFormWrapper = () => {
           question: "",
           id: uuidv4(),
           votingType: "multiple_choice",
+          options: [],
+          required: false,
         },
       ],
 
@@ -246,7 +248,7 @@ const PollFormWrapper = () => {
         const tempQuestion = {
           title: data.title,
           id: uuidv4(),
-          description: "",
+          description: data.description,
           type: data.type,
         };
         await append(tempQuestion);
@@ -256,6 +258,7 @@ const PollFormWrapper = () => {
           id: uuidv4(),
           votingType: data.votingType,
           options: data.options,
+          required: data.required,
         };
         await append(tempQuestion);
       }
@@ -272,6 +275,7 @@ const PollFormWrapper = () => {
             descriptionFieldName="description"
             errors={errors}
             setValue={setValue}
+            control={control}
           />
           <Box
             sx={{
@@ -308,7 +312,7 @@ const PollFormWrapper = () => {
                         key={`${item.id}${index}`}
                         register={register}
                         titleFieldName={`survey.${index}.title`}
-                        descriptionFieldName={`survey.${index}.description`}
+                        descriptionFieldName={`survey[${index}].description`}
                         index={index}
                         errors={errors}
                         fields={fields}
@@ -316,6 +320,7 @@ const PollFormWrapper = () => {
                         swap={swap}
                         getValues={getValues}
                         setValue={setValue}
+                        control={control}
                       />
                     </>
                   );
@@ -347,6 +352,7 @@ const PollFormWrapper = () => {
                         swap={swap}
                         insert={insert}
                         move={move}
+                        watch={watch}
                       />
                     </TimelineContent>
                   </TimelineItem>

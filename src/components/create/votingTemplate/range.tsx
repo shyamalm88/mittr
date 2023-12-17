@@ -148,7 +148,7 @@ function RangeSlider({
                       },
                     })}
                     fullWidth
-                    placeholder="Start Value"
+                    placeholder="End Value"
                   />
                   <FormValidationError
                     errorText={

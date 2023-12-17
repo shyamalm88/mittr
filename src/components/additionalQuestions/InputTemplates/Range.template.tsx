@@ -31,6 +31,18 @@ export default function RangeTemplate({
       setStartNum(editableData.additionalQuestions[index].rangeStartValue);
       setEndNum(editableData.additionalQuestions[index].rangeEndValue);
       setStepNum(editableData.additionalQuestions[index].rangeStepValue);
+      setValue(
+        `${fieldName}.rangeStartValue`,
+        editableData.additionalQuestions[index].rangeStartValue
+      );
+      setValue(
+        `${fieldName}.rangeEndValue`,
+        editableData.additionalQuestions[index].rangeEndValue
+      );
+      setValue(
+        `${fieldName}.rangeStepValue`,
+        editableData.additionalQuestions[index].rangeStepValue
+      );
     }
   }, [editableData]);
 

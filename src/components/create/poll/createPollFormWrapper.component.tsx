@@ -167,6 +167,7 @@ const PollFormWrapper = () => {
     navigator.clipboard.writeText(shareUrl);
     setCopyDone(true);
   };
+  console.log(errors);
 
   const onSubmitPollForm: SubmitHandler<CreatePollSubmittedValueType> = async (
     data

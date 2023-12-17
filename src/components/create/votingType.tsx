@@ -205,12 +205,7 @@ function VotingType({
         setQuestionType(editableData.votingType);
       }
     }
-  }, [editableData, setValue, setQuestionType, fieldName, setPollOrSurvey]);
-
-  React.useEffect(() => {
-    setQuestionType(questionType);
-    setVotingTypeValue(getValues("survey")?.[index]?.votingType);
-  }, [questionType]);
+  }, [editableData]);
 
   const handleChangeVotingOptions = async (e: any) => {
     if (!oldSelectedValue.current[index]?.value) {

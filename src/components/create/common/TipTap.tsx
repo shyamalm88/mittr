@@ -316,9 +316,8 @@ export default function Editor({
       autofocus: false,
       content: dataContext,
       onUpdate: handleChange,
-      editable: editable,
     },
-    [shouldUpdate, editable]
+    [shouldUpdate]
   );
 
   React.useEffect(() => {

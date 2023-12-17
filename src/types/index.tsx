@@ -97,6 +97,7 @@ export type CreateSurveySubmittedValueType = {
       title?: string;
       description?: string;
       type?: string;
+      required?: boolean;
     }
   ];
   questionSlug: string;
