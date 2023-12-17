@@ -233,6 +233,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
+    p: 0,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -393,38 +394,47 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
                       id={labelId}
                       scope="row"
                       padding="none"
-                      align="center"
+                      align="left"
                       dangerouslySetInnerHTML={{
                         __html: (row as any).question
-                          ? he.decode((row as any).question)
+                          ? he
+                              .decode((row as any).question)
+                              .replace(/(<([^>]+)>)/gi, "")
                           : (row as any).title,
                       }}
                     ></StyledTableCell>
-                    <StyledTableCell align="center">
+                    <StyledTableCell align="center" padding="none">
                       {(row.createdByUserRef as any).fullName}
                     </StyledTableCell>
-                    <StyledTableCell align="center">
+                    <StyledTableCell align="center" padding="none">
                       <Chip
-                        label={(row.type as string).toLocaleUpperCase()}
+                        label={row.type as string}
                         color={row.type === "poll" ? "success" : "error"}
                         size="small"
                       />
                     </StyledTableCell>
-                    <StyledTableCell align="center">
+                    <StyledTableCell align="center" padding="none">
                       {moment(row.createdAt).format("MMMM Do YYYY, h:mm a")}
                     </StyledTableCell>
-                    <StyledTableCell align="center">
+                    <StyledTableCell align="center" padding="none">
                       <Stack direction="row" alignItems="center">
-                        <IconButton onClick={(e) => handleEdit(e, row)}>
-                          <DriveFileRenameOutlineOutlinedIcon />
+                        <IconButton
+                          onClick={(e) => handleEdit(e, row)}
+                          size="small"
+                        >
+                          <DriveFileRenameOutlineOutlinedIcon fontSize="small" />
                         </IconButton>
-                        <IconButton onClick={(e) => handleAnswer(e, row)}>
-                          <RemoveRedEyeOutlinedIcon />
+                        <IconButton
+                          onClick={(e) => handleAnswer(e, row)}
+                          size="small"
+                        >
+                          <RemoveRedEyeOutlinedIcon fontSize="small" />
                         </IconButton>
                         <IconButton
                           onClick={(e) => handleViewAnalytics(e, row)}
+                          size="small"
                         >
-                          <SignalCellularAltOutlinedIcon />
+                          <SignalCellularAltOutlinedIcon fontSize="small" />
                         </IconButton>
                       </Stack>
                     </StyledTableCell>
