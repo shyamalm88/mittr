@@ -1,193 +1,181 @@
-[
-  '{{repeat(20)}}',{
-"title": '{{lorem(1, "paragraphs")}}',
-"description": '{{lorem(2, "paragraphs")}}',
-"questionSlug": '{{company().toUpperCase()}}',
-"survey": [
-  '{{repeat(10, 20)}}',
-{
-"question": '{{lorem(1, "paragraphs")}}',
-"votingType": '{{random("multiple_choice", "check_box", "star_rating", "dropdown", "short_text", "long_text","phone_number", "address", "email", "legal", "contact_info", "range", "date", "time", "linear_scale", "multiple_choice_grid", "checkbox_grid", "" )}}',
-  "title": '{{lorem(1, "paragraphs")}}',
-  
-  "options": function(votingType){
-     var type = ["multiple_choice", "check_box", "star_rating", "dropdown", "short_text", "long_text","phone_number", "address", "email", "legal", "contact_info", "range", "date", "time", "linear_scale", "multiple_choice_grid", "checkbox_grid", ""];
-    var selectedType = type[votingType.integer(0, type.length - 1)];
-      if(selectedType === "multiple_choice"){
-      
-      return [
-          '{{repeat(5)}}',
-            {
-             id: '{{objectId()}}',
-            "label": "Option",
-            "enabled": '{{bool()}}',
-            "option": '{{lorem(5, "words")}}'
-            }    
-          ];
-    } else if(selectedType === "check_box"){
-    	return [
-          '{{repeat(5)}}',
-            {
-             id: '{{objectId()}}',
-            "label": "Choice",
-            "enabled": '{{bool()}}',
-            "choice": '{{lorem(5, "words")}}'
-            }    
-          ];
-    } else if(selectedType === "star_rating"){
-    	return [
-            {
-               id: '{{objectId()}}',
-            "label": "Star Count",
-            "starCount": "{{integer(0, 5)}}",
-            "precision": '{{floating(.02, 1)}}',
-            "icon": '{{random("star", "love", "smiley" )}}',
-            "color": "#008b02"
-            }    
-          ];
-    } else if(selectedType === "dropdown"){
-    	return [
-            {
-              id: '{{objectId()}}',
-            "label": "Dropdown",
-            "dropdownOptions": "India, Pakistan, SriLanka, Afganithan, Bangladesh"
-            }    
-          ];
-    } else if(selectedType === "legal"){
-    	return [
-            {
-             id: '{{objectId()}}',
-            "label": "Option",
-            "enabled": '{{bool()}}',
-            "option": "I Accept"
-            },
-          	{
-             id: '{{objectId()}}',
-            "label": "Option",
-            "enabled": '{{bool()}}',
-            "option": "I Reject"
-            }  
-          ];
-    } else if(selectedType === "contact_info"){
-    	return [
-            {
-            id: '{{objectId()}}',
-            "label": "Option",
-            "enabled": true,
-            "option": "First Name"
-            },
-            {
-            id: '{{objectId()}}',
-            "label": "Option",
-            "enabled": true,
-            "option": "Last Name"
-            },
-            {
-            id: '{{objectId()}}',
-            "label": "Option",
-            "enabled": true,
-            "option": "Phone Number"
-            },
-            {
-            id: '{{objectId()}}',
-            "label": "Option",
-            "enabled": true,
-            "option": "Email"
-            },
-            {
-            id: '{{objectId()}}',
-            "label": "Option",
-            "enabled": true,
-            "option": "Company"
-            } 
-          ];
-    } else if(selectedType === "range"){
-    	return [
-            {
-            id: '{{objectId()}}',
-            "label": "slider",
-            "startValue": "{{integer(0, 10)}}",
-            "endValue": "{{integer(20, 100)}}",
-            "stepValue": "{{integer(1, 5)}}"
-            }
-          ];
-    }  else if(selectedType === "linear_scale"){
-    	return [
-            {
-            id: '{{objectId()}}',
-            "label": "linearScale",
-            "from": "{{integer(0, 1)}}",
-            "to": "{{integer(0, 10)}}",
-            "formText": '{{lorem(1, "words")}}',
-            "toText": '{{lorem(1, "words")}}'
-            }
-          ];
-    }  else if(selectedType === "multiple_choice_grid"){
-    	return [
-            {
-            id: '{{objectId()}}',
-            "label": "linearScale",
-            "rows": [
-              '{{repeat(3)}}',
+JG.repeat(1, {
+  id: JG.objectId(),
+  "title": JG.loremIpsum({ units: 'sentences', count: 1 }),
+  "description": JG.loremIpsum({ units: 'sentences', count: 2 }),
+  "questionSlug": JG.company().toUpperCase(),
+  "survey": _.uniq(JG.repeat(5, 
                 {
-                id: '{{objectId()}}',
-                "label": "Row",
-                "option": '{{lorem(1, "words")}}'
-                }
-                
-                ],
-            "columns": [
-              '{{repeat(5)}}',
+    "question":  JG.loremIpsum({ units: 'sentences', count: 1 }),
+	"votingType": JG.random("multiple_choice", "check_box", "star_rating", "dropdown", "short_text", "long_text","phone_number", "address", "email", "legal", "contact_info", "range", "date", "time", "linear_scale", "multiple_choice_grid", "checkbox_grid", "" ),
+    "title": JG.loremIpsum({ units: 'sentences', count: 1 }),
+    description(){
+      if(this.votingType === ""){
+        return JG.loremIpsum({ units: 'sentences', count: 2 });
+      }
+    },
+    type(){
+      if(this.votingType === ""){
+        return "section";
+      }
+    },
+    options(){
+      var id = JG.objectId();
+    	if(this.votingType === "multiple_choice"){      
+          return _.uniq(JG.repeat(5, {
+                 id: id,
+                "label": "Option",
+                "enabled": JG.bool(),
+                "option": JG.loremIpsum({ units: 'words', count: 3 })
+                } ));
+        } else if(this.votingType === "check_box"){
+            return _.uniq(JG.repeat(5, {
+                 id: id,
+                "label": "Choice",
+                "enabled": JG.bool(),
+                "choice": JG.loremIpsum({ units: 'words', count:3 })
+                } ));
+        } else if(this.votingType === "star_rating"){
+            return [
                 {
-                id: '{{objectId()}}',
-                "label": "Column",
-                "option": '{{lorem(1, "words")}}'
-                }
-                
-              ]
-            }
-          ];
-    }   else if(selectedType === "checkbox_grid"){
-    	return [
-            {
-            id: '{{objectId()}}',
-            "label": "linearScale",
-            "rows": [
-              '{{repeat(3)}}',
+                   id: id,
+                "label": "Star Count",
+                "starCount": JG.integer(0, 5),
+                "precision": JG.floating(2, 1, 2),
+                "icon": JG.random("star", "love", "smiley" ),
+                "color": "#008b02"
+                }    
+              ];
+        } else if(this.votingType === "dropdown"){
+            return [
                 {
-                id: '{{objectId()}}',
-                "label": "Row",
-                "option": '{{lorem(1, "words")}}'
-                }
-                
-                ],
-            "columns": [
-              '{{repeat(5)}}',
+                  id: id,
+                "label": "Dropdown",
+                "dropdownOptions": "India, Pakistan, SriLanka, Afganithan, Bangladesh"
+                }    
+              ];
+        } else if(this.votingType === "legal"){
+            return [
                 {
-                id: '{{objectId()}}',
-                "label": "Column",
-                "option": '{{lorem(1, "words")}}'
+                 id: id,
+                "label": "Option",
+                "enabled":  JG.bool(),
+                "option": "I Accept"
+                },
+                {
+                 id: id,
+                "label": "Option",
+                "enabled":  JG.bool(),
+                "option": "I Reject"
+                }  
+              ];
+        } else if(this.votingType === "contact_info"){
+            return [
+                {
+                id: id,
+                "label": "Option",
+                "enabled": true,
+                "option": "First Name"
+                },
+                {
+                id: id,
+                "label": "Option",
+                "enabled": true,
+                "option": "Last Name"
+                },
+                {
+                id: id,
+                "label": "Option",
+                "enabled": true,
+                "option": "Phone Number"
+                },
+                {
+                id: id,
+                "label": "Option",
+                "enabled": true,
+                "option": "Email"
+                },
+                {
+                id: id,
+                "label": "Option",
+                "enabled": true,
+                "option": "Company"
+                } 
+              ];
+        } else if(this.votingType === "range"){
+            return [
+                {
+                id: id,
+                "label": "slider",
+                "startValue": JG.integer(0, 5),
+                "endValue": JG.integer(20, 100),
+                "stepValue": JG.integer(1, 5)
                 }
+              ];
+        }  else if(this.votingType === "linear_scale"){
+            return [
+                {
+                id: id,
+                "label": "linearScale",
+                "from": JG.integer(0, 1),
+                "to": JG.integer(0, 10),
+                "formText": JG.loremIpsum({ units: 'words', count: 1 }),
+                "toText": JG.loremIpsum({ units: 'words', count: 1 })
+                }
+              ];
+        }  else if(this.votingType === "multiple_choice_grid"){
+            return [
+                {
+                id: id,
+                "label": "linearScale",
+                "rows":  _.uniq(JG.repeat(3, {
+                    id: id,
+                    "label": "Row",
+                    "option": JG.loremIpsum({ units: 'words', count: 1 }),
+                    } )),
+                "columns": _.uniq(JG.repeat(3, {
+                    id: id,
+                    "label": "Column",
+                    "option": JG.loremIpsum({ units: 'words', count: 1 }),
+                    } )),
+                }
+              ];
+        }   else if(this.votingType === "checkbox_grid"){
+            return [
+                {
+                id: id,
+                "label": "linearScale",
+                "rows":  _.uniq(JG.repeat(3, {
+                    id: id,
+                    "label": "Row",
+                    "option": JG.loremIpsum({ units: 'words', count: 1 }),
+                    } )),
+                "columns": _.uniq(JG.repeat(3, {
+                    id: id,
+                    "label": "Column",
+                    "option": JG.loremIpsum({ units: 'words', count: 1 }),
+                    } )),
                 
-              ]
-            }
-          ];
-    } else {
-      return [];
+                }
+              ];
+        } else {
+          return [];
+        }
     }
+  				}
+              )),
+  "required": JG.bool(),
+  duration() {
+    return moment(this.createdAt).add(10, 'days');
   },
-"required": '{{bool()}}'
-}
-],
-"duration": null,
-"settings": {
-"captureGender": false,
-"closePollOnScheduledDate": false,
-"captureCity": false,
-"captureCountry": false
-},
-"createdByUserRef": "657f72bc880d298cde92843d",
-"createdAt": "2023-12-18T19:31:02.953Z",
-"updatedAt": "2023-12-18T19:31:02.953Z",
-"__v": 0
-}]
+  settings: {
+    closePollOnScheduledDate: JG.bool(),
+    captureGender: JG.bool(),
+    captureCity: JG.bool(),
+    captureCountry: JG.bool(),
+  },
+  createdByUserRef: "6574b40739c6206cfc1e1ad6",
+  createdAt: JG.date(new Date(2010, 0, 1), new Date(2015, 0, 1)),
+  updatedAt() {
+    return moment(this.createdAt).add(1, 'days');
+  },
+});
