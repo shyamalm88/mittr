@@ -60,3 +60,61 @@ export const checkValueAndValidity = (
     }
   }
 };
+
+export const checkValueAndValidityForSurvey = (
+  surveySegmentsForActiveStep: any,
+  toast: any
+) => {
+  for (let i = 0; i < surveySegmentsForActiveStep.selectedValue.length; i++) {
+    const item = surveySegmentsForActiveStep.selectedValue[i];
+    if (item.required === "true") {
+      if (item.hasOwnProperty("checkbox")) {
+        if (!item.checkbox.some((el: any) => el.choice == true)) {
+          toast.error(`Please Answer For the Required marked fields`, {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "colored",
+          });
+          return false;
+        }
+      } else if (item.hasOwnProperty("multipleChoiceGrid")) {
+        if (!item.multipleChoiceGrid.every((el: any) => el.multipleChoice)) {
+          toast.error(`Please Answer For the Required marked fields`, {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "colored",
+          });
+          return false;
+        }
+      } else if (item.hasOwnProperty("checkBoxGrid")) {
+        if (
+          !item.checkBoxGrid.every(
+            (el: any) =>
+              el.checkbox &&
+              Array.isArray(el.checkbox) &&
+              el.checkbox.length > 0
+          )
+        ) {
+          toast.error(`Please Answer For the Required marked fields`, {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "colored",
+          });
+          return false;
+        }
+      } else {
+        let values = Object.values(item);
+        if (
+          values.some(
+            (el, i: number) =>
+              el == null || el == "" || el == undefined || el == 0
+          )
+        ) {
+          toast.error(`Please Answer For the Required marked fields at ${i}`, {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "colored",
+          });
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+};

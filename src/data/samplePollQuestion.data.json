@@ -1,0 +1,1424 @@
+[
+    {
+        "question": "Id enim in incididunt cupidatat ut dolor proident laboris ex pariatur exercitation fugiat. Exercitation et eiusmod aliqua irure esse aliqua laboris. Commodo ipsum qui fugiat irure ex ullamco amet consequat et aute nisi. Aute elit pariatur esse amet anim sunt aliqua eu consequat excepteur proident.\r\n",
+        "votingType": "multiple_choice",
+        "questionSlug": "RONELON",
+        "duration": "2023-12-27T03:50:54 -06:-30",
+        "options": [
+            {
+                "id": "6580921019d94142cccb1b39",
+                "option": "minim labore nostrud pariatur cillum",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "658092100194c62ba72c1be3",
+                "option": "laboris fugiat sunt cillum exercitation",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "658092107b390e07ee0a1189",
+                "option": "mollit nisi nisi duis sint",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "65809210e31a25cf0edea6f9",
+                "option": "irure id aliquip amet quis",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "65809210dfe098ea0108e761",
+                "option": "reprehenderit do incididunt minim velit",
+                "label": "Option",
+                "enabled": false
+            }
+        ],
+        "settings": {
+            "captureGender": false,
+            "closePollOnScheduledDate": false,
+            "captureCity": true,
+            "captureCountry": true
+        },
+        "createdByUserRef": "6574b40739c6206cfc1e1ad6",
+        "additionalQuestions": [
+            {
+                "id": "6580921008af93fe81093534",
+                "option": "et nulla ipsum non reprehenderit",
+                "question": "nisi anim culpa Lorem id",
+                "answerType": "range",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210ca179ec6bcd0b556",
+                        "label": "Choice",
+                        "choice": "mollit minim anim sunt culpa"
+                    },
+                    {
+                        "id": "658092105eed761175ba91d6",
+                        "label": "Choice",
+                        "choice": "exercitation id ullamco amet velit"
+                    },
+                    {
+                        "id": "65809210b7a73d9651c718b0",
+                        "label": "Choice",
+                        "choice": "esse pariatur deserunt occaecat do"
+                    },
+                    {
+                        "id": "65809210b380830700ba9d59",
+                        "label": "Choice",
+                        "choice": "labore consequat consequat eu labore"
+                    },
+                    {
+                        "id": "658092107e2d9792c571aeac",
+                        "label": "Choice",
+                        "choice": "ut qui culpa ad amet"
+                    }
+                ],
+                "rangeStartValue": 7,
+                "rangeEndValue": 39,
+                "rangeStepValue": 3,
+                "dateValidationOption": ""
+            },
+            {
+                "id": "658092102ad8f2465577b887",
+                "option": "laborum duis consequat occaecat quis",
+                "question": "duis est ullamco aute id",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210248160084ed7f87c",
+                        "label": "Choice",
+                        "choice": "tempor dolor ex dolore velit"
+                    },
+                    {
+                        "id": "658092104f30271bcd7fc794",
+                        "label": "Choice",
+                        "choice": "veniam cillum do ad dolore"
+                    },
+                    {
+                        "id": "65809210fbc07cedc3ed5170",
+                        "label": "Choice",
+                        "choice": "ex nostrud enim cupidatat veniam"
+                    },
+                    {
+                        "id": "6580921018b7ace9f7a4b8c1",
+                        "label": "Choice",
+                        "choice": "nostrud culpa irure anim commodo"
+                    },
+                    {
+                        "id": "658092106c9025d7b8589ce1",
+                        "label": "Choice",
+                        "choice": "officia aliqua id ad in"
+                    }
+                ],
+                "rangeStartValue": 10,
+                "rangeEndValue": 74,
+                "rangeStepValue": 5,
+                "dateValidationOption": "disable_past_dates"
+            },
+            {
+                "id": "65809210ecfa3da9278b7f7f",
+                "option": "sit voluptate ipsum officia eiusmod",
+                "question": "ex velit enim qui aliqua",
+                "answerType": "range",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092102b43ceb88bf3b184",
+                        "label": "Choice",
+                        "choice": "mollit amet proident minim proident"
+                    },
+                    {
+                        "id": "65809210c2d354c2a535687c",
+                        "label": "Choice",
+                        "choice": "ea irure fugiat ex deserunt"
+                    },
+                    {
+                        "id": "65809210bada1ae2b39e0178",
+                        "label": "Choice",
+                        "choice": "voluptate quis mollit qui esse"
+                    },
+                    {
+                        "id": "658092108faf24b4be7aa297",
+                        "label": "Choice",
+                        "choice": "dolore id magna irure sint"
+                    },
+                    {
+                        "id": "6580921051f64466fd1182d4",
+                        "label": "Choice",
+                        "choice": "sint ut nisi dolore sunt"
+                    }
+                ],
+                "rangeStartValue": 1,
+                "rangeEndValue": 44,
+                "rangeStepValue": 5,
+                "dateValidationOption": "disable_future_dates"
+            },
+            {
+                "id": "65809210cff28240299d3e9b",
+                "option": "magna minim tempor eiusmod consequat",
+                "question": "consectetur officia velit excepteur aliquip",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210a440d6988ffd8b67",
+                        "label": "Choice",
+                        "choice": "dolore ullamco ut ad sit"
+                    },
+                    {
+                        "id": "65809210bc2b78fc7c3ec4e6",
+                        "label": "Choice",
+                        "choice": "officia est exercitation irure voluptate"
+                    },
+                    {
+                        "id": "65809210542eddb867f5d49c",
+                        "label": "Choice",
+                        "choice": "velit do ipsum est est"
+                    },
+                    {
+                        "id": "65809210159c874c35ba619e",
+                        "label": "Choice",
+                        "choice": "elit magna velit et excepteur"
+                    },
+                    {
+                        "id": "65809210a2bc16e72ec242bb",
+                        "label": "Choice",
+                        "choice": "et consequat dolore ad eiusmod"
+                    }
+                ],
+                "rangeStartValue": 8,
+                "rangeEndValue": 79,
+                "rangeStepValue": 3,
+                "dateValidationOption": ""
+            },
+            {
+                "id": "65809210bc39df13e4662e94",
+                "option": "proident ex labore duis nulla",
+                "question": "cillum cillum laboris sit irure",
+                "answerType": "choice",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210544520543388aa40",
+                        "label": "Choice",
+                        "choice": "amet consequat laboris laborum laborum"
+                    },
+                    {
+                        "id": "65809210faf32f813a4967cd",
+                        "label": "Choice",
+                        "choice": "laboris nulla aliqua magna nisi"
+                    },
+                    {
+                        "id": "65809210f52c19297d256e94",
+                        "label": "Choice",
+                        "choice": "qui cupidatat ipsum dolore consectetur"
+                    },
+                    {
+                        "id": "6580921043f15914b2e03e96",
+                        "label": "Choice",
+                        "choice": "ullamco et tempor exercitation cupidatat"
+                    },
+                    {
+                        "id": "658092101f6f36912485024e",
+                        "label": "Choice",
+                        "choice": "qui nulla officia irure est"
+                    }
+                ],
+                "rangeStartValue": 6,
+                "rangeEndValue": 81,
+                "rangeStepValue": 4,
+                "dateValidationOption": "disable_past_dates"
+            }
+        ]
+    },
+    {
+        "question": "Esse aliqua exercitation id mollit consequat proident anim irure minim sint aliquip quis. Ipsum do esse nisi mollit. Eiusmod velit sunt mollit cupidatat dolor deserunt cupidatat qui ut nisi cillum. Elit irure elit minim amet ipsum magna. Aliquip esse dolore aute sunt nostrud occaecat.\r\n",
+        "votingType": "multiple_choice",
+        "questionSlug": "COMTOUR",
+        "duration": "2023-12-24T07:50:47 -06:-30",
+        "options": [
+            {
+                "id": "658092102575d68b39afacc3",
+                "option": "aliquip ex nulla pariatur dolore",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "65809210f697f38b4d19fd4d",
+                "option": "sunt deserunt enim esse ullamco",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "65809210caec4a2baa59c642",
+                "option": "adipisicing officia veniam eu nisi",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "6580921060a1a008a818eeac",
+                "option": "esse nulla est nostrud mollit",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "658092108b031d168b558134",
+                "option": "elit occaecat laboris sit eu",
+                "label": "Option",
+                "enabled": true
+            }
+        ],
+        "settings": {
+            "captureGender": false,
+            "closePollOnScheduledDate": true,
+            "captureCity": false,
+            "captureCountry": false
+        },
+        "createdByUserRef": "6574b40739c6206cfc1e1ad6",
+        "additionalQuestions": [
+            {
+                "id": "65809210de0aa20c304c0dde",
+                "option": "qui eu aliqua labore Lorem",
+                "question": "fugiat mollit adipisicing consectetur eiusmod",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "6580921079ebfe4c83034ded",
+                        "label": "Choice",
+                        "choice": "officia eu laboris ex minim"
+                    },
+                    {
+                        "id": "6580921038891776e1741f85",
+                        "label": "Choice",
+                        "choice": "culpa fugiat labore est occaecat"
+                    },
+                    {
+                        "id": "6580921009fb82e0283dc541",
+                        "label": "Choice",
+                        "choice": "veniam pariatur irure culpa incididunt"
+                    },
+                    {
+                        "id": "65809210b5e1a86559d8f532",
+                        "label": "Choice",
+                        "choice": "qui consectetur nulla reprehenderit cupidatat"
+                    },
+                    {
+                        "id": "65809210986b9bdb611b22a5",
+                        "label": "Choice",
+                        "choice": "veniam ex magna deserunt consequat"
+                    }
+                ],
+                "rangeStartValue": 10,
+                "rangeEndValue": 93,
+                "rangeStepValue": 5,
+                "dateValidationOption": ""
+            },
+            {
+                "id": "65809210c10ecc88a6c576d0",
+                "option": "reprehenderit aliqua excepteur dolor proident",
+                "question": "ea ipsum excepteur sunt consequat",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210102636b7710c70cd",
+                        "label": "Choice",
+                        "choice": "reprehenderit eiusmod proident nisi laboris"
+                    },
+                    {
+                        "id": "658092105e578ed046237487",
+                        "label": "Choice",
+                        "choice": "sit ea nulla elit cupidatat"
+                    },
+                    {
+                        "id": "6580921056e9001a089e4f26",
+                        "label": "Choice",
+                        "choice": "mollit qui ea ut adipisicing"
+                    },
+                    {
+                        "id": "65809210b9112a6fba076a48",
+                        "label": "Choice",
+                        "choice": "anim culpa excepteur cillum est"
+                    },
+                    {
+                        "id": "6580921015a85794c76652d0",
+                        "label": "Choice",
+                        "choice": "est qui sit fugiat aliqua"
+                    }
+                ],
+                "rangeStartValue": 7,
+                "rangeEndValue": 69,
+                "rangeStepValue": 4,
+                "dateValidationOption": "disable_past_dates"
+            },
+            {
+                "id": "658092109aaccd7689423487",
+                "option": "deserunt excepteur et occaecat officia",
+                "question": "labore velit consequat ea tempor",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "6580921009ecdfeebc0c46fa",
+                        "label": "Choice",
+                        "choice": "sunt eu sint laborum voluptate"
+                    },
+                    {
+                        "id": "65809210f1bec449dc7801e8",
+                        "label": "Choice",
+                        "choice": "adipisicing nostrud est proident velit"
+                    },
+                    {
+                        "id": "65809210d9f8d510fbd6859b",
+                        "label": "Choice",
+                        "choice": "proident exercitation aliquip labore mollit"
+                    },
+                    {
+                        "id": "658092101c5b825f634d0752",
+                        "label": "Choice",
+                        "choice": "commodo eiusmod aute cillum tempor"
+                    },
+                    {
+                        "id": "65809210ac882643c495bf43",
+                        "label": "Choice",
+                        "choice": "deserunt ut ut officia magna"
+                    }
+                ],
+                "rangeStartValue": 3,
+                "rangeEndValue": 57,
+                "rangeStepValue": 3,
+                "dateValidationOption": ""
+            },
+            {
+                "id": "658092101c2af638a8fbacf1",
+                "option": "pariatur fugiat velit irure laborum",
+                "question": "elit duis magna qui nostrud",
+                "answerType": "range",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210273628b03787b671",
+                        "label": "Choice",
+                        "choice": "culpa quis ea in pariatur"
+                    },
+                    {
+                        "id": "65809210f78095ce67b9a100",
+                        "label": "Choice",
+                        "choice": "mollit minim labore ex dolor"
+                    },
+                    {
+                        "id": "65809210b764b786b88e8be1",
+                        "label": "Choice",
+                        "choice": "voluptate nisi reprehenderit aliqua labore"
+                    },
+                    {
+                        "id": "65809210a7e8872795d4bd53",
+                        "label": "Choice",
+                        "choice": "non nulla ipsum exercitation nisi"
+                    },
+                    {
+                        "id": "6580921008acd63e0b845197",
+                        "label": "Choice",
+                        "choice": "irure occaecat veniam exercitation eiusmod"
+                    }
+                ],
+                "rangeStartValue": 0,
+                "rangeEndValue": 94,
+                "rangeStepValue": 4,
+                "dateValidationOption": "disable_past_dates"
+            },
+            {
+                "id": "6580921013f2f83a927b6f82",
+                "option": "irure ipsum qui do cupidatat",
+                "question": "laborum anim ipsum in ut",
+                "answerType": "range",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092108d8d75b4c3dde68d",
+                        "label": "Choice",
+                        "choice": "in ad adipisicing in sit"
+                    },
+                    {
+                        "id": "65809210389cd35d9fe2ffef",
+                        "label": "Choice",
+                        "choice": "cupidatat officia ipsum incididunt esse"
+                    },
+                    {
+                        "id": "65809210df0041d53cb79875",
+                        "label": "Choice",
+                        "choice": "ut ipsum eiusmod nisi sint"
+                    },
+                    {
+                        "id": "65809210a93eb4b1cc649755",
+                        "label": "Choice",
+                        "choice": "nulla aliquip sunt adipisicing ut"
+                    },
+                    {
+                        "id": "6580921099c30fa03335ba2e",
+                        "label": "Choice",
+                        "choice": "proident id cupidatat enim cupidatat"
+                    }
+                ],
+                "rangeStartValue": 5,
+                "rangeEndValue": 88,
+                "rangeStepValue": 3,
+                "dateValidationOption": "disable_past_dates"
+            }
+        ]
+    },
+    {
+        "question": "Minim laborum minim ut eiusmod ea qui commodo magna excepteur labore labore dolore. Exercitation reprehenderit reprehenderit dolore ea anim do amet. Ad exercitation anim veniam labore laborum qui adipisicing commodo do amet ut. Voluptate ut velit eiusmod sint elit proident enim. Ex voluptate cupidatat dolore veniam ipsum est ipsum consectetur reprehenderit tempor eu. Mollit consectetur id enim magna nisi.\r\n",
+        "votingType": "multiple_choice",
+        "questionSlug": "ACCEL",
+        "duration": "2023-12-31T03:08:57 -06:-30",
+        "options": [
+            {
+                "id": "65809210157a1eb80af90e44",
+                "option": "laborum sint proident nisi aute",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "658092105f337c3bd05ed186",
+                "option": "quis dolor sit ullamco eu",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "65809210adf3603b8ac7813d",
+                "option": "fugiat aute ipsum nulla do",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "6580921034ef7905cf982df6",
+                "option": "sit laboris nisi non sit",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "65809210aa1746bd871fb47d",
+                "option": "adipisicing ut dolore id minim",
+                "label": "Option",
+                "enabled": true
+            }
+        ],
+        "settings": {
+            "captureGender": false,
+            "closePollOnScheduledDate": false,
+            "captureCity": true,
+            "captureCountry": false
+        },
+        "createdByUserRef": "6574b40739c6206cfc1e1ad6",
+        "additionalQuestions": [
+            {
+                "id": "65809210f6c2779f286278cb",
+                "option": "dolor commodo consequat do enim",
+                "question": "ea laboris mollit officia et",
+                "answerType": "range",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092109317554ebe6c6863",
+                        "label": "Choice",
+                        "choice": "deserunt nisi consectetur exercitation officia"
+                    },
+                    {
+                        "id": "658092105871f0b5aab6faf8",
+                        "label": "Choice",
+                        "choice": "velit magna officia et culpa"
+                    },
+                    {
+                        "id": "658092100142194930bf7829",
+                        "label": "Choice",
+                        "choice": "ipsum enim veniam pariatur anim"
+                    },
+                    {
+                        "id": "65809210306c6ea86ef6634e",
+                        "label": "Choice",
+                        "choice": "cupidatat non reprehenderit consectetur laboris"
+                    },
+                    {
+                        "id": "65809210ee92a8f783b44bc2",
+                        "label": "Choice",
+                        "choice": "officia ex amet laborum ullamco"
+                    }
+                ],
+                "rangeStartValue": 4,
+                "rangeEndValue": 86,
+                "rangeStepValue": 5,
+                "dateValidationOption": "disable_past_dates"
+            },
+            {
+                "id": "65809210fb1d87eedaaabc39",
+                "option": "magna officia nostrud anim do",
+                "question": "duis Lorem dolore aute aute",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210f97ec4702189b8c2",
+                        "label": "Choice",
+                        "choice": "duis ex tempor nulla minim"
+                    },
+                    {
+                        "id": "6580921032b8324dbf9bc6ac",
+                        "label": "Choice",
+                        "choice": "aliquip esse in do et"
+                    },
+                    {
+                        "id": "65809210930b6be95b5e3721",
+                        "label": "Choice",
+                        "choice": "reprehenderit nostrud anim laborum nulla"
+                    },
+                    {
+                        "id": "65809210aff0a28e0cf2ce12",
+                        "label": "Choice",
+                        "choice": "excepteur elit et fugiat deserunt"
+                    },
+                    {
+                        "id": "65809210e42039158cb83e71",
+                        "label": "Choice",
+                        "choice": "magna ea nostrud ipsum Lorem"
+                    }
+                ],
+                "rangeStartValue": 9,
+                "rangeEndValue": 35,
+                "rangeStepValue": 5,
+                "dateValidationOption": "disable_past_dates"
+            },
+            {
+                "id": "658092104ce6a24e3ed640b1",
+                "option": "non adipisicing eiusmod amet ut",
+                "question": "ipsum amet veniam ad ex",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092106700eb26b04aab6a",
+                        "label": "Choice",
+                        "choice": "cupidatat anim deserunt aliqua cillum"
+                    },
+                    {
+                        "id": "65809210189379c8bfccfa71",
+                        "label": "Choice",
+                        "choice": "nostrud non enim nulla nulla"
+                    },
+                    {
+                        "id": "65809210d9c0bd1fe227b53f",
+                        "label": "Choice",
+                        "choice": "culpa ad sunt mollit adipisicing"
+                    },
+                    {
+                        "id": "65809210ca12afac90821e09",
+                        "label": "Choice",
+                        "choice": "cillum amet pariatur magna duis"
+                    },
+                    {
+                        "id": "6580921039c9f18680ea855a",
+                        "label": "Choice",
+                        "choice": "et adipisicing exercitation pariatur adipisicing"
+                    }
+                ],
+                "rangeStartValue": 6,
+                "rangeEndValue": 59,
+                "rangeStepValue": 4,
+                "dateValidationOption": "disable_past_dates"
+            },
+            {
+                "id": "6580921056669436492b3ea3",
+                "option": "id officia do voluptate in",
+                "question": "nulla anim duis sit qui",
+                "answerType": "range",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092108c766c58f0588a9a",
+                        "label": "Choice",
+                        "choice": "dolore sint duis nostrud cillum"
+                    },
+                    {
+                        "id": "658092106e5ef3b8f2aa12ad",
+                        "label": "Choice",
+                        "choice": "irure eiusmod Lorem excepteur consequat"
+                    },
+                    {
+                        "id": "65809210a4dfe66180f9d7e5",
+                        "label": "Choice",
+                        "choice": "ex commodo id veniam est"
+                    },
+                    {
+                        "id": "65809210836cf2445d5acf93",
+                        "label": "Choice",
+                        "choice": "dolore do do et officia"
+                    },
+                    {
+                        "id": "6580921038033fb4f5ba179e",
+                        "label": "Choice",
+                        "choice": "eiusmod proident cupidatat commodo reprehenderit"
+                    }
+                ],
+                "rangeStartValue": 9,
+                "rangeEndValue": 69,
+                "rangeStepValue": 3,
+                "dateValidationOption": "disable_future_dates"
+            },
+            {
+                "id": "6580921070cd08541a8764b0",
+                "option": "incididunt et et quis dolor",
+                "question": "enim anim nulla incididunt ea",
+                "answerType": "choice",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092103059b55f382af42c",
+                        "label": "Choice",
+                        "choice": "excepteur ut occaecat ullamco Lorem"
+                    },
+                    {
+                        "id": "6580921011b1f92235544096",
+                        "label": "Choice",
+                        "choice": "commodo sint dolor culpa incididunt"
+                    },
+                    {
+                        "id": "65809210b4f9e2802f52387b",
+                        "label": "Choice",
+                        "choice": "ut aliquip irure labore cupidatat"
+                    },
+                    {
+                        "id": "658092105c788e8d83229c56",
+                        "label": "Choice",
+                        "choice": "mollit laborum laboris est anim"
+                    },
+                    {
+                        "id": "65809210a5319cc6dd42dc25",
+                        "label": "Choice",
+                        "choice": "Lorem est cillum nostrud id"
+                    }
+                ],
+                "rangeStartValue": 5,
+                "rangeEndValue": 50,
+                "rangeStepValue": 1,
+                "dateValidationOption": ""
+            }
+        ]
+    },
+    {
+        "question": "Eu mollit duis dolor non. Magna deserunt eiusmod eu veniam ut id ex. Officia labore do ea sunt. Labore in cillum id pariatur consectetur culpa aliqua esse. Dolore ut velit magna ullamco amet quis sit occaecat pariatur ullamco magna dolor irure veniam. Anim irure do do et elit consectetur tempor.\r\n",
+        "votingType": "multiple_choice",
+        "questionSlug": "KEENGEN",
+        "duration": "2023-12-30T09:10:22 -06:-30",
+        "options": [
+            {
+                "id": "658092109c7a2aae15710dfa",
+                "option": "dolore velit eiusmod excepteur exercitation",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "658092106a3ecea923449d9f",
+                "option": "occaecat excepteur sit sit sunt",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "6580921007559011ae99762b",
+                "option": "nostrud ipsum sunt qui ullamco",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "658092107645d0ac6f17abfb",
+                "option": "veniam consectetur consectetur enim excepteur",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "6580921075088f74f8a1fcad",
+                "option": "ea do eu aute tempor",
+                "label": "Option",
+                "enabled": true
+            }
+        ],
+        "settings": {
+            "captureGender": true,
+            "closePollOnScheduledDate": false,
+            "captureCity": true,
+            "captureCountry": false
+        },
+        "createdByUserRef": "6574b40739c6206cfc1e1ad6",
+        "additionalQuestions": [
+            {
+                "id": "65809210731071611e3dff28",
+                "option": "ea magna proident Lorem ipsum",
+                "question": "ea elit anim elit quis",
+                "answerType": "choice",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092104fbf237968a8235f",
+                        "label": "Choice",
+                        "choice": "deserunt officia non elit labore"
+                    },
+                    {
+                        "id": "65809210de4ef3b992272044",
+                        "label": "Choice",
+                        "choice": "officia aute aute consequat Lorem"
+                    },
+                    {
+                        "id": "658092106dc0bcff77a643c0",
+                        "label": "Choice",
+                        "choice": "elit nostrud est reprehenderit mollit"
+                    },
+                    {
+                        "id": "65809210437b76273a6e3710",
+                        "label": "Choice",
+                        "choice": "exercitation magna ullamco quis esse"
+                    },
+                    {
+                        "id": "6580921064342e91e040b266",
+                        "label": "Choice",
+                        "choice": "sit voluptate officia esse duis"
+                    }
+                ],
+                "rangeStartValue": 10,
+                "rangeEndValue": 71,
+                "rangeStepValue": 5,
+                "dateValidationOption": ""
+            },
+            {
+                "id": "658092102d205e17b61844b3",
+                "option": "voluptate Lorem laborum minim laborum",
+                "question": "nisi non aliqua incididunt mollit",
+                "answerType": "range",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210d796127fb0707955",
+                        "label": "Choice",
+                        "choice": "deserunt reprehenderit velit non reprehenderit"
+                    },
+                    {
+                        "id": "65809210e32d0727f9a68470",
+                        "label": "Choice",
+                        "choice": "dolore deserunt nulla Lorem tempor"
+                    },
+                    {
+                        "id": "6580921069aacca5b524de57",
+                        "label": "Choice",
+                        "choice": "id velit consectetur enim sint"
+                    },
+                    {
+                        "id": "65809210e0f8f53acfdbc103",
+                        "label": "Choice",
+                        "choice": "laboris quis fugiat nulla ullamco"
+                    },
+                    {
+                        "id": "658092101cf40c82cb2fba08",
+                        "label": "Choice",
+                        "choice": "pariatur ex nulla esse id"
+                    }
+                ],
+                "rangeStartValue": 4,
+                "rangeEndValue": 95,
+                "rangeStepValue": 4,
+                "dateValidationOption": "disable_past_dates"
+            },
+            {
+                "id": "6580921006232343fe662176",
+                "option": "laboris laboris dolor occaecat tempor",
+                "question": "ipsum labore esse consectetur commodo",
+                "answerType": "choice",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092104e4ba693ec9d5537",
+                        "label": "Choice",
+                        "choice": "eiusmod labore occaecat et nulla"
+                    },
+                    {
+                        "id": "65809210bffe96d3e2ed308e",
+                        "label": "Choice",
+                        "choice": "nulla duis id esse sit"
+                    },
+                    {
+                        "id": "65809210405529ba8c806579",
+                        "label": "Choice",
+                        "choice": "excepteur ullamco sunt voluptate culpa"
+                    },
+                    {
+                        "id": "65809210fe018a5f5ea8e59d",
+                        "label": "Choice",
+                        "choice": "minim anim aliquip minim anim"
+                    },
+                    {
+                        "id": "658092101955a39d0f295129",
+                        "label": "Choice",
+                        "choice": "Lorem Lorem occaecat labore fugiat"
+                    }
+                ],
+                "rangeStartValue": 9,
+                "rangeEndValue": 23,
+                "rangeStepValue": 1,
+                "dateValidationOption": "disable_future_dates"
+            },
+            {
+                "id": "6580921060a81edd2d1dffbe",
+                "option": "quis deserunt dolore mollit minim",
+                "question": "consequat consectetur do esse non",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210a4d8b86dad0838e6",
+                        "label": "Choice",
+                        "choice": "mollit exercitation dolor nulla adipisicing"
+                    },
+                    {
+                        "id": "6580921058aaf77f84fe0966",
+                        "label": "Choice",
+                        "choice": "enim elit fugiat pariatur laborum"
+                    },
+                    {
+                        "id": "658092107a9efc32dde79977",
+                        "label": "Choice",
+                        "choice": "Lorem quis laborum id consectetur"
+                    },
+                    {
+                        "id": "6580921057798f1ebc78cbbc",
+                        "label": "Choice",
+                        "choice": "excepteur Lorem deserunt nisi enim"
+                    },
+                    {
+                        "id": "658092108be89b78240c134a",
+                        "label": "Choice",
+                        "choice": "laborum nostrud cupidatat non ullamco"
+                    }
+                ],
+                "rangeStartValue": 0,
+                "rangeEndValue": 62,
+                "rangeStepValue": 2,
+                "dateValidationOption": ""
+            },
+            {
+                "id": "65809210982bc79d03a755ac",
+                "option": "qui cupidatat voluptate id magna",
+                "question": "dolor anim in sit id",
+                "answerType": "choice",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210a1c0702d9c252292",
+                        "label": "Choice",
+                        "choice": "aliquip consectetur aute non eu"
+                    },
+                    {
+                        "id": "6580921029aa398ef59b347c",
+                        "label": "Choice",
+                        "choice": "et quis sunt consequat culpa"
+                    },
+                    {
+                        "id": "658092108a23c5cd297f17b6",
+                        "label": "Choice",
+                        "choice": "nulla irure Lorem duis commodo"
+                    },
+                    {
+                        "id": "658092108257db08511fc9df",
+                        "label": "Choice",
+                        "choice": "amet consequat magna in laborum"
+                    },
+                    {
+                        "id": "6580921013bd1095348df328",
+                        "label": "Choice",
+                        "choice": "cupidatat ex nulla in elit"
+                    }
+                ],
+                "rangeStartValue": 6,
+                "rangeEndValue": 68,
+                "rangeStepValue": 1,
+                "dateValidationOption": ""
+            }
+        ]
+    },
+    {
+        "question": "Irure anim reprehenderit esse enim sit aliquip nulla dolore. Exercitation amet dolor deserunt et. Anim consequat tempor anim qui ex eu pariatur laborum.\r\n",
+        "votingType": "multiple_choice",
+        "questionSlug": "ZYTREK",
+        "duration": "2023-12-22T11:05:15 -06:-30",
+        "options": [
+            {
+                "id": "65809210444aaee22cb861c4",
+                "option": "ex aute elit sunt aute",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "6580921092dc66dd0219bbb8",
+                "option": "aliqua sint duis dolore aliqua",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "658092107deffaaebc384a1a",
+                "option": "reprehenderit incididunt ex velit fugiat",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "658092101645b92e6a7f289e",
+                "option": "ullamco ullamco velit nostrud irure",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "65809210c31e949abbb7d730",
+                "option": "consectetur dolor laborum aliquip cillum",
+                "label": "Option",
+                "enabled": false
+            }
+        ],
+        "settings": {
+            "captureGender": false,
+            "closePollOnScheduledDate": false,
+            "captureCity": true,
+            "captureCountry": false
+        },
+        "createdByUserRef": "6574b40739c6206cfc1e1ad6",
+        "additionalQuestions": [
+            {
+                "id": "658092103ebf548414ded84f",
+                "option": "duis qui laboris cupidatat reprehenderit",
+                "question": "nostrud nostrud veniam sunt id",
+                "answerType": "range",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092108849ffedbbe58334",
+                        "label": "Choice",
+                        "choice": "excepteur elit do laboris esse"
+                    },
+                    {
+                        "id": "658092105a312eb083e51941",
+                        "label": "Choice",
+                        "choice": "quis aliquip occaecat ex laboris"
+                    },
+                    {
+                        "id": "658092108e512a2cd6f5132e",
+                        "label": "Choice",
+                        "choice": "Lorem eiusmod labore pariatur non"
+                    },
+                    {
+                        "id": "65809210ac3e8e0c23914f57",
+                        "label": "Choice",
+                        "choice": "culpa sunt eu qui et"
+                    },
+                    {
+                        "id": "658092105b20be654c1b2818",
+                        "label": "Choice",
+                        "choice": "consectetur non exercitation labore magna"
+                    }
+                ],
+                "rangeStartValue": 8,
+                "rangeEndValue": 81,
+                "rangeStepValue": 1,
+                "dateValidationOption": "disable_past_dates"
+            },
+            {
+                "id": "65809210ca98198d49192f6c",
+                "option": "eu velit deserunt commodo ad",
+                "question": "magna laborum tempor ipsum ea",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092105b19d44a86a6c8a5",
+                        "label": "Choice",
+                        "choice": "sint irure et do eu"
+                    },
+                    {
+                        "id": "65809210105d8aef40679467",
+                        "label": "Choice",
+                        "choice": "qui mollit incididunt minim est"
+                    },
+                    {
+                        "id": "65809210a2d6460bc75a2a20",
+                        "label": "Choice",
+                        "choice": "velit velit pariatur commodo ad"
+                    },
+                    {
+                        "id": "65809210f95036bad21ba770",
+                        "label": "Choice",
+                        "choice": "aliquip aliquip consectetur consectetur ipsum"
+                    },
+                    {
+                        "id": "65809210d2c973ce9c603794",
+                        "label": "Choice",
+                        "choice": "quis esse ad ullamco non"
+                    }
+                ],
+                "rangeStartValue": 3,
+                "rangeEndValue": 67,
+                "rangeStepValue": 5,
+                "dateValidationOption": "disable_future_dates"
+            },
+            {
+                "id": "65809210d968c6faadf934f4",
+                "option": "sunt sit ut minim culpa",
+                "question": "nulla excepteur esse esse officia",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092100feef914de2a642e",
+                        "label": "Choice",
+                        "choice": "occaecat esse non sit minim"
+                    },
+                    {
+                        "id": "65809210af3deefdbf490851",
+                        "label": "Choice",
+                        "choice": "eiusmod sint occaecat elit Lorem"
+                    },
+                    {
+                        "id": "65809210867f554c5ce1de08",
+                        "label": "Choice",
+                        "choice": "occaecat consectetur consequat cillum ut"
+                    },
+                    {
+                        "id": "6580921032f54303161c03f0",
+                        "label": "Choice",
+                        "choice": "et mollit adipisicing ad labore"
+                    },
+                    {
+                        "id": "65809210fed5f9af1dbc3dca",
+                        "label": "Choice",
+                        "choice": "sint esse voluptate do laborum"
+                    }
+                ],
+                "rangeStartValue": 4,
+                "rangeEndValue": 80,
+                "rangeStepValue": 3,
+                "dateValidationOption": ""
+            },
+            {
+                "id": "65809210873a6ee6588bf6ed",
+                "option": "reprehenderit non magna incididunt consequat",
+                "question": "cillum irure in proident dolor",
+                "answerType": "date",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210607c02e4ac9a1ec7",
+                        "label": "Choice",
+                        "choice": "Lorem ut voluptate culpa sit"
+                    },
+                    {
+                        "id": "65809210eab7665f0aee4f48",
+                        "label": "Choice",
+                        "choice": "in est laboris amet ad"
+                    },
+                    {
+                        "id": "658092101dae2b60b8bdec83",
+                        "label": "Choice",
+                        "choice": "reprehenderit est non ad veniam"
+                    },
+                    {
+                        "id": "65809210c8f7e43cea0df516",
+                        "label": "Choice",
+                        "choice": "excepteur laborum labore pariatur reprehenderit"
+                    },
+                    {
+                        "id": "65809210a5e014281cda99c7",
+                        "label": "Choice",
+                        "choice": "velit culpa esse fugiat id"
+                    }
+                ],
+                "rangeStartValue": 0,
+                "rangeEndValue": 48,
+                "rangeStepValue": 3,
+                "dateValidationOption": "disable_future_dates"
+            },
+            {
+                "id": "65809210e45c031b9504fae7",
+                "option": "et veniam elit exercitation aute",
+                "question": "qui reprehenderit sit aliqua eu",
+                "answerType": "range",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210d3bbde9c592f572d",
+                        "label": "Choice",
+                        "choice": "dolor adipisicing esse aute labore"
+                    },
+                    {
+                        "id": "6580921029dcbb497e793f25",
+                        "label": "Choice",
+                        "choice": "Lorem adipisicing enim sit deserunt"
+                    },
+                    {
+                        "id": "658092106575c244bee389a9",
+                        "label": "Choice",
+                        "choice": "laboris amet laboris eu sit"
+                    },
+                    {
+                        "id": "6580921089a4aa79cfedc17c",
+                        "label": "Choice",
+                        "choice": "velit est do non elit"
+                    },
+                    {
+                        "id": "65809210421a269b39e569ad",
+                        "label": "Choice",
+                        "choice": "ullamco est ex deserunt id"
+                    }
+                ],
+                "rangeStartValue": 4,
+                "rangeEndValue": 47,
+                "rangeStepValue": 2,
+                "dateValidationOption": "disable_past_dates"
+            }
+        ]
+    },
+    {
+        "question": "Adipisicing consectetur reprehenderit duis id cillum adipisicing pariatur laborum consectetur ad. Nisi proident officia cillum voluptate ad consequat pariatur pariatur ex incididunt officia irure sunt. Excepteur Lorem laborum sunt sint et ipsum irure consequat adipisicing excepteur ut. Velit commodo consequat tempor occaecat nisi consequat labore. Amet sint laborum labore eu. Sint nulla sint excepteur amet laboris occaecat aute. Pariatur consectetur ea nisi mollit nulla id labore enim commodo amet proident.\r\n",
+        "votingType": "multiple_choice",
+        "questionSlug": "SHADEASE",
+        "duration": "2023-12-24T05:12:23 -06:-30",
+        "options": [
+            {
+                "id": "658092108becda699514f00f",
+                "option": "sint culpa dolore commodo Lorem",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "658092107b25e9c25fe6029a",
+                "option": "ea enim aliqua reprehenderit do",
+                "label": "Option",
+                "enabled": true
+            },
+            {
+                "id": "658092108c15e416814db67c",
+                "option": "laboris et eiusmod minim elit",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "658092103f48d6385685a96b",
+                "option": "aute consequat laborum ex qui",
+                "label": "Option",
+                "enabled": false
+            },
+            {
+                "id": "658092107f7688dd60d1a1af",
+                "option": "et incididunt tempor id velit",
+                "label": "Option",
+                "enabled": false
+            }
+        ],
+        "settings": {
+            "captureGender": true,
+            "closePollOnScheduledDate": true,
+            "captureCity": false,
+            "captureCountry": true
+        },
+        "createdByUserRef": "6574b40739c6206cfc1e1ad6",
+        "additionalQuestions": [
+            {
+                "id": "65809210d18eaa2843364885",
+                "option": "quis fugiat nulla est occaecat",
+                "question": "mollit id labore proident anim",
+                "answerType": "choice",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210fa5fcfa0d4235d1f",
+                        "label": "Choice",
+                        "choice": "commodo tempor minim excepteur proident"
+                    },
+                    {
+                        "id": "6580921067c7095d79c25d1f",
+                        "label": "Choice",
+                        "choice": "fugiat tempor magna cillum elit"
+                    },
+                    {
+                        "id": "65809210cd6d366f14725754",
+                        "label": "Choice",
+                        "choice": "sunt eiusmod irure pariatur consectetur"
+                    },
+                    {
+                        "id": "65809210110403635b0aa40e",
+                        "label": "Choice",
+                        "choice": "incididunt id consequat nisi in"
+                    },
+                    {
+                        "id": "65809210f01e8e4f9a3e752f",
+                        "label": "Choice",
+                        "choice": "tempor ea fugiat aute proident"
+                    }
+                ],
+                "rangeStartValue": 6,
+                "rangeEndValue": 60,
+                "rangeStepValue": 3,
+                "dateValidationOption": "disable_past_dates"
+            },
+            {
+                "id": "658092107a7e0154e9a1d1a8",
+                "option": "exercitation excepteur id et laborum",
+                "question": "non nulla do mollit eiusmod",
+                "answerType": "choice",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210897712c82aab2b62",
+                        "label": "Choice",
+                        "choice": "mollit duis labore ipsum dolor"
+                    },
+                    {
+                        "id": "65809210d1494f7cc14aed7b",
+                        "label": "Choice",
+                        "choice": "fugiat deserunt laborum elit dolor"
+                    },
+                    {
+                        "id": "658092109566545ed78a676e",
+                        "label": "Choice",
+                        "choice": "ex incididunt aliquip do qui"
+                    },
+                    {
+                        "id": "658092106c263cbb2a81082f",
+                        "label": "Choice",
+                        "choice": "exercitation amet sunt qui nisi"
+                    },
+                    {
+                        "id": "65809210fe571754fdfc90da",
+                        "label": "Choice",
+                        "choice": "commodo officia labore elit tempor"
+                    }
+                ],
+                "rangeStartValue": 7,
+                "rangeEndValue": 92,
+                "rangeStepValue": 1,
+                "dateValidationOption": "disable_future_dates"
+            },
+            {
+                "id": "65809210fd0ab278bd124676",
+                "option": "ullamco adipisicing incididunt est duis",
+                "question": "nulla dolore ut nisi eiusmod",
+                "answerType": "choice",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "65809210da1df983d7d8328d",
+                        "label": "Choice",
+                        "choice": "minim id culpa sit consectetur"
+                    },
+                    {
+                        "id": "65809210edfdf9f91af8aff5",
+                        "label": "Choice",
+                        "choice": "mollit consectetur ipsum excepteur eiusmod"
+                    },
+                    {
+                        "id": "658092109580750cb193d45d",
+                        "label": "Choice",
+                        "choice": "quis irure esse anim aute"
+                    },
+                    {
+                        "id": "658092107a58807e829ed1f7",
+                        "label": "Choice",
+                        "choice": "mollit laborum cillum irure exercitation"
+                    },
+                    {
+                        "id": "658092107236fc5f11a8a985",
+                        "label": "Choice",
+                        "choice": "aliquip ullamco velit cupidatat minim"
+                    }
+                ],
+                "rangeStartValue": 10,
+                "rangeEndValue": 49,
+                "rangeStepValue": 1,
+                "dateValidationOption": ""
+            },
+            {
+                "id": "658092104a4327c70a4715f9",
+                "option": "voluptate deserunt ex reprehenderit eiusmod",
+                "question": "veniam anim cillum veniam esse",
+                "answerType": "range",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092107e7a3a8d7f88c5fe",
+                        "label": "Choice",
+                        "choice": "fugiat sint enim non aliquip"
+                    },
+                    {
+                        "id": "65809210586df84354294bd8",
+                        "label": "Choice",
+                        "choice": "consectetur labore ut aliquip et"
+                    },
+                    {
+                        "id": "65809210754570201ef1de45",
+                        "label": "Choice",
+                        "choice": "sint aliqua quis culpa ea"
+                    },
+                    {
+                        "id": "6580921060e3202097c371d2",
+                        "label": "Choice",
+                        "choice": "consectetur qui excepteur sunt ex"
+                    },
+                    {
+                        "id": "6580921018ce8efbde77784b",
+                        "label": "Choice",
+                        "choice": "dolore pariatur cupidatat non incididunt"
+                    }
+                ],
+                "rangeStartValue": 9,
+                "rangeEndValue": 41,
+                "rangeStepValue": 2,
+                "dateValidationOption": ""
+            },
+            {
+                "id": "658092108f5e00106100c532",
+                "option": "irure officia cillum minim Lorem",
+                "question": "velit incididunt sit ullamco dolor",
+                "answerType": "choice",
+                "questionLabel": "Question",
+                "choices": [
+                    {
+                        "id": "658092100b018733a38e55fc",
+                        "label": "Choice",
+                        "choice": "cillum reprehenderit ullamco sunt incididunt"
+                    },
+                    {
+                        "id": "6580921090ab221842d5042c",
+                        "label": "Choice",
+                        "choice": "esse sint dolor aute ea"
+                    },
+                    {
+                        "id": "6580921063bf29a662ab94c3",
+                        "label": "Choice",
+                        "choice": "ipsum aute enim eu tempor"
+                    },
+                    {
+                        "id": "65809210318e80eac0504506",
+                        "label": "Choice",
+                        "choice": "sit exercitation sunt et velit"
+                    },
+                    {
+                        "id": "65809210d7755ea6a6d2d7db",
+                        "label": "Choice",
+                        "choice": "nostrud sunt esse cupidatat mollit"
+                    }
+                ],
+                "rangeStartValue": 4,
+                "rangeEndValue": 81,
+                "rangeStepValue": 2,
+                "dateValidationOption": ""
+            }
+        ]
+    }
+]

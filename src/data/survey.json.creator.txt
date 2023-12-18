@@ -1,0 +1,193 @@
+[
+  '{{repeat(20)}}',{
+"title": '{{lorem(1, "paragraphs")}}',
+"description": '{{lorem(2, "paragraphs")}}',
+"questionSlug": '{{company().toUpperCase()}}',
+"survey": [
+  '{{repeat(10, 20)}}',
+{
+"question": '{{lorem(1, "paragraphs")}}',
+"votingType": '{{random("multiple_choice", "check_box", "star_rating", "dropdown", "short_text", "long_text","phone_number", "address", "email", "legal", "contact_info", "range", "date", "time", "linear_scale", "multiple_choice_grid", "checkbox_grid", "" )}}',
+  "title": '{{lorem(1, "paragraphs")}}',
+  
+  "options": function(votingType){
+     var type = ["multiple_choice", "check_box", "star_rating", "dropdown", "short_text", "long_text","phone_number", "address", "email", "legal", "contact_info", "range", "date", "time", "linear_scale", "multiple_choice_grid", "checkbox_grid", ""];
+    var selectedType = type[votingType.integer(0, type.length - 1)];
+      if(selectedType === "multiple_choice"){
+      
+      return [
+          '{{repeat(5)}}',
+            {
+             id: '{{objectId()}}',
+            "label": "Option",
+            "enabled": '{{bool()}}',
+            "option": '{{lorem(5, "words")}}'
+            }    
+          ];
+    } else if(selectedType === "check_box"){
+    	return [
+          '{{repeat(5)}}',
+            {
+             id: '{{objectId()}}',
+            "label": "Choice",
+            "enabled": '{{bool()}}',
+            "choice": '{{lorem(5, "words")}}'
+            }    
+          ];
+    } else if(selectedType === "star_rating"){
+    	return [
+            {
+               id: '{{objectId()}}',
+            "label": "Star Count",
+            "starCount": "{{integer(0, 5)}}",
+            "precision": '{{floating(.02, 1)}}',
+            "icon": '{{random("star", "love", "smiley" )}}',
+            "color": "#008b02"
+            }    
+          ];
+    } else if(selectedType === "dropdown"){
+    	return [
+            {
+              id: '{{objectId()}}',
+            "label": "Dropdown",
+            "dropdownOptions": "India, Pakistan, SriLanka, Afganithan, Bangladesh"
+            }    
+          ];
+    } else if(selectedType === "legal"){
+    	return [
+            {
+             id: '{{objectId()}}',
+            "label": "Option",
+            "enabled": '{{bool()}}',
+            "option": "I Accept"
+            },
+          	{
+             id: '{{objectId()}}',
+            "label": "Option",
+            "enabled": '{{bool()}}',
+            "option": "I Reject"
+            }  
+          ];
+    } else if(selectedType === "contact_info"){
+    	return [
+            {
+            id: '{{objectId()}}',
+            "label": "Option",
+            "enabled": true,
+            "option": "First Name"
+            },
+            {
+            id: '{{objectId()}}',
+            "label": "Option",
+            "enabled": true,
+            "option": "Last Name"
+            },
+            {
+            id: '{{objectId()}}',
+            "label": "Option",
+            "enabled": true,
+            "option": "Phone Number"
+            },
+            {
+            id: '{{objectId()}}',
+            "label": "Option",
+            "enabled": true,
+            "option": "Email"
+            },
+            {
+            id: '{{objectId()}}',
+            "label": "Option",
+            "enabled": true,
+            "option": "Company"
+            } 
+          ];
+    } else if(selectedType === "range"){
+    	return [
+            {
+            id: '{{objectId()}}',
+            "label": "slider",
+            "startValue": "{{integer(0, 10)}}",
+            "endValue": "{{integer(20, 100)}}",
+            "stepValue": "{{integer(1, 5)}}"
+            }
+          ];
+    }  else if(selectedType === "linear_scale"){
+    	return [
+            {
+            id: '{{objectId()}}',
+            "label": "linearScale",
+            "from": "{{integer(0, 1)}}",
+            "to": "{{integer(0, 10)}}",
+            "formText": '{{lorem(1, "words")}}',
+            "toText": '{{lorem(1, "words")}}'
+            }
+          ];
+    }  else if(selectedType === "multiple_choice_grid"){
+    	return [
+            {
+            id: '{{objectId()}}',
+            "label": "linearScale",
+            "rows": [
+              '{{repeat(3)}}',
+                {
+                id: '{{objectId()}}',
+                "label": "Row",
+                "option": '{{lorem(1, "words")}}'
+                }
+                
+                ],
+            "columns": [
+              '{{repeat(5)}}',
+                {
+                id: '{{objectId()}}',
+                "label": "Column",
+                "option": '{{lorem(1, "words")}}'
+                }
+                
+              ]
+            }
+          ];
+    }   else if(selectedType === "checkbox_grid"){
+    	return [
+            {
+            id: '{{objectId()}}',
+            "label": "linearScale",
+            "rows": [
+              '{{repeat(3)}}',
+                {
+                id: '{{objectId()}}',
+                "label": "Row",
+                "option": '{{lorem(1, "words")}}'
+                }
+                
+                ],
+            "columns": [
+              '{{repeat(5)}}',
+                {
+                id: '{{objectId()}}',
+                "label": "Column",
+                "option": '{{lorem(1, "words")}}'
+                }
+                
+              ]
+            }
+          ];
+    } else {
+      return [];
+    }
+  },
+"required": '{{bool()}}'
+}
+],
+"duration": null,
+"settings": {
+"captureGender": false,
+"closePollOnScheduledDate": false,
+"captureCity": false,
+"captureCountry": false
+},
+"createdByUserRef": "657f72bc880d298cde92843d",
+"createdAt": "2023-12-18T19:31:02.953Z",
+"updatedAt": "2023-12-18T19:31:02.953Z",
+"__v": 0
+}]

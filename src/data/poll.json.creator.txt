@@ -1,0 +1,71 @@
+[
+  '{{repeat(1, 7)}}',
+  {
+    question: '{{lorem(1, "paragraphs")}}',
+    votingType: 'multiple_choice',
+    questionSlug: '{{company().toUpperCase()}}',
+    duration: '{{date(new Date(2024, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',
+    //index: '{{index()}}',
+    //guid: '{{guid()}}',
+    //isActive: '{{bool()}}',
+    //balance: '{{floating(1000, 4000, 2, "$0,0.00")}}',
+    //picture: 'http://placehold.it/32x32',
+    //age: '{{integer(20, 40)}}',
+    //eyeColor: '{{random("blue", "brown", "green")}}',
+    //name: '{{firstName()}} {{surname()}}',
+    //gender: '{{gender()}}',
+    //company: '{{company().toUpperCase()}}',
+    //email: '{{email()}}',
+   // phone: '+1 {{phone()}}',
+    //address: '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
+    //about: '{{lorem(1, "paragraphs")}}',
+    //registered: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',
+    //latitude: '{{floating(-90.000001, 90)}}',
+    //longitude: '{{floating(-180.000001, 180)}}',
+    options: ['{{repeat(5)}}',{
+      id: '{{objectId()}}',
+      option: '{{lorem(5, "words")}}',
+      label: "Option",
+      enabled: '{{bool()}}'
+    }
+    ],
+    "settings": {
+      "captureGender": '{{bool()}}',
+      "closePollOnScheduledDate": '{{bool()}}',
+      "captureCity": '{{bool()}}',
+      "captureCountry": '{{bool()}}'
+},
+    "createdByUserRef":"6574b40739c6206cfc1e1ad6",
+    additionalQuestions: ['{{repeat(5)}}',{
+      id: '{{objectId()}}',
+      option: '{{lorem(5, "words")}}',
+      question: '{{lorem(5, "words")}}',
+      answerType: '{{random("range", "choice", "date")}}',
+      questionLabel: "Question",
+      choices: ['{{repeat(5)}}', {
+     	id: '{{objectId()}}',
+		label: "Choice",
+		choice: '{{lorem(5, "words")}}'
+      }],
+      	rangeStartValue: "{{integer(0, 10)}}",
+		rangeEndValue: "{{integer(20, 100)}}",
+		rangeStepValue: "{{integer(1, 5)}}",
+      dateValidationOption: '{{random("disable_future_dates", "disable_past_dates", "")}}'
+    }]
+    
+    //friends: [
+    //  '{{repeat(3)}}',
+    //  {
+     //   id: '{{index()}}',
+     //   name: '{{firstName()}} {{surname()}}'
+    //  }
+    //]
+    //greeting: function (tags) {
+    //  return 'Hello, ' + this.name + '! You have ' + tags.integer(1, 10) + ' unread messages.';
+    //},
+    //favoriteFruit: function (tags) {
+    //  var fruits = ['apple', 'banana', 'strawberry'];
+     // return fruits[tags.integer(0, fruits.length - 1)];
+    //}
+  }
+]

@@ -119,7 +119,7 @@ const PollFormWrapper = () => {
 
   React.useEffect(() => {
     if (editableData) {
-      setValue("createdByUserRef", editableData.createdByUserRef._id);
+      setValue("createdByUserRef", editableData.createdByUserRef?._id);
       setValue("questionImageRef", editableData.questionImageRef);
       setValue("settings", editableData.settings);
       setAlreadySavedDataId(editableData._id);

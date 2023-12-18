@@ -10,6 +10,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import ReactTimeAgo from "react-time-ago";
 import NoProfileImage from "./../../images/img/noProfileImage.png";
 import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
+import { toast } from "react-toastify";
 import {
   Avatar,
   Button,
@@ -33,6 +34,7 @@ import {
   AnswerPollSubmittedValueType,
   AnswerSurveySubmittedValueType,
 } from "../../types";
+import { checkValueAndValidityForSurvey } from "../../utility/util";
 
 const AnswerSurveyWrapper = () => {
   const theme = useTheme();
@@ -101,15 +103,29 @@ const AnswerSurveyWrapper = () => {
   }, [contextDurationValue]);
 
   const submitHandler = async (data: any) => {
-    console.log(data);
+    const surveySegmentsForActiveStep: any =
+      getValues().survey[0]?.segments[activeStep];
+    console.log(surveySegmentsForActiveStep);
+    const isValid = checkValueAndValidityForSurvey(
+      surveySegmentsForActiveStep,
+      toast
+    );
+    if (isValid) {
+      console.log(data);
+    }
   };
 
   const nextHandler = async () => {
-    const surveySegmentsForActiveStep =
+    const surveySegmentsForActiveStep: any =
       getValues().survey[0]?.segments[activeStep];
-    console.log(getValues());
-
-    setActiveStep((prev) => prev + 1);
+    console.log(surveySegmentsForActiveStep);
+    const isValid = checkValueAndValidityForSurvey(
+      surveySegmentsForActiveStep,
+      toast
+    );
+    if (isValid) {
+      setActiveStep((prev) => prev + 1);
+    }
   };
   const prevHandler = () => {
     setActiveStep((prev) => prev - 1);

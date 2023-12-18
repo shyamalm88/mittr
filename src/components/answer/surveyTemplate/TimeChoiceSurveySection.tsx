@@ -48,10 +48,7 @@ function TimeChoiceSurveySection({
                 value={value}
                 hidden
                 {...register(
-                  `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].time` as const,
-                  {
-                    required: false,
-                  }
+                  `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].time` as const
                 )}
               />
               <LocalizationProvider dateAdapter={AdapterMoment}>

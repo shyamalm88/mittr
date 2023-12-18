@@ -29,6 +29,7 @@ import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRen
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import SignalCellularAltOutlinedIcon from "@mui/icons-material/SignalCellularAltOutlined";
 import { useRouter } from "next/router";
+import TextTruncate from "react-text-truncate";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -395,16 +396,24 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
                       scope="row"
                       padding="none"
                       align="left"
-                      dangerouslySetInnerHTML={{
-                        __html: (row as any).question
-                          ? he
-                              .decode((row as any).question)
-                              .replace(/(<([^>]+)>)/gi, "")
-                          : (row as any).title,
-                      }}
-                    ></StyledTableCell>
+                      sx={{ width: "20%" }}
+                    >
+                      <TextTruncate
+                        line={1}
+                        element="span"
+                        truncateText="…"
+                        text={
+                          (row as any).question
+                            ? he
+                                .decode((row as any).question)
+                                .replace(/(<([^>]+)>)/gi, "")
+                            : (row as any).title
+                        }
+                      />
+                    </StyledTableCell>
                     <StyledTableCell align="center" padding="none">
-                      {(row.createdByUserRef as any).fullName}
+                      {console.log(row)}
+                      {(row.createdByUserRef as any)?.fullName}
                     </StyledTableCell>
                     <StyledTableCell align="center" padding="none">
                       <Chip
@@ -414,7 +423,7 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
                       />
                     </StyledTableCell>
                     <StyledTableCell align="center" padding="none">
-                      {moment(row.createdAt).format("MMMM Do YYYY, h:mm a")}
+                      {moment(row.createdAt).format("L")}
                     </StyledTableCell>
                     <StyledTableCell align="center" padding="none">
                       <Stack direction="row" alignItems="center">
