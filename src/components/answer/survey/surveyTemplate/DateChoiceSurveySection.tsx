@@ -1,6 +1,6 @@
 import { Box, InputLabel, Typography } from "@mui/material";
 import React from "react";
-import { ComponentInputProps } from "../../../types";
+import { ComponentInputProps } from "../../../../types";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";

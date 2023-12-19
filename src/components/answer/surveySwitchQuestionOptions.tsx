@@ -1,58 +1,58 @@
 import { ComponentInputProps } from "../../types";
 import dynamic from "next/dynamic";
 const AddressInfoSurveySection = dynamic(
-  () => import("./surveyTemplate/AddressSurveySection")
+  () => import("./survey/surveyTemplate/AddressSurveySection")
 );
 const CheckBoxChoiceSurveySection = dynamic(
-  () => import("./surveyTemplate/CheckboxChoiceSurveySection")
+  () => import("./survey/surveyTemplate/CheckboxChoiceSurveySection")
 );
 const CheckboxGridSurveySection = dynamic(
-  () => import("./surveyTemplate/CheckboxGridSurveySection")
+  () => import("./survey/surveyTemplate/CheckboxGridSurveySection")
 );
 const ContactInfoSurveySection = dynamic(
-  () => import("./surveyTemplate/ContactInfoSurveySection")
+  () => import("./survey/surveyTemplate/ContactInfoSurveySection")
 );
 const DateChoiceSurveySection = dynamic(
-  () => import("./surveyTemplate/DateChoiceSurveySection")
+  () => import("./survey/surveyTemplate/DateChoiceSurveySection")
 );
 const DropDownChoiceSurveySection = dynamic(
-  () => import("./surveyTemplate/DropDownChoiceSurveySection")
+  () => import("./survey/surveyTemplate/DropDownChoiceSurveySection")
 );
 const EmailChoiceSurveySection = dynamic(
-  () => import("./surveyTemplate/EmailChoiceSurveySection")
+  () => import("./survey/surveyTemplate/EmailChoiceSurveySection")
 );
 const ImageMultipleChoiceSurveySection = dynamic(
-  () => import("./surveyTemplate/ImageMultipleChoiceSurveySection")
+  () => import("./survey/surveyTemplate/ImageMultipleChoiceSurveySection")
 );
 const LegalSurveySection = dynamic(
-  () => import("./surveyTemplate/LegalSurveySection")
+  () => import("./survey/surveyTemplate/LegalSurveySection")
 );
 const LinearScaleChoiceSurveySection = dynamic(
-  () => import("./surveyTemplate/LinearScaleChoiceSurveySection")
+  () => import("./survey/surveyTemplate/LinearScaleChoiceSurveySection")
 );
 const LongTextChoiceSurveySection = dynamic(
-  () => import("./surveyTemplate/LongTextChoiceSurveySection")
+  () => import("./survey/surveyTemplate/LongTextChoiceSurveySection")
 );
 const MultipleChoiceGridSurveySection = dynamic(
-  () => import("./surveyTemplate/MultipleChoiceGridSurveySection")
+  () => import("./survey/surveyTemplate/MultipleChoiceGridSurveySection")
 );
 const MultipleChoiceSurveySection = dynamic(
-  () => import("./surveyTemplate/MultipleChoiceSurveySection")
+  () => import("./survey/surveyTemplate/MultipleChoiceSurveySection")
 );
 const PhoneNumberSurveySection = dynamic(
-  () => import("./surveyTemplate/PhoneNumberSurveySection")
+  () => import("./survey/surveyTemplate/PhoneNumberSurveySection")
 );
 const RangeSurveySection = dynamic(
-  () => import("./surveyTemplate/RangeSurveySection")
+  () => import("./survey/surveyTemplate/RangeSurveySection")
 );
 const ShortTextChoiceSurveySection = dynamic(
-  () => import("./surveyTemplate/ShortTextChoiceSurveySection")
+  () => import("./survey/surveyTemplate/ShortTextChoiceSurveySection")
 );
 const StarRatingSurveySection = dynamic(
-  () => import("./surveyTemplate/StarRatingSurveySection")
+  () => import("./survey/surveyTemplate/StarRatingSurveySection")
 );
 const TimeChoiceSurveySection = dynamic(
-  () => import("./surveyTemplate/TimeChoiceSurveySection")
+  () => import("./survey/surveyTemplate/TimeChoiceSurveySection")
 );
 
 function SurveySwitchQuestionOptions(props: ComponentInputProps) {

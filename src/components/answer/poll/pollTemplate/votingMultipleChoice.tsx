@@ -2,8 +2,8 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import { QuestionOptionProp } from "../../../types";
-import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
+import { QuestionOptionProp } from "../../../../types";
+import { usePollQuestionContext } from "../../../../hooks/usePollQuestionContext";
 import { useFormContext } from "react-hook-form";
 
 function VotingMultipleChoice() {

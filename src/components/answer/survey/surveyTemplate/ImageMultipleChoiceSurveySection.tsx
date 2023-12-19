@@ -3,7 +3,7 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import { ComponentInputProps } from "../../../types";
+import { ComponentInputProps } from "../../../../types";
 import {
   Box,
   Card,
@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import TextTruncate from "react-text-truncate";
 import Image from "next/image";
-import NoImage from "./../../../images/svg/no-image.svg";
+import NoImage from "./../../../../images/svg/no-image.svg";
 import he from "he";
 
 function ImageMultipleChoiceSurveySection({

@@ -15,25 +15,25 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import StepWrapperProvider from "../../providers/stepWrapper.provider";
+import StepWrapperProvider from "../../../providers/stepWrapper.provider";
 import { Divider, Typography, useTheme } from "@mui/material";
 import Confetti from "react-confetti";
-import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
+import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
 // import { usePollAnswerContext } from "../../hooks/usePollAnswerContext";
-import CheckmarkUtility from "../../utility/checkMark";
+import CheckmarkUtility from "../../../utility/checkMark";
 import { useMotionValue, motion } from "framer-motion";
-import Subscribe from "../subscribe/Subscribe";
+import Subscribe from "../../subscribe/Subscribe";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
 import {
   AnswerPollSubmittedValueType,
   CreatePollSubmittedValueType,
-} from "../../types";
+} from "../../../types";
 import { FormProvider, useForm } from "react-hook-form";
-import { checkValueAndValidity } from "../../utility/util";
+import { checkValueAndValidity } from "../../../utility/util";
 import * as _ from "underscore";
-import HttpService from "../../services/@http/HttpClient";
+import HttpService from "../../../services/@http/HttpClient";
 
 const AnswerPollWrapper = () => {
   let progress = useMotionValue(90);

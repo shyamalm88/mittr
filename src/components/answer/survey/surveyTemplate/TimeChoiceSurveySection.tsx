@@ -3,7 +3,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import React from "react";
-import { ComponentInputProps } from "../../../types";
+import { ComponentInputProps } from "../../../../types";
 import he from "he";
 import { Controller, useFormContext } from "react-hook-form";
 import moment from "moment";

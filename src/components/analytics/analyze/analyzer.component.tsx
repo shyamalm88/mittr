@@ -174,7 +174,7 @@ function Analyzer() {
               input={<OutlinedInput label="Tag" />}
               renderValue={(selected) => selected.join(", ")}
             >
-              {analyticsValue.options.map((item: any) => {
+              {analyticsValue?.options?.map((item: any) => {
                 return (
                   <MenuItem value={item.option} key={item.id}>
                     <Checkbox checked={pollValue.indexOf(item.option) > -1} />

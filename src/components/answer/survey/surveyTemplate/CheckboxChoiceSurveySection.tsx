@@ -1,7 +1,7 @@
 import React from "react";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { ComponentInputProps } from "../../../types";
+import { ComponentInputProps } from "../../../../types";
 import { Box, Checkbox, Typography } from "@mui/material";
 import he from "he";
 import { useFormContext } from "react-hook-form";

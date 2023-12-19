@@ -20,7 +20,7 @@ const AnswerPollOptionAnalytics = () => {
             bgcolor: "background.paper",
           }}
         >
-          {options.map((item: any, index: number) => {
+          {options?.map((item: any, index: number) => {
             return (
               <FormControl
                 sx={{ mb: 1, width: "100%" }}

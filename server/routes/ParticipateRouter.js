@@ -1,17 +1,17 @@
 const express = require("express");
 const Poll = require("../models/Polls");
 const Images = require("../models/Images");
-const Answers = require("../models/Answers");
+const Participations = require("../models/Participations");
 
 const multer = require("multer");
 const path = require("path");
 const sharp = require("sharp");
 
-const answerRouter = express.Router();
+const participateRouter = express.Router();
 
-answerRouter.get("/", async (req, res) => {
+participateRouter.get("/", async (req, res) => {
   try {
-    const answers = await Answers.find()
+    const answers = await Participations.find()
       .lean()
       .populate({ path: "answeredByUserRef", select: "-password" });
     res.send(answers);
@@ -24,9 +24,9 @@ answerRouter.get("/", async (req, res) => {
   }
 });
 
-answerRouter.get("/:index", async (req, res) => {
+participateRouter.get("/:index", async (req, res) => {
   try {
-    const answer = await Answers.find({ questionID: req.params.index })
+    const answer = await Participations.findById(req.params.index)
       .orFail()
       .populate({ path: "answeredByUserRef", select: "-password" });
     res.send(answer);
@@ -39,12 +39,12 @@ answerRouter.get("/:index", async (req, res) => {
   }
 });
 
-answerRouter.post("", async (req, res) => {
-  const answer = new Answers({
+participateRouter.post("", async (req, res) => {
+  const answer = new Participations({
     questionID: req.body.selectedPrimaryQuestionId,
     selectedOption: req.body.selectedPrimaryQuestionOption,
     contributorIP: req.header("x-forwarded-for") || req.socket.remoteAddress,
-    additionalQuestionsAnswers: req.body.additionalQuestionsAnswers,
+    survey: req.body.survey,
     answeredByUserRef: req.body.answeredByUserRef.id,
   });
   try {
@@ -55,4 +55,4 @@ answerRouter.post("", async (req, res) => {
   }
 });
 
-module.exports = answerRouter;
+module.exports = participateRouter;

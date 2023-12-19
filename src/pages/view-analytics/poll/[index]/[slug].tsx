@@ -16,34 +16,6 @@ const AnalyticsPollWrapper = dynamic(
 import HttpService from "../../../../services/@http/HttpClient";
 const http = new HttpService();
 
-const data = {
-  question:
-    "If you could go for a coffee with a figure from history, who would it be?",
-  options: [
-    {
-      id: uuidv4(),
-      option: "Leonardo Da Vinci",
-      vote: 32,
-      totalVoteCount: 82,
-      selectedByUser: true,
-    },
-    {
-      id: uuidv4(),
-      option: "Michel Angelo",
-      vote: 10,
-      totalVoteCount: 82,
-      selectedByUser: false,
-    },
-    {
-      id: uuidv4(),
-      option: "King Arthur",
-      vote: 40,
-      totalVoteCount: 82,
-      selectedByUser: false,
-    },
-  ],
-};
-
 const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
   if (!analyticsData) {
     return (
@@ -86,7 +58,7 @@ const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
     );
   }
   return (
-    <AnalyticsOfPollProvider question={data}>
+    <AnalyticsOfPollProvider question={analyticsData}>
       <NextSeo
         title="Mittr | View Analytics"
         description={`The Analytics Viewing page offers individual contributors the capability to refine and analyze analytics data using various filtering options. Various analytics pertaining to the poll are available on this page for ${analyticsData.question}`}
@@ -115,6 +87,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const postIndex = (context.params as any).index as string;
   try {
     const resp = await http.get(`/poll/${postIndex}`);
+    const respAns = await http.get(`/answer/${postIndex}`);
+    (resp as any).options.forEach((item: any) => {
+      item.vote = 0;
+      item.totalVoteCount = (respAns as any).length;
+      (respAns as any).forEach((itm: any) => {
+        if (item.option === itm.selectedOption) {
+          item.vote = item.vote + 1;
+        }
+      });
+    });
+
     const analyticsData = resp;
     return { props: { analyticsData } };
   } catch (err) {

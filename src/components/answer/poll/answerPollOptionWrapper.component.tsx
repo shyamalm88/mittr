@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Divider } from "@mui/material";
-import AnswerSwitchOnVotingType from "./answerSwitchOnVotingType";
-import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
+import AnswerSwitchOnVotingType from "../answerSwitchOnVotingType";
+import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
 
 const AnswerPollOptionWrapper = () => {
   const questionContext = usePollQuestionContext();

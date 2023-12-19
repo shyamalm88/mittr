@@ -8,7 +8,8 @@ import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
 const AnswerSurveyWrapper = dynamic(
-  () => import("../../../components/answer/answerSurveyWrapper.component")
+  () =>
+    import("../../../components/answer/survey/answerSurveyWrapper.component")
 );
 const PollQuestionProvider = dynamic(
   () => import("../../../providers/pollQuestion.provider")

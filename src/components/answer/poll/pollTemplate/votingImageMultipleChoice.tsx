@@ -7,14 +7,14 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import RadioGroup from "@mui/material/RadioGroup";
-import { QuestionOptionProp } from "../../../types";
-import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
+import { QuestionOptionProp } from "../../../../types";
+import { usePollQuestionContext } from "../../../../hooks/usePollQuestionContext";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import TextTruncate from "react-text-truncate";
 import { useTheme } from "@mui/material";
 import Image from "next/image";
-import NoImage from "./../../../images/svg/no-image.svg";
+import NoImage from "./../../../../images/svg/no-image.svg";
 import { useFormContext } from "react-hook-form";
 
 function VotingImageMultipleChoice() {

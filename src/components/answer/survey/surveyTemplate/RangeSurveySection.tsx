@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentInputProps } from "../../../types";
+import { ComponentInputProps } from "../../../../types";
 import { styled } from "@mui/material/styles";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";

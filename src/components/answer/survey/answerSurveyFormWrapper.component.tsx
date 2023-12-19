@@ -3,10 +3,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
-import AnswerPollOptionWrapper from "./answerPollOptionWrapper.component";
-import AdditionalAnswers from "../additionalAnswers/additionalAnswers.component";
-import { useStepWrapperContext } from "../../hooks/useStepWrapperContext";
+import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
+import AnswerPollOptionWrapper from "../poll/answerPollOptionWrapper.component";
+import AdditionalAnswers from "../../additionalAnswers/additionalAnswers.component";
+import { useStepWrapperContext } from "../../../hooks/useStepWrapperContext";
 import moment from "moment";
 import Tooltip from "@mui/material/Tooltip";
 import ReactTimeAgo from "react-time-ago";
@@ -17,9 +17,9 @@ import { useTheme } from "@mui/material/styles";
 import { Avatar, Card, CardContent, CardMedia } from "@mui/material";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import AnswerSurveySectionsWrapper from "./answerSurveySectionsWrapper.component";
-import { ComponentInputProps } from "../../types";
+import { ComponentInputProps } from "../../../types";
 import he from "he";
-import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
+import { useAuthenticatedUserData } from "../../../hooks/useAuthenticatedUserDataContext";
 
 TimeAgo.addDefaultLocale(en);
 

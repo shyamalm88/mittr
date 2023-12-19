@@ -27,7 +27,7 @@ export const defaultPollFormValue: CreatePollValueType = {
 };
 
 export const defaultPollQuestionValue: CreatePollQuestionType = {
-  id: "",
+  _id: "",
   question: "",
   questionImageRef: null,
   options: [],

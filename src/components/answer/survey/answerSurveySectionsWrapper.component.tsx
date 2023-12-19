@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
-import { usePollQuestionContext } from "../../hooks/usePollQuestionContext";
-import SurveySwitchQuestionOptions from "./surveySwitchQuestionOptions";
-import { ComponentInputProps } from "../../types";
+import { usePollQuestionContext } from "../../../hooks/usePollQuestionContext";
+import SurveySwitchQuestionOptions from "../surveySwitchQuestionOptions";
+import { ComponentInputProps } from "../../../types";
 import he from "he";
 import { useTheme } from "@mui/material/styles";
 

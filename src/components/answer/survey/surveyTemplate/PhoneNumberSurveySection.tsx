@@ -9,9 +9,9 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { ComponentInputProps } from "../../../types";
+import { ComponentInputProps } from "../../../../types";
 import ReactCountryFlag from "react-country-flag";
-import { countryWisePhoneNumbers } from "../../../data/countryWisePhoneNumber";
+import { countryWisePhoneNumbers } from "../../../../data/countryWisePhoneNumber";
 import he from "he";
 import { useFormContext } from "react-hook-form";
 

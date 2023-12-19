@@ -53,6 +53,8 @@ function VotingTemplateSwitch(props: ComponentInputProps) {
       default:
         return <></>;
     }
+  } else {
+    return <></>;
   }
 }
 

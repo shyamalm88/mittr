@@ -1,21 +1,9 @@
-import {
-  Box,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import React from "react";
-import { ComponentInputProps } from "../../../types";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined";
+import { Box, OutlinedInput, Typography, useTheme } from "@mui/material";
+import { ComponentInputProps } from "../../../../types";
 import he from "he";
 import { useFormContext } from "react-hook-form";
 
-function EmailChoiceSurveySection({
+function ShortTextChoiceSurveySection({
   selectedValue,
   fieldName,
   item,
@@ -23,14 +11,12 @@ function EmailChoiceSurveySection({
   actualIndex,
 }: ComponentInputProps) {
   const theme = useTheme();
-
   const {
     formState: { errors },
     register,
     getValues,
     setValue,
   } = useFormContext();
-
   return (
     <>
       <Typography className="required">
@@ -44,9 +30,8 @@ function EmailChoiceSurveySection({
         }}
       ></Typography>
       <Box sx={{ p: 3 }}>
-        <InputLabel>Email Address</InputLabel>
         <OutlinedInput
-          placeholder="e.g. john.doe@example.com"
+          placeholder="Please enter some value"
           fullWidth
           size="small"
           margin="dense"
@@ -54,20 +39,10 @@ function EmailChoiceSurveySection({
             borderRadius: "4px",
           }}
           className="input"
-          startAdornment={
-            <InputAdornment
-              position="start"
-              sx={{ color: theme.palette.action.disabled }}
-            >
-              <MarkEmailReadOutlinedIcon />
-            </InputAdornment>
-          }
           {...register(
-            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].email` as const
+            `${fieldName}.segments[${actualIndex}].selectedValue[${idx}].shortText` as const
           )}
         />
-        
-
         <input
           type="hidden"
           value={selectedValue?.required}
@@ -80,4 +55,4 @@ function EmailChoiceSurveySection({
   );
 }
 
-export default EmailChoiceSurveySection;
+export default ShortTextChoiceSurveySection;

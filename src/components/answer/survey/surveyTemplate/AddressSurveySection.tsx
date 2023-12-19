@@ -5,7 +5,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { ComponentInputProps } from "../../../types";
+import { ComponentInputProps } from "../../../../types";
 import React from "react";
 import { Country, City, ICity } from "country-state-city";
 import Autocomplete from "@mui/material/Autocomplete";

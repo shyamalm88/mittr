@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentInputProps } from "../../types";
-import VotingMultipleChoice from "./votingTemplate/votingMultipleChoice";
-import VotingImageMultipleChoice from "./votingTemplate/votingImageMultipleChoice";
+import VotingMultipleChoice from "./poll/pollTemplate/votingMultipleChoice";
+import VotingImageMultipleChoice from "./poll/pollTemplate/votingImageMultipleChoice";
 
 function AnswerSwitchOnVotingType(props: ComponentInputProps) {
   switch (props.selectedValue) {

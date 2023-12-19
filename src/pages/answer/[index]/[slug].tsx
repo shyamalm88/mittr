@@ -9,7 +9,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
 const AnswerPollWrapper = dynamic(
-  () => import("../../../components/answer/answerPollWrapper.component")
+  () => import("../../../components/answer/poll/answerPollWrapper.component")
 );
 import HttpService from "../../../services/@http/HttpClient";
 import he from "he";

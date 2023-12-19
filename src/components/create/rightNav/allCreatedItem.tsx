@@ -153,6 +153,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             padding={"none"}
             sortDirection={orderBy === headCell.id ? order : false}
             align="center"
+            sx={{ width: "20%" }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -426,7 +427,11 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
                       {moment(row.createdAt).format("L")}
                     </StyledTableCell>
                     <StyledTableCell align="center" padding="none">
-                      <Stack direction="row" alignItems="center">
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent={"center"}
+                      >
                         <IconButton
                           onClick={(e) => handleEdit(e, row)}
                           size="small"

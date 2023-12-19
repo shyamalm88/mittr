@@ -6,7 +6,7 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
-import { ComponentInputProps } from "../../../types";
+import { ComponentInputProps } from "../../../../types";
 import he from "he";
 import { useFormContext } from "react-hook-form";
 
