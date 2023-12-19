@@ -4,7 +4,10 @@ import Box from "@mui/material/Box";
 import LeftNavigationTemplate from "../../components/create/leftNav/leftNavigation.Template.component";
 import { NextSeo } from "next-seo";
 import DashboardLayout from "../../layout/dashboard.layout";
-import DashboardComponent from "../../components/dashboard/Dashboard.component";
+import dynamic from "next/dynamic";
+const DashboardComponent = dynamic(
+  () => import("../../components/dashboard/Dashboard.component")
+);
 
 function Dashboard() {
   return (
