@@ -5,8 +5,13 @@ import React from "react";
 import AnalyticsPollView from "./analyticsPollView.component";
 import Divider from "@mui/material/Divider";
 import DefaultAnalyticsPollWrapper from "./defaultAnalyticsPollWrapper.component";
+import { ComponentInputProps } from "../../types";
 
-const AnalyticsPollWrapper = () => {
+const AnalyticsPollWrapper = ({
+  lineData,
+  pieData,
+  geoData,
+}: ComponentInputProps) => {
   return (
     <>
       <Card
@@ -39,7 +44,11 @@ const AnalyticsPollWrapper = () => {
       <Divider sx={{ mt: 3 }} textAlign="left">
         Poll Performance
       </Divider>
-      <DefaultAnalyticsPollWrapper />
+      <DefaultAnalyticsPollWrapper
+        lineData={lineData}
+        pieData={pieData}
+        geoData={geoData}
+      />
     </>
   );
 };

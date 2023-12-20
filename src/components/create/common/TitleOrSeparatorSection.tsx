@@ -87,6 +87,7 @@ function TitleOrSeparatorSection({
           setShouldUpdate(true);
         } else {
           setValue(`${descriptionFieldName}`, editableData?.description);
+          setShouldUpdate(true);
         }
       } else {
         setValue(

@@ -115,6 +115,7 @@ function SurveyQuestionnaire({
           "question",
           he.decode(editableData.question ? editableData.question : "")
         );
+        setShouldUpdate(true);
       }
     }
   }, [editableData]);

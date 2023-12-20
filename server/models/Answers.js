@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema(
   {
     id: String,
-    questionID: String,
+    questionID: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Polls",
+    },
     selectedOption: String,
     answeredByUserRef: {
       type: mongoose.SchemaTypes.ObjectId,

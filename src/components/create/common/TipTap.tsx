@@ -314,7 +314,7 @@ export default function Editor({
         }),
       ],
       autofocus: false,
-      content: dataContext,
+      content: he.decode(dataContext),
       onUpdate: handleChange,
     },
     [shouldUpdate]
@@ -322,7 +322,7 @@ export default function Editor({
 
   React.useEffect(() => {
     if (dataContext) {
-      editor?.commands.setContent(he.decode(dataContext));
+      // editor?.commands.setContent(he.decode(dataContext));
     }
     // editor?.commands.setContent(dataContext ? he.decode(dataContext) : "");
   }, [dataContext]);

@@ -5,8 +5,13 @@ import { PieChart } from "./chart/PieChart";
 import { ComboChart } from "./chart/ComboChart";
 import { GeographyChart } from "./chart/GeoChart";
 import CustomAnalyticsPollWrapper from "./customAnalyticsPollWrapper.component";
+import { ComponentInputProps } from "../../types";
 
-function DefaultAnalyticsPollWrapper() {
+function DefaultAnalyticsPollWrapper({
+  lineData,
+  pieData,
+  geoData,
+}: ComponentInputProps) {
   return (
     <>
       <Stack
@@ -26,7 +31,7 @@ function DefaultAnalyticsPollWrapper() {
           }}
           className="card"
         >
-          <LineChart />
+          <LineChart single data={lineData} />
         </Card>
         <Card
           variant="outlined"
@@ -38,7 +43,10 @@ function DefaultAnalyticsPollWrapper() {
           }}
           className="card"
         >
-          <PieChart />
+          <PieChart
+            data={pieData}
+            title="Poll activity analytics on Gender Diversity"
+          />
         </Card>
         <Card
           variant="outlined"
@@ -54,7 +62,8 @@ function DefaultAnalyticsPollWrapper() {
         </Card>
       </Stack>
       <CustomAnalyticsPollWrapper />
-      <GeographyChart />
+      {console.log(geoData)}
+      <GeographyChart data={geoData} title="Diverse Regional User Engagement" />
     </>
   );
 }

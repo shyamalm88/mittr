@@ -1,11 +1,7 @@
 const express = require("express");
-const Poll = require("../models/Polls");
-const Images = require("../models/Images");
+const PollAnalytics = require("../models/PollAnalytics");
 const Answers = require("../models/Answers");
-
-const multer = require("multer");
-const path = require("path");
-const sharp = require("sharp");
+const requestIp = require("request-ip");
 
 const answerRouter = express.Router();
 
@@ -29,6 +25,7 @@ answerRouter.get("/:index", async (req, res) => {
     const answer = await Answers.find({ questionID: req.params.index })
       .orFail()
       .populate({ path: "answeredByUserRef", select: "-password" });
+
     res.send(answer);
   } catch (err) {
     res.status(404).send({
@@ -43,10 +40,13 @@ answerRouter.post("", async (req, res) => {
   const answer = new Answers({
     questionID: req.body.selectedPrimaryQuestionId,
     selectedOption: req.body.selectedPrimaryQuestionOption,
-    contributorIP: req.header("x-forwarded-for") || req.socket.remoteAddress,
+    contributorIP: requestIp.getClientIp(req),
     additionalQuestionsAnswers: req.body.additionalQuestionsAnswers,
-    answeredByUserRef: req.body.answeredByUserRef.id,
+    answeredByUserRef: req.body.answeredByUserRef
+      ? req.body.answeredByUserRef._id
+      : null,
   });
+
   try {
     const answerRes = await answer.save();
     res.send(answerRes);

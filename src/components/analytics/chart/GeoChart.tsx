@@ -4,28 +4,27 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
 import { useTheme } from "@mui/material";
+import { ComponentInputProps } from "../../../types";
 
-export const data = [
-  ["Country", "User Interactions"],
-  ["India", 1200],
-  ["United States", 100],
-  ["United Kingdom", 900],
-  ["Canada", 500],
-  ["France", 600],
-  ["RU", 700],
-];
+// export const data = [
+//   ["Country", "User Interactions"],
+//   ["In", 0],
+//   ["United States", 0],
+//   ["United Kingdom", 0],
+//   ["Canada", 0],
+//   ["France", 0],
+//   ["RU", 0],
+// ];
 
-export function GeographyChart() {
+export function GeographyChart({ data, title }: ComponentInputProps) {
   const theme = useTheme();
   const options = {
-    title: "ABCD",
+    title: title,
     backgroundColor: "transparent",
     magnifyingGlass: { enable: true, zoomFactor: 0.6 },
-    // displayMode: "markers",
     colorAxis: {
       colors: [theme.palette.success.light, theme.palette.success.dark],
     }, // orange to blue
-    // mapsApiKey: "AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY",
     datalessRegionColor: "lightGrey",
   };
   return (

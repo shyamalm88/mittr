@@ -1,24 +1,18 @@
 import React from "react";
 import { Chart } from "react-google-charts";
 import { useTheme } from "@mui/material";
+import { ComponentInputProps } from "../../../types";
 
-export const data = [
-  ["Interactions By", "Count"],
-  ["Male", 11],
-  ["Female", 5],
-  ["Transgender", 6],
-  ["Not Mentioned", 2],
-];
-
-export function PieChart() {
+export function PieChart({ title, data }: ComponentInputProps) {
   const theme = useTheme();
+  const slice = data[data.length - 1][1] ? data.length - 2 : 0;
   const options = {
     pieHole: 0.5,
-    title: "Poll activity analytics on Gender Diversity",
+    title: title,
     backgroundColor: "transparent",
     is3D: true,
     slices: {
-      3: { offset: 0.2 },
+      [slice]: { offset: 0.2 },
     },
     titleTextStyle: {
       color: theme.palette.mode === "dark" ? "#fff" : "#333",
