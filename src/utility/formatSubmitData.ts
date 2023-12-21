@@ -14,7 +14,11 @@ export async function pollFormDataUpdate(
   setValue(
     "questionSlug",
     urlSlug(
-      striptags(he.decode(data.question.split("-").slice(0, 3).join("-")))
+      striptags(
+        he.decode(
+          data.question.split("-").replace(/nbsp/gi, "").slice(0, 3).join("-")
+        )
+      )
     ),
     {
       shouldValidate: true,

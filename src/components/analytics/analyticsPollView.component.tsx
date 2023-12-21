@@ -11,22 +11,23 @@ import NoProfileImage from "./../../images/img/noProfileImage.png";
 import moment from "moment";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ReactTimeAgo from "react-time-ago";
+import TimeAgo from "javascript-time-ago";
 import he from "he";
+import en from "javascript-time-ago/locale/en.json";
+TimeAgo.addDefaultLocale(en);
 
 const AnalyticsPollView = () => {
   const { questionID } = usePollAnalyticsContext();
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
-  const contextQuestionSetValue = usePollQuestionContext();
-  const contextDurationValue = usePollQuestionContext("duration");
 
   const handleDateDiff = React.useMemo(() => {
-    if (contextDurationValue) {
+    if (questionID.duration) {
       let d1 = moment(moment().format("YYYY-MM-DD"));
-      let d2 = moment(moment(contextDurationValue).format("YYYY-MM-DD"));
+      let d2 = moment(moment(questionID.duration).format("YYYY-MM-DD"));
       return d2.diff(d1, "days") < 0 ? "Poll ended on " : "Poll will end on ";
     }
-  }, [contextDurationValue]);
+  }, [questionID.duration]);
 
   return (
     <>
@@ -99,15 +100,15 @@ const AnalyticsPollView = () => {
                   {questionID.createdByUserRef?.fullName}
                 </Typography>
               </Stack>
-              {contextDurationValue && (
+              {questionID.duration && (
                 <Tooltip
                   arrow
                   title={
                     <React.Fragment>
-                      {contextQuestionSetValue.createdAt && (
+                      {questionID.createdAt && (
                         <Typography variant="body2" component="small">
                           Poll started at{" "}
-                          {moment(contextQuestionSetValue.createdAt).format(
+                          {moment(questionID.createdAt).format(
                             "DD/MM/YYYY, hh:mm a"
                           )}
                           ,
@@ -115,10 +116,10 @@ const AnalyticsPollView = () => {
                       )}
 
                       <br />
-                      {contextDurationValue && (
+                      {questionID.duration && (
                         <Typography variant="body2" component="small">
                           {handleDateDiff}
-                          {moment(contextDurationValue).format(
+                          {moment(questionID.duration).format(
                             "DD/MM/YYYY, hh:mm a"
                           )}
                         </Typography>
@@ -130,10 +131,11 @@ const AnalyticsPollView = () => {
                     <React.Fragment>
                       <Stack direction="row" alignItems="center" gap={1}>
                         <AccessTimeIcon fontSize="small" />
-                        {contextDurationValue && (
+                        {questionID.duration && (
                           <ReactTimeAgo
-                            date={Date.parse(contextDurationValue)}
+                            date={questionID.duration}
                             tooltip={false}
+                            locale="en-US"
                           />
                         )}
                       </Stack>

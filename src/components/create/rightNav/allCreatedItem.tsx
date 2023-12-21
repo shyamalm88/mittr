@@ -408,6 +408,7 @@ export default function AllCreatedItem({ data }: ComponentInputProps) {
                             ? he
                                 .decode((row as any).question)
                                 .replace(/(<([^>]+)>)/gi, "")
+                                .replace(/&nbsp;/gi, " ")
                             : (row as any).title
                         }
                       />

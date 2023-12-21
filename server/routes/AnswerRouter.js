@@ -47,6 +47,16 @@ answerRouter.get("/pollAnalyticsData/:index", async (req, res) => {
       .populate({
         path: "questionID",
         populate: {
+          path: "options",
+          populate: {
+            path: "imageId",
+            model: "Images",
+          },
+        },
+      })
+      .populate({
+        path: "questionID",
+        populate: {
           path: "createdByUserRef",
           select: "-password",
         },
@@ -118,18 +128,15 @@ answerRouter.post("", async (req, res) => {
         req.body.additionalQuestionsAnswers.forEach((im) => {
           if (im.selectedValue.hasOwnProperty("country")) {
             const idx = answerAnalytics.country.findIndex(
-              (item) => item[0] === im.selectedValue.country.isoCode
+              (item) => item[0] === im.selectedValue.country.name
             );
             if (idx > 0) {
               answerAnalytics.country[idx] = [
-                im.selectedValue.country.isoCode,
+                im.selectedValue.country.name,
                 answerAnalytics.country[idx][1] + 1,
               ];
             } else {
-              answerAnalytics.country.push([
-                im.selectedValue.country.isoCode,
-                1,
-              ]);
+              answerAnalytics.country.push([im.selectedValue.country.name, 1]);
             }
           }
           if (im.selectedValue.hasOwnProperty("gender")) {
@@ -182,21 +189,21 @@ answerRouter.post("", async (req, res) => {
           questionID: req.body.selectedPrimaryQuestionId,
         });
         findRespAnswerAnalytics.selectedPrimaryOption.forEach((item) => {
-          item.totalVoteCount = voteCount;
+          item.totalVoteCount = voteCount + 1;
         });
         req.body.additionalQuestionsAnswers.forEach((im) => {
           if (im.selectedValue.hasOwnProperty("country")) {
             const idx = findRespAnswerAnalytics.country.findIndex(
-              (item) => item[0] === im.selectedValue.country.isoCode
+              (item) => item[0] === im.selectedValue.country.name
             );
             if (idx > 0) {
               findRespAnswerAnalytics.country[idx] = [
-                im.selectedValue.country.isoCode,
+                im.selectedValue.country.name,
                 findRespAnswerAnalytics.country[idx][1] + 1,
               ];
             } else {
               findRespAnswerAnalytics.country.push([
-                im.selectedValue.country.isoCode,
+                im.selectedValue.country.name,
                 1,
               ]);
             }
