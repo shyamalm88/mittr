@@ -20,7 +20,6 @@ const AnswerPollOptionAnalytics = () => {
         }
       });
     });
-    console.log(questionID.options);
     setQuestionIDRef(questionID);
   }, [questionID]);
 

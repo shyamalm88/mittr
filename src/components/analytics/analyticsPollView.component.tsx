@@ -14,8 +14,7 @@ import ReactTimeAgo from "react-time-ago";
 import he from "he";
 
 const AnalyticsPollView = () => {
-  const { questionID, createdByUserRef } = usePollAnalyticsContext();
-  console.log(usePollAnalyticsContext());
+  const { questionID } = usePollAnalyticsContext();
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const contextQuestionSetValue = usePollQuestionContext();
@@ -153,6 +152,7 @@ const AnalyticsPollView = () => {
             py: 1,
           }}
         >
+          {}
           <AnswerPollOptionAnalytics />
         </Box>
       </Box>

@@ -6,12 +6,14 @@ import AnalyticsPollView from "./analyticsPollView.component";
 import Divider from "@mui/material/Divider";
 import DefaultAnalyticsPollWrapper from "./defaultAnalyticsPollWrapper.component";
 import { ComponentInputProps } from "../../types";
+import { useAuthenticatedUserData } from "../../hooks/useAuthenticatedUserDataContext";
 
 const AnalyticsPollWrapper = ({
   lineData,
   pieData,
   geoData,
 }: ComponentInputProps) => {
+  const { authenticatedUser } = useAuthenticatedUserData();
   return (
     <>
       <Card
@@ -41,14 +43,18 @@ const AnalyticsPollWrapper = ({
           </Box>
         </Stack>
       </Card>
-      <Divider sx={{ mt: 3 }} textAlign="left">
-        Poll Performance
-      </Divider>
-      <DefaultAnalyticsPollWrapper
-        lineData={lineData}
-        pieData={pieData}
-        geoData={geoData}
-      />
+      {authenticatedUser && (
+        <>
+          <Divider sx={{ mt: 3 }} textAlign="left">
+            Poll Performance
+          </Divider>
+          <DefaultAnalyticsPollWrapper
+            lineData={lineData}
+            pieData={pieData}
+            geoData={geoData}
+          />
+        </>
+      )}
     </>
   );
 };
