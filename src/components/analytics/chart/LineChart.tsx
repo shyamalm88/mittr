@@ -89,11 +89,12 @@ export function LineChart({
   single,
   noLegends,
   data,
+  title,
 }: ComponentInputProps) {
   const theme = useTheme();
 
   const options = {
-    title: "Monthly Poll Interaction by User",
+    title: title,
     subtitle: "user interactions",
     colors: ["#2979FF", "#FF7728", "#E8471A", "#FF2D1C"],
     is3D: true,

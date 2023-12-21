@@ -1,6 +1,7 @@
 import { useTheme } from "@mui/material";
 import React from "react";
 import { Chart } from "react-google-charts";
+import { ComponentInputProps } from "../../../types";
 
 export const data = [
   ["Month", "Leonardo Da Vinci", "Michel Angelo", "King Arthur"],
@@ -9,10 +10,10 @@ export const data = [
   ["2006/07", 3, 5, 0],
 ];
 
-export function ComboChart() {
+export function ComboChart({ data, title }: ComponentInputProps) {
   const theme = useTheme();
   const options = {
-    title: "Monthly Selected Option",
+    title: title,
     subtitle: "user interactions",
     backgroundColor: "transparent",
     is3D: true,

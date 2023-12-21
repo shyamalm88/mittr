@@ -2,6 +2,7 @@ const express = require("express");
 const Answers = require("../models/Answers");
 const PollAnalytics = require("../models/PollAnalytics");
 const requestIp = require("request-ip");
+const moment = require("moment");
 
 const answerRouter = express.Router();
 
@@ -73,23 +74,24 @@ answerRouter.get("/pollAnalyticsData/:index", async (req, res) => {
 });
 
 answerRouter.post("", async (req, res) => {
-  const month = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  // const month = [
+  //   "Jan",
+  //   "Feb",
+  //   "Mar",
+  //   "Apr",
+  //   "May",
+  //   "Jun",
+  //   "Jul",
+  //   "Aug",
+  //   "Sept",
+  //   "Oct",
+  //   "Nov",
+  //   "Dec",
+  // ];
 
-  const d = new Date();
-  let monthName = month[d.getMonth()];
+  // const d = new Date();
+  // let monthName = month[d.getMonth()];
+  const monthName = moment().format("llll");
 
   const answer = new Answers({
     questionID: req.body.selectedPrimaryQuestionId,
@@ -226,22 +228,32 @@ answerRouter.post("", async (req, res) => {
           }
         });
 
-        const idx = findRespAnswerAnalytics.monthlyDistribution.findIndex(
-          (item) => item[0] === monthName
-        );
+        let idx = -1;
+        for (
+          let i = 1;
+          i < findRespAnswerAnalytics.monthlyDistribution.length;
+          i++
+        ) {
+          if (findRespAnswerAnalytics.monthlyDistribution[i]) {
+            idx =
+              findRespAnswerAnalytics.monthlyDistribution[i][0] === monthName
+                ? i
+                : -1;
+          }
+        }
         if (idx > 0) {
           if (req.body.answeredByUserRef) {
-            findRespAnswerAnalytics.monthlyDistribution.push([
+            findRespAnswerAnalytics.monthlyDistribution[idx] = [
               monthName,
               findRespAnswerAnalytics.monthlyDistribution[idx][1] + 1,
               findRespAnswerAnalytics.monthlyDistribution[idx][2],
-            ]);
+            ];
           } else {
-            findRespAnswerAnalytics.monthlyDistribution.push([
+            findRespAnswerAnalytics.monthlyDistribution[idx] = [
               monthName,
               findRespAnswerAnalytics.monthlyDistribution[idx][1],
               findRespAnswerAnalytics.monthlyDistribution[idx][2] + 1,
-            ]);
+            ];
           }
         } else {
           if (req.body.answeredByUserRef) {
