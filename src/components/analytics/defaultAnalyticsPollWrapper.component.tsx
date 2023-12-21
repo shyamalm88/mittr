@@ -11,6 +11,7 @@ function DefaultAnalyticsPollWrapper({
   lineData,
   pieData,
   geoData,
+  comboData,
 }: ComponentInputProps) {
   return (
     <>
@@ -58,7 +59,7 @@ function DefaultAnalyticsPollWrapper({
           }}
           className="card"
         >
-          <ComboChart />
+          <ComboChart title="Monthly Selected Option" data={comboData} />
         </Card>
       </Stack>
       <CustomAnalyticsPollWrapper />

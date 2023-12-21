@@ -3,14 +3,14 @@ import React from "react";
 import { Chart } from "react-google-charts";
 import { ComponentInputProps } from "../../../types";
 
-export const data = [
+export const datat = [
   ["Month", "Leonardo Da Vinci", "Michel Angelo", "King Arthur"],
   ["2004/05", 5, 0, 2],
   ["2005/06", 11, 1, 1],
   ["2006/07", 3, 5, 0],
 ];
 
-export function ComboChart({ data, title }: ComponentInputProps) {
+export function ComboChart({ data = datat, title }: ComponentInputProps) {
   const theme = useTheme();
   const options = {
     title: title,

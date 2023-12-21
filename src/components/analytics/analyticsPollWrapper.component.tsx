@@ -13,6 +13,7 @@ const AnalyticsPollWrapper = ({
   lineData,
   pieData,
   geoData,
+  comboData,
 }: ComponentInputProps) => {
   const { authenticatedUser } = useAuthenticatedUserData();
   const { questionID } = usePollAnalyticsContext();
@@ -57,6 +58,7 @@ const AnalyticsPollWrapper = ({
               lineData={lineData}
               pieData={pieData}
               geoData={geoData}
+              comboData={comboData}
             />
           </>
         )}

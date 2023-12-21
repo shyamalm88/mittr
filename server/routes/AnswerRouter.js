@@ -1,6 +1,7 @@
 const express = require("express");
 const Answers = require("../models/Answers");
 const PollAnalytics = require("../models/PollAnalytics");
+const Polls = require("../models/Polls");
 const requestIp = require("request-ip");
 const moment = require("moment");
 
@@ -74,23 +75,6 @@ answerRouter.get("/pollAnalyticsData/:index", async (req, res) => {
 });
 
 answerRouter.post("", async (req, res) => {
-  // const month = [
-  //   "Jan",
-  //   "Feb",
-  //   "Mar",
-  //   "Apr",
-  //   "May",
-  //   "Jun",
-  //   "Jul",
-  //   "Aug",
-  //   "Sept",
-  //   "Oct",
-  //   "Nov",
-  //   "Dec",
-  // ];
-
-  // const d = new Date();
-  // let monthName = month[d.getMonth()];
   const monthName = moment().format("llll");
 
   const answer = new Answers({
@@ -113,6 +97,7 @@ answerRouter.post("", async (req, res) => {
     ],
     genderRatio: [["Interactions By", "Count"]],
     country: [["Country", "User Interactions"]],
+    monthlySelectedPoll: [],
     monthlyDistribution: [
       ["Month", "Anonymous Users vote", "Logged-in Users vote"],
     ],
@@ -123,6 +108,14 @@ answerRouter.post("", async (req, res) => {
 
   try {
     let answerAnalyticsRes = null;
+    const pollsData = await Polls.findById(req.body.selectedPrimaryQuestionId);
+    const tempArr = ["Date"];
+    const tempDataArr = [monthName];
+    pollsData.options.forEach((item) => {
+      tempArr.push(item.option);
+      tempDataArr.push(0);
+    });
+
     PollAnalytics.countDocuments({
       questionID: req.body.selectedPrimaryQuestionId,
     }).then(async (resp) => {
@@ -165,6 +158,16 @@ answerRouter.post("", async (req, res) => {
           item.totalVoteCount = 1;
         });
 
+        pollsData.options.forEach((item, index) => {
+          answerAnalytics.selectedPrimaryOption.forEach((itm) => {
+            if (item.option === itm.selectedOption) {
+              tempDataArr[index + 1] = itm.vote;
+            }
+          });
+        });
+        answerAnalytics.monthlySelectedPoll.push(tempArr);
+        answerAnalytics.monthlySelectedPoll.push(tempDataArr);
+
         answerAnalyticsRes = await answerAnalytics.save();
       } else if (resp > 0) {
         const findRespAnswerAnalytics = await PollAnalytics.findOne({
@@ -193,6 +196,57 @@ answerRouter.post("", async (req, res) => {
         findRespAnswerAnalytics.selectedPrimaryOption.forEach((item) => {
           item.totalVoteCount = voteCount + 1;
         });
+        const tempDataArr = [monthName];
+        pollsData.options.forEach((item, index) => {
+          tempDataArr.push(0);
+          findRespAnswerAnalytics.selectedPrimaryOption.forEach((itm) => {
+            if (item.option === itm.selectedOption) {
+              tempDataArr[index + 1] = itm.vote;
+            }
+          });
+        });
+
+        let idxc = -1;
+        for (
+          let i = 1;
+          i < findRespAnswerAnalytics.monthlySelectedPoll.length;
+          i++
+        ) {
+          if (findRespAnswerAnalytics.monthlySelectedPoll[i]) {
+            idxc =
+              findRespAnswerAnalytics.monthlySelectedPoll[i][0] === monthName
+                ? i
+                : -1;
+          }
+        }
+        if (idxc < 0) {
+          const tempDataArr = [monthName];
+          pollsData.options.forEach((item, index) => {
+            tempDataArr.push(0);
+            findRespAnswerAnalytics.selectedPrimaryOption.forEach(
+              (itm, idx) => {
+                if (item.option === itm.selectedOption) {
+                  tempDataArr[index + 1] = itm.vote;
+                }
+              }
+            );
+          });
+          findRespAnswerAnalytics.monthlySelectedPoll.push(tempDataArr);
+        } else {
+          const tempDataArr = [monthName];
+          pollsData.options.forEach((item, index) => {
+            tempDataArr.push(0);
+            findRespAnswerAnalytics.selectedPrimaryOption.forEach(
+              (itm, idx) => {
+                if (item.option === itm.selectedOption) {
+                  tempDataArr[index + 1] = itm.vote;
+                }
+              }
+            );
+          });
+          findRespAnswerAnalytics.monthlySelectedPoll[idxc] = tempDataArr;
+        }
+
         req.body.additionalQuestionsAnswers.forEach((im) => {
           if (im.selectedValue.hasOwnProperty("country")) {
             const idx = findRespAnswerAnalytics.country.findIndex(

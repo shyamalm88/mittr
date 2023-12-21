@@ -18,6 +18,7 @@ import HttpService from "../../../../services/@http/HttpClient";
 const http = new HttpService();
 
 const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
+  console.log(analyticsData);
   if (!analyticsData) {
     return (
       <ViewAnalyticsLayout>
@@ -69,6 +70,7 @@ const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
           lineData={analyticsData.monthlyDistribution}
           pieData={analyticsData.genderRatio}
           geoData={analyticsData.country}
+          comboData={analyticsData.monthlySelectedPoll}
         />
       </ViewAnalyticsLayout>
     </AnalyticsOfPollProvider>

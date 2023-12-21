@@ -11,6 +11,7 @@ const schema = mongoose.Schema(
     genderRatio: [],
     country: [],
     monthlyDistribution: [],
+    monthlySelectedPoll: [],
     answeredByUserRef: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "User",
