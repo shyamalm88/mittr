@@ -78,27 +78,35 @@ export const singleData = [
   ["Nov", faker.number.int({ min: 0, max: 100 })],
 ];
 
-export function AreaChart({ white, single, noLegends }: ComponentInputProps) {
+export function AreaChart({
+  white,
+  single,
+  noLegends,
+  title,
+}: ComponentInputProps) {
   const theme = useTheme();
 
   const options = {
-    title: "Monthly Poll Interaction by User",
+    title: title,
     subtitle: "user interactions",
-    colors: ["#2979FF", "#FF7728", "#E8471A", "#FF2D1C"],
+    colors: white
+      ? ["#fff", "#fff", "#fff", "#fff"]
+      : ["#2979FF", "#FF7728", "#E8471A", "#FF2D1C"],
     is3D: true,
     backgroundColor: "transparent",
     titleTextStyle: {
-      color: theme.palette.mode === "dark" ? "#fff" : "#333",
+      color: theme.palette.mode === "dark" ? "#fff" : white ? "#fff" : "#333",
     },
-    baselineColor: white ? "#fff" : "#333",
+    baselineColor: white ? "#fff" : white ? "#fff" : "#333",
     legend: noLegends
       ? { position: "none" }
       : {
           position: "bottom",
           textStyle: {
-            color: theme.palette.mode === "dark" ? "#fff" : "#333",
+            color:
+              theme.palette.mode === "dark" ? "#fff" : white ? "#fff" : "#333",
           },
-          pagingTextStyle: { color: white ? "#fff" : "grey" },
+          pagingTextStyle: { color: white ? "#fff" : white ? "#fff" : "grey" },
           scrollArrows: {
             inactiveColor: theme.palette.mode === "dark" ? "grey" : "lightGrey",
             activeColor: theme.palette.mode === "dark" ? "lightGrey" : "grey",
@@ -107,12 +115,12 @@ export function AreaChart({ white, single, noLegends }: ComponentInputProps) {
 
     hAxis: {
       textStyle: {
-        color: theme.palette.mode === "dark" ? "#fff" : "#333",
+        color: theme.palette.mode === "dark" ? "#fff" : white ? "#fff" : "#333",
       },
     },
     vAxis: {
       textStyle: {
-        color: theme.palette.mode === "dark" ? "#fff" : "#333",
+        color: theme.palette.mode === "dark" ? "#fff" : white ? "#fff" : "#333",
       },
     },
   };

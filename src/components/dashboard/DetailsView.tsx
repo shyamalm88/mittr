@@ -38,7 +38,12 @@ function DetailsView() {
                     "rgba(0, 0, 0, 0.14) 0rem 0.25rem 1.25rem 0rem, rgba(64, 64, 64, 0.4) 0rem 0.4375rem 0.625rem -0.3125rem",
                 }}
               >
-                <AreaChart white noLegends single />
+                <AreaChart
+                  white
+                  noLegends
+                  single
+                  title="Monthly Poll Interaction by User"
+                />
               </Box>
             </CardContent>
             <CardContent>

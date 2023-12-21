@@ -1,5 +1,6 @@
 const express = require("express");
 const Answers = require("../models/Answers");
+const PollAnalytics = require("../models/PollAnalytics");
 const requestIp = require("request-ip");
 
 const answerRouter = express.Router();
@@ -23,6 +24,7 @@ answerRouter.get("/:index", async (req, res) => {
   try {
     const answer = await Answers.find({ questionID: req.params.index })
       .orFail()
+      .populate({ path: "analyticsRef" })
       .populate({ path: "answeredByUserRef", select: "-password" });
 
     res.send(answer);
@@ -46,9 +48,59 @@ answerRouter.post("", async (req, res) => {
       : null,
   });
 
+  const answerAnalytics = new PollAnalytics({
+    questionID: req.body.selectedPrimaryQuestionId,
+    selectedPrimaryOption: [
+      {
+        selectedOption: req.body.selectedPrimaryQuestionOption,
+        count: 1,
+      },
+    ],
+    // additionalQuestionsAnswers: req.body.additionalQuestionsAnswers,
+  });
+
   try {
-    const answerRes = await answer.save();
-    res.send(answerRes);
+    let answerAnalyticsRes = null;
+    PollAnalytics.countDocuments({
+      questionID: req.body.selectedPrimaryQuestionId,
+    }).then(async (resp) => {
+      if (resp === 0) {
+        answerAnalyticsRes = await answerAnalytics.save();
+        console.log("here");
+      } else if (resp > 0) {
+        const findRespAnswerAnalytics = await PollAnalytics.findOne({
+          questionID: req.body.selectedPrimaryQuestionId,
+        });
+        const selectedOptionsIdx =
+          findRespAnswerAnalytics.selectedPrimaryOption.findIndex(
+            (item) =>
+              item.selectedOption === req.body.selectedPrimaryQuestionOption
+          );
+        if (selectedOptionsIdx < 0) {
+          findRespAnswerAnalytics.selectedPrimaryOption.push({
+            selectedOption: req.body.selectedPrimaryQuestionOption,
+            count: 1,
+          });
+        } else {
+          findRespAnswerAnalytics.selectedPrimaryOption[
+            selectedOptionsIdx
+          ].count =
+            findRespAnswerAnalytics.selectedPrimaryOption[selectedOptionsIdx]
+              .count + 1;
+        }
+        answerAnalyticsRes = await PollAnalytics.findByIdAndUpdate(
+          {
+            _id: findRespAnswerAnalytics._id,
+          },
+          findRespAnswerAnalytics
+        );
+        console.log("there");
+      }
+      answer.analyticsRef = answerAnalyticsRes._id;
+      console.log(answerAnalyticsRes);
+      const answerRes = await answer.save();
+      res.send(answerRes);
+    });
   } catch (error) {
     res.status(500).json(error);
   }

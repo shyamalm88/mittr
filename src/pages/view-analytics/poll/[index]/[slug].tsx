@@ -140,27 +140,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
         });
       });
     });
-    // resp.region.forEach((item: any) => {
-    //   console.log(item);
 
     (respAns as any).forEach((itm: any) => {
       itm.additionalQuestionsAnswers.forEach((im: any) => {
         if (im.selectedValue.hasOwnProperty("country")) {
           const idx = resp.region.findIndex(
-            (item: any) => item[0] === im.selectedValue.country.name
+            (item: any) => item[0] === im.selectedValue.country.isoCode
           );
           if (idx > 0) {
             resp.region[idx] = [
-              im.selectedValue.country.name,
+              im.selectedValue.country.isoCode,
               resp.region[idx][1] + 1,
             ];
           } else {
-            resp.region.push([im.selectedValue.country.name, 1]);
+            resp.region.push([im.selectedValue.country.isoCode, 1]);
           }
         }
       });
     });
-    console.log(resp.region);
 
     (resp as any).options.forEach((item: any) => {
       item.vote = 0;

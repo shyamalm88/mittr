@@ -14,6 +14,10 @@ const schema = mongoose.Schema(
     },
     contributorIP: String,
     additionalQuestionsAnswers: [],
+    analyticsRef: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "PollAnalytics",
+    },
   },
   { timestamps: true }
 );

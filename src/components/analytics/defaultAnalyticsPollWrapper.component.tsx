@@ -62,7 +62,6 @@ function DefaultAnalyticsPollWrapper({
         </Card>
       </Stack>
       <CustomAnalyticsPollWrapper />
-      {console.log(geoData)}
       <GeographyChart data={geoData} title="Diverse Regional User Engagement" />
     </>
   );
