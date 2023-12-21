@@ -60,7 +60,11 @@ function VotingImageMultipleChoice() {
                     image={`${item.imageId.destination.slice(1)}/${
                       item.imageId.filename
                     }`}
-                    sx={{ height: "200px" }}
+                    sx={{
+                      height: "200px",
+                      objectFit: "contain",
+                      padding: "1em 1em 0 1em",
+                    }}
                     alt={item.option}
                   />
                 ) : (

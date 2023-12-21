@@ -63,7 +63,7 @@ const AnswerPollOptionAnalytics = () => {
                           maxWidth: "300px",
                           height: "auto",
                         }}
-                        alt="asd"
+                        alt={item.imageId.fullName}
                       />
                       <Box
                         sx={{
