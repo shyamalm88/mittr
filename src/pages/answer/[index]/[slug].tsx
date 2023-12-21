@@ -4,7 +4,6 @@ import PollQuestionProvider from "../../../providers/pollQuestion.provider";
 import { NextSeo } from "next-seo";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ComponentInputProps } from "../../../types";
-import PollAnswerProvider from "../../../providers/pollAnswer.provider";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
@@ -72,17 +71,15 @@ const AnswerPoll = ({ questionData }: ComponentInputProps) => {
   }
   return (
     <>
-      <PollAnswerProvider>
-        <NextSeo
-          title={`Mittr | Take part in a survey featuring the question: ${questionWithoutHtml}`}
-          description={`This Poll Answer Page is designed to assist both logged-in and anonymous individuals in responding to polls, with the current poll featuring the following question ${questionWithoutHtml}`}
-        />
-        <PollQuestionProvider question={questionData}>
-          <AnswerPollLayout>
-            <AnswerPollWrapper />
-          </AnswerPollLayout>
-        </PollQuestionProvider>
-      </PollAnswerProvider>
+      <NextSeo
+        title={`Mittr | Take part in a survey featuring the question: ${questionWithoutHtml}`}
+        description={`This Poll Answer Page is designed to assist both logged-in and anonymous individuals in responding to polls, with the current poll featuring the following question ${questionWithoutHtml}`}
+      />
+      <PollQuestionProvider question={questionData}>
+        <AnswerPollLayout>
+          <AnswerPollWrapper />
+        </AnswerPollLayout>
+      </PollQuestionProvider>
     </>
   );
 };
