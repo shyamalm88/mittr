@@ -14,7 +14,8 @@ import ReactTimeAgo from "react-time-ago";
 import he from "he";
 
 const AnalyticsPollView = () => {
-  const { question, createdByUserRef } = usePollAnalyticsContext();
+  const { questionID, createdByUserRef } = usePollAnalyticsContext();
+  console.log(usePollAnalyticsContext());
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const contextQuestionSetValue = usePollQuestionContext();
@@ -54,7 +55,7 @@ const AnalyticsPollView = () => {
             }}
             className="typography"
             dangerouslySetInnerHTML={{
-              __html: he.decode(question),
+              __html: he.decode(questionID ? questionID.question : ""),
             }}
           ></Typography>
           <Box
@@ -73,16 +74,16 @@ const AnalyticsPollView = () => {
               }}
             >
               <Stack direction="row" alignItems="center" gap={1}>
-                {createdByUserRef?.profileImgUrl ? (
+                {questionID.createdByUserRef?.profileImgUrl ? (
                   <Avatar
-                    alt={createdByUserRef?.fullName}
-                    src={createdByUserRef?.profileImgUrl}
+                    alt={questionID.createdByUserRef?.fullName}
+                    src={questionID.createdByUserRef?.profileImgUrl}
                     sx={{ width: 24, height: 24 }}
                   />
                 ) : (
                   <Image
                     src={NoProfileImage}
-                    alt={createdByUserRef?.fullName}
+                    alt={questionID.createdByUserRef?.fullName}
                     width={24}
                     height={24}
                   />
@@ -96,7 +97,7 @@ const AnalyticsPollView = () => {
                     color: "inherit",
                   }}
                 >
-                  {createdByUserRef?.fullName}
+                  {questionID.createdByUserRef?.fullName}
                 </Typography>
               </Stack>
               {contextDurationValue && (

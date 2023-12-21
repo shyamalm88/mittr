@@ -8,7 +8,21 @@ import { alpha, Box, Typography, Stack } from "@mui/material";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 
 const AnswerPollOptionAnalytics = () => {
-  const { options } = usePollAnalyticsContext();
+  const { questionID, selectedPrimaryOption } = usePollAnalyticsContext();
+  const [questionIDRef, setQuestionIDRef] = React.useState<any>();
+
+  React.useEffect(() => {
+    questionID.options.forEach((item: any) => {
+      selectedPrimaryOption.forEach((itm: any) => {
+        if (item.option === itm.selectedOption) {
+          item.vote = itm.vote;
+          item.totalVoteCount = itm.totalVoteCount;
+        }
+      });
+    });
+    console.log(questionID.options);
+    setQuestionIDRef(questionID);
+  }, [questionID]);
 
   return (
     <>
@@ -20,7 +34,8 @@ const AnswerPollOptionAnalytics = () => {
             bgcolor: "background.paper",
           }}
         >
-          {options?.map((item: any, index: number) => {
+          {console.log(questionIDRef)}
+          {questionIDRef?.options?.map((item: any, index: number) => {
             return (
               <FormControl
                 sx={{ mb: 1, width: "100%" }}

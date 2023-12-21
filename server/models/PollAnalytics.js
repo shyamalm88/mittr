@@ -8,8 +8,15 @@ const schema = mongoose.Schema(
       ref: "Polls",
     },
     selectedPrimaryOption: [],
-    additionalQuestionsAnswers: [],
+    genderRatio: [],
+    country: [],
+    monthlyDistribution: [],
+    answeredByUserRef: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "User",
+    },
   },
+
   { timestamps: true }
 );
 

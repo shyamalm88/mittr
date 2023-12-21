@@ -66,9 +66,9 @@ const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
       />
       <ViewAnalyticsLayout>
         <AnalyticsPollWrapper
-          lineData={analyticsData.monthlyDistributionChartData}
+          lineData={analyticsData.monthlyDistribution}
           pieData={analyticsData.genderRatio}
-          geoData={analyticsData.region}
+          geoData={analyticsData.country}
         />
       </ViewAnalyticsLayout>
     </AnalyticsOfPollProvider>
@@ -91,85 +91,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const postIndex = (context.params as any).index as string;
   try {
-    const resp: any = await http.get(`/poll/${postIndex}`);
-    const respAns = await http.get(`/answer/${postIndex}`);
-
-    resp.monthlyDistributionChartData = [
-      ["Month", "Anonymous Users vote", "Logged-in Users vote"],
-      ["Jan", 0, 0],
-      ["Feb", 0, 0],
-      ["Mar", 0, 0],
-      ["Apr", 0, 0],
-      ["May", 0, 0],
-      ["Jun", 0, 0],
-      ["Jul", 0, 0],
-      ["Aug", 0, 0],
-      ["Sep", 0, 0],
-      ["Oct", 0, 0],
-      ["Nov", 0, 0],
-      ["Dec", 0, 0],
-    ];
-    resp.genderRatio = [
-      ["Interactions By", "Count"],
-      ["male", 0],
-      ["female", 0],
-      ["non-binary", 0],
-      ["na", 0],
-    ];
-    resp.region = [["Country", "User Interactions"]];
-    resp.monthlyDistributionChartData.forEach((item: any) => {
-      (respAns as any).forEach((itm: any) => {
-        if (item[0] === moment(itm.createdAt).format("MMM")) {
-          if (itm.answeredByUserRef) {
-            item[1] = item[1] + 1;
-          } else {
-            item[2] = item[2] + 1;
-          }
-        }
-      });
-    });
-    resp.genderRatio.forEach((item: any) => {
-      (respAns as any).forEach((itm: any) => {
-        itm.additionalQuestionsAnswers.forEach((im: any) => {
-          if (
-            im.selectedValue.hasOwnProperty("gender") &&
-            im.selectedValue.gender === item[0]
-          ) {
-            item[1] = item[1] + 1;
-          }
-        });
-      });
-    });
-
-    (respAns as any).forEach((itm: any) => {
-      itm.additionalQuestionsAnswers.forEach((im: any) => {
-        if (im.selectedValue.hasOwnProperty("country")) {
-          const idx = resp.region.findIndex(
-            (item: any) => item[0] === im.selectedValue.country.isoCode
-          );
-          if (idx > 0) {
-            resp.region[idx] = [
-              im.selectedValue.country.isoCode,
-              resp.region[idx][1] + 1,
-            ];
-          } else {
-            resp.region.push([im.selectedValue.country.isoCode, 1]);
-          }
-        }
-      });
-    });
-
-    (resp as any).options.forEach((item: any) => {
-      item.vote = 0;
-      item.totalVoteCount = (respAns as any).length;
-      (respAns as any).forEach((itm: any) => {
-        if (item.option === itm.selectedOption) {
-          item.vote = item.vote + 1;
-        }
-      });
-    });
-
-    const analyticsData: any = resp;
+    // const resp: any = await http.get(`/poll/${postIndex}`);
+    const respAns: any = await http.get(
+      `/answer/pollAnalyticsData/${postIndex}`
+    );
+    const analyticsData: any = respAns[0];
 
     return { props: { analyticsData } };
   } catch (err) {
