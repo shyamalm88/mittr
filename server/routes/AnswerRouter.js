@@ -156,9 +156,9 @@ answerRouter.post("", async (req, res) => {
           }
         });
         if (req.body.answeredByUserRef) {
-          answerAnalytics.monthlyDistribution.push([monthName, 1, 0]);
-        } else {
           answerAnalytics.monthlyDistribution.push([monthName, 0, 1]);
+        } else {
+          answerAnalytics.monthlyDistribution.push([monthName, 1, 0]);
         }
 
         answerAnalytics.selectedPrimaryOption.forEach((item) => {
@@ -245,21 +245,21 @@ answerRouter.post("", async (req, res) => {
           if (req.body.answeredByUserRef) {
             findRespAnswerAnalytics.monthlyDistribution[idx] = [
               monthName,
-              findRespAnswerAnalytics.monthlyDistribution[idx][1] + 1,
-              findRespAnswerAnalytics.monthlyDistribution[idx][2],
+              findRespAnswerAnalytics.monthlyDistribution[idx][1],
+              findRespAnswerAnalytics.monthlyDistribution[idx][2] + 1,
             ];
           } else {
             findRespAnswerAnalytics.monthlyDistribution[idx] = [
               monthName,
-              findRespAnswerAnalytics.monthlyDistribution[idx][1],
-              findRespAnswerAnalytics.monthlyDistribution[idx][2] + 1,
+              findRespAnswerAnalytics.monthlyDistribution[idx][1] + 1,
+              findRespAnswerAnalytics.monthlyDistribution[idx][2],
             ];
           }
         } else {
           if (req.body.answeredByUserRef) {
-            findRespAnswerAnalytics.monthlyDistribution.push([monthName, 1, 0]);
-          } else {
             findRespAnswerAnalytics.monthlyDistribution.push([monthName, 0, 1]);
+          } else {
+            findRespAnswerAnalytics.monthlyDistribution.push([monthName, 1, 0]);
           }
         }
 
