@@ -1,5 +1,4 @@
 const express = require("express");
-const PollAnalytics = require("../models/PollAnalytics");
 const Answers = require("../models/Answers");
 const requestIp = require("request-ip");
 
