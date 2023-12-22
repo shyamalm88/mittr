@@ -3,14 +3,19 @@ import React from "react";
 import { Chart } from "react-google-charts";
 import { ComponentInputProps } from "../../../types";
 
-export const datat = [
-  ["Month", "Leonardo Da Vinci", "Michel Angelo", "King Arthur"],
-  ["2004/05", 5, 0, 2],
-  ["2005/06", 11, 1, 1],
-  ["2006/07", 3, 5, 0],
-];
+// export const datat = [
+//   ["Month", "Leonardo Da Vinci", "Michel Angelo", "King Arthur"],
+//   ["2004/05", 5, 0, 2],
+//   ["2005/06", 11, 1, 1],
+//   ["2006/07", 3, 5, 0],
+// ];
 
-export function ComboChart({ data = datat, title }: ComponentInputProps) {
+export function ComboChart({
+  data,
+  title = "",
+  vAxisTitle = "",
+  seriesIndex = 0,
+}: ComponentInputProps) {
   const theme = useTheme();
   const options = {
     title: title,
@@ -29,7 +34,7 @@ export function ComboChart({ data = datat, title }: ComponentInputProps) {
       },
     },
     vAxis: {
-      title: "Cups",
+      title: vAxisTitle,
       textStyle: {
         color: theme.palette.mode === "dark" ? "#fff" : "#333",
       },
@@ -44,7 +49,7 @@ export function ComboChart({ data = datat, title }: ComponentInputProps) {
       color: theme.palette.mode === "dark" ? "#fff" : "#333",
     },
     seriesType: "bars",
-    series: { 3: { type: "line" } },
+    series: { seriesIndex: { type: "line" } },
   };
 
   return (

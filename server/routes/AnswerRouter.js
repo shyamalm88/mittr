@@ -5,6 +5,8 @@ const Polls = require("../models/Polls");
 const requestIp = require("request-ip");
 const moment = require("moment");
 
+const ObjectId = require("mongodb").ObjectId;
+
 const answerRouter = express.Router();
 
 answerRouter.get("/", async (req, res) => {
@@ -109,12 +111,6 @@ answerRouter.post("", async (req, res) => {
   try {
     let answerAnalyticsRes = null;
     const pollsData = await Polls.findById(req.body.selectedPrimaryQuestionId);
-    const tempArr = ["Date"];
-    const tempDataArr = [monthName];
-    pollsData.options.forEach((item) => {
-      tempArr.push(item.option);
-      tempDataArr.push(0);
-    });
 
     PollAnalytics.countDocuments({
       questionID: req.body.selectedPrimaryQuestionId,
@@ -158,16 +154,6 @@ answerRouter.post("", async (req, res) => {
           item.totalVoteCount = 1;
         });
 
-        pollsData.options.forEach((item, index) => {
-          answerAnalytics.selectedPrimaryOption.forEach((itm) => {
-            if (item.option === itm.selectedOption) {
-              tempDataArr[index + 1] = itm.vote;
-            }
-          });
-        });
-        answerAnalytics.monthlySelectedPoll.push(tempArr);
-        answerAnalytics.monthlySelectedPoll.push(tempDataArr);
-
         answerAnalyticsRes = await answerAnalytics.save();
       } else if (resp > 0) {
         const findRespAnswerAnalytics = await PollAnalytics.findOne({
@@ -196,56 +182,6 @@ answerRouter.post("", async (req, res) => {
         findRespAnswerAnalytics.selectedPrimaryOption.forEach((item) => {
           item.totalVoteCount = voteCount + 1;
         });
-        const tempDataArr = [monthName];
-        pollsData.options.forEach((item, index) => {
-          tempDataArr.push(0);
-          findRespAnswerAnalytics.selectedPrimaryOption.forEach((itm) => {
-            if (item.option === itm.selectedOption) {
-              tempDataArr[index + 1] = itm.vote;
-            }
-          });
-        });
-
-        let idxc = -1;
-        for (
-          let i = 1;
-          i < findRespAnswerAnalytics.monthlySelectedPoll.length;
-          i++
-        ) {
-          if (findRespAnswerAnalytics.monthlySelectedPoll[i]) {
-            idxc =
-              findRespAnswerAnalytics.monthlySelectedPoll[i][0] === monthName
-                ? i
-                : -1;
-          }
-        }
-        if (idxc < 0) {
-          const tempDataArr = [monthName];
-          pollsData.options.forEach((item, index) => {
-            tempDataArr.push(0);
-            findRespAnswerAnalytics.selectedPrimaryOption.forEach(
-              (itm, idx) => {
-                if (item.option === itm.selectedOption) {
-                  tempDataArr[index + 1] = itm.vote;
-                }
-              }
-            );
-          });
-          findRespAnswerAnalytics.monthlySelectedPoll.push(tempDataArr);
-        } else {
-          const tempDataArr = [monthName];
-          pollsData.options.forEach((item, index) => {
-            tempDataArr.push(0);
-            findRespAnswerAnalytics.selectedPrimaryOption.forEach(
-              (itm, idx) => {
-                if (item.option === itm.selectedOption) {
-                  tempDataArr[index + 1] = itm.vote;
-                }
-              }
-            );
-          });
-          findRespAnswerAnalytics.monthlySelectedPoll[idxc] = tempDataArr;
-        }
 
         req.body.additionalQuestionsAnswers.forEach((im) => {
           if (im.selectedValue.hasOwnProperty("country")) {
@@ -327,6 +263,69 @@ answerRouter.post("", async (req, res) => {
 
       answer.analyticsRef = answerAnalyticsRes._id;
       const answerRes = await answer.save();
+      const answerFilteredData = await Answers.aggregate([
+        {
+          $match: {
+            questionID: new ObjectId(req.body.selectedPrimaryQuestionId),
+          },
+        },
+        {
+          $group: {
+            _id: {
+              selectedOption: "$selectedOption",
+              time: {
+                $dateToString: {
+                  format: "%Y-%m-%d %H:%M",
+                  date: "$createdAt",
+                },
+              },
+            },
+            count: {
+              $sum: 1,
+            },
+          },
+        },
+      ]);
+
+      const tempArr = ["Date"];
+      pollsData.options.forEach((item) => {
+        tempArr.push(item.option);
+      });
+
+      const tempModifiedMonthlySelectedPoll = [tempArr];
+      const groupByTimeFilteredData = answerFilteredData.reduce(
+        (group, product) => {
+          const { time } = product._id;
+          group[time] = group[time] ?? [];
+          group[time].push({
+            selectedOption: product._id.selectedOption,
+            count: product.count,
+            time: product._id.time,
+          });
+          return group;
+        },
+        {}
+      );
+      let monthlySelectedPollFilteredData = Object.entries(
+        groupByTimeFilteredData
+      );
+
+      monthlySelectedPollFilteredData.forEach((item) => {
+        const temp = new Array(tempArr.length).fill(0);
+        temp[0] = item[0];
+        item[1].forEach((itm) => {
+          const idx = tempArr.findIndex((it) => it === itm.selectedOption);
+          temp[idx] = itm.count;
+        });
+        tempModifiedMonthlySelectedPoll.push(temp);
+      });
+
+      await PollAnalytics.findOneAndUpdate(
+        {
+          questionID: answerAnalytics.questionID,
+        },
+        { monthlySelectedPoll: tempModifiedMonthlySelectedPoll }
+      );
 
       res.send(answerRes);
     });
