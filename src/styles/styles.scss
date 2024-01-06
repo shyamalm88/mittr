@@ -305,3 +305,16 @@ body {
     font-size: 2rem;
     color: #c62828;
 }
+
+.extraSmall .MuiFormLabel-root {
+    font-size: 11px;
+}
+
+.extraSmall .MuiSelect-select {
+    min-height: 20px;
+    padding: 5px;
+}
+
+.googleChart svg {
+    width: 100% !important;
+}

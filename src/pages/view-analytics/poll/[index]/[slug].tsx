@@ -17,7 +17,7 @@ const AnalyticsPollWrapper = dynamic(
 import HttpService from "../../../../services/@http/HttpClient";
 const http = new HttpService();
 
-const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
+const ViewAnalytics = ({ analyticsData, answerData }: ComponentInputProps) => {
   console.log(analyticsData);
   if (!analyticsData) {
     return (
@@ -60,7 +60,7 @@ const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
     );
   }
   return (
-    <AnalyticsOfPollProvider question={analyticsData}>
+    <AnalyticsOfPollProvider question={analyticsData} answers={answerData}>
       <NextSeo
         title="Mittr | View Analytics"
         description={`The Analytics Viewing page offers individual contributors the capability to refine and analyze analytics data using various filtering options. Various analytics pertaining to the poll are available on this page for ${analyticsData.question}`}
@@ -97,9 +97,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const respAns: any = await http.get(
       `/answer/pollAnalyticsData/${postIndex}`
     );
+    const respAnsData: any = await http.get(`/answer/${postIndex}`);
     const analyticsData: any = respAns[0];
+    const answerData = respAnsData;
 
-    return { props: { analyticsData } };
+    return { props: { analyticsData, answerData } };
   } catch (err) {
     console.error("Internal Server Error");
     return { notFound: true };

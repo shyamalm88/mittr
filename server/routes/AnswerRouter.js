@@ -28,6 +28,7 @@ answerRouter.get("/:index", async (req, res) => {
   try {
     const answer = await Answers.find({ questionID: req.params.index })
       .orFail()
+      .populate({ path: "questionID" })
       .populate({ path: "analyticsRef" })
       .populate({ path: "answeredByUserRef", select: "-password" });
 
@@ -275,7 +276,7 @@ answerRouter.post("", async (req, res) => {
               selectedOption: "$selectedOption",
               time: {
                 $dateToString: {
-                  format: "%Y-%m-%d %H:%M",
+                  format: "%Y-%m",
                   date: "$createdAt",
                 },
               },

@@ -17,7 +17,7 @@ function DefaultAnalyticsPollWrapper({
     <>
       <Stack
         spacing={{ xs: 1, sm: 2 }}
-        direction="row"
+        direction={{ xs: "column", lg: "row" }}
         useFlexGap
         flexWrap="wrap"
         justifyContent="space-between"
@@ -29,6 +29,7 @@ function DefaultAnalyticsPollWrapper({
             my: 2,
             borderRadius: "4px",
             flex: 2,
+            width: "100%",
           }}
           className="card"
         >
@@ -41,6 +42,7 @@ function DefaultAnalyticsPollWrapper({
             my: 2,
             borderRadius: "4px",
             flex: 1,
+            width: "100%",
           }}
           className="card"
         >
@@ -56,6 +58,7 @@ function DefaultAnalyticsPollWrapper({
             my: 2,
             borderRadius: "4px",
             flex: 1,
+            width: "100%",
           }}
           className="card"
         >

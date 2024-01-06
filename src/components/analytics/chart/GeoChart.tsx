@@ -3,8 +3,9 @@ import { Chart } from "react-google-charts";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
-import { useTheme } from "@mui/material";
+import { Hidden, useTheme } from "@mui/material";
 import { ComponentInputProps } from "../../../types";
+import TextTruncate from "react-text-truncate";
 
 // export const data = [
 //   ["Country", "User Interactions"],
@@ -29,9 +30,11 @@ export function GeographyChart({ data, title }: ComponentInputProps) {
   };
   return (
     <>
-      <Divider textAlign="left" sx={{ mt: 2 }}>
-        Diverse Regional User Engagement
-      </Divider>
+      <Hidden smDown>
+        <Divider sx={{ my: 2 }} textAlign="left">
+          Diverse Regional User Engagement
+        </Divider>
+      </Hidden>
       <Chart
         chartEvents={[
           {
