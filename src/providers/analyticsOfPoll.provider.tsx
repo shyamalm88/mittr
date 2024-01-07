@@ -61,6 +61,7 @@ function AnalyticsOfPollProvider({
   uniqueAnswers.forEach((item: any) => {
     answers[0].questionID.additionalQuestions.forEach((itm: any) => {
       if (item.id === itm.id) {
+        item.answerType = itm.answerType;
         item.question = itm.question;
       }
     });

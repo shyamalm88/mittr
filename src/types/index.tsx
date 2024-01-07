@@ -106,6 +106,12 @@ export type CreateSurveySubmittedValueType = {
   createdByUserRef: string;
 };
 
+export type PollAnalyticsValueType = {
+  pollOptions: string;
+  dayRange: string;
+  additionalAnswersOptions: Array<any>[];
+};
+
 export type Option = {
   option: string;
   id?: string;

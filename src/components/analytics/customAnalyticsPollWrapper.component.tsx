@@ -17,13 +17,52 @@ import React from "react";
 import Analyzer from "./analyze/analyzer.component";
 import { AreaChart } from "./chart/AreaChart";
 import { usePollAnalyticsContext } from "../../hooks/usePollAnalyticsContext";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { PollAnalyticsValueType } from "../../types";
+import moment from "moment";
 
 function CustomAnalyticsPollWrapper() {
   const { additionalAnswers } = usePollAnalyticsContext();
-  const [pollValue, setPollValue] = React.useState<any>([]);
-  const handleOptionSection = () => {};
+  const fillArr = additionalAnswers.map((item: any) => new Array());
+  const [pollValue, setPollValue] = React.useState<any>([fillArr]);
+  console.log(pollValue);
+  const methods = useForm<PollAnalyticsValueType>({
+    defaultValues: {
+      pollOptions: "",
+      dayRange: "",
+      additionalAnswersOptions: [],
+    },
+  });
+  const {
+    handleSubmit,
+    setError,
+    reset,
+    control,
+    getValues,
+    setValue,
+    clearErrors,
+    register,
+    setFocus,
+    watch,
+  } = methods;
+
+  watch((data) => console.log(data as any));
+
+  const { fields, append, prepend, remove, swap, move, insert, update } =
+    useFieldArray({
+      control,
+      name: "additionalAnswersOptions",
+    });
+
+  const handleOptionSection = (e: any, itm: any, index: number) => {
+    const temp = pollValue[0];
+    temp[index] = e.target.value;
+    setPollValue([temp]);
+    setValue(`additionalAnswersOptions.${itm.id}`, temp[index]);
+  };
+
   return (
-    <>
+    <FormProvider {...methods}>
       <Divider textAlign="left" sx={{ mt: 2 }}>
         Slice & Dice
       </Divider>
@@ -35,7 +74,7 @@ function CustomAnalyticsPollWrapper() {
         justifyContent="space-between"
         alignItems="stretch"
       >
-        <Analyzer />
+        <Analyzer register={register} setValue={setValue} />
         <Box
           sx={{
             display: "flex",
@@ -49,7 +88,7 @@ function CustomAnalyticsPollWrapper() {
             gap={1}
             sx={{ mt: 2 }}
           >
-            {additionalAnswers.map((item: any) => {
+            {additionalAnswers.map((item: any, indx: number) => {
               return (
                 <FormControl
                   size="small"
@@ -60,23 +99,29 @@ function CustomAnalyticsPollWrapper() {
                   <InputLabel id="demo-simple-select-label">
                     {item.question}
                   </InputLabel>
-
                   <Select
                     label={item.question}
                     size="small"
-                    value={pollValue}
+                    value={pollValue[0][indx]}
                     multiple
                     fullWidth
-                    onChange={handleOptionSection}
+                    onChange={(e) => handleOptionSection(e, item, indx)}
                     input={<OutlinedInput label="Tag" />}
                     renderValue={(selected) => selected.join(", ")}
                   >
                     {item.value.map((itm: any) => {
                       return (
                         <MenuItem value={itm} key={itm}>
-                          <Checkbox checked={pollValue.indexOf(itm) > -1} />
+                          <Checkbox
+                            checked={pollValue[0][indx].indexOf(itm) > -1}
+                          />
+
                           <ListItemText
-                            primary={itm}
+                            primary={
+                              item.answerType === "date"
+                                ? moment(itm).format("ll")
+                                : itm
+                            }
                             sx={{ fontSize: "11px !important" }}
                           />
                         </MenuItem>
@@ -102,7 +147,7 @@ function CustomAnalyticsPollWrapper() {
           </Card>
         </Box>
       </Stack>
-    </>
+    </FormProvider>
   );
 }
 

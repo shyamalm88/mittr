@@ -23,6 +23,7 @@ import Slider, {
   SliderValueLabelProps,
 } from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
+import { ComponentInputProps } from "../../../types";
 
 const iOSBoxShadow =
   "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)";
@@ -96,7 +97,7 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
   },
 }));
 
-function Analyzer() {
+function Analyzer({ register, setValue }: ComponentInputProps) {
   const { questionID, additionalAnswers } = usePollAnalyticsContext();
   const { additionalQuestions, options } = questionID;
 
@@ -132,6 +133,14 @@ function Analyzer() {
     }
   };
 
+  React.useEffect(() => {
+    setValue("dayRange", dateRange);
+  }, [dateRange]);
+
+  React.useEffect(() => {
+    setValue("pollOptions", pollValue);
+  }, [pollValue]);
+
   return (
     <Card
       variant="elevation"
@@ -144,7 +153,7 @@ function Analyzer() {
       className="card"
     >
       <Typography variant="body1" color="inherit">
-        Poll Performance
+        Poll Analytics
       </Typography>
       <Divider />
       <Stack
@@ -168,7 +177,7 @@ function Analyzer() {
               value={pollValue}
               onChange={handleOptionSection}
               input={<OutlinedInput label="Tag" />}
-              renderValue={(selected) => selected.join(", ")}
+              renderValue={(selected: []) => selected.join(", ")}
             >
               {options?.map((item: any) => {
                 return (
