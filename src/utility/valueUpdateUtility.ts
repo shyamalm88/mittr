@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 
 export const updateForCheckBox = async (
   index: number,
@@ -8,7 +8,7 @@ export const updateForCheckBox = async (
   getValues: any
 ) => {
   const defaultValues = {
-    id: uuidv4(),
+    id: uniqid(),
     label: "Choice",
     enabled: true,
     choice: "",
@@ -27,7 +27,7 @@ export const updateForMultipleChoice = async (
   remove: any
 ) => {
   const defaultValues = {
-    id: uuidv4(),
+    id: uniqid(),
     label: "Option",
     enabled: true,
     option: "",
@@ -46,7 +46,7 @@ export const updateForDate = async (
   remove: any
 ) => {
   const defaultValues = {
-    id: uuidv4(),
+    id: uniqid(),
     label: "date",
   };
   await resetField(`survey.${index}.options`);
@@ -61,7 +61,7 @@ export const updateForTime = async (
   remove: any
 ) => {
   const defaultValues = {
-    id: uuidv4(),
+    id: uniqid(),
     label: "time",
   };
   await resetField(`survey.${index}.options`);
@@ -76,7 +76,7 @@ export const updateForLinearScale = async (
   remove: any
 ) => {
   const defaultValues = {
-    id: uuidv4(),
+    id: uniqid(),
     label: "LinearScale",
     from: "",
     to: "",
@@ -95,10 +95,10 @@ export const updateForMultipleChoiceGrid = async (
   remove: any
 ) => {
   const defaultValues = {
-    id: uuidv4(),
+    id: uniqid(),
     label: "MultipleChoiceGrid",
-    rows: [{ id: uuidv4(), label: "Rows", enabled: true, option: "" }],
-    columns: [{ id: uuidv4(), label: "Columns", enabled: true, option: "" }],
+    rows: [{ id: uniqid(), label: "Rows", enabled: true, option: "" }],
+    columns: [{ id: uniqid(), label: "Columns", enabled: true, option: "" }],
   };
   await resetField(`survey.${index}.options`);
   await remove([0, 1]);
@@ -112,10 +112,10 @@ export const updateForCheckboxGrid = async (
   remove: any
 ) => {
   const defaultValues = {
-    id: uuidv4(),
+    id: uniqid(),
     label: "MultipleChoiceGrid",
-    rows: [{ id: uuidv4(), label: "Rows", enabled: true, option: "" }],
-    columns: [{ id: uuidv4(), label: "Columns", enabled: true, option: "" }],
+    rows: [{ id: uniqid(), label: "Rows", enabled: true, option: "" }],
+    columns: [{ id: uniqid(), label: "Columns", enabled: true, option: "" }],
   };
   await resetField(`survey.${index}.options`);
   await remove([0, 1]);

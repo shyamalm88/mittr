@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import Questionnaire from "./questionnaire.component";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import Tooltip from "@mui/material/Tooltip";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import { useEditDataContext } from "../../hooks/useEditDataContext";
@@ -20,13 +20,13 @@ export default function AdditionalQuestions() {
     });
   const addQuestionnaire = (data?: any) => {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       questionLabel: "Question",
       answerType: "",
       question: "",
     };
     if (data) {
-      temp.id = data.id ? data.id : uuidv4();
+      temp.id = data.id ? data.id : uniqid();
       temp.questionLabel = data.questionLabel ? data.questionLabel : "Question";
       temp.answerType = data.answerType;
       temp.question = data.question;

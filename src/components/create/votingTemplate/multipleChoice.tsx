@@ -11,7 +11,7 @@ import FormValidationError from "../../../utility/FormValidationError";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import { useFieldArray } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import OptionActions from "../common/optionActions";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { PATTERN, REQUIRED } from "../../../constants/error";
@@ -48,7 +48,7 @@ function MultipleChoice({
 
   const addOption = (e?: any, data?: any) => {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       label: "Option",
       enabled: true,
       option: "",
@@ -71,7 +71,7 @@ function MultipleChoice({
   };
 
   const addOtherOption = () => {
-    const temp = { id: uuidv4(), label: "Other", enabled: false, option: "" };
+    const temp = { id: uniqid(), label: "Other", enabled: false, option: "" };
     append(temp);
     setValue(
       `${pollOrSurvey === "poll" ? `${fieldName}` : `${fieldName}.options`}.${

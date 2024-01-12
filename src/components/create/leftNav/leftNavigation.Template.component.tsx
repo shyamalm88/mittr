@@ -12,7 +12,7 @@ import BookmarkAddedOutlinedIcon from "@mui/icons-material/BookmarkAddedOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import InsightsOutlinedIcon from "@mui/icons-material/InsightsOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import LeftNavigationMenu from "./leftNavMenu";
 
 function LeftNavigationTemplate() {

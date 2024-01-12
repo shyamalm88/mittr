@@ -7,7 +7,7 @@ import { useTheme } from "@mui/material";
 import FormValidationError from "../../../utility/FormValidationError";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import { useFieldArray } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 
@@ -41,7 +41,7 @@ function DropDown({
 
   const addOption = () => {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       label: "Dropdown",
       dropdownOptions: "",
     };

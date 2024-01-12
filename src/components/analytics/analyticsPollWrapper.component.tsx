@@ -46,8 +46,7 @@ const AnalyticsPollWrapper = ({
           </Box>
         </Stack>
       </Card>
-      {console.log(authenticatedUser)}
-      {console.log(questionID.createdByUserRef)}
+
       {authenticatedUser &&
         authenticatedUser.id === questionID.createdByUserRef._id && (
           <>

@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import QuestionnaireTemplate from "./questionnaireTemplate.component";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { ComponentInputProps, OptionProp } from "../../types";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheckedOutlined";
@@ -14,19 +14,19 @@ const Questionnaire = ({
 }: ComponentInputProps) => {
   const [typeOptions] = React.useState([
     {
-      id: uuidv4(),
+      id: uniqid(),
       label: "Date",
       value: "date",
       icon: <CalendarMonthOutlinedIcon />,
     },
     {
-      id: uuidv4(),
+      id: uniqid(),
       label: "Range",
       value: "range",
       icon: <HdrStrongIcon />,
     },
     {
-      id: uuidv4(),
+      id: uniqid(),
       label: "Multiple Choice",
       value: "choice",
       icon: <RadioButtonCheckedOutlinedIcon />,

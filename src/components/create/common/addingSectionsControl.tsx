@@ -2,7 +2,7 @@ import React from "react";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CalendarViewDayOutlinedIcon from "@mui/icons-material/CalendarViewDayOutlined";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { Portal } from "@mui/base";
 import {
   Button,
@@ -38,7 +38,7 @@ function AddingSectionsControl({
   const handleAddNewSurvey = async () => {
     const tempQuestion = {
       question: "",
-      id: uuidv4(),
+      id: uniqid(),
       votingType: "multiple_choice",
     };
     await append(tempQuestion);
@@ -49,7 +49,7 @@ function AddingSectionsControl({
   const handleAddNewSection = async () => {
     const tempQuestion = {
       title: "Section Title",
-      id: uuidv4(),
+      id: uniqid(),
       description: "",
       type: "section",
     };

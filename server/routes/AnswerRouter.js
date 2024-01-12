@@ -42,6 +42,47 @@ answerRouter.get("/:index", async (req, res) => {
   }
 });
 
+answerRouter.post("/getSliceData/:index", async (req, res) => {
+  console.log("%%%%%%%%%%%", req.body);
+  try {
+    const answerSlicedData = await Answers.aggregate([
+      {
+        $match: {
+          questionID: new ObjectId(req.params.index),
+          selectedOption: {
+            $in: req.body.pollOptions,
+          },
+        },
+      },
+
+      {
+        $group: {
+          _id: {
+            selectedOption: "$selectedOption",
+            time: {
+              $dateToString: {
+                format: "%Y-%m",
+                date: "$createdAt",
+              },
+            },
+          },
+          count: {
+            $sum: 1,
+          },
+        },
+      },
+    ]);
+
+    res.send(answerSlicedData);
+  } catch (err) {
+    res.status(404).send({
+      message: "Document Not Found",
+      status: 404,
+      details: err.message,
+    });
+  }
+});
+
 answerRouter.get("/pollAnalyticsData/:index", async (req, res) => {
   try {
     const analyticsAnswerResponse = await PollAnalytics.find({

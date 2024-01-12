@@ -17,19 +17,29 @@ import React from "react";
 import Analyzer from "./analyze/analyzer.component";
 import { AreaChart } from "./chart/AreaChart";
 import { usePollAnalyticsContext } from "../../hooks/usePollAnalyticsContext";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import {
+  FormProvider,
+  useFieldArray,
+  useForm,
+  useWatch,
+} from "react-hook-form";
 import { PollAnalyticsValueType } from "../../types";
 import moment from "moment";
+import HttpService from "../../services/@http/HttpClient";
+import debounce from "debounce";
+import * as _ from "underscore";
 
 function CustomAnalyticsPollWrapper() {
-  const { additionalAnswers } = usePollAnalyticsContext();
+  const http = new HttpService();
+  const { additionalAnswers, questionID } = usePollAnalyticsContext();
   const fillArr = additionalAnswers.map((item: any) => new Array());
   const [pollValue, setPollValue] = React.useState<any>([fillArr]);
-  console.log(pollValue);
+  const [analyticsData, setAnalyticsData] = React.useState<any>();
+  console.log(additionalAnswers);
   const methods = useForm<PollAnalyticsValueType>({
     defaultValues: {
-      pollOptions: "",
-      dayRange: "",
+      pollOptions: [],
+      dayRange: [],
       additionalAnswersOptions: [],
     },
   });
@@ -46,8 +56,6 @@ function CustomAnalyticsPollWrapper() {
     watch,
   } = methods;
 
-  watch((data) => console.log(data as any));
-
   const { fields, append, prepend, remove, swap, move, insert, update } =
     useFieldArray({
       control,
@@ -58,7 +66,28 @@ function CustomAnalyticsPollWrapper() {
     const temp = pollValue[0];
     temp[index] = e.target.value;
     setPollValue([temp]);
-    setValue(`additionalAnswersOptions.${itm.id}`, temp[index]);
+    setValue(`additionalAnswersOptions.${index}` as any, {
+      questionId: itm.id,
+      selectedValue: { [itm.answerType]: temp[index] },
+    });
+  };
+
+  watch((data: any) => {
+    setAnalyticsData(data);
+  });
+
+  React.useEffect(() => {
+    if (analyticsData) {
+      postData(analyticsData);
+    }
+  }, [analyticsData]);
+
+  const postData = (data: any) => {
+    const processedAdditionalAnswersOptionsData = _.compact(
+      data.additionalAnswersOptions
+    );
+    data.additionalAnswersOptions = processedAdditionalAnswersOptionsData;
+    http.post(`/answer/getSliceData/${questionID._id}`, data);
   };
 
   return (

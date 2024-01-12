@@ -12,35 +12,35 @@ import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import BrushOutlinedIcon from "@mui/icons-material/BrushOutlined";
 import { Divider } from "@mui/material";
 import { usePollOrSurveyContext } from "../../hooks/usePollOrSurveyContext";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 
 const alternateOptionsList = [
   {
-    id: uuidv4(),
+    id: uniqid(),
     label: "Preview",
     displayFor: "all",
     icon: <RemoveRedEyeOutlinedIcon fontSize="small" />,
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     label: "Logic",
     displayFor: "Survey",
     icon: <RouteOutlinedIcon fontSize="small" />,
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     label: "Template",
     displayFor: "Survey",
     icon: <ViewComfyOutlinedIcon fontSize="small" />,
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     label: "Design",
     displayFor: "Survey",
     icon: <BrushOutlinedIcon fontSize="small" />,
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     label: "Query Vault",
     displayFor: "Survey",
     icon: <Inventory2OutlinedIcon fontSize="small" />,

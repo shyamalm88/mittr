@@ -6,31 +6,31 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 
 const pages = [
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <TagOutlinedIcon fontSize="small" />,
     label: "fa-cup-final",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <TagOutlinedIcon fontSize="small" />,
     label: "spider-man",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <TagOutlinedIcon fontSize="small" />,
     label: "kraven",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <TagOutlinedIcon fontSize="small" />,
     label: "john-mayer",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <TagOutlinedIcon fontSize="small" />,
     label: "moonfall",
   },

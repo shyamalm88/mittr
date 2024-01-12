@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 
 export const pollQuestion = {
   question: "",
@@ -7,12 +7,12 @@ export const pollQuestion = {
   questionSlug: "",
   votingType: "multiple_choice",
   options: [
-    { id: uuidv4(), label: "Option", enabled: true, option: "" },
-    { id: uuidv4(), label: "Option", enabled: true, option: "" },
+    { id: uniqid(), label: "Option", enabled: true, option: "" },
+    { id: uniqid(), label: "Option", enabled: true, option: "" },
   ],
   additionalQuestions: [
     {
-      id: uuidv4(),
+      id: uniqid(),
       questionLabel: "Question",
       answerType: "",
       question: "",

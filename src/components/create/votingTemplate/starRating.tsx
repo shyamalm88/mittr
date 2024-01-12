@@ -9,7 +9,7 @@ import { ComponentInputProps } from "../../../types";
 import FormValidationError from "../../../utility/FormValidationError";
 import OptionActions from "../common/optionActions";
 import { useFieldArray } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 import { GithubPicker } from "react-color";
 import { useEditDataContext } from "../../../hooks/useEditDataContext";
@@ -56,7 +56,7 @@ function StarRating({
   });
   const addOption = () => {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       label: "starRating",
       starCount: "",
       precision: "",

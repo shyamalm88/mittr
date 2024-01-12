@@ -7,7 +7,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { ComponentInputProps } from "../../../types";
 import Tooltip from "@mui/material/Tooltip";
 import { useFormContext, useFieldArray } from "react-hook-form";
@@ -15,7 +15,7 @@ import FormValidationError from "../../../utility/FormValidationError";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 import { useEditDataContext } from "../../../hooks/useEditDataContext";
 
-const choices = [{ id: uuidv4(), label: "Choice" }];
+const choices = [{ id: uniqid(), label: "Choice" }];
 
 export default function RadioTemplate({
   fieldName,
@@ -39,7 +39,7 @@ export default function RadioTemplate({
   const { editableData } = useEditDataContext();
 
   const addOption = (e: any, data?: any) => {
-    const temp = { id: uuidv4(), label: "Choice", choice: "" };
+    const temp = { id: uniqid(), label: "Choice", choice: "" };
     if (data) {
       temp.choice = data.choice;
     }

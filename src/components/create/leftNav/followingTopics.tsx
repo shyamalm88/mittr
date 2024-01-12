@@ -6,31 +6,31 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 
 const pages = [
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <TagOutlinedIcon fontSize="small" />,
     label: "blaze",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <TagOutlinedIcon fontSize="small" />,
     label: "politics",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <TagOutlinedIcon fontSize="small" />,
     label: "technology",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <TagOutlinedIcon fontSize="small" />,
     label: "fun",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <TagOutlinedIcon fontSize="small" />,
     label: "iOS",
   },

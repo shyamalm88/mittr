@@ -26,7 +26,7 @@ import TimelineDot from "@mui/lab/TimelineDot";
 
 import HttpService from "../../../services/@http/HttpClient";
 
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
@@ -70,7 +70,7 @@ const PollFormWrapper = () => {
       survey: [
         {
           question: "",
-          id: uuidv4(),
+          id: uniqid(),
           votingType: "multiple_choice",
           options: [],
           required: false,
@@ -247,7 +247,7 @@ const PollFormWrapper = () => {
       if (data.type === "section") {
         const tempQuestion = {
           title: data.title,
-          id: uuidv4(),
+          id: uniqid(),
           description: data.description,
           type: data.type,
         };
@@ -255,7 +255,7 @@ const PollFormWrapper = () => {
       } else {
         const tempQuestion = {
           question: "",
-          id: uuidv4(),
+          id: uniqid(),
           votingType: data.votingType,
           options: data.options,
           required: data.required,

@@ -18,7 +18,7 @@ import Button from "@mui/material/Button";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import HttpService from "../../../services/@http/HttpClient";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { useFieldArray } from "react-hook-form";
 import OptionActions from "../common/optionActions";
 import { PATTERN, REQUIRED } from "../../../constants/error";
@@ -97,7 +97,7 @@ function ImageChoice({
 
   const addOption = (e?: any, data?: any) => {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       label: "Option",
       enabled: true,
       option: "",

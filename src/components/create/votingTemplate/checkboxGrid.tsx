@@ -4,7 +4,7 @@ import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import { Divider, Typography, useTheme } from "@mui/material";
 import { ComponentInputProps } from "../../../types";
 import { useFieldArray } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import RowTemplate from "./rowTemplate";
 import ColumnTemplate from "./columnTemplate";
 
@@ -36,7 +36,7 @@ function CheckboxGrid({
 
   const addOption = async () => {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       label: "checkboxGrid",
     };
     append(temp);

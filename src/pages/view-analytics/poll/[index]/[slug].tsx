@@ -1,7 +1,7 @@
 import React from "react";
 import ViewAnalyticsLayout from "../../../../layout/viewAnalytics.layout";
 import AnalyticsOfPollProvider from "../../../../providers/analyticsOfPoll.provider";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { NextSeo } from "next-seo";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ComponentInputProps } from "../../../../types";

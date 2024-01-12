@@ -11,7 +11,7 @@ import FormValidationError from "../../../utility/FormValidationError";
 import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import { useFieldArray } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import OptionActions from "../common/optionActions";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { PATTERN, REQUIRED } from "../../../constants/error";
@@ -47,13 +47,13 @@ function Legal({
   const addOption = () => {
     const temp = [
       {
-        id: uuidv4(),
+        id: uniqid(),
         label: "Option",
         enabled: true,
         option: "Accept",
       },
       {
-        id: uuidv4(),
+        id: uniqid(),
         label: "Option",
         enabled: true,
         option: "Reject",

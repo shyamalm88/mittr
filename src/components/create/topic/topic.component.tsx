@@ -11,13 +11,13 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 import { ComponentInputProps, TagOptionsType } from "../../../types";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { Button, useTheme } from "@mui/material";
 
 const topics = [
-  { id: uuidv4(), label: "New Topic1" },
-  { id: uuidv4(), label: "New Topic2" },
-  { id: uuidv4(), label: "New Topic3" },
+  { id: uniqid(), label: "New Topic1" },
+  { id: uniqid(), label: "New Topic2" },
+  { id: uniqid(), label: "New Topic3" },
 ];
 
 export const Topic = ({ handleSave, selectedTopics }: ComponentInputProps) => {
@@ -43,7 +43,7 @@ export const Topic = ({ handleSave, selectedTopics }: ComponentInputProps) => {
   ) => {
     if (e.key == "Enter" || e.type === "click") {
       if (customVal.trim()) {
-        setAddedTopics([...addedTopics, { id: uuidv4(), label: customVal }]);
+        setAddedTopics([...addedTopics, { id: uniqid(), label: customVal }]);
       }
       setCustomVal("");
     }

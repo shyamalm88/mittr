@@ -12,7 +12,7 @@ import { usePollOrSurveyContext } from "../../../hooks/usePollOrSurveyContext";
 import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
 import OptionActions from "../common/optionActions";
 import { useFieldArray } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { useQuestionTypeContext } from "../../../hooks/useQuestionTypeContext";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -47,7 +47,7 @@ function Checkbox({
 
   const addOption = () => {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       label: "Choice",
       enabled: true,
       choice: "",
@@ -69,7 +69,7 @@ function Checkbox({
   }, []);
 
   const addOtherOption = async () => {
-    const temp = { id: uuidv4(), label: "Other", enabled: false, choice: "" };
+    const temp = { id: uniqid(), label: "Other", enabled: false, choice: "" };
     await append(temp);
 
     setValue(

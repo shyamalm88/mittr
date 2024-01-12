@@ -1,7 +1,7 @@
 import striptags from "striptags";
 import he from "he";
 import urlSlug from "url-slug";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import * as _ from "underscore";
 
 export async function pollFormDataUpdate(
@@ -13,13 +13,11 @@ export async function pollFormDataUpdate(
 ) {
   setValue(
     "questionSlug",
-    urlSlug(
-      striptags(
-        he.decode(
-          data.question.split("-").replace(/nbsp/gi, "").slice(0, 3).join("-")
-        )
-      )
+    urlSlug(striptags(he.decode(data.question.replace(/nbsp/gi, "")))).slice(
+      0,
+      50
     ),
+
     {
       shouldValidate: true,
     }
@@ -35,7 +33,7 @@ export async function pollFormDataUpdate(
   );
   if (data.settings && data.settings.captureGender && !genderFound) {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       questionLabel: "Question",
       answerType: "gender",
       question: "Please select your Gender",
@@ -51,7 +49,7 @@ export async function pollFormDataUpdate(
   }
   if (data.settings && data.settings.captureCity && !countryFound) {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       questionLabel: "Question",
       answerType: "city",
       question: "Your residing Country and City",
@@ -67,7 +65,7 @@ export async function pollFormDataUpdate(
   }
   if (data.settings && data.settings.captureCountry && !countryFound) {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       questionLabel: "Question",
       answerType: "country",
       question: "Your residing Country",
@@ -98,7 +96,7 @@ export async function surveyFormDataUpdate(
 ) {
   setValue(
     "questionSlug",
-    urlSlug(data.title.split("-").slice(0, 3).join("-"))
+    urlSlug(data.title.replace(/nbsp/gi, "")).slice(0, 50)
   );
 
   const dataToBeSubmitted = getValues();

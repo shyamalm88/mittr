@@ -9,7 +9,7 @@ import { ComponentInputProps } from "../../../types";
 import FormValidationError from "../../../utility/FormValidationError";
 import OptionActions from "../common/optionActions";
 import { useFieldArray } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 
 function LinearScale({
@@ -37,7 +37,7 @@ function LinearScale({
   });
   const addOption = () => {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       label: "linearScale",
       from: "",
       to: "",

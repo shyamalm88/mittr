@@ -12,34 +12,34 @@ import InsightsOutlinedIcon from "@mui/icons-material/InsightsOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import BackupTableOutlinedIcon from "@mui/icons-material/BackupTableOutlined";
 import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { Box, useTheme } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const pages = [
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <WidgetsOutlinedIcon fontSize="small" />,
     label: "Dashboard",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <DashboardCustomizeOutlinedIcon fontSize="small" />,
     label: "Create",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <InsightsOutlinedIcon fontSize="small" />,
     label: "Analytics",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <BookmarkAddedOutlinedIcon fontSize="small" />,
     label: "My Items",
   },
   {
-    id: uuidv4(),
+    id: uniqid(),
     icon: <SettingsOutlinedIcon fontSize="small" />,
     label: "Settings",
   },

@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentInputProps } from "../../../types";
 import { useFieldArray } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import {
   FormControl,
   IconButton,
@@ -44,7 +44,7 @@ function ColumnTemplate({
 
   const addColumns = () => {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       label: "Column",
       option: "",
     };

@@ -47,17 +47,15 @@ const AnalyticsPollView = () => {
           }}
           className="customPaper"
         >
-          <Typography
-            variant="body1"
-            component="h2"
-            sx={{
+          <div
+            style={{
               fontSize: "1.2rem",
             }}
             className="typography"
             dangerouslySetInnerHTML={{
               __html: he.decode(questionID ? questionID.question : ""),
             }}
-          ></Typography>
+          ></div>
           <Box
             sx={{
               width: "100%",

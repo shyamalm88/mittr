@@ -9,7 +9,7 @@ import { ComponentInputProps } from "../../../types";
 import FormValidationError from "../../../utility/FormValidationError";
 import OptionActions from "../common/optionActions";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { PATTERN, REQUIRED } from "../../../constants/error";
 
 function RangeSlider({
@@ -60,7 +60,7 @@ function RangeSlider({
   });
   const addOption = () => {
     const temp = {
-      id: uuidv4(),
+      id: uniqid(),
       label: "slider",
       startValue: "",
       endValue: "",

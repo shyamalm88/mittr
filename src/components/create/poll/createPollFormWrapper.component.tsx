@@ -8,7 +8,7 @@ import { useTheme } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import HttpService from "../../../services/@http/HttpClient";
 import * as _ from "underscore";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
@@ -77,7 +77,7 @@ const PollFormWrapper = () => {
       options: [],
       additionalQuestions: [
         {
-          id: uuidv4(),
+          id: uniqid(),
           questionLabel: "Question",
           answerType: "",
           question: "",

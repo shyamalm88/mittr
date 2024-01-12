@@ -1,7 +1,7 @@
 import React from "react";
 import ViewAnalyticsLayout from "../../../../layout/viewAnalytics.layout";
 import AnalyticsOfPollProvider from "../../../../providers/analyticsOfPoll.provider";
-import { v4 as uuidv4 } from "uuid";
+import uniqid from "uniqid";
 import { NextSeo } from "next-seo";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ComponentInputProps } from "../../../../types";
@@ -21,21 +21,21 @@ const data = {
     "If you could go for a coffee with a figure from history, who would it be?",
   options: [
     {
-      id: uuidv4(),
+      id: uniqid(),
       option: "Leonardo Da Vinci",
       vote: 32,
       totalVoteCount: 82,
       selectedByUser: true,
     },
     {
-      id: uuidv4(),
+      id: uniqid(),
       option: "Michel Angelo",
       vote: 10,
       totalVoteCount: 82,
       selectedByUser: false,
     },
     {
-      id: uuidv4(),
+      id: uniqid(),
       option: "King Arthur",
       vote: 40,
       totalVoteCount: 82,
