@@ -43,15 +43,24 @@ answerRouter.get("/:index", async (req, res) => {
 });
 
 answerRouter.post("/getSliceData/:index", async (req, res) => {
-  console.log("%%%%%%%%%%%", req.body);
   try {
     const answerSlicedData = await Answers.aggregate([
       {
         $match: {
           questionID: new ObjectId(req.params.index),
-          selectedOption: {
-            $in: req.body.pollOptions,
-          },
+
+          $or: [
+            {
+              additionalQuestionsAnswers: {
+                $in: req.body.additionalAnswersOptions,
+              },
+            },
+            {
+              selectedOption: {
+                $in: req.body.pollOptions,
+              },
+            },
+          ],
         },
       },
 
@@ -59,9 +68,10 @@ answerRouter.post("/getSliceData/:index", async (req, res) => {
         $group: {
           _id: {
             selectedOption: "$selectedOption",
+            analyticsRef: "$analyticsRef",
             time: {
               $dateToString: {
-                format: "%Y-%m",
+                format: "%Y-%m-%d",
                 date: "$createdAt",
               },
             },

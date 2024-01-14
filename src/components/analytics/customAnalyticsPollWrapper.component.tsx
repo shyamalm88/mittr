@@ -35,7 +35,8 @@ function CustomAnalyticsPollWrapper() {
   const fillArr = additionalAnswers.map((item: any) => new Array());
   const [pollValue, setPollValue] = React.useState<any>([fillArr]);
   const [analyticsData, setAnalyticsData] = React.useState<any>();
-  console.log(additionalAnswers);
+  const [analyticsGraphData, setAnalyticsGraphData] = React.useState<any>();
+
   const methods = useForm<PollAnalyticsValueType>({
     defaultValues: {
       pollOptions: [],
@@ -66,10 +67,51 @@ function CustomAnalyticsPollWrapper() {
     const temp = pollValue[0];
     temp[index] = e.target.value;
     setPollValue([temp]);
-    setValue(`additionalAnswersOptions.${index}` as any, {
-      questionId: itm.id,
-      selectedValue: { [itm.answerType]: temp[index] },
+  };
+
+  const handleCheckBoxChange = (e: any, itm: any, index: number, item: any) => {
+    const temp = pollValue[0];
+    console.log(temp[index]);
+    let tmrpAns = null;
+    const getAllValues = getValues("additionalAnswersOptions");
+    let indexOf = -1;
+    getAllValues.forEach((element, idxe) => {
+      if (element.questionId === itm.id) {
+        if (itm.answerType === "choice") {
+          if (element.selectedValue["multipleChoice"] === item) {
+            indexOf = idxe;
+          }
+        } else {
+          if (element.selectedValue[itm.answerType] === item) {
+            indexOf = idxe;
+          }
+        }
+      }
     });
+
+    if (indexOf > -1) remove(indexOf);
+
+    if (temp[index].indexOf(item) > -1) {
+      tmrpAns =
+        itm.answerType === "choice" || itm.answerType === "gender"
+          ? {
+              selectedValue: {
+                [itm.answerType === "choice"
+                  ? "multipleChoice"
+                  : itm.answerType]: item,
+              },
+              questionId: itm.id,
+            }
+          : {
+              questionId: itm.id,
+              selectedValue: {
+                [itm.answerType]: item,
+              },
+            };
+      append(tmrpAns);
+    } else {
+      console.log(getValues("additionalAnswersOptions"));
+    }
   };
 
   watch((data: any) => {
@@ -82,12 +124,42 @@ function CustomAnalyticsPollWrapper() {
     }
   }, [analyticsData]);
 
-  const postData = (data: any) => {
+  const postData = async (data: any) => {
     const processedAdditionalAnswersOptionsData = _.compact(
       data.additionalAnswersOptions
     );
     data.additionalAnswersOptions = processedAdditionalAnswersOptionsData;
-    http.post(`/answer/getSliceData/${questionID._id}`, data);
+    data.additionalAnswersOptions = data.additionalAnswersOptions.filter(
+      (x: any) => JSON.stringify(x.selectedValue) !== "{}"
+    );
+    const resp: any[] = await http.post(
+      `/answer/getSliceData/${questionID._id}`,
+      data
+    );
+    const tableData: any[] = [];
+    tableData[0] = resp.map((elem: any) => elem._id.selectedOption);
+    tableData[0].unshift("Month");
+    const map = new Map();
+    resp.forEach((ele) => {
+      if (map.has(ele._id.time)) {
+        const a = map.get(ele._id.time);
+        const index = tableData[0].indexOf(ele._id.selectedOption);
+        a[index - 1] = ele.count;
+        map.set(ele._id.time, a);
+      } else {
+        const a = new Array(tableData[0].length - 1).fill(0);
+        const index = tableData[0].indexOf(ele._id.selectedOption);
+        a[index - 1] = ele.count;
+        map.set(ele._id.time, a);
+      }
+    });
+
+    const arr = Array.from(map, ([name, value]) => [name, ...value]);
+    arr.forEach((items) => {
+      tableData.push(items);
+    });
+    console.log(tableData);
+    setAnalyticsGraphData(tableData);
   };
 
   return (
@@ -143,6 +215,9 @@ function CustomAnalyticsPollWrapper() {
                         <MenuItem value={itm} key={itm}>
                           <Checkbox
                             checked={pollValue[0][indx].indexOf(itm) > -1}
+                            onChange={(e) =>
+                              handleCheckBoxChange(e, item, indx, itm)
+                            }
                           />
 
                           <ListItemText
@@ -172,7 +247,7 @@ function CustomAnalyticsPollWrapper() {
             }}
             className="card"
           >
-            <AreaChart />
+            <AreaChart data={analyticsGraphData} />
           </Card>
         </Box>
       </Stack>

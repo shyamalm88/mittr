@@ -104,6 +104,7 @@ function Analyzer({ register, setValue }: ComponentInputProps) {
   const [pollValue, setPollValue] = React.useState<any>([]);
   const [dateRange, setDateRange] = React.useState<number[]>([7, 60]);
   const minDistance = 10;
+
   const handleOptionSection = (event: SelectChangeEvent<any>) => {
     const {
       target: { value },
@@ -136,6 +137,14 @@ function Analyzer({ register, setValue }: ComponentInputProps) {
   React.useEffect(() => {
     setValue("dayRange", dateRange);
   }, [dateRange]);
+
+  React.useEffect(() => {
+    setPollValue(questionID.options.map((x: any) => x.option));
+    setValue(
+      "pollOptions",
+      questionID.options.map((x: any) => x.option)
+    );
+  }, []);
 
   React.useEffect(() => {
     setValue("pollOptions", pollValue);
