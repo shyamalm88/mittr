@@ -78,7 +78,7 @@ const MenuBar = ({ editor, editable }: any) => {
             spacing={0.5}
             useFlexGap
           >
-            <ButtonGroup
+            {/* <ButtonGroup
               size="small"
               disableElevation
               variant="outlined"
@@ -110,7 +110,7 @@ const MenuBar = ({ editor, editable }: any) => {
                   h2
                 </Typography>
               </Button>
-            </ButtonGroup>
+            </ButtonGroup> */}
             <ButtonGroup
               size="small"
               disableElevation
@@ -131,13 +131,13 @@ const MenuBar = ({ editor, editable }: any) => {
               >
                 <FormatItalicOutlinedIcon fontSize="small" />
               </Button>
-              <Button
+              {/* <Button
                 size="small"
                 onClick={() => editor.chain().focus().toggleStrike().run()}
                 className={editor.isActive("strike") ? "is-active" : ""}
               >
                 <StrikethroughSOutlinedIcon fontSize="small" />
-              </Button>
+              </Button> */}
               <Button
                 size="small"
                 onClick={() => editor.chain().focus().toggleUnderline().run()}
@@ -146,7 +146,7 @@ const MenuBar = ({ editor, editable }: any) => {
                 <FormatUnderlinedOutlinedIcon fontSize="small" />
               </Button>
             </ButtonGroup>
-            <ButtonGroup
+            {/* <ButtonGroup
               size="small"
               disableElevation
               variant="outlined"
@@ -166,7 +166,7 @@ const MenuBar = ({ editor, editable }: any) => {
               >
                 <SubscriptOutlinedIcon fontSize="small" />
               </Button>
-            </ButtonGroup>
+            </ButtonGroup> 
             <ButtonGroup
               size="small"
               disableElevation
@@ -187,7 +187,7 @@ const MenuBar = ({ editor, editable }: any) => {
               >
                 <HighlightAltOutlinedIcon fontSize="small" />
               </Button>
-            </ButtonGroup>
+            </ButtonGroup>*/}
             <ButtonGroup
               size="small"
               disableElevation
@@ -210,7 +210,7 @@ const MenuBar = ({ editor, editable }: any) => {
                 <FormatListBulletedOutlinedIcon />
               </Button>
             </ButtonGroup>
-            <ButtonGroup
+            {/* <ButtonGroup
               size="small"
               disableElevation
               variant="outlined"
@@ -260,7 +260,7 @@ const MenuBar = ({ editor, editable }: any) => {
               >
                 <FormatAlignJustifyOutlinedIcon fontSize="small" />
               </Button>
-            </ButtonGroup>
+            </ButtonGroup> */}
             <ButtonGroup
               size="small"
               disableElevation
