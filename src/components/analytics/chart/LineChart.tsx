@@ -96,19 +96,23 @@ export function LineChart({
   const options = {
     title: title,
     subtitle: "user interactions",
-    colors: ["#2979FF", "#FF7728", "#E8471A", "#FF2D1C"],
+    colors: white
+      ? ["#fff", "#fff", "#fff", "#fff"]
+      : ["#2979FF", "#FF7728", "#E8471A", "#FF2D1C"],
     is3D: true,
     backgroundColor: "transparent",
     titleTextStyle: {
-      color: theme.palette.mode === "dark" ? "#fff" : "#333",
+      color: theme.palette.mode === "dark" ? "#fff" : white ? "#fff" : "#333",
     },
-    baselineColor: theme.palette.mode === "dark" ? "#fff" : "#333",
+    baselineColor:
+      theme.palette.mode === "dark" ? "#fff" : white ? "#fff" : "#333",
     legend: noLegends
       ? { position: "none" }
       : {
           position: "bottom",
           textStyle: {
-            color: theme.palette.mode === "dark" ? "#fff" : "#333",
+            color:
+              theme.palette.mode === "dark" ? "#fff" : white ? "#fff" : "#333",
           },
           pagingTextStyle: {
             color: theme.palette.mode === "dark" ? "#fff" : "grey",
@@ -121,12 +125,12 @@ export function LineChart({
 
     hAxis: {
       textStyle: {
-        color: theme.palette.mode === "dark" ? "#fff" : "#333",
+        color: theme.palette.mode === "dark" ? "#fff" : white ? "#fff" : "#333",
       },
     },
     vAxis: {
       textStyle: {
-        color: theme.palette.mode === "dark" ? "#fff" : "#333",
+        color: theme.palette.mode === "dark" ? "#fff" : white ? "#fff" : "#333",
       },
     },
   };

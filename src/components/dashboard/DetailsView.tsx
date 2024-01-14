@@ -11,8 +11,72 @@ import { Chart } from "react-google-charts";
 import { LineChart } from "../analytics/chart/LineChart";
 import { AreaChart } from "../analytics/chart/AreaChart";
 import { blue, green, purple, yellow } from "@mui/material/colors";
+import { faker } from "@faker-js/faker";
 
 function DetailsView() {
+  const data = [
+    ["Month", "Anonymous Users vote", "Logged-in Users vote"],
+    [
+      "Jan",
+      faker.number.int({ min: 0, max: 70 }),
+      faker.number.int({ min: 0, max: 200 }),
+    ],
+    [
+      "Feb",
+      faker.number.int({ min: 0, max: 210 }),
+      faker.number.int({ min: 0, max: 100 }),
+    ],
+    [
+      "Mar",
+      faker.number.int({ min: 0, max: 10 }),
+      faker.number.int({ min: 0, max: 200 }),
+    ],
+    [
+      "Apr",
+      faker.number.int({ min: 0, max: 200 }),
+      faker.number.int({ min: 0, max: 100 }),
+    ],
+    [
+      "May",
+      faker.number.int({ min: 0, max: 100 }),
+      faker.number.int({ min: 0, max: 200 }),
+    ],
+    [
+      "Jun",
+      faker.number.int({ min: 0, max: 200 }),
+      faker.number.int({ min: 0, max: 100 }),
+    ],
+    [
+      "Jul",
+      faker.number.int({ min: 0, max: 100 }),
+      faker.number.int({ min: 0, max: 200 }),
+    ],
+    [
+      "Aug",
+      faker.number.int({ min: 0, max: 200 }),
+      faker.number.int({ min: 0, max: 100 }),
+    ],
+    [
+      "Sep",
+      faker.number.int({ min: 0, max: 100 }),
+      faker.number.int({ min: 0, max: 20 }),
+    ],
+    [
+      "Oct",
+      faker.number.int({ min: 0, max: 100 }),
+      faker.number.int({ min: 0, max: 100 }),
+    ],
+    [
+      "Nov",
+      faker.number.int({ min: 0, max: 100 }),
+      faker.number.int({ min: 0, max: 100 }),
+    ],
+    [
+      "Dec",
+      faker.number.int({ min: 0, max: 100 }),
+      faker.number.int({ min: 0, max: 100 }),
+    ],
+  ];
   return (
     <>
       <Grid container spacing={2} sx={{ my: 2, px: { xs: 2 } }}>
@@ -43,6 +107,7 @@ function DetailsView() {
                   noLegends
                   single
                   title="Monthly Poll Interaction by User"
+                  data={data}
                 />
               </Box>
             </CardContent>
@@ -98,7 +163,7 @@ function DetailsView() {
                     "rgba(0, 0, 0, 0.14) 0rem 0.25rem 1.25rem 0rem, rgba(64, 64, 64, 0.4) 0rem 0.4375rem 0.625rem -0.3125rem",
                 }}
               >
-                <LineChart noLegends single />
+                <LineChart noLegends single white data={data} />
               </Box>
             </CardContent>
             <CardContent>
@@ -153,7 +218,7 @@ function DetailsView() {
                     "rgba(0, 0, 0, 0.14) 0rem 0.25rem 1.25rem 0rem, rgba(64, 64, 64, 0.4) 0rem 0.4375rem 0.625rem -0.3125rem",
                 }}
               >
-                <LineChart noLegends single />
+                <LineChart noLegends single white data={data} />
               </Box>
             </CardContent>
             <CardContent>
