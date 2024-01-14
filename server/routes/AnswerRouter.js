@@ -49,7 +49,7 @@ answerRouter.post("/getSliceData/:index", async (req, res) => {
         $match: {
           questionID: new ObjectId(req.params.index),
 
-          $or: [
+          [req.body.additionalAnswersOptions.length === 0 ? "$or" : "$and"]: [
             {
               additionalQuestionsAnswers: {
                 $in: req.body.additionalAnswersOptions,

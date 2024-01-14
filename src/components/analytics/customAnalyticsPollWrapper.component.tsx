@@ -158,7 +158,6 @@ function CustomAnalyticsPollWrapper() {
     arr.forEach((items) => {
       tableData.push(items);
     });
-    console.log(tableData);
     setAnalyticsGraphData(tableData);
   };
 
@@ -188,12 +187,13 @@ function CustomAnalyticsPollWrapper() {
             useFlexGap
             gap={1}
             sx={{ mt: 2 }}
+            flexWrap="wrap"
           >
             {additionalAnswers.map((item: any, indx: number) => {
               return (
                 <FormControl
                   size="small"
-                  sx={{ width: "100%" }}
+                  sx={{ width: { xs: "100%", lg: "100px" } }}
                   key={item.id}
                   className="extraSmall"
                 >
