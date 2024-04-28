@@ -8,7 +8,6 @@ import { ComponentInputProps } from "../../../../types";
 import dynamic from "next/dynamic";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
-import moment from "moment";
 const AnalyticsPollWrapper = dynamic(
   () =>
     import("../../../../components/analytics/analyticsPollWrapper.component")

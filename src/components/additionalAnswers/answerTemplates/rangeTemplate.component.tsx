@@ -7,7 +7,6 @@ import Slider, {
 } from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import { usePollAnswerContext } from "../../../hooks/usePollAnswerContext";
 import { useFormContext } from "react-hook-form";
 
 const RangeSlider = styled(Slider)(({ theme }) => ({

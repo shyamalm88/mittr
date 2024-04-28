@@ -44,7 +44,7 @@ const data = {
   ],
 };
 
-const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
+const ViewAnalytics = ({ analyticsData, answerData }: ComponentInputProps) => {
   if (!analyticsData) {
     return (
       <ViewAnalyticsLayout>
@@ -86,7 +86,7 @@ const ViewAnalytics = ({ analyticsData }: ComponentInputProps) => {
     );
   }
   return (
-    <AnalyticsOfPollProvider question={data}>
+    <AnalyticsOfPollProvider question={data} answers={answerData}>
       <NextSeo
         title="Mittr | View Analytics"
         description={`The Analytics Viewing page offers individual contributors the capability to refine and analyze analytics data using various filtering options. Various analytics pertaining to the poll are available on this page for ${analyticsData.question}`}
